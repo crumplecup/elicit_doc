@@ -10,8 +10,8 @@ use crate::impl_coverage::build_impl_coverage_report;
 use crate::report::{write_impl_coverage_csv, write_shadow_csv};
 use crate::shadow::build_shadow_report;
 
-/// Determine workspace root via `cargo metadata`.
-fn workspace_root() -> ElicitDocResult<PathBuf> {
+/// Determine elicit_doc's own repo root via `cargo metadata`.
+fn own_root() -> ElicitDocResult<PathBuf> {
     let meta = cargo_metadata::MetadataCommand::new()
         .exec()
         .map_err(|e| crate::error::ElicitDocError::cargo_metadata(e.to_string()))?;
@@ -24,9 +24,16 @@ fn workspace_root() -> ElicitDocResult<PathBuf> {
     about = "Coverage and drift analysis for elicitation"
 )]
 struct Cli {
-    /// Output directory for CSV reports.
-    #[arg(long, default_value = "verif/coverage")]
-    output_dir: PathBuf,
+    /// Path to the elicitation workspace root.
+    ///
+    /// Defaults to the ELICITATION_WORKSPACE env var, then
+    /// `../elicitation` relative to this repo.
+    #[arg(long, env = "ELICITATION_WORKSPACE")]
+    workspace: Option<PathBuf>,
+
+    /// Output directory for CSV reports (default: verif/coverage/ inside elicit_doc).
+    #[arg(long)]
+    output_dir: Option<PathBuf>,
 
     #[command(subcommand)]
     command: Commands,
@@ -54,8 +61,17 @@ enum ReportKind {
 /// Entry point called from `main.rs`.
 pub fn run() -> ElicitDocResult<()> {
     let cli = Cli::parse();
-    let workspace = workspace_root()?;
-    let output_dir = workspace.join(&cli.output_dir);
+    let own = own_root()?;
+    let output_dir = cli
+        .output_dir
+        .unwrap_or_else(|| own.join("verif/coverage"));
+
+    // Resolve elicitation workspace: explicit flag > env > sibling directory
+    let elicitation_workspace = cli.workspace.unwrap_or_else(|| {
+        own.join("../elicitation")
+            .canonicalize()
+            .unwrap_or_else(|_| own.join("../elicitation"))
+    });
 
     match &cli.command {
         Commands::Run { only, crate_name } => {
@@ -63,10 +79,10 @@ pub fn run() -> ElicitDocResult<()> {
             let run_shadows = matches!(only, None | Some(ReportKind::Shadows));
 
             if run_impls {
-                run_impl_reports(&workspace, &output_dir, crate_name.as_deref())?;
+                run_impl_reports(&elicitation_workspace, &output_dir, crate_name.as_deref())?;
             }
             if run_shadows {
-                run_shadow_reports(&workspace, &output_dir, crate_name.as_deref())?;
+                run_shadow_reports(&elicitation_workspace, &output_dir, crate_name.as_deref())?;
             }
         }
     }
