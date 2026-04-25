@@ -85,13 +85,29 @@ impl ShadowReport {
 }
 
 /// Build a [`ShadowReport`] by diffing `target` against `shadow`.
+///
+/// Coverage is determined by **exact bare name match**: `egui::Vec2` is covered
+/// only by a shadow item also named `Vec2` (module path doesn't matter).
+/// `EguiVec2` does NOT cover `Vec2` — that is a naming error, not a mirror.
+///
+/// Drift detection runs separately on unmatched items and flags probable renames
+/// with edit-distance heuristics (shown as `Drifted`, not `Covered`).
 #[instrument(
     skip(target, shadow),
     fields(target = %target.crate_name, shadow = %shadow.crate_name)
 )]
 pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowReport {
-    // Normalize names for matching
-    let shadow_names: std::collections::HashMap<String, &Item> = shadow
+    // Exact name → shadow item (same kind wins over cross-kind collision).
+    // We collect all shadow items by bare name; if multiple items share a name,
+    // prefer the one whose kind matches the target item at lookup time.
+    let mut shadow_by_name: std::collections::HashMap<&str, Vec<&Item>> =
+        std::collections::HashMap::new();
+    for item in shadow.type_items() {
+        shadow_by_name.entry(item.name.as_str()).or_default().push(item);
+    }
+
+    // Normalized map used only for drift detection (not coverage).
+    let shadow_normalized: std::collections::HashMap<String, &Item> = shadow
         .type_items()
         .map(|i| (normalize_name(&i.name), i))
         .collect();
@@ -99,9 +115,16 @@ pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowRepo
     let mut rows: Vec<ShadowRow> = Vec::new();
 
     for target_item in target.type_items() {
-        let norm = normalize_name(&target_item.name);
+        // Exact name match — kind-preferred, any accepted
+        let exact = shadow_by_name.get(target_item.name.as_str()).and_then(|candidates| {
+            candidates
+                .iter()
+                .find(|c| c.kind == target_item.kind)
+                .or_else(|| candidates.first())
+                .copied()
+        });
 
-        if let Some(shadow_item) = shadow_names.get(&norm) {
+        if let Some(shadow_item) = exact {
             rows.push(ShadowRow {
                 item_path: target_item.path_str(),
                 item_kind: target_item.kind,
@@ -110,27 +133,26 @@ pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowRepo
                 drift_confidence: String::new(),
                 notes: String::new(),
             });
+        } else if let Some((shadow_item, confidence)) =
+            find_drift_match(target_item, &shadow_normalized)
+        {
+            rows.push(ShadowRow {
+                item_path: target_item.path_str(),
+                item_kind: target_item.kind,
+                status: ShadowStatus::Drifted,
+                shadow_item: shadow_item.path_str(),
+                drift_confidence: format!("{confidence:.2}"),
+                notes: "probable rename".to_string(),
+            });
         } else {
-            // Try fuzzy drift match
-            if let Some((shadow_item, confidence)) = find_drift_match(target_item, &shadow_names) {
-                rows.push(ShadowRow {
-                    item_path: target_item.path_str(),
-                    item_kind: target_item.kind,
-                    status: ShadowStatus::Drifted,
-                    shadow_item: shadow_item.path_str(),
-                    drift_confidence: format!("{confidence:.2}"),
-                    notes: "probable rename".to_string(),
-                });
-            } else {
-                rows.push(ShadowRow {
-                    item_path: target_item.path_str(),
-                    item_kind: target_item.kind,
-                    status: ShadowStatus::Missing,
-                    shadow_item: String::new(),
-                    drift_confidence: String::new(),
-                    notes: String::new(),
-                });
-            }
+            rows.push(ShadowRow {
+                item_path: target_item.path_str(),
+                item_kind: target_item.kind,
+                status: ShadowStatus::Missing,
+                shadow_item: String::new(),
+                drift_confidence: String::new(),
+                notes: String::new(),
+            });
         }
     }
 
@@ -202,24 +224,15 @@ pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowRepo
     }
 }
 
-/// Normalize a type name for comparison: lowercase, strip common crate prefixes,
-/// convert to snake_case.
+/// Normalize a type name for **drift detection only** — lowercase + snake_case,
+/// but do NOT strip crate-specific prefixes.
+///
+/// Prefix stripping (`Egui`, `Bevy`, etc.) is intentionally omitted: if a shadow
+/// item is named `EguiVec2` when it should be `Vec2`, that is a naming error that
+/// should appear as `Missing`/`Extra`, not a drift match.  Drift detection is
+/// reserved for genuine upstream renames (e.g. `Vec3A` → `Vec3Aligned`).
 fn normalize_name(name: &str) -> String {
-    // Strip common prefixes like Bevy, Wgpu, Elicit, Egui, Winit, Ratatui…
-    let prefixes = [
-        "Bevy", "Wgpu", "Egui", "Winit", "Ratatui", "Elicit", "Geo", "Proj", "Rstar", "Csv",
-        "Toml", "Axum", "Reqwest", "Tower",
-    ];
-    let mut s = name.to_string();
-    for prefix in prefixes {
-        if let Some(rest) = s.strip_prefix(prefix)
-            && !rest.is_empty()
-        {
-            s = rest.to_string();
-            break;
-        }
-    }
-    to_snake_case(&s).to_lowercase()
+    to_snake_case(name).to_lowercase()
 }
 
 /// Simple PascalCase → snake_case conversion.
