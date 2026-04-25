@@ -7,9 +7,10 @@ use clap::{Parser, Subcommand};
 use crate::collect::{collect_dep_inventory, collect_elicit_complete_paths, collect_inventory, collect_proof_harness, collect_trait_prereqs};
 use crate::error::ElicitDocResult;
 use crate::gaps::{build_impl_gaps, build_shadow_gaps};
-use crate::impl_coverage::build_impl_coverage_report;
+use crate::impl_coverage::{ImplCoverageReport, build_impl_coverage_report};
 use crate::report::{write_impl_coverage_csv, write_impl_gaps_csv, write_shadow_csv, write_shadow_gaps_csv};
-use crate::shadow::build_shadow_report;
+use crate::shadow::{ShadowReport, build_shadow_report};
+use crate::summary::write_summary_md;
 
 /// Determine elicit_doc's own repo root via `cargo metadata`.
 fn own_root() -> ElicitDocResult<PathBuf> {
@@ -79,11 +80,27 @@ pub fn run() -> ElicitDocResult<()> {
             let run_impls = matches!(only, None | Some(ReportKind::Impls));
             let run_shadows = matches!(only, None | Some(ReportKind::Shadows));
 
-            if run_impls {
-                run_impl_reports(&elicitation_workspace, &output_dir, crate_name.as_deref())?;
-            }
-            if run_shadows {
-                run_shadow_reports(&elicitation_workspace, &output_dir, crate_name.as_deref())?;
+            let impl_data = if run_impls {
+                Some(run_impl_reports(&elicitation_workspace, &output_dir, crate_name.as_deref())?)
+            } else {
+                None
+            };
+            let shadow_data = if run_shadows {
+                Some(run_shadow_reports(&elicitation_workspace, &output_dir, crate_name.as_deref())?)
+            } else {
+                None
+            };
+
+            // Write the executive summary only when we have data from both halves
+            // and no single-crate filter is active.
+            if crate_name.is_none() {
+                if let (Some((impl_reports, impl_gaps)), Some((shadow_reports, shadow_gaps))) =
+                    (&impl_data, &shadow_data)
+                {
+                    let summary_path = output_dir.join("summary.md");
+                    write_summary_md(impl_reports, impl_gaps, shadow_reports, shadow_gaps, &summary_path)?;
+                    println!("wrote {}", summary_path.display());
+                }
             }
         }
     }
@@ -116,7 +133,7 @@ fn run_impl_reports(
     workspace: &std::path::Path,
     output_dir: &std::path::Path,
     only_crate: Option<&str>,
-) -> ElicitDocResult<()> {
+) -> ElicitDocResult<(Vec<(String, ImplCoverageReport)>, Vec<crate::gaps::ImplGapEntry>)> {
     std::fs::create_dir_all(output_dir)
         .map_err(|e| crate::error::ElicitDocError::io(e.to_string()))?;
 
@@ -177,7 +194,7 @@ fn run_impl_reports(
     }
 
     // Consolidated gaps report (only when we ran more than one crate or all crates)
-    if only_crate.is_none() || all_reports.len() > 1 {
+    let impl_gaps = if only_crate.is_none() || all_reports.len() > 1 {
         let pairs: Vec<(&str, &crate::impl_coverage::ImplCoverageReport)> =
             all_reports.iter().map(|(n, r)| (n.as_str(), r)).collect();
         let gaps = build_impl_gaps(&pairs);
@@ -190,16 +207,19 @@ fn run_impl_reports(
             "wrote {}  ({} gaps: {} ready_now, {} feature_gated, {} needs_external_impl)",
             gaps_path.display(), gaps.len(), ready, gated, needs
         );
-    }
+        gaps
+    } else {
+        Vec::new()
+    };
 
-    Ok(())
+    Ok((all_reports, impl_gaps))
 }
 
 fn run_shadow_reports(
     workspace: &std::path::Path,
     output_dir: &std::path::Path,
     only_crate: Option<&str>,
-) -> ElicitDocResult<()> {
+) -> ElicitDocResult<(Vec<(String, String, ShadowReport)>, Vec<crate::gaps::ShadowGapEntry>)> {
     std::fs::create_dir_all(output_dir)
         .map_err(|e| crate::error::ElicitDocError::io(e.to_string()))?;
 
@@ -218,7 +238,7 @@ fn run_shadow_reports(
     }
 
     // Consolidated shadow gaps report
-    if only_crate.is_none() || all_shadow.len() > 1 {
+    let shadow_gaps = if only_crate.is_none() || all_shadow.len() > 1 {
         let pairs: Vec<(&str, &str, &crate::shadow::ShadowReport)> =
             all_shadow.iter().map(|(t, s, r)| (t.as_str(), s.as_str(), r)).collect();
         let gaps = build_shadow_gaps(&pairs);
@@ -232,6 +252,9 @@ fn run_shadow_reports(
             "wrote {}  ({} total: {} missing, {} drifted, {} possibly_stale, {} infra_extra)",
             gaps_path.display(), gaps.len(), missing, drifted, stale, infra
         );
-    }
-    Ok(())
+        gaps
+    } else {
+        Vec::new()
+    };
+    Ok((all_shadow, shadow_gaps))
 }

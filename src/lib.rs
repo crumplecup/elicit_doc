@@ -15,6 +15,7 @@ mod impl_coverage;
 mod inventory;
 mod report;
 mod shadow;
+mod summary;
 
 #[cfg(feature = "cli")]
 pub mod cli;
@@ -32,3 +33,4 @@ pub use impl_coverage::{
 pub use inventory::{Inventory, Item, ItemKind};
 pub use report::{write_impl_coverage_csv, write_impl_gaps_csv, write_shadow_csv, write_shadow_gaps_csv};
 pub use shadow::{DriftPair, ShadowReport, build_shadow_report};
+pub use summary::write_summary_md;
