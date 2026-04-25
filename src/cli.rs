@@ -226,10 +226,11 @@ fn run_shadow_reports(
         write_shadow_gaps_csv(&gaps, &gaps_path)?;
         let missing = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::Missing).count();
         let drifted = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::Drifted).count();
-        let extra = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::Extra).count();
+        let stale = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::PossiblyStale).count();
+        let infra = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::InfrastructureExtra).count();
         println!(
-            "wrote {}  ({} gaps: {} missing, {} drifted, {} extra)",
-            gaps_path.display(), gaps.len(), missing, drifted, extra
+            "wrote {}  ({} total: {} missing, {} drifted, {} possibly_stale, {} infra_extra)",
+            gaps_path.display(), gaps.len(), missing, drifted, stale, infra
         );
     }
     Ok(())

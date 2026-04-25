@@ -198,8 +198,14 @@ pub enum ShadowGapKind {
     Missing,
     /// Probable rename — shadow has a type with a similar but different name.
     Drifted,
-    /// Shadow has a type not present in upstream.  Possibly stale or misnamed.
-    Extra,
+    /// Shadow has a type not present in upstream, and it doesn't match any
+    /// known infrastructure naming convention.  May be stale or misnamed.
+    PossiblyStale,
+    /// Shadow has a type not present in upstream, but it follows an
+    /// infrastructure naming convention (`*Params`, `*Plugin`, `*Ctx`, etc.).
+    /// These are expected additions — tool parameter structs, plugin wrappers,
+    /// context objects — and are NOT gaps.
+    InfrastructureExtra,
 }
 
 impl std::fmt::Display for ShadowGapKind {
@@ -207,9 +213,32 @@ impl std::fmt::Display for ShadowGapKind {
         match self {
             Self::Missing => write!(f, "Missing"),
             Self::Drifted => write!(f, "Drifted"),
-            Self::Extra => write!(f, "Extra"),
+            Self::PossiblyStale => write!(f, "PossiblyStale"),
+            Self::InfrastructureExtra => write!(f, "InfrastructureExtra"),
         }
     }
+}
+
+/// Bare-name suffixes that identify our own shadow-crate infrastructure types.
+///
+/// These are not shadows of upstream types — they're tool params structs,
+/// plugin wrappers, context objects, etc. that we add deliberately.
+const INFRA_SUFFIXES: &[&str] = &[
+    "Params",
+    "ParamsStyle",
+    "Plugin",
+    "Ctx",
+    "Descriptor",
+    "Factory",
+    "Hook",
+    "Json",
+];
+
+/// Returns `true` when the bare name of an "extra" shadow item matches a known
+/// infrastructure naming convention — i.e., it's one of our own additions, not
+/// a misnamed shadow of an upstream type.
+fn is_infrastructure_name(bare_name: &str) -> bool {
+    INFRA_SUFFIXES.iter().any(|sfx| bare_name.ends_with(sfx))
 }
 
 /// One row in the consolidated shadow gaps report.
@@ -229,7 +258,9 @@ pub struct ShadowGapEntry {
 
 /// Build the consolidated shadow gaps list from multiple per-pair reports.
 ///
-/// `Covered` rows are excluded — only `Missing`, `Drifted`, and `Extra` appear.
+/// `Covered` rows are excluded.  `Extra` rows from the per-crate shadow report
+/// are further split into `InfrastructureExtra` (our own tool params/plugins/etc.)
+/// and `PossiblyStale` (unexpected non-infrastructure types that may be wrong).
 #[instrument(skip(pairs), fields(num_reports = pairs.len()))]
 pub fn build_shadow_gaps(pairs: &[(&str, &str, &ShadowReport)]) -> Vec<ShadowGapEntry> {
     let mut entries = Vec::new();
@@ -240,7 +271,15 @@ pub fn build_shadow_gaps(pairs: &[(&str, &str, &ShadowReport)]) -> Vec<ShadowGap
                 ShadowStatus::Covered => continue,
                 ShadowStatus::Missing => ShadowGapKind::Missing,
                 ShadowStatus::Drifted => ShadowGapKind::Drifted,
-                ShadowStatus::Extra => ShadowGapKind::Extra,
+                ShadowStatus::Extra => {
+                    // Split Extra into infrastructure vs possibly stale.
+                    let bare = row.item_path.split("::").last().unwrap_or(&row.item_path);
+                    if is_infrastructure_name(bare) {
+                        ShadowGapKind::InfrastructureExtra
+                    } else {
+                        ShadowGapKind::PossiblyStale
+                    }
+                }
             };
             entries.push(ShadowGapEntry {
                 target_crate: target_crate.to_string(),
@@ -255,7 +294,7 @@ pub fn build_shadow_gaps(pairs: &[(&str, &str, &ShadowReport)]) -> Vec<ShadowGap
         }
     }
 
-    // Sort: Missing first, then Drifted, then Extra; within each group by crate+path.
+    // Sort: Missing first, then Drifted, PossiblyStale, InfrastructureExtra.
     entries.sort_by(|a, b| {
         shadow_gap_order(&a.gap_kind)
             .cmp(&shadow_gap_order(&b.gap_kind))
@@ -267,7 +306,8 @@ pub fn build_shadow_gaps(pairs: &[(&str, &str, &ShadowReport)]) -> Vec<ShadowGap
         total_gaps = entries.len(),
         missing = entries.iter().filter(|e| e.gap_kind == ShadowGapKind::Missing).count(),
         drifted = entries.iter().filter(|e| e.gap_kind == ShadowGapKind::Drifted).count(),
-        extra = entries.iter().filter(|e| e.gap_kind == ShadowGapKind::Extra).count(),
+        possibly_stale = entries.iter().filter(|e| e.gap_kind == ShadowGapKind::PossiblyStale).count(),
+        infra_extra = entries.iter().filter(|e| e.gap_kind == ShadowGapKind::InfrastructureExtra).count(),
         "built shadow gaps report"
     );
 
@@ -278,6 +318,7 @@ fn shadow_gap_order(k: &ShadowGapKind) -> u8 {
     match k {
         ShadowGapKind::Missing => 0,
         ShadowGapKind::Drifted => 1,
-        ShadowGapKind::Extra => 2,
+        ShadowGapKind::PossiblyStale => 2,
+        ShadowGapKind::InfrastructureExtra => 3,
     }
 }

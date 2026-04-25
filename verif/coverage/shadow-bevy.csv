@@ -223,7 +223,7 @@ bevy_asset::io::file::file_watcher::FileWatcher,Struct,Missing,,,
 bevy_asset::io::memory::Data,Struct,Missing,,,
 bevy_asset::io::memory::DataReader,Struct,Missing,,,
 bevy_asset::io::memory::DataWriter,Struct,Missing,,,
-bevy_asset::io::memory::Dir,Struct,Drifted,elicit_bevy::math::dir::Dir2,0.75,probable rename
+bevy_asset::io::memory::Dir,Struct,Drifted,elicit_bevy::math::dir::Dir3,0.75,probable rename
 bevy_asset::io::memory::DirInternal,Struct,Missing,,,
 bevy_asset::io::memory::DirStream,Struct,Missing,,,
 bevy_asset::io::memory::MemoryAssetReader,Struct,Missing,,,
@@ -1798,7 +1798,7 @@ bevy_math::curve::sample_curves::_::deserialize::__Visitor,Struct,Missing,,,
 bevy_math::direction::Dir2,Struct,Covered,elicit_bevy::math::dir::Dir2,,
 bevy_math::direction::Dir3,Struct,Covered,elicit_bevy::math::dir::Dir3,,
 bevy_math::direction::Dir3A,Struct,Covered,elicit_bevy::math::dir::Dir3A,,
-bevy_math::direction::Dir4,Struct,Drifted,elicit_bevy::math::dir::Dir2,0.75,probable rename
+bevy_math::direction::Dir4,Struct,Drifted,elicit_bevy::math::dir::Dir3,0.75,probable rename
 bevy_math::direction::InvalidDirectionError,Enum,Missing,,,
 bevy_math::direction::_::deserialize::__Visitor,Struct,Missing,,,
 bevy_math::direction::_::deserialize::__Visitor,Struct,Missing,,,
