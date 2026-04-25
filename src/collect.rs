@@ -44,7 +44,7 @@ pub fn collect_elicit_complete_paths(json_path: &Path) -> ElicitDocResult<Elicit
     let mut concrete: HashSet<String> = HashSet::new();
     let mut factory: HashSet<String> = HashSet::new();
 
-    for (_id, item) in &krate.index {
+    for item in krate.index.values() {
         let rustdoc_types::ItemEnum::Impl(impl_item) = &item.inner else {
             continue;
         };
