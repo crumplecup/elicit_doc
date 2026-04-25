@@ -9,6 +9,7 @@ use std::collections::HashSet;
 use serde::{Deserialize, Serialize};
 use tracing::instrument;
 
+use crate::collect::ElicitCompleteSet;
 use crate::inventory::{Inventory, Item, ItemKind};
 
 /// Scanned contents of the proof harness test files.
@@ -110,31 +111,25 @@ impl ImplCoverageReport {
 }
 
 /// Build an [`ImplCoverageReport`] by cross-referencing a source [`Inventory`]
-/// against the `elicitation` inventory and scanned proof harnesses.
+/// against the real `ElicitComplete` impl set and scanned proof harnesses.
 ///
-/// `source` is the crate being checked (std, uuid, elicitation internal types…).
-/// `elicitation` is the full `elicitation` crate inventory.
+/// `source` is the crate being checked (std, uuid, chrono, elicitation internal…).
+/// `complete` is the set extracted from elicitation's rustdoc JSON — use
+/// [`crate::collect::collect_elicit_complete_paths`] to build it.
 /// `harness` is the scanned `proof_non_empty_test.rs` + `proof_composition_test.rs`.
-#[instrument(skip(source, elicitation, harness), fields(source_crate = %source.crate_name))]
+#[instrument(skip(source, complete, harness), fields(source_crate = %source.crate_name))]
 pub fn build_impl_coverage_report(
     source: &Inventory,
-    elicitation: &Inventory,
+    complete: &ElicitCompleteSet,
     harness: &ProofHarness,
 ) -> ImplCoverageReport {
-    // Build a set of type path strings that appear in elicitation's impls.
-    // We approximate this by looking for types in the elicitation inventory whose
-    // name matches — a deeper analysis would parse the actual impl blocks, but
-    // the rustdoc JSON `impl` lists on each item give us what we need.
-    let elicitation_complete: HashSet<String> = elicitation_complete_types(elicitation);
-    let elicitation_factory: HashSet<String> = elicitation_factory_types(elicitation);
-
     let mut entries: Vec<ImplCoverageEntry> = Vec::new();
 
     for item in source.type_items() {
         let path_str = item.path_str();
         let bare_name = &item.name;
 
-        let elicit_impl = determine_impl_status(item, &elicitation_complete, &elicitation_factory);
+        let elicit_impl = determine_impl_status(item, complete);
 
         let (proof_test, composition_test, notes) =
             determine_test_status(item, &elicit_impl, harness);
@@ -197,43 +192,16 @@ pub fn build_impl_coverage_report(
     }
 }
 
-/// Extract the set of type names (bare, unqualified) that are `ElicitComplete`
-/// in the elicitation inventory.
+/// Determine the [`ImplStatus`] for a source type by checking the exact
+/// `ElicitComplete` impl paths extracted from elicitation's rustdoc JSON.
 ///
-/// The rustdoc JSON for `elicitation` carries impl lists on each item; we look
-/// for impls whose trait path resolves to `ElicitComplete`.
-fn elicitation_complete_types(elicitation: &Inventory) -> HashSet<String> {
-    elicitation
-        .type_items()
-        .filter(|item| {
-            // Heuristic: if elicitation has a type with the same name as the
-            // source type AND no type params, treat it as a concrete complete impl.
-            // The deeper check (parsing impl blocks) is done via the source-join below.
-            !item.is_generic
-        })
-        .map(|item| item.name.clone())
-        .collect()
-}
+/// Matching is by full qualified path (e.g. `"uuid::Uuid"`, `"elicitation::AlignSelect"`).
+fn determine_impl_status(item: &Item, complete: &ElicitCompleteSet) -> ImplStatus {
+    let full_path = item.path_str();
 
-/// Extract the set of type names that have factory (generic) `ElicitComplete` impls.
-fn elicitation_factory_types(elicitation: &Inventory) -> HashSet<String> {
-    elicitation
-        .type_items()
-        .filter(|item| item.is_generic)
-        .map(|item| item.name.clone())
-        .collect()
-}
-
-/// Determine the [`ImplStatus`] for a source type by checking the elicitation inventories.
-fn determine_impl_status(
-    item: &Item,
-    complete: &HashSet<String>,
-    factory: &HashSet<String>,
-) -> ImplStatus {
-    // Check by bare name — the source type `uuid::Uuid` matches elicitation's `Uuid` wrapper.
-    if factory.contains(&item.name) && item.is_generic {
+    if complete.factory.contains(&full_path) {
         ImplStatus::CompleteFactory
-    } else if complete.contains(&item.name) {
+    } else if complete.concrete.contains(&full_path) {
         ImplStatus::Complete
     } else {
         ImplStatus::Missing

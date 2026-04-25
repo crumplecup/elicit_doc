@@ -11,9 +11,95 @@ use crate::error::{ElicitDocError, ElicitDocResult};
 use crate::impl_coverage::ProofHarness;
 use crate::inventory::{Inventory, Item, ItemKind};
 
-/// Invoke `cargo rustdoc --output-format json` for `crate_name` inside the
-/// workspace at `workspace_root`, then parse the resulting JSON into an
-/// [`Inventory`].
+/// The set of types that have `impl ElicitComplete for T` in the elicitation crate,
+/// extracted directly from its rustdoc JSON (not from the inventory heuristic).
+#[derive(Debug, Clone, Default)]
+pub struct ElicitCompleteSet {
+    /// Full paths of concrete `ElicitComplete` impls, e.g.:
+    /// - `"std::sync::atomic::AtomicBool"` (external type, direct impl)
+    /// - `"elicitation::AlignSelect"` (internal type; `crate::` normalized)
+    pub concrete: HashSet<String>,
+    /// Full paths of factory (generic) `ElicitComplete` impls, e.g.:
+    /// - `"elicitation::Tuple3"` (impl over generic params)
+    pub factory: HashSet<String>,
+}
+
+/// Scan the elicitation rustdoc JSON and return the set of types that have an
+/// `impl ElicitComplete for T` block, split into concrete and factory impls.
+///
+/// `json_path` should point to `{workspace}/target/doc/elicitation.json`.
+///
+/// Paths are resolved via the rustdoc ID→path map so that elicitation-internal
+/// types are stored with their canonical module path (e.g.
+/// `"elicitation::primitives::tower_types::handles::TowerBalanceHandle"`)
+/// matching what [`parse_rustdoc_json`] produces for the source inventory.
+#[instrument(skip(json_path), fields(path = %json_path.display()))]
+pub fn collect_elicit_complete_paths(json_path: &Path) -> ElicitDocResult<ElicitCompleteSet> {
+    let content =
+        std::fs::read_to_string(json_path).map_err(|e| ElicitDocError::io(e.to_string()))?;
+
+    let krate: rustdoc_types::Crate =
+        serde_json::from_str(&content).map_err(|e| ElicitDocError::rustdoc_parse(e.to_string()))?;
+
+    let mut concrete: HashSet<String> = HashSet::new();
+    let mut factory: HashSet<String> = HashSet::new();
+
+    for (_id, item) in &krate.index {
+        let rustdoc_types::ItemEnum::Impl(impl_item) = &item.inner else {
+            continue;
+        };
+
+        // Only care about `impl ElicitComplete for T`
+        let is_elicit_complete = impl_item
+            .trait_
+            .as_ref()
+            .map(|t| t.path == "ElicitComplete")
+            .unwrap_or(false);
+
+        if !is_elicit_complete {
+            continue;
+        }
+
+        // Factory: impl has at least one type-parameter
+        let is_factory = impl_item.generics.params.iter().any(|p| {
+            matches!(p.kind, rustdoc_types::GenericParamDefKind::Type { .. })
+        });
+
+        // Resolve the canonical path via the ID→path map. This handles re-exports
+        // correctly: `for_` might say `crate::TowerBalanceHandle` (re-exported),
+        // but the paths map gives the canonical full path used in the inventory.
+        let path = match &impl_item.for_ {
+            rustdoc_types::Type::ResolvedPath(p) => {
+                if let Some(summary) = krate.paths.get(&p.id) {
+                    // Use the canonical path from the paths map (same as parse_rustdoc_json)
+                    summary.path.join("::")
+                } else {
+                    // Fallback: normalize crate-relative path
+                    p.path.replace("crate::", "elicitation::")
+                }
+            }
+            rustdoc_types::Type::Primitive(name) => name.clone(),
+            _ => continue,
+        };
+
+        if is_factory {
+            factory.insert(path);
+        } else {
+            concrete.insert(path);
+        }
+    }
+
+    tracing::debug!(
+        concrete = concrete.len(),
+        factory = factory.len(),
+        "collected ElicitComplete paths from JSON"
+    );
+
+    Ok(ElicitCompleteSet { concrete, factory })
+}
+
+/// Invoke `cargo rustdoc --output-format json` for a **workspace member** crate
+/// at `workspace_root`, then parse the resulting JSON into an [`Inventory`].
 ///
 /// Pass `features` as extra feature flags, e.g. `&["uuid", "chrono"]`.
 #[instrument(skip(workspace_root), fields(crate_name, workspace_root = %workspace_root.display()))]
@@ -26,6 +112,83 @@ pub fn collect_inventory(
     parse_rustdoc_json(&json_path, crate_name)
 }
 
+/// Collect the [`Inventory`] for an **external dependency** (not a workspace
+/// member) by locating it via `cargo metadata` in `reference_workspace` and
+/// running `cargo rustdoc` directly against its manifest.
+#[instrument(skip(reference_workspace), fields(crate_name))]
+pub fn collect_dep_inventory(
+    reference_workspace: &Path,
+    crate_name: &str,
+) -> ElicitDocResult<Inventory> {
+    let manifest = find_dep_manifest(reference_workspace, crate_name)?;
+    let crate_dir = manifest
+        .parent()
+        .ok_or_else(|| ElicitDocError::cargo_invocation(format!("no parent dir for {manifest:?}")))?;
+
+    // Use a shared target dir under elicit_doc so we don't write into the
+    // registry cache, and reuse build artefacts across multiple dep runs.
+    let own_target = std::env::current_dir()
+        .unwrap_or_else(|_| PathBuf::from("."))
+        .join("target");
+
+    let mut cmd = Command::new("cargo");
+    cmd.current_dir(crate_dir)
+        .arg("+nightly")
+        .arg("rustdoc")
+        .arg("--target-dir")
+        .arg(&own_target)
+        .arg("--")
+        .arg("--output-format")
+        .arg("json")
+        .arg("-Z")
+        .arg("unstable-options");
+
+    tracing::debug!(manifest = %manifest.display(), "running cargo rustdoc on dep");
+    let status = cmd
+        .status()
+        .map_err(|e| ElicitDocError::cargo_invocation(e.to_string()))?;
+
+    if !status.success() {
+        return Err(ElicitDocError::cargo_invocation(format!(
+            "cargo rustdoc for dep {crate_name} exited with {status}"
+        )));
+    }
+
+    let normalized = crate_name.replace('-', "_");
+    let json_path = own_target
+        .join("doc")
+        .join(format!("{normalized}.json"));
+
+    if !json_path.exists() {
+        return Err(ElicitDocError::rustdoc_missing(
+            json_path.display().to_string(),
+        ));
+    }
+
+    tracing::debug!(path = %json_path.display(), "dep rustdoc JSON produced");
+    parse_rustdoc_json(&json_path, crate_name)
+}
+
+/// Find the `Cargo.toml` path for a dependency named `crate_name` as seen from
+/// the workspace at `reference_workspace`.
+#[instrument(skip(reference_workspace), fields(crate_name))]
+fn find_dep_manifest(reference_workspace: &Path, crate_name: &str) -> ElicitDocResult<PathBuf> {
+    let meta = cargo_metadata::MetadataCommand::new()
+        .manifest_path(reference_workspace.join("Cargo.toml"))
+        .exec()
+        .map_err(|e| ElicitDocError::cargo_metadata(e.to_string()))?;
+
+    meta.packages
+        .iter()
+        .find(|p| p.name.as_str() == crate_name)
+        .map(|p| PathBuf::from(p.manifest_path.as_std_path()))
+        .ok_or_else(|| {
+            ElicitDocError::cargo_invocation(format!(
+                "dependency '{crate_name}' not found in cargo metadata for {reference_workspace:?}"
+            ))
+        })
+}
+
 /// Run `cargo rustdoc -p <crate> --output-format json` and return the path
 /// to the generated JSON file.
 #[instrument(skip(workspace_root), fields(crate_name))]
@@ -36,18 +199,20 @@ fn run_cargo_rustdoc(
 ) -> ElicitDocResult<PathBuf> {
     let mut cmd = Command::new("cargo");
     cmd.current_dir(workspace_root)
+        .arg("+nightly")
         .arg("rustdoc")
         .arg("-p")
-        .arg(crate_name)
-        .arg("--")
-        .arg("--output-format")
-        .arg("json")
-        .arg("-Z")
-        .arg("unstable-options");
+        .arg(crate_name);
 
     if !features.is_empty() {
         cmd.arg("--features").arg(features.join(","));
     }
+
+    cmd.arg("--")
+        .arg("--output-format")
+        .arg("json")
+        .arg("-Z")
+        .arg("unstable-options");
 
     tracing::debug!("running cargo rustdoc");
     let status = cmd

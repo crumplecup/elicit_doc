@@ -4,7 +4,7 @@ use std::path::PathBuf;
 
 use clap::{Parser, Subcommand};
 
-use crate::collect::{collect_inventory, collect_proof_harness};
+use crate::collect::{collect_dep_inventory, collect_elicit_complete_paths, collect_inventory, collect_proof_harness};
 use crate::error::ElicitDocResult;
 use crate::impl_coverage::build_impl_coverage_report;
 use crate::report::{write_impl_coverage_csv, write_shadow_csv};
@@ -90,23 +90,25 @@ pub fn run() -> ElicitDocResult<()> {
     Ok(())
 }
 
-/// Supported third-party crates with their elicitation feature flag names.
+/// Supported third-party crates: (upstream crate name, elicitation feature flag).
+/// These are external deps — use `collect_dep_inventory` to document them.
 const THIRD_PARTY_CRATES: &[(&str, &str)] = &[
     ("uuid", "uuid"),
     ("url", "url"),
-    ("geo", "geo-types"),
+    ("geo-types", "geo-types"),
     ("geojson", "geojson"),
     ("chrono", "chrono"),
     ("serde_json", "serde_json"),
 ];
 
-/// Shadow crate pairs: (target_crate, shadow_crate, feature_flag).
-const SHADOW_PAIRS: &[(&str, &str, &str)] = &[
-    ("bevy", "elicit_bevy", "bevy"),
-    ("wgpu", "elicit_wgpu", "wgpu"),
-    ("egui", "elicit_egui", "egui"),
-    ("winit", "elicit_winit", "winit"),
-    ("ratatui", "elicit_ratatui", "ratatui"),
+/// Shadow crate pairs: (upstream dep name, workspace member shadow name).
+/// upstream → `collect_dep_inventory`, shadow → `collect_inventory`
+const SHADOW_PAIRS: &[(&str, &str)] = &[
+    ("bevy", "elicit_bevy"),
+    ("wgpu", "elicit_wgpu"),
+    ("egui", "elicit_egui"),
+    ("winit", "elicit_winit"),
+    ("ratatui", "elicit_ratatui"),
 ];
 
 fn run_impl_reports(
@@ -114,6 +116,9 @@ fn run_impl_reports(
     output_dir: &std::path::Path,
     only_crate: Option<&str>,
 ) -> ElicitDocResult<()> {
+    std::fs::create_dir_all(output_dir)
+        .map_err(|e| crate::error::ElicitDocError::io(e.to_string()))?;
+
     // Scan proof harnesses from elicitation crate
     let harness_non_empty = workspace.join("crates/elicitation/tests/proof_non_empty_test.rs");
     let harness_composition = workspace.join("crates/elicitation/tests/proof_composition_test.rs");
@@ -125,24 +130,19 @@ fn run_impl_reports(
         harness.composition_pairs.extend(comp.composition_pairs);
     }
 
-    // Collect elicitation inventory once
-    let elicitation = collect_inventory(workspace, "elicitation", &["full"])?;
+    // Collect elicitation inventory once (with full feature set), then extract
+    // the real ElicitComplete impl set directly from its rustdoc JSON.
+    let _elicitation = collect_inventory(workspace, "elicitation", &["full"])?;
+    let elicitation_json = workspace.join("target/doc/elicitation.json");
+    let complete_paths = collect_elicit_complete_paths(&elicitation_json)?;
 
-    // std
-    if only_crate.is_none_or(|c| c == "std") {
-        let std_inv = collect_inventory(workspace, "std", &[])?;
-        let report = build_impl_coverage_report(&std_inv, &elicitation, &harness);
-        let path = output_dir.join("std.csv");
-        write_impl_coverage_csv(&report, &path)?;
-        println!("wrote {}  ({})", path.display(), report.summary());
-    }
-
-    // Third-party crates
-    for (crate_name, feature) in THIRD_PARTY_CRATES {
+    // Third-party crates — documented from their registry source
+    for (crate_name, _feature) in THIRD_PARTY_CRATES {
         if only_crate.is_none_or(|c| c == *crate_name) {
-            let source = collect_inventory(workspace, crate_name, &[feature])?;
-            let report = build_impl_coverage_report(&source, &elicitation, &harness);
-            let path = output_dir.join(format!("{crate_name}.csv"));
+            let source = collect_dep_inventory(workspace, crate_name)?;
+            let report = build_impl_coverage_report(&source, &complete_paths, &harness);
+            let safe_name = crate_name.replace('-', "_");
+            let path = output_dir.join(format!("{safe_name}.csv"));
             write_impl_coverage_csv(&report, &path)?;
             println!("wrote {}  ({})", path.display(), report.summary());
         }
@@ -150,7 +150,8 @@ fn run_impl_reports(
 
     // Internal elicitation types
     if only_crate.is_none_or(|c| c == "elicitation") {
-        let report = build_impl_coverage_report(&elicitation, &elicitation, &harness);
+        let source = collect_inventory(workspace, "elicitation", &["full"])?;
+        let report = build_impl_coverage_report(&source, &complete_paths, &harness);
         let path = output_dir.join("internal.csv");
         write_impl_coverage_csv(&report, &path)?;
         println!("wrote {}  ({})", path.display(), report.summary());
@@ -164,9 +165,12 @@ fn run_shadow_reports(
     output_dir: &std::path::Path,
     only_crate: Option<&str>,
 ) -> ElicitDocResult<()> {
-    for (target, shadow, feature) in SHADOW_PAIRS {
+    std::fs::create_dir_all(output_dir)
+        .map_err(|e| crate::error::ElicitDocError::io(e.to_string()))?;
+
+    for (target, shadow) in SHADOW_PAIRS {
         if only_crate.is_none_or(|c| c == *target || c == *shadow) {
-            let target_inv = collect_inventory(workspace, target, &[feature])?;
+            let target_inv = collect_dep_inventory(workspace, target)?;
             let shadow_inv = collect_inventory(workspace, shadow, &[])?;
             let report = build_shadow_report(&target_inv, &shadow_inv);
             let path = output_dir.join(format!("shadow-{target}.csv"));
