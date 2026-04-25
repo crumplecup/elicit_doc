@@ -1,0 +1,11 @@
+type_path,type_kind,is_generic,type_params,elicit_impl,proof_test,composition_test,notes
+url::ParseOptions,Struct,false,,Missing,Missing,Missing,
+url::Url,Struct,false,,Missing,Covered,Missing,
+url::UrlQuery,Struct,false,,Missing,Missing,Missing,
+url::host::Host,Enum,true,S,Missing,Missing,Missing,
+url::origin::OpaqueOrigin,Struct,false,,Missing,Missing,Missing,
+url::origin::Origin,Enum,false,,Missing,Missing,Missing,
+url::parser::ParseError,Enum,false,,Missing,Missing,Missing,
+url::parser::SyntaxViolation,Enum,false,,Missing,Missing,Missing,
+url::path_segments::PathSegmentsMut,Struct,false,,Missing,Missing,Missing,
+url::slicing::Position,Enum,false,,Missing,Missing,Missing,

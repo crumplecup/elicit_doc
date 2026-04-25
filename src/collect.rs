@@ -109,7 +109,8 @@ pub fn collect_inventory(
     features: &[&str],
 ) -> ElicitDocResult<Inventory> {
     let json_path = run_cargo_rustdoc(workspace_root, crate_name, features)?;
-    parse_rustdoc_json(&json_path, crate_name)
+    // Workspace members: exact name match (no transitive dep bleed)
+    parse_rustdoc_json(&json_path, crate_name, false)
 }
 
 /// Collect the [`Inventory`] for an **external dependency** (not a workspace
@@ -166,7 +167,8 @@ pub fn collect_dep_inventory(
     }
 
     tracing::debug!(path = %json_path.display(), "dep rustdoc JSON produced");
-    parse_rustdoc_json(&json_path, crate_name)
+    // Deps: prefix match so umbrella crates like `bevy` include `bevy_ecs::*` etc.
+    parse_rustdoc_json(&json_path, crate_name, true)
 }
 
 /// Find the `Cargo.toml` path for a dependency named `crate_name` as seen from
@@ -244,7 +246,11 @@ fn run_cargo_rustdoc(
 
 /// Parse a rustdoc JSON file into an [`Inventory`].
 #[instrument(skip(json_path), fields(path = %json_path.display()))]
-fn parse_rustdoc_json(json_path: &Path, crate_name: &str) -> ElicitDocResult<Inventory> {
+fn parse_rustdoc_json(
+    json_path: &Path,
+    crate_name: &str,
+    prefix_match: bool,
+) -> ElicitDocResult<Inventory> {
     let content =
         std::fs::read_to_string(json_path).map_err(|e| ElicitDocError::io(e.to_string()))?;
 
@@ -262,7 +268,7 @@ fn parse_rustdoc_json(json_path: &Path, crate_name: &str) -> ElicitDocResult<Inv
         "parsed rustdoc JSON"
     );
 
-    let items = extract_items(&krate);
+    let items = extract_items(&krate, crate_name, prefix_match);
 
     Ok(Inventory {
         crate_name: crate_name.to_string(),
@@ -272,32 +278,72 @@ fn parse_rustdoc_json(json_path: &Path, crate_name: &str) -> ElicitDocResult<Inv
 }
 
 /// Extract all public items from a rustdoc [`Crate`] into our flat [`Item`] list.
-fn extract_items(krate: &rustdoc_types::Crate) -> Vec<Item> {
+///
+/// For re-exporting umbrella crates (like `bevy`) the `index` only contains
+/// a handful of module items while all re-exported items live in `paths`.
+/// We therefore build the inventory from `paths` and look up the `index` entry
+/// only for additional generics detail when available.
+///
+/// `prefix_match`: when `true`, items are accepted if their first path segment
+/// **starts with** `own_crate` (e.g. `"bevy"` accepts `bevy_ecs::*`, `bevy_math::*`).
+/// When `false`, the first segment must equal `own_crate` exactly.
+fn extract_items(krate: &rustdoc_types::Crate, own_crate: &str, prefix_match: bool) -> Vec<Item> {
     let mut items = Vec::new();
+    // Rustdoc JSON paths always use underscores even when the Cargo.toml package
+    // name is hyphenated (e.g. "geo-types" → "geo_types").
+    let own_crate_normalized = own_crate.replace('-', "_");
+    let own_crate_key = own_crate_normalized.as_str();
 
-    for (id, item) in &krate.index {
-        // Only include items that appear in the path map (i.e. are reachable
-        // from the crate root) and skip items that are private/hidden.
-        let Some(summary) = krate.paths.get(id) else {
+    for (id, summary) in &krate.paths {
+        // Filter to items in this crate's namespace (exact or prefix match).
+        let matches = summary
+            .path
+            .first()
+            .map(|s| {
+                if prefix_match {
+                    s.starts_with(own_crate_key)
+                } else {
+                    s.as_str() == own_crate_key
+                }
+            })
+            .unwrap_or(false);
+
+        if !matches {
             continue;
-        };
-
-        if summary.kind == rustdoc_types::ItemKind::Primitive {
-            // Primitives like bool/i32 appear in rustdoc JSON for std but under
-            // a synthetic path — include them with their simple name.
         }
+
+        let kind = match summary.kind {
+            rustdoc_types::ItemKind::Struct => ItemKind::Struct,
+            rustdoc_types::ItemKind::Enum => ItemKind::Enum,
+            rustdoc_types::ItemKind::Trait => ItemKind::Trait,
+            rustdoc_types::ItemKind::TypeAlias => ItemKind::TypeAlias,
+            rustdoc_types::ItemKind::Function => ItemKind::Function,
+            rustdoc_types::ItemKind::Macro => ItemKind::Macro,
+            rustdoc_types::ItemKind::Constant => ItemKind::Constant,
+            rustdoc_types::ItemKind::Module => ItemKind::Module,
+            _ => continue, // skip primitives, unions, impls, etc.
+        };
 
         let path = summary.path.clone();
         let name = path
             .last()
             .cloned()
-            .unwrap_or_else(|| item.name.clone().unwrap_or_default());
+            .unwrap_or_default();
 
-        let (kind, is_generic, type_params) = classify_item(item);
-
-        if kind == ItemKind::Other {
+        if name.is_empty() {
             continue;
         }
+
+        // Attempt to read generics from the index entry (only present when
+        // the item is defined in this crate, not re-exported from a subcrate).
+        let (is_generic, type_params) = krate
+            .index
+            .get(id)
+            .map(|item| {
+                let (_, g, tp) = classify_item(item);
+                (g, tp)
+            })
+            .unwrap_or((false, vec![]));
 
         items.push(Item {
             path,

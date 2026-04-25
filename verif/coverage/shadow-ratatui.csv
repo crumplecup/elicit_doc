@@ -1,0 +1,240 @@
+item_path,item_kind,status,shadow_item,drift_confidence,notes
+elicit_ratatui::fragment_tools::AppFieldJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::fragment_tools::AssembleRatatuiAppParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::fragment_tools::EmitAppLoopParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::fragment_tools::EmitAppStructParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::fragment_tools::EmitCargoTomlParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::fragment_tools::EmitDrawFnParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::fragment_tools::EmitEventHandlerParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::fragment_tools::EmitMainRsParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::fragment_tools::KeyHandlerJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::layout_tools::ConstraintFillParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::layout_tools::ConstraintLengthParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::layout_tools::ConstraintMaxParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::layout_tools::ConstraintMinParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::layout_tools::ConstraintPercentageParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::layout_tools::ConstraintRatioParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::layout_tools::LayoutHorizontalParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::layout_tools::LayoutVerticalParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BarChartSetBarGapParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BarChartSetBarStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BarChartSetBarWidthParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BarChartSetBlockParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BarChartSetDirectionParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BarChartSetMaxValueParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BarChartSetStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BlockSetBorderStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BlockSetBorderTypeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BlockSetBordersParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BlockSetPaddingParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BlockSetStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::BlockSetTitleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ChartSetBlockParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ChartSetLegendPositionParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ChartSetStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ChartSetXAxisParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ChartSetYAxisParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::GaugeSetBlockParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::GaugeSetGaugeStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::GaugeSetLabelParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::GaugeSetStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::LineGaugeSetBlockParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::LineGaugeSetLabelParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::LineGaugeSetStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ListSetBlockParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ListSetHighlightStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ListSetHighlightSymbolParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ListSetStateParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ListSetStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ParagraphSetAlignmentParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ParagraphSetBlockParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ParagraphSetScrollParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ParagraphSetStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ParagraphSetWrapParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ScrollbarSetStateParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::ScrollbarSetStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::SparklineSetBlockParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::SparklineSetDirectionParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::SparklineSetMaxParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::SparklineSetStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::TableSetBlockParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::TableSetColumnSpacingParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::TableSetHeaderParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::TableSetHighlightStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::TableSetHighlightSymbolParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::TableSetStateParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::TabsSetBlockParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::TabsSetDividerParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::TabsSetHighlightStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::TabsSetSelectedParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::property_tools::TabsSetStyleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::render_backend::RatatuiBackend,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::AlignmentJson,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::AxisJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::BarGroupJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::BarJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::BlockJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::BorderTypeJson,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::BordersJson,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::CellJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::ColorJson,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::ConstraintJson,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::DatasetJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::DirectionJson,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::EventJson,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::GraphTypeJson,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::KeyEventJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::LineJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::ListStateJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::MarginJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::MarkerJson,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::ModifierJson,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::MouseEventJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::PaddingJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::ParagraphText,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::RowJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::SpanJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::StyleJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::TableStateJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::TextJson,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::TuiNode,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::serde_types::WidgetJson,Enum,Extra,,,"in shadow, not in target"
+elicit_ratatui::style_tools::ColorIndexedParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::style_tools::ColorNamedParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::style_tools::ColorRgbParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::style_tools::ModifierParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::style_tools::StyleBgParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::style_tools::StyleFgParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::style_tools::StyleResetParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::text_tools::LineFromSpansParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::text_tools::SpanRawParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::text_tools::SpanStyledParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::text_tools::TextFromLinesParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::text_tools::TextRawParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::text_tools::TextStyledParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::widget_tools::BarChartParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::widget_tools::BlockParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::widget_tools::ChartParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::widget_tools::ClearParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::widget_tools::GaugeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::widget_tools::LineGaugeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::widget_tools::ListParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::widget_tools::ParagraphParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::widget_tools::ScrollbarParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::widget_tools::TableParams,Struct,Extra,,,"in shadow, not in target"
+elicit_ratatui::widget_tools::TabsParams,Struct,Extra,,,"in shadow, not in target"
+ratatui::init::DefaultTerminal,TypeAlias,Missing,,,
+ratatui_core::backend::ClearType,Enum,Missing,,,
+ratatui_core::backend::WindowSize,Struct,Missing,,,
+ratatui_core::backend::test::TestBackend,Struct,Missing,,,
+ratatui_core::buffer::buffer::Buffer,Struct,Missing,,,
+ratatui_core::buffer::cell::Cell,Struct,Missing,,,
+ratatui_core::layout::alignment::Alignment,TypeAlias,Missing,,,
+ratatui_core::layout::alignment::HorizontalAlignment,Enum,Missing,,,
+ratatui_core::layout::alignment::VerticalAlignment,Enum,Missing,,,
+ratatui_core::layout::constraint::Constraint,Enum,Missing,,,
+ratatui_core::layout::direction::Direction,Enum,Missing,,,
+ratatui_core::layout::flex::Flex,Enum,Missing,,,
+ratatui_core::layout::layout::Element,Struct,Missing,,,
+ratatui_core::layout::layout::Layout,Struct,Missing,,,
+ratatui_core::layout::layout::Spacing,Enum,Missing,,,
+ratatui_core::layout::margin::Margin,Struct,Missing,,,
+ratatui_core::layout::offset::Offset,Struct,Missing,,,
+ratatui_core::layout::position::Position,Struct,Missing,,,
+ratatui_core::layout::rect::Rect,Struct,Missing,,,
+ratatui_core::layout::rect::iter::Columns,Struct,Missing,,,
+ratatui_core::layout::rect::iter::Positions,Struct,Missing,,,
+ratatui_core::layout::rect::iter::Rows,Struct,Missing,,,
+ratatui_core::layout::size::Size,Struct,Missing,,,
+ratatui_core::style::Modifier,Struct,Missing,,,
+ratatui_core::style::Style,Struct,Missing,,,
+ratatui_core::style::_::InternalBitFlags,Struct,Missing,,,
+ratatui_core::style::color::Color,Enum,Missing,,,
+ratatui_core::style::color::ParseColorError,Struct,Missing,,,
+ratatui_core::style::palette::material::AccentedPalette,Struct,Missing,,,
+ratatui_core::style::palette::material::NonAccentedPalette,Struct,Missing,,,
+ratatui_core::style::stylize::ColorDebug,Struct,Missing,,,
+ratatui_core::style::stylize::ColorDebugKind,Enum,Missing,,,
+ratatui_core::symbols::bar::Set,Struct,Missing,,,
+ratatui_core::symbols::block::Set,Struct,Missing,,,
+ratatui_core::symbols::border::Set,Struct,Missing,,,
+ratatui_core::symbols::line::Set,Struct,Missing,,,
+ratatui_core::symbols::marker::Marker,Enum,Missing,,,
+ratatui_core::symbols::merge::BorderSymbol,Struct,Missing,,,
+ratatui_core::symbols::merge::BorderSymbolError,Enum,Missing,,,
+ratatui_core::symbols::merge::LineStyle,Enum,Missing,,,
+ratatui_core::symbols::merge::MergeStrategy,Enum,Missing,,,
+ratatui_core::symbols::scrollbar::Set,Struct,Missing,,,
+ratatui_core::terminal::frame::CompletedFrame,Struct,Missing,,,
+ratatui_core::terminal::frame::Frame,Struct,Missing,,,
+ratatui_core::terminal::terminal::Options,Struct,Missing,,,
+ratatui_core::terminal::terminal::Terminal,Struct,Missing,,,
+ratatui_core::terminal::viewport::Viewport,Enum,Missing,,,
+ratatui_core::text::grapheme::StyledGrapheme,Struct,Missing,,,
+ratatui_core::text::line::Line,Struct,Missing,,,
+ratatui_core::text::masked::Masked,Struct,Missing,,,
+ratatui_core::text::span::Span,Struct,Missing,,,
+ratatui_core::text::text::Text,Struct,Missing,,,
+ratatui_crossterm::CrosstermBackend,Struct,Missing,,,
+ratatui_widgets::barchart::BarChart,Struct,Missing,,,
+ratatui_widgets::barchart::LabelInfo,Struct,Missing,,,
+ratatui_widgets::barchart::bar::Bar,Struct,Missing,,,
+ratatui_widgets::barchart::bar_group::BarGroup,Struct,Missing,,,
+ratatui_widgets::block::Block,Struct,Missing,,,
+ratatui_widgets::block::TitlePosition,Enum,Missing,,,
+ratatui_widgets::block::padding::Padding,Struct,Missing,,,
+ratatui_widgets::borders::BorderType,Enum,Missing,,,
+ratatui_widgets::borders::Borders,Struct,Missing,,,
+ratatui_widgets::borders::_::InternalBitFlags,Struct,Missing,,,
+ratatui_widgets::calendar::CalendarEventStore,Struct,Missing,,,
+ratatui_widgets::calendar::Monthly,Struct,Missing,,,
+ratatui_widgets::canvas::Canvas,Struct,Missing,,,
+ratatui_widgets::canvas::CharGrid,Struct,Missing,,,
+ratatui_widgets::canvas::Context,Struct,Missing,,,
+ratatui_widgets::canvas::HalfBlockGrid,Struct,Missing,,,
+ratatui_widgets::canvas::Label,Struct,Missing,,,
+ratatui_widgets::canvas::Layer,Struct,Missing,,,
+ratatui_widgets::canvas::LayerCell,Struct,Missing,,,
+ratatui_widgets::canvas::Painter,Struct,Missing,,,
+ratatui_widgets::canvas::PatternCell,Struct,Missing,,,
+ratatui_widgets::canvas::PatternGrid,Struct,Missing,,,
+ratatui_widgets::canvas::circle::Circle,Struct,Missing,,,
+ratatui_widgets::canvas::line::Line,Struct,Missing,,,
+ratatui_widgets::canvas::map::Map,Struct,Missing,,,
+ratatui_widgets::canvas::map::MapResolution,Enum,Missing,,,
+ratatui_widgets::canvas::points::Points,Struct,Missing,,,
+ratatui_widgets::canvas::rectangle::Rectangle,Struct,Missing,,,
+ratatui_widgets::chart::Axis,Struct,Missing,,,
+ratatui_widgets::chart::Chart,Struct,Missing,,,
+ratatui_widgets::chart::Dataset,Struct,Missing,,,
+ratatui_widgets::chart::GraphType,Enum,Missing,,,
+ratatui_widgets::chart::LegendPosition,Enum,Drifted,elicit_ratatui::serde_types::LegendPositionJson,0.75,probable rename
+ratatui_widgets::clear::Clear,Struct,Missing,,,
+ratatui_widgets::gauge::Gauge,Struct,Missing,,,
+ratatui_widgets::gauge::LineGauge,Struct,Missing,,,
+ratatui_widgets::list::List,Struct,Missing,,,
+ratatui_widgets::list::ListDirection,Enum,Missing,,,
+ratatui_widgets::list::item::ListItem,Struct,Missing,,,
+ratatui_widgets::list::state::ListState,Struct,Missing,,,
+ratatui_widgets::logo::RatatuiLogo,Struct,Missing,,,
+ratatui_widgets::logo::Size,Enum,Missing,,,
+ratatui_widgets::mascot::MascotEyeColor,Enum,Missing,,,
+ratatui_widgets::mascot::RatatuiMascot,Struct,Missing,,,
+ratatui_widgets::paragraph::Paragraph,Struct,Missing,,,
+ratatui_widgets::paragraph::Wrap,Struct,Missing,,,
+ratatui_widgets::reflow::LineTruncator,Struct,Missing,,,
+ratatui_widgets::reflow::WordWrapper,Struct,Missing,,,
+ratatui_widgets::scrollbar::ScrollDirection,Enum,Missing,,,
+ratatui_widgets::scrollbar::Scrollbar,Struct,Missing,,,
+ratatui_widgets::scrollbar::ScrollbarOrientation,Enum,Drifted,elicit_ratatui::serde_types::ScrollbarOrientationJson,0.81,probable rename
+ratatui_widgets::scrollbar::ScrollbarState,Struct,Drifted,elicit_ratatui::serde_types::ScrollbarStateJson,0.75,probable rename
+ratatui_widgets::sparkline::AbsentValueSymbol,Struct,Missing,,,
+ratatui_widgets::sparkline::RenderDirection,Enum,Missing,,,
+ratatui_widgets::sparkline::Sparkline,Struct,Missing,,,
+ratatui_widgets::sparkline::SparklineBar,Struct,Drifted,elicit_ratatui::widget_tools::SparklineParams,0.75,probable rename
+ratatui_widgets::table::Table,Struct,Missing,,,
+ratatui_widgets::table::cell::Cell,Struct,Missing,,,
+ratatui_widgets::table::highlight_spacing::HighlightSpacing,Enum,Missing,,,
+ratatui_widgets::table::row::Row,Struct,Missing,,,
+ratatui_widgets::table::state::TableState,Struct,Missing,,,
+ratatui_widgets::tabs::Tabs,Struct,Missing,,,
