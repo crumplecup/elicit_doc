@@ -124,3 +124,85 @@ pub fn write_shadow_csv(report: &ShadowReport, path: &Path) -> ElicitDocResult<(
     tracing::info!(path = %path.display(), rows = report.rows.len(), "wrote shadow CSV");
     Ok(())
 }
+
+/// Write the consolidated impl gaps list to a CSV file at `path`.
+#[instrument(skip(entries, path), fields(path = %path.display()))]
+pub fn write_impl_gaps_csv(entries: &[crate::gaps::ImplGapEntry], path: &Path) -> ElicitDocResult<()> {
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent).map_err(|e| ElicitDocError::io(e.to_string()))?;
+    }
+
+    let mut wtr = csv::Writer::from_path(path).map_err(|e| ElicitDocError::csv(e.to_string()))?;
+
+    wtr.write_record([
+        "source_crate",
+        "type_path",
+        "type_kind",
+        "is_generic",
+        "gap_kind",
+        "missing_external_traits",
+        "missing_our_traits",
+        "action",
+    ])
+    .map_err(|e| ElicitDocError::csv(e.to_string()))?;
+
+    for e in entries {
+        wtr.write_record([
+            &e.source_crate,
+            &e.type_path,
+            &e.type_kind.to_string(),
+            &e.is_generic.to_string(),
+            &e.gap_kind.to_string(),
+            &e.missing_external_traits,
+            &e.missing_our_traits,
+            &e.action,
+        ])
+        .map_err(|e| ElicitDocError::csv(e.to_string()))?;
+    }
+
+    wtr.flush()
+        .map_err(|e| ElicitDocError::csv(e.to_string()))?;
+    tracing::info!(path = %path.display(), rows = entries.len(), "wrote impl gaps CSV");
+    Ok(())
+}
+
+/// Write the consolidated shadow gaps list to a CSV file at `path`.
+#[instrument(skip(entries, path), fields(path = %path.display()))]
+pub fn write_shadow_gaps_csv(entries: &[crate::gaps::ShadowGapEntry], path: &Path) -> ElicitDocResult<()> {
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent).map_err(|e| ElicitDocError::io(e.to_string()))?;
+    }
+
+    let mut wtr = csv::Writer::from_path(path).map_err(|e| ElicitDocError::csv(e.to_string()))?;
+
+    wtr.write_record([
+        "target_crate",
+        "shadow_crate",
+        "item_path",
+        "item_kind",
+        "gap_kind",
+        "matched_shadow_item",
+        "drift_confidence",
+        "notes",
+    ])
+    .map_err(|e| ElicitDocError::csv(e.to_string()))?;
+
+    for e in entries {
+        wtr.write_record([
+            &e.target_crate,
+            &e.shadow_crate,
+            &e.item_path,
+            &e.item_kind.to_string(),
+            &e.gap_kind.to_string(),
+            &e.matched_shadow_item,
+            &e.drift_confidence,
+            &e.notes,
+        ])
+        .map_err(|e| ElicitDocError::csv(e.to_string()))?;
+    }
+
+    wtr.flush()
+        .map_err(|e| ElicitDocError::csv(e.to_string()))?;
+    tracing::info!(path = %path.display(), rows = entries.len(), "wrote shadow gaps CSV");
+    Ok(())
+}

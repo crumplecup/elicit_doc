@@ -10,6 +10,7 @@
 
 mod collect;
 mod error;
+mod gaps;
 mod impl_coverage;
 mod inventory;
 mod report;
@@ -20,10 +21,14 @@ pub mod cli;
 
 pub use collect::{collect_inventory, collect_proof_harness, collect_trait_prereqs, TraitPrereqs};
 pub use error::{ElicitDocError, ElicitDocErrorKind, ElicitDocResult};
+pub use gaps::{
+    ImplGapEntry, ImplGapKind, ShadowGapEntry, ShadowGapKind,
+    build_impl_gaps, build_shadow_gaps,
+};
 pub use impl_coverage::{
     ImplCoverageEntry, ImplCoverageReport, ImplStatus, ProofHarness, TestStatus,
     build_impl_coverage_report,
 };
 pub use inventory::{Inventory, Item, ItemKind};
-pub use report::{write_impl_coverage_csv, write_shadow_csv};
+pub use report::{write_impl_coverage_csv, write_impl_gaps_csv, write_shadow_csv, write_shadow_gaps_csv};
 pub use shadow::{DriftPair, ShadowReport, build_shadow_report};

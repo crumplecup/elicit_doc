@@ -6,8 +6,9 @@ use clap::{Parser, Subcommand};
 
 use crate::collect::{collect_dep_inventory, collect_elicit_complete_paths, collect_inventory, collect_proof_harness, collect_trait_prereqs};
 use crate::error::ElicitDocResult;
+use crate::gaps::{build_impl_gaps, build_shadow_gaps};
 use crate::impl_coverage::build_impl_coverage_report;
-use crate::report::{write_impl_coverage_csv, write_shadow_csv};
+use crate::report::{write_impl_coverage_csv, write_impl_gaps_csv, write_shadow_csv, write_shadow_gaps_csv};
 use crate::shadow::build_shadow_report;
 
 /// Determine elicit_doc's own repo root via `cargo metadata`.
@@ -136,12 +137,13 @@ fn run_impl_reports(
     let elicitation_json = workspace.join("target/doc/elicitation.json");
     let complete_paths = collect_elicit_complete_paths(&elicitation_json)?;
 
+    // Accumulate all reports for gap analysis at the end.
+    let mut all_reports: Vec<(String, crate::impl_coverage::ImplCoverageReport)> = Vec::new();
+
     // Third-party crates — documented from their registry source
     for (crate_name, _feature) in THIRD_PARTY_CRATES {
         if only_crate.is_none_or(|c| c == *crate_name) {
             let (source, all_features) = collect_dep_inventory(workspace, crate_name)?;
-            // Collect prereqs from both the dep JSON (Serialize/Deserialize/JsonSchema)
-            // and the elicitation JSON (our own 4 traits impld on external types).
             let safe_name = crate_name.replace('-', "_");
             let dep_json = std::env::current_dir()
                 .unwrap_or_else(|_| std::path::PathBuf::from("."))
@@ -151,7 +153,6 @@ fn run_impl_reports(
             } else {
                 std::collections::HashMap::new()
             };
-            // Merge in our own traits from elicitation (impls on external types live there)
             let elicit_prereqs = collect_trait_prereqs(&elicitation_json, crate_name, true)?;
             for (path, p) in elicit_prereqs {
                 prereqs.entry(path).or_default().merge(&p);
@@ -160,6 +161,7 @@ fn run_impl_reports(
             let path = output_dir.join(format!("{safe_name}.csv"));
             write_impl_coverage_csv(&report, &path)?;
             println!("wrote {}  ({})", path.display(), report.summary());
+            all_reports.push((crate_name.to_string(), report));
         }
     }
 
@@ -167,11 +169,27 @@ fn run_impl_reports(
     if only_crate.is_none_or(|c| c == "elicitation") {
         let source = collect_inventory(workspace, "elicitation", &["full"])?;
         let prereqs = collect_trait_prereqs(&elicitation_json, "elicitation", false)?;
-        // Internal build always uses the full feature set — never feature-gated
         let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs, true);
         let path = output_dir.join("internal.csv");
         write_impl_coverage_csv(&report, &path)?;
         println!("wrote {}  ({})", path.display(), report.summary());
+        all_reports.push(("elicitation".to_string(), report));
+    }
+
+    // Consolidated gaps report (only when we ran more than one crate or all crates)
+    if only_crate.is_none() || all_reports.len() > 1 {
+        let pairs: Vec<(&str, &crate::impl_coverage::ImplCoverageReport)> =
+            all_reports.iter().map(|(n, r)| (n.as_str(), r)).collect();
+        let gaps = build_impl_gaps(&pairs);
+        let gaps_path = output_dir.join("gaps-impl.csv");
+        write_impl_gaps_csv(&gaps, &gaps_path)?;
+        let ready = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::ReadyNow).count();
+        let gated = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::FeatureGated).count();
+        let needs = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::NeedsExternalImpl).count();
+        println!(
+            "wrote {}  ({} gaps: {} ready_now, {} feature_gated, {} needs_external_impl)",
+            gaps_path.display(), gaps.len(), ready, gated, needs
+        );
     }
 
     Ok(())
@@ -185,6 +203,8 @@ fn run_shadow_reports(
     std::fs::create_dir_all(output_dir)
         .map_err(|e| crate::error::ElicitDocError::io(e.to_string()))?;
 
+    let mut all_shadow: Vec<(String, String, crate::shadow::ShadowReport)> = Vec::new();
+
     for (target, shadow) in SHADOW_PAIRS {
         if only_crate.is_none_or(|c| c == *target || c == *shadow) {
             let (target_inv, _) = collect_dep_inventory(workspace, target)?;
@@ -193,7 +213,24 @@ fn run_shadow_reports(
             let path = output_dir.join(format!("shadow-{target}.csv"));
             write_shadow_csv(&report, &path)?;
             println!("wrote {}  ({})", path.display(), report.summary());
+            all_shadow.push((target.to_string(), shadow.to_string(), report));
         }
+    }
+
+    // Consolidated shadow gaps report
+    if only_crate.is_none() || all_shadow.len() > 1 {
+        let pairs: Vec<(&str, &str, &crate::shadow::ShadowReport)> =
+            all_shadow.iter().map(|(t, s, r)| (t.as_str(), s.as_str(), r)).collect();
+        let gaps = build_shadow_gaps(&pairs);
+        let gaps_path = output_dir.join("gaps-shadow.csv");
+        write_shadow_gaps_csv(&gaps, &gaps_path)?;
+        let missing = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::Missing).count();
+        let drifted = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::Drifted).count();
+        let extra = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::Extra).count();
+        println!(
+            "wrote {}  ({} gaps: {} missing, {} drifted, {} extra)",
+            gaps_path.display(), gaps.len(), missing, drifted, extra
+        );
     }
     Ok(())
 }
