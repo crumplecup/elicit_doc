@@ -1,7 +1,7 @@
 //! Collection layer: invoke `cargo rustdoc` and parse the JSON output into
 //! an [`Inventory`], and scan proof harness test files.
 
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -10,6 +10,170 @@ use tracing::instrument;
 use crate::error::{ElicitDocError, ElicitDocResult};
 use crate::impl_coverage::ProofHarness;
 use crate::inventory::{Inventory, Item, ItemKind};
+
+/// Short names of all 8 `ElicitComplete` supertraits, as they appear in rustdoc JSON.
+const ELICIT_COMPLETE_SUPERTRAITS: &[&str] = &[
+    "Serialize",
+    "Deserialize",
+    "JsonSchema",
+    "Elicitation",
+    "ElicitIntrospect",
+    "ElicitSpec",
+    "ElicitPromptTree",
+    "ToCodeLiteral",
+];
+
+/// Which of the 8 [`ElicitComplete`] supertraits a type already implements.
+///
+/// The three external traits (`Serialize`, `Deserialize`, `JsonSchema`) are the
+/// critical ones: the orphan rule prevents us from adding them for external types,
+/// so if they are missing the type cannot become `ElicitComplete` without a
+/// trenchcoat wrapper.  Our own four traits (`Elicitation`, `ElicitIntrospect`,
+/// `ElicitSpec`, `ElicitPromptTree`, `ToCodeLiteral`) can always be implemented
+/// for any external type since the traits are defined in our crate.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct TraitPrereqs {
+    // ── External traits (orphan rule blocks us from adding these) ──
+    pub serialize: bool,
+    pub deserialize: bool,
+    pub json_schema: bool,
+    // ── Our own traits (we can always add these for external types) ──
+    pub elicitation_trait: bool,
+    pub elicit_introspect: bool,
+    pub elicit_spec: bool,
+    pub elicit_prompt_tree: bool,
+    pub to_code_literal: bool,
+}
+
+impl TraitPrereqs {
+    /// Merge another set of prereqs into this one (logical OR on every field).
+    pub fn merge(&mut self, other: &TraitPrereqs) {
+        self.serialize |= other.serialize;
+        self.deserialize |= other.deserialize;
+        self.json_schema |= other.json_schema;
+        self.elicitation_trait |= other.elicitation_trait;
+        self.elicit_introspect |= other.elicit_introspect;
+        self.elicit_spec |= other.elicit_spec;
+        self.elicit_prompt_tree |= other.elicit_prompt_tree;
+        self.to_code_literal |= other.to_code_literal;
+    }
+
+    /// True when `Serialize + Deserialize + JsonSchema` are all satisfied —
+    /// the three traits we cannot add ourselves for external types.
+    pub fn can_be_direct(&self) -> bool {
+        self.serialize && self.deserialize && self.json_schema
+    }
+
+    /// Short names of the external traits that are still missing.
+    pub fn external_blockers(&self) -> Vec<&'static str> {
+        let mut b = Vec::new();
+        if !self.serialize {
+            b.push("Serialize");
+        }
+        if !self.deserialize {
+            b.push("Deserialize");
+        }
+        if !self.json_schema {
+            b.push("JsonSchema");
+        }
+        b
+    }
+
+    /// Like `external_blockers` but each entry is annotated with its availability:
+    /// `"Serialize(absent)"`, `"JsonSchema(feature_gated)"`, etc.
+    pub fn external_blockers_with_avail(&self, all_features: bool) -> Vec<String> {
+        let suffix = if all_features { "absent" } else { "feature_gated" };
+        let mut b = Vec::new();
+        if !self.serialize {
+            b.push(format!("Serialize({suffix})"));
+        }
+        if !self.deserialize {
+            b.push(format!("Deserialize({suffix})"));
+        }
+        if !self.json_schema {
+            b.push(format!("JsonSchema({suffix})"));
+        }
+        b
+    }
+}
+
+/// Scan a rustdoc JSON file and return a map from canonical type path to
+/// [`TraitPrereqs`] recording which of the 8 `ElicitComplete` supertraits each
+/// type already implements.
+///
+/// Pass the same `own_crate` / `prefix_match` arguments used for the companion
+/// [`parse_rustdoc_json`] call so that only items in scope are considered.
+#[instrument(skip(json_path), fields(path = %json_path.display(), own_crate))]
+pub fn collect_trait_prereqs(
+    json_path: &Path,
+    own_crate: &str,
+    prefix_match: bool,
+) -> ElicitDocResult<HashMap<String, TraitPrereqs>> {
+    let content =
+        std::fs::read_to_string(json_path).map_err(|e| ElicitDocError::io(e.to_string()))?;
+    let krate: rustdoc_types::Crate =
+        serde_json::from_str(&content).map_err(|e| ElicitDocError::rustdoc_parse(e.to_string()))?;
+
+    let own_crate_normalized = own_crate.replace('-', "_");
+    let own_crate_key = own_crate_normalized.as_str();
+
+    let mut map: HashMap<String, TraitPrereqs> = HashMap::new();
+
+    for item in krate.index.values() {
+        let rustdoc_types::ItemEnum::Impl(impl_item) = &item.inner else {
+            continue;
+        };
+
+        let Some(trait_) = &impl_item.trait_ else {
+            continue;
+        };
+
+        let trait_short = trait_.path.split("::").last().unwrap_or("");
+        if !ELICIT_COMPLETE_SUPERTRAITS.contains(&trait_short) {
+            continue;
+        }
+
+        // Resolve the implementing type to its canonical path.
+        let rustdoc_types::Type::ResolvedPath(rp) = &impl_item.for_ else {
+            continue;
+        };
+        let Some(summary) = krate.paths.get(&rp.id) else {
+            continue;
+        };
+
+        // Apply the same crate-name filter used in extract_items.
+        let first = summary.path.first().map(String::as_str).unwrap_or("");
+        let in_scope = if prefix_match {
+            first.starts_with(own_crate_key)
+        } else {
+            first == own_crate_key
+        };
+        if !in_scope {
+            continue;
+        }
+
+        let type_path = summary.path.join("::");
+        let prereqs = map.entry(type_path).or_default();
+        match trait_short {
+            "Serialize" => prereqs.serialize = true,
+            "Deserialize" => prereqs.deserialize = true,
+            "JsonSchema" => prereqs.json_schema = true,
+            "Elicitation" => prereqs.elicitation_trait = true,
+            "ElicitIntrospect" => prereqs.elicit_introspect = true,
+            "ElicitSpec" => prereqs.elicit_spec = true,
+            "ElicitPromptTree" => prereqs.elicit_prompt_tree = true,
+            "ToCodeLiteral" => prereqs.to_code_literal = true,
+            _ => {}
+        }
+    }
+
+    tracing::debug!(
+        types_with_prereqs = map.len(),
+        "collected trait prereqs from JSON"
+    );
+
+    Ok(map)
+}
 
 /// The set of types that have `impl ElicitComplete for T` in the elicitation crate,
 /// extracted directly from its rustdoc JSON (not from the inventory heuristic).
@@ -116,11 +280,15 @@ pub fn collect_inventory(
 /// Collect the [`Inventory`] for an **external dependency** (not a workspace
 /// member) by locating it via `cargo metadata` in `reference_workspace` and
 /// running `cargo rustdoc` directly against its manifest.
+///
+/// Returns `(Inventory, all_features_succeeded)`.  When `all_features_succeeded`
+/// is `false` the build fell back to default features; any missing trait impl in
+/// that inventory **may** be feature-gated rather than truly absent.
 #[instrument(skip(reference_workspace), fields(crate_name))]
 pub fn collect_dep_inventory(
     reference_workspace: &Path,
     crate_name: &str,
-) -> ElicitDocResult<Inventory> {
+) -> ElicitDocResult<(Inventory, bool)> {
     let manifest = find_dep_manifest(reference_workspace, crate_name)?;
     let crate_dir = manifest
         .parent()
@@ -132,22 +300,39 @@ pub fn collect_dep_inventory(
         .unwrap_or_else(|_| PathBuf::from("."))
         .join("target");
 
-    let mut cmd = Command::new("cargo");
-    cmd.current_dir(crate_dir)
-        .arg("+nightly")
-        .arg("rustdoc")
-        .arg("--target-dir")
-        .arg(&own_target)
-        .arg("--")
-        .arg("--output-format")
-        .arg("json")
-        .arg("-Z")
-        .arg("unstable-options");
+    let build_with_features = |all_features: bool| -> std::io::Result<std::process::ExitStatus> {
+        let mut cmd = Command::new("cargo");
+        cmd.current_dir(crate_dir)
+            .arg("+nightly")
+            .arg("rustdoc");
+        if all_features {
+            cmd.arg("--all-features");
+        }
+        cmd.arg("--target-dir")
+            .arg(&own_target)
+            .arg("--")
+            .arg("--output-format")
+            .arg("json")
+            .arg("-Z")
+            .arg("unstable-options");
+        cmd.status()
+    };
 
-    tracing::debug!(manifest = %manifest.display(), "running cargo rustdoc on dep");
-    let status = cmd
-        .status()
+    tracing::debug!(manifest = %manifest.display(), "running cargo rustdoc on dep (--all-features)");
+    let status = build_with_features(true)
         .map_err(|e| ElicitDocError::cargo_invocation(e.to_string()))?;
+
+    let (status, used_all_features) = if !status.success() {
+        tracing::warn!(
+            crate_name,
+            "--all-features build failed (exit {status}); retrying with default features"
+        );
+        let fallback = build_with_features(false)
+            .map_err(|e| ElicitDocError::cargo_invocation(e.to_string()))?;
+        (fallback, false)
+    } else {
+        (status, true)
+    };
 
     if !status.success() {
         return Err(ElicitDocError::cargo_invocation(format!(
@@ -168,7 +353,8 @@ pub fn collect_dep_inventory(
 
     tracing::debug!(path = %json_path.display(), "dep rustdoc JSON produced");
     // Deps: prefix match so umbrella crates like `bevy` include `bevy_ecs::*` etc.
-    parse_rustdoc_json(&json_path, crate_name, true)
+    let inventory = parse_rustdoc_json(&json_path, crate_name, true)?;
+    Ok((inventory, used_all_features))
 }
 
 /// Find the `Cargo.toml` path for a dependency named `crate_name` as seen from

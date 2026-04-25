@@ -4,7 +4,7 @@ use std::path::PathBuf;
 
 use clap::{Parser, Subcommand};
 
-use crate::collect::{collect_dep_inventory, collect_elicit_complete_paths, collect_inventory, collect_proof_harness};
+use crate::collect::{collect_dep_inventory, collect_elicit_complete_paths, collect_inventory, collect_proof_harness, collect_trait_prereqs};
 use crate::error::ElicitDocResult;
 use crate::impl_coverage::build_impl_coverage_report;
 use crate::report::{write_impl_coverage_csv, write_shadow_csv};
@@ -139,9 +139,24 @@ fn run_impl_reports(
     // Third-party crates — documented from their registry source
     for (crate_name, _feature) in THIRD_PARTY_CRATES {
         if only_crate.is_none_or(|c| c == *crate_name) {
-            let source = collect_dep_inventory(workspace, crate_name)?;
-            let report = build_impl_coverage_report(&source, &complete_paths, &harness);
+            let (source, all_features) = collect_dep_inventory(workspace, crate_name)?;
+            // Collect prereqs from both the dep JSON (Serialize/Deserialize/JsonSchema)
+            // and the elicitation JSON (our own 4 traits impld on external types).
             let safe_name = crate_name.replace('-', "_");
+            let dep_json = std::env::current_dir()
+                .unwrap_or_else(|_| std::path::PathBuf::from("."))
+                .join(format!("target/doc/{safe_name}.json"));
+            let mut prereqs = if dep_json.exists() {
+                collect_trait_prereqs(&dep_json, crate_name, true)?
+            } else {
+                std::collections::HashMap::new()
+            };
+            // Merge in our own traits from elicitation (impls on external types live there)
+            let elicit_prereqs = collect_trait_prereqs(&elicitation_json, crate_name, true)?;
+            for (path, p) in elicit_prereqs {
+                prereqs.entry(path).or_default().merge(&p);
+            }
+            let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs, all_features);
             let path = output_dir.join(format!("{safe_name}.csv"));
             write_impl_coverage_csv(&report, &path)?;
             println!("wrote {}  ({})", path.display(), report.summary());
@@ -151,7 +166,9 @@ fn run_impl_reports(
     // Internal elicitation types
     if only_crate.is_none_or(|c| c == "elicitation") {
         let source = collect_inventory(workspace, "elicitation", &["full"])?;
-        let report = build_impl_coverage_report(&source, &complete_paths, &harness);
+        let prereqs = collect_trait_prereqs(&elicitation_json, "elicitation", false)?;
+        // Internal build always uses the full feature set — never feature-gated
+        let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs, true);
         let path = output_dir.join("internal.csv");
         write_impl_coverage_csv(&report, &path)?;
         println!("wrote {}  ({})", path.display(), report.summary());
@@ -170,7 +187,7 @@ fn run_shadow_reports(
 
     for (target, shadow) in SHADOW_PAIRS {
         if only_crate.is_none_or(|c| c == *target || c == *shadow) {
-            let target_inv = collect_dep_inventory(workspace, target)?;
+            let (target_inv, _) = collect_dep_inventory(workspace, target)?;
             let shadow_inv = collect_inventory(workspace, shadow, &[])?;
             let report = build_shadow_report(&target_inv, &shadow_inv);
             let path = output_dir.join(format!("shadow-{target}.csv"));

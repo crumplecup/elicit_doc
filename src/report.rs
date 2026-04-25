@@ -8,6 +8,21 @@ use crate::error::{ElicitDocError, ElicitDocResult};
 use crate::impl_coverage::ImplCoverageReport;
 use crate::shadow::ShadowReport;
 
+/// Convert a bool trait presence + build flag into a three-value availability string.
+///
+/// - `"present"` — impl was found in the dep's rustdoc JSON
+/// - `"absent"` — `--all-features` build succeeded but no impl found (truly missing from dep)
+/// - `"feature_gated"` — build fell back to default features; impl *may* exist behind a flag
+fn trait_avail(present: bool, all_features: bool) -> &'static str {
+    if present {
+        "present"
+    } else if all_features {
+        "absent"
+    } else {
+        "feature_gated"
+    }
+}
+
 /// Write an [`ImplCoverageReport`] to a CSV file at `path`.
 #[instrument(skip(report, path), fields(path = %path.display()))]
 pub fn write_impl_coverage_csv(report: &ImplCoverageReport, path: &Path) -> ElicitDocResult<()> {
@@ -25,11 +40,25 @@ pub fn write_impl_coverage_csv(report: &ImplCoverageReport, path: &Path) -> Elic
         "elicit_impl",
         "proof_test",
         "composition_test",
+        // ElicitComplete supertrait prereqs (present / absent / feature_gated)
+        "has_serialize",
+        "has_deserialize",
+        "has_json_schema",
+        "has_elicitation",
+        "has_elicit_introspect",
+        "has_elicit_spec",
+        "has_elicit_prompt_tree",
+        "has_to_code_literal",
+        "can_be_direct",
+        "external_blockers",
         "notes",
     ])
     .map_err(|e| ElicitDocError::csv(e.to_string()))?;
 
     for entry in &report.entries {
+        let p = &entry.prereqs;
+        let avail = |present: bool| trait_avail(present, entry.all_features_build);
+        let blockers = p.external_blockers_with_avail(entry.all_features_build).join(";");
         wtr.write_record([
             &entry.type_path,
             &entry.type_kind.to_string(),
@@ -38,6 +67,16 @@ pub fn write_impl_coverage_csv(report: &ImplCoverageReport, path: &Path) -> Elic
             &entry.elicit_impl.to_string(),
             &entry.proof_test.to_string(),
             &entry.composition_test.to_string(),
+            avail(p.serialize),
+            avail(p.deserialize),
+            avail(p.json_schema),
+            avail(p.elicitation_trait),
+            avail(p.elicit_introspect),
+            avail(p.elicit_spec),
+            avail(p.elicit_prompt_tree),
+            avail(p.to_code_literal),
+            avail(p.can_be_direct()),
+            &blockers,
             &entry.notes,
         ])
         .map_err(|e| ElicitDocError::csv(e.to_string()))?;

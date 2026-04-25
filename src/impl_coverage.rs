@@ -4,12 +4,13 @@
 //! an `elicitation` inventory, produces an [`ImplCoverageReport`] showing which
 //! types have `ElicitComplete` impls and harness test entries.
 
+use std::collections::HashMap;
 use std::collections::HashSet;
 
 use serde::{Deserialize, Serialize};
 use tracing::instrument;
 
-use crate::collect::ElicitCompleteSet;
+use crate::collect::{ElicitCompleteSet, TraitPrereqs};
 use crate::inventory::{Inventory, Item, ItemKind};
 
 /// Scanned contents of the proof harness test files.
@@ -79,6 +80,13 @@ pub struct ImplCoverageEntry {
     pub elicit_impl: ImplStatus,
     pub proof_test: TestStatus,
     pub composition_test: TestStatus,
+    /// Which of the 8 `ElicitComplete` supertraits this type already has.
+    pub prereqs: TraitPrereqs,
+    /// Whether the dep was documented with `--all-features`.
+    ///
+    /// When `false` the build fell back to default features; any `false` field
+    /// in `prereqs` may be feature-gated rather than truly absent.
+    pub all_features_build: bool,
     /// Human-readable note, e.g. the concrete instantiation used in the harness.
     pub notes: String,
 }
@@ -117,11 +125,17 @@ impl ImplCoverageReport {
 /// `complete` is the set extracted from elicitation's rustdoc JSON — use
 /// [`crate::collect::collect_elicit_complete_paths`] to build it.
 /// `harness` is the scanned `proof_non_empty_test.rs` + `proof_composition_test.rs`.
-#[instrument(skip(source, complete, harness), fields(source_crate = %source.crate_name))]
+/// `prereqs_map` maps canonical type paths to their existing trait impls; built by
+/// [`crate::collect::collect_trait_prereqs`] from the dep's and elicitation's JSON.
+/// `all_features_build` should be `true` when the dep was documented with
+/// `--all-features`; when `false`, missing traits may be feature-gated.
+#[instrument(skip(source, complete, harness, prereqs_map), fields(source_crate = %source.crate_name))]
 pub fn build_impl_coverage_report(
     source: &Inventory,
     complete: &ElicitCompleteSet,
     harness: &ProofHarness,
+    prereqs_map: &HashMap<String, TraitPrereqs>,
+    all_features_build: bool,
 ) -> ImplCoverageReport {
     let mut entries: Vec<ImplCoverageEntry> = Vec::new();
 
@@ -134,6 +148,11 @@ pub fn build_impl_coverage_report(
         let (proof_test, composition_test, notes) =
             determine_test_status(item, &elicit_impl, harness);
 
+        let prereqs = prereqs_map
+            .get(&path_str)
+            .cloned()
+            .unwrap_or_default();
+
         entries.push(ImplCoverageEntry {
             type_path: path_str,
             type_kind: item.kind,
@@ -142,6 +161,8 @@ pub fn build_impl_coverage_report(
             elicit_impl,
             proof_test,
             composition_test,
+            prereqs,
+            all_features_build,
             notes,
         });
 
