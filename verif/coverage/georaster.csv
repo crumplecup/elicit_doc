@@ -1,0 +1,6 @@
+type_path,type_kind,is_generic,type_params,elicit_impl,proof_test,composition_test,has_serialize,has_deserialize,has_json_schema,has_elicitation,has_elicit_introspect,has_elicit_spec,has_elicit_prompt_tree,has_to_code_literal,can_be_direct,external_blockers,notes
+georaster::geo::Coordinate,Struct,false,,Missing,Covered,Missing,absent,absent,absent,present,present,present,present,present,absent,Serialize(absent);Deserialize(absent);JsonSchema(absent),
+georaster::geotiff::GeoTiffReader,Struct,true,R,Missing,Missing,Missing,absent,absent,absent,absent,absent,absent,absent,absent,absent,Serialize(absent);Deserialize(absent);JsonSchema(absent),
+georaster::geotiff::ImageInfo,Struct,false,,Missing,Covered,Missing,absent,absent,absent,present,present,present,present,present,absent,Serialize(absent);Deserialize(absent);JsonSchema(absent),
+georaster::geotiff::Pixels,Struct,true,R,Missing,Missing,Missing,absent,absent,absent,absent,absent,absent,absent,absent,absent,Serialize(absent);Deserialize(absent);JsonSchema(absent),
+georaster::geotiff::RasterValue,Enum,false,,Missing,Covered,Missing,absent,absent,absent,present,present,present,present,present,absent,Serialize(absent);Deserialize(absent);JsonSchema(absent),

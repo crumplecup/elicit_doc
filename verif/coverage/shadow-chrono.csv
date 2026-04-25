@@ -1,0 +1,63 @@
+item_path,item_kind,status,shadow_item,drift_confidence,notes
+chrono::Duration,TypeAlias,Missing,,,
+chrono::OutOfRange,Struct,Missing,,,
+chrono::date::Date,Struct,Missing,,,
+chrono::datetime::DateTime,Struct,Missing,,,
+chrono::format::Colons,Enum,Missing,,,
+chrono::format::Fixed,Enum,Missing,,,
+chrono::format::InternalFixed,Struct,Missing,,,
+chrono::format::InternalNumeric,Struct,Missing,,,
+chrono::format::Item,Enum,Missing,,,
+chrono::format::Numeric,Enum,Missing,,,
+chrono::format::OffsetFormat,Struct,Missing,,,
+chrono::format::OffsetPrecision,Enum,Missing,,,
+chrono::format::Pad,Enum,Missing,,,
+chrono::format::ParseError,Struct,Missing,,,
+chrono::format::ParseErrorKind,Enum,Missing,,,
+chrono::format::ParseResult,TypeAlias,Missing,,,
+chrono::format::formatting::DelayedFormat,Struct,Missing,,,
+chrono::format::formatting::SecondsFormat,Enum,Missing,,,
+chrono::format::parsed::Parsed,Struct,Missing,,,
+chrono::format::strftime::StrftimeItems,Struct,Missing,,,
+chrono::month::Month,Enum,Missing,,,
+chrono::month::Months,Struct,Missing,,,
+chrono::month::ParseMonthError,Struct,Missing,,,
+chrono::naive::Days,Struct,Missing,,,
+chrono::naive::NaiveWeek,Struct,Missing,,,
+chrono::naive::date::NaiveDate,Struct,Missing,,,
+chrono::naive::date::NaiveDateDaysIterator,Struct,Missing,,,
+chrono::naive::date::NaiveDateWeeksIterator,Struct,Missing,,,
+chrono::naive::datetime::NaiveDateTime,Struct,Covered,elicit_chrono::naive_date_time::NaiveDateTime,,
+chrono::naive::isoweek::IsoWeek,Struct,Missing,,,
+chrono::naive::time::NaiveTime,Struct,Missing,,,
+chrono::offset::LocalResult,Enum,Missing,,,
+chrono::offset::MappedLocalTime,TypeAlias,Missing,,,
+chrono::offset::fixed::FixedOffset,Struct,Missing,,,
+chrono::offset::local::Local,Struct,Missing,,,
+chrono::offset::utc::Utc,Struct,Missing,,,
+chrono::round::RoundingError,Enum,Missing,,,
+chrono::time_delta::OutOfRangeError,Struct,Missing,,,
+chrono::time_delta::TimeDelta,Struct,Missing,,,
+chrono::weekday::ParseWeekdayError,Struct,Missing,,,
+chrono::weekday::Weekday,Enum,Missing,,,
+chrono::weekday_set::WeekdaySet,Struct,Missing,,,
+chrono::weekday_set::WeekdaySetIter,Struct,Missing,,,
+elicit_chrono::date_time_fixed::DateTimeFixed,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::date_time_utc::DateTimeUtc,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::naive_date_time::FormatStrParams,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::naive_date_time::FormatStrParamsStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::AddSecondsParams,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::AssertFutureParams,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::AssertInRangeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::ChronoWorkflowPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::ComputeDurationParams,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::DateTimeFuture,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::DateTimeInRange,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::DateTimeParsed,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::FutureDateTimeProof,TypeAlias,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::FutureDateTimeState,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::ParseDateTimeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::ParsedDateTime,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::RangedDateTimeProof,TypeAlias,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::RangedDateTimeState,Struct,Extra,,,"in shadow, not in target"
+elicit_chrono::workflow::UnvalidatedDateStr,Struct,Extra,,,"in shadow, not in target"

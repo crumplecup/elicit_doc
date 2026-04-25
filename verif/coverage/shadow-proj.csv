@@ -1,0 +1,64 @@
+item_path,item_kind,status,shadow_item,drift_confidence,notes
+elicit_proj::error::ProjResult,TypeAlias,Extra,,,"in shadow, not in target"
+elicit_proj::error::ProjTransformError,Struct,Extra,,,"in shadow, not in target"
+elicit_proj::error::ProjTransformErrorKind,Enum,Extra,,,"in shadow, not in target"
+elicit_proj::transform::ProjSpec,Enum,Extra,,,"in shadow, not in target"
+elicit_proj::transform::ProjTransform,Struct,Extra,,,"in shadow, not in target"
+elicit_proj::workflow::transform_plugin::ConvertCoordParams,Struct,Extra,,,"in shadow, not in target"
+elicit_proj::workflow::transform_plugin::ConvertGeometryParams,Struct,Extra,,,"in shadow, not in target"
+elicit_proj::workflow::transform_plugin::CreateFromKnownCrsParams,Struct,Extra,,,"in shadow, not in target"
+elicit_proj::workflow::transform_plugin::CreateFromProjStringParams,Struct,Extra,,,"in shadow, not in target"
+elicit_proj::workflow::transform_plugin::DefinitionParams,Struct,Extra,,,"in shadow, not in target"
+elicit_proj::workflow::transform_plugin::ProjCreated,Struct,Extra,,,"in shadow, not in target"
+elicit_proj::workflow::transform_plugin::ProjTransformPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_proj::workflow::transform_plugin::ProjectCoordParams,Struct,Extra,,,"in shadow, not in target"
+elicit_proj::workflow::transform_plugin::TransformBoundsParams,Struct,Extra,,,"in shadow, not in target"
+elicit_proj::workflow::transform_plugin::TransformBoundsResult,Struct,Extra,,,"in shadow, not in target"
+proj::proj::Area,Struct,Missing,,,
+proj::proj::Info,Struct,Missing,,,
+proj::proj::Proj,Struct,Missing,,,
+proj::proj::ProjBuilder,Struct,Missing,,,
+proj::proj::ProjCreateError,Enum,Missing,,,
+proj::proj::ProjError,Enum,Missing,,,
+proj::proj::ProjInfo,Struct,Missing,,,
+proj::proj::WktOptions,Struct,Missing,,,
+proj::proj::WktOutputAxis,Enum,Missing,,,
+proj::proj::WktVersion,Enum,Missing,,,
+proj::transform::TransformError,Enum,Missing,,,
+proj_sys::P5_FACTORS,Struct,Missing,,,
+proj_sys::PJ_AREA,Struct,Missing,,,
+proj_sys::PJ_AXIS_DESCRIPTION,Struct,Missing,,,
+proj_sys::PJ_CONTEXT,TypeAlias,Missing,,,
+proj_sys::PJ_ELLPS,Struct,Missing,,,
+proj_sys::PJ_ENU,Struct,Missing,,,
+proj_sys::PJ_GEOD,Struct,Missing,,,
+proj_sys::PJ_GRID_INFO,Struct,Missing,,,
+proj_sys::PJ_INFO,Struct,Missing,,,
+proj_sys::PJ_INIT_INFO,Struct,Missing,,,
+proj_sys::PJ_INSERT_SESSION,Struct,Missing,,,
+proj_sys::PJ_LIST,Struct,Missing,,,
+proj_sys::PJ_LP,Struct,Missing,,,
+proj_sys::PJ_LPZ,Struct,Missing,,,
+proj_sys::PJ_LPZT,Struct,Missing,,,
+proj_sys::PJ_OBJ_LIST,Struct,Missing,,,
+proj_sys::PJ_OPERATION_FACTORY_CONTEXT,Struct,Missing,,,
+proj_sys::PJ_OPK,Struct,Missing,,,
+proj_sys::PJ_PARAM_DESCRIPTION,Struct,Missing,,,
+proj_sys::PJ_PRIME_MERIDIANS,Struct,Missing,,,
+proj_sys::PJ_PROJ_INFO,Struct,Missing,,,
+proj_sys::PJ_UNITS,Struct,Missing,,,
+proj_sys::PJ_UV,Struct,Missing,,,
+proj_sys::PJ_UVW,Struct,Missing,,,
+proj_sys::PJ_UVWT,Struct,Missing,,,
+proj_sys::PJ_XY,Struct,Missing,,,
+proj_sys::PJ_XYZ,Struct,Missing,,,
+proj_sys::PJ_XYZT,Struct,Missing,,,
+proj_sys::PJconsts,Struct,Missing,,,
+proj_sys::PROJ_CELESTIAL_BODY_INFO,Struct,Missing,,,
+proj_sys::PROJ_CRS_INFO,Struct,Missing,,,
+proj_sys::PROJ_CRS_LIST_PARAMETERS,Struct,Missing,,,
+proj_sys::PROJ_FILE_API,Struct,Missing,,,
+proj_sys::PROJ_FILE_HANDLE,Struct,Missing,,,
+proj_sys::PROJ_NETWORK_HANDLE,Struct,Missing,,,
+proj_sys::PROJ_UNIT_INFO,Struct,Missing,,,
+proj_sys::pj_ctx,Struct,Missing,,,

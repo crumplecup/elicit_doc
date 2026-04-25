@@ -1,0 +1,28 @@
+item_path,item_kind,status,shadow_item,drift_confidence,notes
+elicit_georaster::color_type::ColorType,Enum,Extra,,,"in shadow, not in target"
+elicit_georaster::photometric_interpretation::PhotometricInterpretation,Enum,Extra,,,"in shadow, not in target"
+elicit_georaster::planar_configuration::PlanarConfiguration,Enum,Extra,,,"in shadow, not in target"
+elicit_georaster::reader::GeoRasterResult,TypeAlias,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::reader_plugin::GeoTiffReaderConfigured,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::reader_plugin::GeoTiffReaderOpened,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::reader_plugin::GeoTiffReaderPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::reader_plugin::ReaderImageInfoParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::reader_plugin::ReaderImagesParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::reader_plugin::ReaderOpenBytesParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::reader_plugin::ReaderOpenPathParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::reader_plugin::ReaderOriginParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::reader_plugin::ReaderPixelSizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::reader_plugin::ReaderSeekToImageParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::reader_plugin::ReaderSelectRasterBandParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::sampling_plugin::GeoTiffSampled,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::sampling_plugin::GeoTiffSamplingPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::sampling_plugin::ReaderCoordToPixelParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::sampling_plugin::ReaderPixelToCoordParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::sampling_plugin::ReaderPixelsParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::sampling_plugin::ReaderReadPixelAtLocationParams,Struct,Extra,,,"in shadow, not in target"
+elicit_georaster::workflow::sampling_plugin::ReaderReadPixelParams,Struct,Extra,,,"in shadow, not in target"
+georaster::geo::Coordinate,Struct,Covered,elicit_georaster::coordinate::Coordinate,,
+georaster::geotiff::GeoTiffReader,Struct,Covered,elicit_georaster::reader::GeoTiffReader,,
+georaster::geotiff::ImageInfo,Struct,Covered,elicit_georaster::image_info::ImageInfo,,
+georaster::geotiff::Pixels,Struct,Covered,elicit_georaster::pixels::Pixels,,
+georaster::geotiff::RasterValue,Enum,Covered,elicit_georaster::raster_value::RasterValue,,

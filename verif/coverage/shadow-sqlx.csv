@@ -1,0 +1,151 @@
+item_path,item_kind,status,shadow_item,drift_confidence,notes
+elicit_sqlx::args::ToSqlxArgsFactory,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::backend::SqlxDbBackend,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::context::SqlxContext,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::drivers::BeginResult,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::drivers::ConnectParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::drivers::ConnectResult,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::drivers::PoolIdParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::drivers::PoolSqlParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::drivers::PoolStatsResult,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::drivers::SqlxMySqlPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::drivers::SqlxPgPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::drivers::SqlxSqlitePlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::drivers::TxIdParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::drivers::TxSqlParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::error::SqlxError,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::frag_plugin::MigrateFragmentEmitted,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::frag_plugin::MigrateFragmentEmittedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_sqlx::frag_plugin::QueryAsFragmentEmitted,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::frag_plugin::QueryAsFragmentEmittedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_sqlx::frag_plugin::QueryFragmentEmitted,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::frag_plugin::QueryFragmentEmittedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_sqlx::frag_plugin::QueryScalarFragmentEmitted,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::frag_plugin::QueryScalarFragmentEmittedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_sqlx::frag_plugin::SqlxFragPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::fragments::migrate::MigrateParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::fragments::query::QueryParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::fragments::query_as::QueryAsParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::fragments::query_scalar::QueryScalarParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::plugin::SqlxPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::query_result::QueryResultData,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::ConnectedAndExecuted,TypeAlias,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::DbConnected,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::DbConnectedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::FullCommit,TypeAlias,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::QueryExecuted,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::QueryExecutedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::RowsFetched,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::RowsFetchedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::SqlxCtx,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::SqlxPoolCtx,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::SqlxTxCtx,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::SqlxWorkflowPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::TransactionCommitted,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::TransactionCommittedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::TransactionOpen,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::TransactionOpenStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::TransactionRolledBack,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::TransactionRolledBackStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfBeginEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfBeginParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfBeginResult,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfCommitEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfConnectEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfConnectParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfConnectResult,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfDisconnectEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfExecuteEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfFetchAllEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfFetchAllParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfFetchOneEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfFetchOneParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfFetchOptionalEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfFetchOptionalParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfPoolIdParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfPoolSqlParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfRollbackEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfRollbackParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfTxExecuteEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfTxFetchAllEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfTxFetchAllParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfTxFetchOneEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfTxFetchOneParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfTxFetchOptionalEmit,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfTxFetchOptionalParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfTxIdParams,Struct,Extra,,,"in shadow, not in target"
+elicit_sqlx::workflow::WfTxSqlParams,Struct,Extra,,,"in shadow, not in target"
+sqlx_core::any::AnyPool,TypeAlias,Missing,,,
+sqlx_core::any::AnyPoolOptions,TypeAlias,Missing,,,
+sqlx_core::any::arguments::AnyArgumentBuffer,Struct,Missing,,,
+sqlx_core::any::arguments::AnyArguments,Struct,Missing,,,
+sqlx_core::any::column::AnyColumn,Struct,Covered,elicit_sqlx::column::AnyColumn,,
+sqlx_core::any::connection::AnyConnection,Struct,Missing,,,
+sqlx_core::any::database::Any,Struct,Missing,,,
+sqlx_core::any::driver::AnyDriver,Struct,Missing,,,
+sqlx_core::any::kind::AnyKind,Enum,Missing,,,
+sqlx_core::any::options::AnyConnectOptions,Struct,Missing,,,
+sqlx_core::any::query_result::AnyQueryResult,Struct,Covered,elicit_sqlx::query_result::AnyQueryResult,,
+sqlx_core::any::row::AnyRow,Struct,Covered,elicit_sqlx::row::AnyRow,,
+sqlx_core::any::statement::AnyStatement,Struct,Missing,,,
+sqlx_core::any::transaction::AnyTransactionManager,Struct,Missing,,,
+sqlx_core::any::type_info::AnyTypeInfo,Struct,Covered,elicit_sqlx::type_info::AnyTypeInfo,,
+sqlx_core::any::type_info::AnyTypeInfoKind,Enum,Missing,,,
+sqlx_core::any::value::AnyValue,Struct,Missing,,,
+sqlx_core::any::value::AnyValueKind,Enum,Missing,,,
+sqlx_core::any::value::AnyValueRef,Struct,Missing,,,
+sqlx_core::arguments::ImmutableArguments,Struct,Missing,,,
+sqlx_core::common::DebugFn,Struct,Missing,,,
+sqlx_core::common::statement_cache::StatementCache,Struct,Missing,,,
+sqlx_core::connection::LogSettings,Struct,Missing,,,
+sqlx_core::describe::Describe,Struct,Missing,,,
+sqlx_core::describe::_::deserialize::__Field,Enum,Missing,,,
+sqlx_core::describe::_::deserialize::__FieldVisitor,Struct,Missing,,,
+sqlx_core::describe::_::deserialize::__Visitor,Struct,Missing,,,
+sqlx_core::encode::IsNull,Enum,Missing,,,
+sqlx_core::error::Error,Enum,Missing,,,
+sqlx_core::error::ErrorKind,Enum,Missing,,,
+sqlx_core::error::Result,TypeAlias,Missing,,,
+sqlx_core::error::UnexpectedNullError,Struct,Missing,,,
+sqlx_core::ext::async_stream::TryAsyncStream,Struct,Missing,,,
+sqlx_core::ext::ustr::UStr,Enum,Missing,,,
+sqlx_core::logger::QueryLogger,Struct,Missing,,,
+sqlx_core::migrate::error::MigrateError,Enum,Missing,,,
+sqlx_core::migrate::migration::AppliedMigration,Struct,Missing,,,
+sqlx_core::migrate::migration::Migration,Struct,Missing,,,
+sqlx_core::migrate::migration_type::MigrationType,Enum,Missing,,,
+sqlx_core::migrate::migrator::Migrator,Struct,Missing,,,
+sqlx_core::migrate::source::ResolveError,Struct,Missing,,,
+sqlx_core::net::socket::Flush,Struct,Missing,,,
+sqlx_core::net::socket::Read,Struct,Missing,,,
+sqlx_core::net::socket::Shutdown,Struct,Missing,,,
+sqlx_core::net::socket::SocketIntoBox,Struct,Missing,,,
+sqlx_core::net::socket::Write,Struct,Missing,,,
+sqlx_core::net::tls::CertificateInput,Enum,Missing,,,
+sqlx_core::net::tls::util::StdSocket,Struct,Missing,,,
+sqlx_core::pool::CloseEvent,Struct,Missing,,,
+sqlx_core::pool::Pool,Struct,Missing,,,
+sqlx_core::pool::connection::Floating,Struct,Missing,,,
+sqlx_core::pool::connection::Idle,Struct,Missing,,,
+sqlx_core::pool::connection::PoolConnection,Struct,Missing,,,
+sqlx_core::pool::inner::DecrementSizeGuard,Struct,Missing,,,
+sqlx_core::pool::inner::PoolInner,Struct,Missing,,,
+sqlx_core::pool::maybe::MaybePoolConnection,Enum,Missing,,,
+sqlx_core::pool::options::PoolConnectionMetadata,Struct,Missing,,,
+sqlx_core::pool::options::PoolOptions,Struct,Missing,,,
+sqlx_core::query::Map,Struct,Missing,,,
+sqlx_core::query::Query,Struct,Missing,,,
+sqlx_core::query_as::QueryAs,Struct,Missing,,,
+sqlx_core::query_builder::QueryBuilder,Struct,Missing,,,
+sqlx_core::query_scalar::QueryScalar,Struct,Missing,,,
+sqlx_core::raw_sql::RawSql,Struct,Missing,,,
+sqlx_core::rt::JoinHandle,Enum,Missing,,,
+sqlx_core::rt::TimeoutError,Struct,Missing,,,
+sqlx_core::testing::TestArgs,Struct,Missing,,,
+sqlx_core::testing::fixtures::Fixture,Struct,Missing,,,
+sqlx_core::testing::fixtures::FixtureError,Struct,Missing,,,
+sqlx_core::transaction::Transaction,Struct,Missing,,,
+sqlx_core::type_checking::FmtValue,Struct,Missing,,,
+sqlx_core::type_checking::ParamChecking,Enum,Missing,,,
+sqlx_core::types::json::Json,Struct,Missing,,,
+sqlx_core::types::text::Text,Struct,Missing,,,

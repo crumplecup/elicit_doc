@@ -1,0 +1,187 @@
+item_path,item_kind,status,shadow_item,drift_confidence,notes
+axum::error_handling::HandleError,Struct,Missing,,,
+axum::error_handling::HandleErrorLayer,Struct,Missing,,,
+axum::error_handling::future::HandleErrorFuture,Struct,Missing,,,
+axum::extension::AddExtension,Struct,Missing,,,
+axum::extension::Extension,Struct,Missing,,,
+axum::extract::connect_info::ConnectInfo,Struct,Missing,,,
+axum::extract::connect_info::IntoMakeServiceWithConnectInfo,Struct,Missing,,,
+axum::extract::connect_info::MockConnectInfo,Struct,Missing,,,
+axum::extract::connect_info::ResponseFuture,Struct,Missing,,,
+axum::extract::matched_path::MatchedPath,Struct,Missing,,,
+axum::extract::multipart::Field,Struct,Missing,,,
+axum::extract::multipart::InvalidBoundary,Struct,Missing,,,
+axum::extract::multipart::Multipart,Struct,Missing,,,
+axum::extract::multipart::MultipartError,Struct,Missing,,,
+axum::extract::multipart::MultipartRejection,Enum,Missing,,,
+axum::extract::nested_path::NestedPath,Struct,Missing,,,
+axum::extract::original_uri::OriginalUri,Struct,Missing,,,
+axum::extract::path::ErrorKind,Enum,Missing,,,
+axum::extract::path::FailedToDeserializePathParams,Struct,Missing,,,
+axum::extract::path::InvalidUtf8InPathParam,Struct,Missing,,,
+axum::extract::path::Path,Struct,Missing,,,
+axum::extract::path::RawPathParams,Struct,Missing,,,
+axum::extract::path::RawPathParamsIter,Struct,Missing,,,
+axum::extract::query::Query,Struct,Missing,,,
+axum::extract::raw_form::RawForm,Struct,Missing,,,
+axum::extract::raw_query::RawQuery,Struct,Missing,,,
+axum::extract::rejection::ExtensionRejection,Enum,Missing,,,
+axum::extract::rejection::FailedToDeserializeForm,Struct,Missing,,,
+axum::extract::rejection::FailedToDeserializeFormBody,Struct,Missing,,,
+axum::extract::rejection::FailedToDeserializeQueryString,Struct,Missing,,,
+axum::extract::rejection::FormRejection,Enum,Missing,,,
+axum::extract::rejection::InvalidFormContentType,Struct,Missing,,,
+axum::extract::rejection::JsonDataError,Struct,Missing,,,
+axum::extract::rejection::JsonRejection,Enum,Missing,,,
+axum::extract::rejection::JsonSyntaxError,Struct,Missing,,,
+axum::extract::rejection::MatchedPathMissing,Struct,Missing,,,
+axum::extract::rejection::MatchedPathRejection,Enum,Missing,,,
+axum::extract::rejection::MissingExtension,Struct,Missing,,,
+axum::extract::rejection::MissingJsonContentType,Struct,Missing,,,
+axum::extract::rejection::MissingPathParams,Struct,Missing,,,
+axum::extract::rejection::NestedPathRejection,Struct,Missing,,,
+axum::extract::rejection::PathRejection,Enum,Missing,,,
+axum::extract::rejection::QueryRejection,Enum,Missing,,,
+axum::extract::rejection::RawFormRejection,Enum,Missing,,,
+axum::extract::rejection::RawPathParamsRejection,Enum,Missing,,,
+axum::extract::state::State,Struct,Missing,,,
+axum::extract::ws::CloseCode,TypeAlias,Missing,,,
+axum::extract::ws::CloseFrame,Struct,Missing,,,
+axum::extract::ws::DefaultOnFailedUpgrade,Struct,Missing,,,
+axum::extract::ws::Message,Enum,Missing,,,
+axum::extract::ws::Utf8Bytes,Struct,Missing,,,
+axum::extract::ws::WebSocket,Struct,Missing,,,
+axum::extract::ws::WebSocketUpgrade,Struct,Missing,,,
+axum::extract::ws::rejection::ConnectionNotUpgradable,Struct,Missing,,,
+axum::extract::ws::rejection::InvalidConnectionHeader,Struct,Missing,,,
+axum::extract::ws::rejection::InvalidProtocolPseudoheader,Struct,Missing,,,
+axum::extract::ws::rejection::InvalidUpgradeHeader,Struct,Missing,,,
+axum::extract::ws::rejection::InvalidWebSocketVersionHeader,Struct,Missing,,,
+axum::extract::ws::rejection::MethodNotConnect,Struct,Missing,,,
+axum::extract::ws::rejection::MethodNotGet,Struct,Missing,,,
+axum::extract::ws::rejection::WebSocketKeyHeaderMissing,Struct,Missing,,,
+axum::extract::ws::rejection::WebSocketUpgradeRejection,Enum,Missing,,,
+axum::form::Form,Struct,Missing,,,
+axum::handler::Layered,Struct,Missing,,,
+axum::handler::future::IntoServiceFuture,Struct,Missing,,,
+axum::handler::future::LayeredFuture,Struct,Missing,,,
+axum::handler::private::IntoResponseHandler,Enum,Missing,,,
+axum::handler::service::HandlerService,Struct,Missing,,,
+axum::json::Json,Struct,Missing,,,
+axum::middleware::from_extractor::FromExtractor,Struct,Missing,,,
+axum::middleware::from_extractor::FromExtractorLayer,Struct,Missing,,,
+axum::middleware::from_extractor::ResponseFuture,Struct,Missing,,,
+axum::middleware::from_fn::FromFn,Struct,Missing,,,
+axum::middleware::from_fn::FromFnLayer,Struct,Missing,,,
+axum::middleware::from_fn::Next,Struct,Missing,,,
+axum::middleware::from_fn::ResponseFuture,Struct,Missing,,,
+axum::middleware::map_request::MapRequest,Struct,Missing,,,
+axum::middleware::map_request::MapRequestLayer,Struct,Missing,,,
+axum::middleware::map_request::ResponseFuture,Struct,Missing,,,
+axum::middleware::map_response::MapResponse,Struct,Missing,,,
+axum::middleware::map_response::MapResponseLayer,Struct,Missing,,,
+axum::middleware::map_response::ResponseFuture,Struct,Missing,,,
+axum::middleware::response_axum_body::ResponseAxumBody,Struct,Missing,,,
+axum::middleware::response_axum_body::ResponseAxumBodyFuture,Struct,Missing,,,
+axum::middleware::response_axum_body::ResponseAxumBodyLayer,Struct,Missing,,,
+axum::response::Html,Struct,Missing,,,
+axum::response::NoContent,Struct,Missing,,,
+axum::response::redirect::Redirect,Struct,Missing,,,
+axum::response::sse::Event,Struct,Missing,,,
+axum::response::sse::EventDataWriter,Struct,Missing,,,
+axum::response::sse::KeepAlive,Struct,Missing,,,
+axum::response::sse::KeepAliveStream,Struct,Missing,,,
+axum::response::sse::Sse,Struct,Missing,,,
+axum::routing::Router,Struct,Missing,,,
+axum::routing::RouterAsService,Struct,Missing,,,
+axum::routing::RouterIntoService,Struct,Missing,,,
+axum::routing::into_make_service::IntoMakeService,Struct,Missing,,,
+axum::routing::into_make_service::IntoMakeServiceFuture,Struct,Missing,,,
+axum::routing::method_filter::MethodFilter,Struct,Missing,,,
+axum::routing::method_filter::NoMatchingMethodFilter,Struct,Missing,,,
+axum::routing::method_routing::MethodRouter,Struct,Missing,,,
+axum::routing::route::InfallibleRouteFuture,Struct,Missing,,,
+axum::routing::route::Route,Struct,Missing,,,
+axum::routing::route::RouteFuture,Struct,Missing,,,
+axum::serve::IncomingStream,Struct,Missing,,,
+axum::serve::Serve,Struct,Missing,,,
+axum::serve::WithGracefulShutdown,Struct,Missing,,,
+axum::serve::listener::TapIo,Struct,Missing,,,
+axum::serve::private::ServeFuture,Struct,Missing,,,
+axum::test_helpers::test_client::RequestBuilder,Struct,Missing,,,
+axum::test_helpers::test_client::TestClient,Struct,Missing,,,
+axum::test_helpers::test_client::TestResponse,Struct,Missing,,,
+axum_core::BoxError,TypeAlias,Missing,,,
+axum_core::body::Body,Struct,Missing,,,
+axum_core::body::BodyDataStream,Struct,Missing,,,
+axum_core::body::StreamBody,Struct,Missing,,,
+axum_core::error::Error,Struct,Missing,,,
+axum_core::extract::Request,TypeAlias,Missing,,,
+axum_core::extract::default_body_limit::DefaultBodyLimit,Struct,Missing,,,
+axum_core::extract::default_body_limit::DefaultBodyLimitKind,Enum,Missing,,,
+axum_core::extract::default_body_limit::private::DefaultBodyLimitService,Struct,Missing,,,
+axum_core::extract::private::ViaParts,Enum,Missing,,,
+axum_core::extract::private::ViaRequest,Enum,Missing,,,
+axum_core::extract::rejection::BytesRejection,Enum,Missing,,,
+axum_core::extract::rejection::FailedToBufferBody,Enum,Missing,,,
+axum_core::extract::rejection::InvalidUtf8,Struct,Missing,,,
+axum_core::extract::rejection::LengthLimitError,Struct,Missing,,,
+axum_core::extract::rejection::StringRejection,Enum,Missing,,,
+axum_core::extract::rejection::UnknownBodyError,Struct,Missing,,,
+axum_core::response::ErrorResponse,Struct,Missing,,,
+axum_core::response::Response,TypeAlias,Missing,,,
+axum_core::response::Result,TypeAlias,Missing,,,
+axum_core::response::append_headers::AppendHeaders,Struct,Missing,,,
+axum_core::response::into_response::BytesChainBody,Struct,Missing,,,
+axum_core::response::into_response_parts::ResponseParts,Struct,Missing,,,
+axum_core::response::into_response_parts::TryIntoHeaderError,Struct,Missing,,,
+axum_core::response::into_response_parts::TryIntoHeaderErrorKind,Enum,Missing,,,
+elicit_axum::handler::AxumExtractorAdded,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::handler::AxumExtractorAddedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_axum::handler::AxumHandlerCtx,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::handler::AxumHandlerDefined,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::handler::AxumHandlerDefinedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_axum::handler::AxumHandlerPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::handler::HandlerAddExtractorParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::handler::HandlerDescribeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::handler::HandlerEmitParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::handler::HandlerIdResult,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::handler::HandlerNewParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::handler::HandlerSetBodyParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::AxumResponseCtx,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::AxumResponseDefined,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::AxumResponseDefinedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_axum::response::AxumResponsePlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::ResponseDescribeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::ResponseEmitParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::ResponseHtmlParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::ResponseIdResult,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::ResponseJsonParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::ResponseNoContentParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::ResponseRedirectPermanentParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::ResponseRedirectTemporaryParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::response::ResponseStatusParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::AxumRouteAdded,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::AxumRouteAddedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_axum::router::AxumRouterCreated,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::AxumRouterCreatedStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_axum::router::AxumRouterCtx,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::AxumRouterPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::RouterAddLayerParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::RouterAddRouteParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::RouterDescribeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::RouterEmitParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::RouterIdResult,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::RouterNewParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::RouterSetCustomStateParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::RouterSetDbSlotParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::router::RouterSetFallbackParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::serve::AxumServeCtx,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::serve::AxumServePlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::serve::AxumServerConfigured,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::serve::AxumServerConfiguredStyle,Enum,Extra,,,"in shadow, not in target"
+elicit_axum::serve::ServeDescribeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::serve::ServeEmitMainParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::serve::ServeGracefulParams,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::serve::ServeIdResult,Struct,Extra,,,"in shadow, not in target"
+elicit_axum::serve::ServeNewParams,Struct,Extra,,,"in shadow, not in target"

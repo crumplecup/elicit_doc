@@ -1,0 +1,48 @@
+item_path,item_kind,status,shadow_item,drift_confidence,notes
+elicit_wkb::workflow::reader_plugin::ReadWkbParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::reader_plugin::WkbDimensionParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::reader_plugin::WkbEndiannessParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::reader_plugin::WkbGeometryTypeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::reader_plugin::WkbParsed,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::reader_plugin::WkbReaderPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::reader_plugin::WkbTryNewParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::GeometryCollectionSizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::GeometrySizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::LineSizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::LineStringSizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::MultiLineStringSizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::MultiPointSizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::MultiPolygonSizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::PointSizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::PolygonSizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::RectSizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::TriangleSizeParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWriteGeometryCollectionParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWriteGeometryParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWriteLineParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWriteLineStringParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWriteMultiLineStringParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWriteMultiPointParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWriteMultiPolygonParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWritePointParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWritePolygonParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWriteRectParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWriteTriangleParams,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWriterPlugin,Struct,Extra,,,"in shadow, not in target"
+elicit_wkb::workflow::writer_plugin::WkbWritten,Struct,Extra,,,"in shadow, not in target"
+wkb::common::Dimension,Enum,Covered,elicit_wkb::reader::Dimension,,
+wkb::common::Endianness,Enum,Covered,elicit_wkb::endianness::Endianness,,
+wkb::error::WkbError,Enum,Covered,elicit_wkb::error::WkbError,,
+wkb::error::WkbResult,TypeAlias,Covered,elicit_wkb::error::WkbResult,,
+wkb::reader::GeometryType,Enum,Covered,elicit_wkb::reader::GeometryType,,
+wkb::reader::coord::Coord,Struct,Missing,,,
+wkb::reader::geometry::Wkb,Struct,Covered,elicit_wkb::reader::Wkb,,
+wkb::reader::geometry_collection::GeometryCollection,Struct,Missing,,,
+wkb::reader::linearring::LinearRing,Struct,Missing,,,
+wkb::reader::linestring::LineString,Struct,Missing,,,
+wkb::reader::multilinestring::MultiLineString,Struct,Missing,,,
+wkb::reader::multipoint::MultiPoint,Struct,Missing,,,
+wkb::reader::multipolygon::MultiPolygon,Struct,Missing,,,
+wkb::reader::point::Point,Struct,Missing,,,
+wkb::reader::polygon::Polygon,Struct,Missing,,,
+wkb::writer::options::WriteOptions,Struct,Covered,elicit_wkb::writer::WriteOptions,,

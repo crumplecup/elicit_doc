@@ -109,24 +109,93 @@ pub fn run() -> ElicitDocResult<()> {
 }
 
 /// Supported third-party crates: (upstream crate name, elicitation feature flag).
-/// These are external deps — use `collect_dep_inventory` to document them.
+///
+/// These are external deps with value/data types that could be `ElicitComplete`.
+/// Use `collect_dep_inventory` to document them.
 const THIRD_PARTY_CRATES: &[(&str, &str)] = &[
+    // Date/time
+    ("chrono", "chrono"),
+    ("time", "time"),
+    ("jiff", "jiff"),
+    // Identifiers / strings
     ("uuid", "uuid"),
     ("url", "url"),
-    ("geo-types", "geo-types"),
-    ("geojson", "geojson"),
-    ("chrono", "chrono"),
+    ("regex", "regex"),
+    // Serialization
     ("serde_json", "serde_json"),
+    ("toml", "toml-types"),
+    // Geo / spatial
+    ("geo-types", "geo-types"),
+    ("geo", "geo"),
+    ("geojson", "geojson-types"),
+    ("georaster", "georaster-types"),
+    ("rstar", "rstar-types"),
+    ("proj", "proj-types"),
+    ("wkt", "wkt-types"),
+    ("wkb", "wkb-types"),
+    // Storage
+    ("redb", "redb-types"),
+    ("csv", "csv-types"),
+    // Accessibility
+    ("accesskit", "accesskit"),
+    // HTTP
+    ("reqwest", "reqwest"),
 ];
 
 /// Shadow crate pairs: (upstream dep name, workspace member shadow name).
-/// upstream → `collect_dep_inventory`, shadow → `collect_inventory`
+///
+/// upstream → `collect_dep_inventory`, shadow → `collect_inventory`.
+/// Crates excluded from the elicitation workspace (polars, surrealdb) are still
+/// listed; the report loop skips them gracefully if they fail to build.
 const SHADOW_PAIRS: &[(&str, &str)] = &[
+    // Graphics / rendering
     ("bevy", "elicit_bevy"),
     ("wgpu", "elicit_wgpu"),
     ("egui", "elicit_egui"),
     ("winit", "elicit_winit"),
+    // TUI
     ("ratatui", "elicit_ratatui"),
+    // Async / networking
+    ("tokio", "elicit_tokio"),
+    ("tower", "elicit_tower"),
+    ("axum", "elicit_axum"),
+    ("reqwest", "elicit_reqwest"),
+    // Data
+    ("polars", "elicit_polars"),   // excluded from workspace — skipped if unavailable
+    // CLI
+    ("clap", "elicit_clap"),
+    // Reactive / web
+    ("leptos", "elicit_leptos"),
+    // Serialization
+    ("serde", "elicit_serde"),
+    ("serde_json", "elicit_serde_json"),
+    ("toml", "elicit_toml"),
+    ("csv", "elicit_csv"),
+    // Date/time
+    ("chrono", "elicit_chrono"),
+    ("time", "elicit_time"),
+    ("jiff", "elicit_jiff"),
+    // Identifiers / strings
+    ("uuid", "elicit_uuid"),
+    ("url", "elicit_url"),
+    ("regex", "elicit_regex"),
+    // Database
+    ("sqlx", "elicit_sqlx"),
+    ("redb", "elicit_redb"),
+    ("surrealdb-types", "elicit_surrealdb"),  // excluded from workspace — skipped if unavailable
+    // Geo / spatial
+    ("geo-types", "elicit_geo_types"),
+    ("geo", "elicit_geo"),
+    ("geojson", "elicit_geojson"),
+    ("georaster", "elicit_georaster"),
+    ("rstar", "elicit_rstar"),
+    ("proj", "elicit_proj"),
+    ("wkt", "elicit_wkt"),
+    ("wkb", "elicit_wkb"),
+    // Units
+    ("uom", "elicit_uom"),
+    // Accessibility
+    ("accesskit", "elicit_accesskit"),
 ];
 
 fn run_impl_reports(
@@ -160,7 +229,14 @@ fn run_impl_reports(
     // Third-party crates — documented from their registry source
     for (crate_name, _feature) in THIRD_PARTY_CRATES {
         if only_crate.is_none_or(|c| c == *crate_name) {
-            let (source, all_features) = collect_dep_inventory(workspace, crate_name)?;
+            let (source, all_features) = match collect_dep_inventory(workspace, crate_name) {
+                Ok(pair) => pair,
+                Err(e) => {
+                    tracing::warn!(crate_name, error = %e, "skipping: dep inventory failed");
+                    println!("skipped {crate_name}: {e}");
+                    continue;
+                }
+            };
             let safe_name = crate_name.replace('-', "_");
             let dep_json = std::env::current_dir()
                 .unwrap_or_else(|_| std::path::PathBuf::from("."))
@@ -227,8 +303,22 @@ fn run_shadow_reports(
 
     for (target, shadow) in SHADOW_PAIRS {
         if only_crate.is_none_or(|c| c == *target || c == *shadow) {
-            let (target_inv, _) = collect_dep_inventory(workspace, target)?;
-            let shadow_inv = collect_inventory(workspace, shadow, &[])?;
+            let target_inv = match collect_dep_inventory(workspace, target) {
+                Ok((inv, _)) => inv,
+                Err(e) => {
+                    tracing::warn!(target, error = %e, "skipping shadow pair: upstream dep inventory failed");
+                    println!("skipped {target} → {shadow}: {e}");
+                    continue;
+                }
+            };
+            let shadow_inv = match collect_inventory(workspace, shadow, &[]) {
+                Ok(inv) => inv,
+                Err(e) => {
+                    tracing::warn!(shadow, error = %e, "skipping shadow pair: shadow inventory failed");
+                    println!("skipped {target} → {shadow}: {e}");
+                    continue;
+                }
+            };
             let report = build_shadow_report(&target_inv, &shadow_inv);
             let path = output_dir.join(format!("shadow-{target}.csv"));
             write_shadow_csv(&report, &path)?;

@@ -1,0 +1,24 @@
+item_path,item_kind,status,shadow_item,drift_confidence,notes
+elicit_rstar::factory::PointDistanceFactory,Struct,Extra,,,"in shadow, not in target"
+elicit_rstar::factory::RTreeObjectFactory,Struct,Extra,,,"in shadow, not in target"
+elicit_rstar::tree::LineTree,TypeAlias,Extra,,,"in shadow, not in target"
+elicit_rstar::tree::RectangleTree,TypeAlias,Extra,,,"in shadow, not in target"
+elicit_rstar::tree::RstarTree,Struct,Extra,,,"in shadow, not in target"
+elicit_rstar::tree::RstarTreeStyle,Enum,Extra,,,"in shadow, not in target"
+rstar::aabb::AABB,Struct,Missing,,,
+rstar::algorithm::intersection_iterator::IntersectionIterator,Struct,Missing,,,
+rstar::algorithm::iterators::SelectionIterator,Struct,Missing,,,
+rstar::algorithm::iterators::SelectionIteratorMut,Struct,Missing,,,
+rstar::algorithm::rstar::RStarInsertionStrategy,Enum,Missing,,,
+rstar::algorithm::selection_functions::SelectAllFunc,Struct,Missing,,,
+rstar::algorithm::selection_functions::SelectAtPointFunction,Struct,Missing,,,
+rstar::algorithm::selection_functions::SelectInEnvelopeFuncIntersecting,Struct,Missing,,,
+rstar::algorithm::selection_functions::SelectInEnvelopeFunction,Struct,Missing,,,
+rstar::algorithm::selection_functions::SelectWithinDistanceFunction,Struct,Missing,,,
+rstar::node::ParentNode,Struct,Missing,,,
+rstar::node::RTreeNode,Enum,Missing,,,
+rstar::params::DefaultParams,Struct,Missing,,,
+rstar::primitives::line::Line,Struct,Missing,,,
+rstar::primitives::point_with_data::PointWithData,Struct,Missing,,,
+rstar::primitives::rectangle::Rectangle,Struct,Missing,,,
+rstar::rtree::RTree,Struct,Missing,,,
