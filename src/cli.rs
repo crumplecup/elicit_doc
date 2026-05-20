@@ -1,8 +1,10 @@
 //! CLI commands for `elicit_doc`.
 
 use std::path::PathBuf;
+use std::time::Duration;
 
 use clap::{Parser, Subcommand};
+use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 
 use crate::collect::{collect_dep_inventory, collect_elicit_complete_paths, collect_inventory, collect_proof_harness, collect_trait_prereqs};
 use crate::error::ElicitDocResult;
@@ -75,18 +77,20 @@ pub fn run() -> ElicitDocResult<()> {
             .unwrap_or_else(|_| own.join("../elicitation"))
     });
 
+    let mp = MultiProgress::new();
+
     match &cli.command {
         Commands::Run { only, crate_name } => {
             let run_impls = matches!(only, None | Some(ReportKind::Impls));
             let run_shadows = matches!(only, None | Some(ReportKind::Shadows));
 
             let impl_data = if run_impls {
-                Some(run_impl_reports(&elicitation_workspace, &output_dir, crate_name.as_deref())?)
+                Some(run_impl_reports(&elicitation_workspace, &output_dir, crate_name.as_deref(), &mp)?)
             } else {
                 None
             };
             let shadow_data = if run_shadows {
-                Some(run_shadow_reports(&elicitation_workspace, &output_dir, crate_name.as_deref())?)
+                Some(run_shadow_reports(&elicitation_workspace, &output_dir, crate_name.as_deref(), &mp)?)
             } else {
                 None
             };
@@ -99,7 +103,7 @@ pub fn run() -> ElicitDocResult<()> {
                 {
                     let summary_path = output_dir.join("summary.md");
                     write_summary_md(impl_reports, impl_gaps, shadow_reports, shadow_gaps, &summary_path)?;
-                    println!("wrote {}", summary_path.display());
+                    mp.println(format!("wrote {}", summary_path.display())).ok();
                 }
             }
         }
@@ -198,10 +202,38 @@ const SHADOW_PAIRS: &[(&str, &str)] = &[
     ("accesskit", "elicit_accesskit"),
 ];
 
+/// Create a spinner added to `mp` with a consistent style.
+fn make_spinner(mp: &MultiProgress, msg: impl Into<String>) -> ProgressBar {
+    let pb = mp.add(ProgressBar::new_spinner());
+    pb.set_style(
+        ProgressStyle::with_template("{spinner:.cyan.bold} {msg}")
+            .unwrap()
+            .tick_strings(&["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]),
+    );
+    pb.enable_steady_tick(Duration::from_millis(80));
+    pb.set_message(msg.into());
+    pb
+}
+
+/// Create an overall count bar added to `mp`.
+fn make_count_bar(mp: &MultiProgress, total: u64, prefix: &'static str) -> ProgressBar {
+    let pb = mp.add(ProgressBar::new(total));
+    pb.set_style(
+        ProgressStyle::with_template(
+            "{prefix:.bold} [{bar:40.green/dim}] {pos}/{len}  {elapsed_precise}",
+        )
+        .unwrap()
+        .progress_chars("█▉▊▋▌▍▎▏ "),
+    );
+    pb.set_prefix(prefix);
+    pb
+}
+
 fn run_impl_reports(
     workspace: &std::path::Path,
     output_dir: &std::path::Path,
     only_crate: Option<&str>,
+    mp: &MultiProgress,
 ) -> ElicitDocResult<(Vec<(String, ImplCoverageReport)>, Vec<crate::gaps::ImplGapEntry>)> {
     std::fs::create_dir_all(output_dir)
         .map_err(|e| crate::error::ElicitDocError::io(e.to_string()))?;
@@ -219,24 +251,41 @@ fn run_impl_reports(
 
     // Collect elicitation inventory once (with full feature set), then extract
     // the real ElicitComplete impl set directly from its rustdoc JSON.
+    let spinner = make_spinner(mp, "building elicitation docs…");
     let _elicitation = collect_inventory(workspace, "elicitation", &["full"])?;
+    spinner.finish_with_message("✓ elicitation docs built");
+
     let elicitation_json = workspace.join("target/doc/elicitation.json");
     let complete_paths = collect_elicit_complete_paths(&elicitation_json)?;
 
     // Accumulate all reports for gap analysis at the end.
     let mut all_reports: Vec<(String, crate::impl_coverage::ImplCoverageReport)> = Vec::new();
 
+    let total_crates = if only_crate.is_none() {
+        (THIRD_PARTY_CRATES.len() + 1) as u64
+    } else {
+        0
+    };
+    let overall = if total_crates > 0 {
+        make_count_bar(mp, total_crates, "impl coverage")
+    } else {
+        mp.add(ProgressBar::hidden())
+    };
+
     // Third-party crates — documented from their registry source
     for (crate_name, _feature) in THIRD_PARTY_CRATES {
         if only_crate.is_none_or(|c| c == *crate_name) {
+            let spinner = make_spinner(mp, format!("building docs: {crate_name}…"));
             let (source, all_features) = match collect_dep_inventory(workspace, crate_name) {
                 Ok(pair) => pair,
                 Err(e) => {
                     tracing::warn!(crate_name, error = %e, "skipping: dep inventory failed");
-                    println!("skipped {crate_name}: {e}");
+                    spinner.finish_with_message(format!("✗ {crate_name}: {e}"));
+                    mp.println(format!("skipped {crate_name}: {e}")).ok();
                     continue;
                 }
             };
+            spinner.finish_with_message(format!("✓ {crate_name} docs built"));
             let safe_name = crate_name.replace('-', "_");
             let dep_json = std::env::current_dir()
                 .unwrap_or_else(|_| std::path::PathBuf::from("."))
@@ -253,8 +302,9 @@ fn run_impl_reports(
             let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs, all_features);
             let path = output_dir.join(format!("{safe_name}.csv"));
             write_impl_coverage_csv(&report, &path)?;
-            println!("wrote {}  ({})", path.display(), report.summary());
+            mp.println(format!("wrote {}  ({})", path.display(), report.summary())).ok();
             all_reports.push((crate_name.to_string(), report));
+            overall.inc(1);
         }
     }
 
@@ -265,9 +315,12 @@ fn run_impl_reports(
         let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs, true);
         let path = output_dir.join("internal.csv");
         write_impl_coverage_csv(&report, &path)?;
-        println!("wrote {}  ({})", path.display(), report.summary());
+        mp.println(format!("wrote {}  ({})", path.display(), report.summary())).ok();
         all_reports.push(("elicitation".to_string(), report));
+        overall.inc(1);
     }
+
+    overall.finish_and_clear();
 
     // Consolidated gaps report (only when we ran more than one crate or all crates)
     let impl_gaps = if only_crate.is_none() || all_reports.len() > 1 {
@@ -279,10 +332,10 @@ fn run_impl_reports(
         let ready = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::ReadyNow).count();
         let gated = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::FeatureGated).count();
         let needs = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::NeedsExternalImpl).count();
-        println!(
+        mp.println(format!(
             "wrote {}  ({} gaps: {} ready_now, {} feature_gated, {} needs_external_impl)",
             gaps_path.display(), gaps.len(), ready, gated, needs
-        );
+        )).ok();
         gaps
     } else {
         Vec::new()
@@ -295,19 +348,29 @@ fn run_shadow_reports(
     workspace: &std::path::Path,
     output_dir: &std::path::Path,
     only_crate: Option<&str>,
+    mp: &MultiProgress,
 ) -> ElicitDocResult<(Vec<(String, String, ShadowReport)>, Vec<crate::gaps::ShadowGapEntry>)> {
     std::fs::create_dir_all(output_dir)
         .map_err(|e| crate::error::ElicitDocError::io(e.to_string()))?;
 
     let mut all_shadow: Vec<(String, String, crate::shadow::ShadowReport)> = Vec::new();
 
+    let total_pairs = if only_crate.is_none() { SHADOW_PAIRS.len() as u64 } else { 0 };
+    let overall = if total_pairs > 0 {
+        make_count_bar(mp, total_pairs, "shadow coverage")
+    } else {
+        mp.add(ProgressBar::hidden())
+    };
+
     for (target, shadow) in SHADOW_PAIRS {
         if only_crate.is_none_or(|c| c == *target || c == *shadow) {
+            let spinner = make_spinner(mp, format!("building docs: {target} → {shadow}…"));
             let target_inv = match collect_dep_inventory(workspace, target) {
                 Ok((inv, _)) => inv,
                 Err(e) => {
                     tracing::warn!(target, error = %e, "skipping shadow pair: upstream dep inventory failed");
-                    println!("skipped {target} → {shadow}: {e}");
+                    spinner.finish_with_message(format!("✗ {target}: {e}"));
+                    mp.println(format!("skipped {target} → {shadow}: {e}")).ok();
                     continue;
                 }
             };
@@ -315,17 +378,22 @@ fn run_shadow_reports(
                 Ok(inv) => inv,
                 Err(e) => {
                     tracing::warn!(shadow, error = %e, "skipping shadow pair: shadow inventory failed");
-                    println!("skipped {target} → {shadow}: {e}");
+                    spinner.finish_with_message(format!("✗ {shadow}: {e}"));
+                    mp.println(format!("skipped {target} → {shadow}: {e}")).ok();
                     continue;
                 }
             };
+            spinner.finish_with_message(format!("✓ {target} → {shadow} docs built"));
             let report = build_shadow_report(&target_inv, &shadow_inv);
             let path = output_dir.join(format!("shadow-{target}.csv"));
             write_shadow_csv(&report, &path)?;
-            println!("wrote {}  ({})", path.display(), report.summary());
+            mp.println(format!("wrote {}  ({})", path.display(), report.summary())).ok();
             all_shadow.push((target.to_string(), shadow.to_string(), report));
+            overall.inc(1);
         }
     }
+
+    overall.finish_and_clear();
 
     // Consolidated shadow gaps report
     let shadow_gaps = if only_crate.is_none() || all_shadow.len() > 1 {
@@ -338,10 +406,10 @@ fn run_shadow_reports(
         let drifted = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::Drifted).count();
         let stale = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::PossiblyStale).count();
         let infra = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::InfrastructureExtra).count();
-        println!(
+        mp.println(format!(
             "wrote {}  ({} total: {} missing, {} drifted, {} possibly_stale, {} infra_extra)",
             gaps_path.display(), gaps.len(), missing, drifted, stale, infra
-        );
+        )).ok();
         gaps
     } else {
         Vec::new()
