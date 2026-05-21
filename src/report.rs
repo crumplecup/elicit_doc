@@ -8,19 +8,12 @@ use crate::error::{ElicitDocError, ElicitDocResult};
 use crate::impl_coverage::ImplCoverageReport;
 use crate::shadow::ShadowReport;
 
-/// Convert a bool trait presence + build flag into a three-value availability string.
+/// Convert a bool trait presence into a two-value availability string.
 ///
 /// - `"present"` — impl was found in the dep's rustdoc JSON
-/// - `"absent"` — `--all-features` build succeeded but no impl found (truly missing from dep)
-/// - `"feature_gated"` — build fell back to default features; impl *may* exist behind a flag
-fn trait_avail(present: bool, all_features: bool) -> &'static str {
-    if present {
-        "present"
-    } else if all_features {
-        "absent"
-    } else {
-        "feature_gated"
-    }
+/// - `"absent"` — no impl found (dep was built with its activated features)
+fn trait_avail(present: bool) -> &'static str {
+    if present { "present" } else { "absent" }
 }
 
 /// Write an [`ImplCoverageReport`] to a CSV file at `path`.
@@ -57,8 +50,8 @@ pub fn write_impl_coverage_csv(report: &ImplCoverageReport, path: &Path) -> Elic
 
     for entry in &report.entries {
         let p = &entry.prereqs;
-        let avail = |present: bool| trait_avail(present, entry.all_features_build);
-        let blockers = p.external_blockers_with_avail(entry.all_features_build).join(";");
+        let avail = |present: bool| trait_avail(present);
+        let blockers = p.external_blockers_absent().join(";");
         wtr.write_record([
             &entry.type_path,
             &entry.type_kind.to_string(),

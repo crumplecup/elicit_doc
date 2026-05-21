@@ -82,11 +82,6 @@ pub struct ImplCoverageEntry {
     pub composition_test: TestStatus,
     /// Which of the 8 `ElicitComplete` supertraits this type already has.
     pub prereqs: TraitPrereqs,
-    /// Whether the dep was documented with `--all-features`.
-    ///
-    /// When `false` the build fell back to default features; any `false` field
-    /// in `prereqs` may be feature-gated rather than truly absent.
-    pub all_features_build: bool,
     /// Human-readable note, e.g. the concrete instantiation used in the harness.
     pub notes: String,
 }
@@ -135,7 +130,6 @@ pub fn build_impl_coverage_report(
     complete: &ElicitCompleteSet,
     harness: &ProofHarness,
     prereqs_map: &HashMap<String, TraitPrereqs>,
-    all_features_build: bool,
 ) -> ImplCoverageReport {
     let mut entries: Vec<ImplCoverageEntry> = Vec::new();
 
@@ -162,7 +156,6 @@ pub fn build_impl_coverage_report(
             proof_test,
             composition_test,
             prereqs,
-            all_features_build,
             notes,
         });
 

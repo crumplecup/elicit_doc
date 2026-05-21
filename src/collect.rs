@@ -79,19 +79,17 @@ impl TraitPrereqs {
         b
     }
 
-    /// Like `external_blockers` but each entry is annotated with its availability:
-    /// `"Serialize(absent)"`, `"JsonSchema(feature_gated)"`, etc.
-    pub fn external_blockers_with_avail(&self, all_features: bool) -> Vec<String> {
-        let suffix = if all_features { "absent" } else { "feature_gated" };
+    /// External traits that are absent, annotated for the gaps report.
+    pub fn external_blockers_absent(&self) -> Vec<String> {
         let mut b = Vec::new();
         if !self.serialize {
-            b.push(format!("Serialize({suffix})"));
+            b.push("Serialize(absent)".to_string());
         }
         if !self.deserialize {
-            b.push(format!("Deserialize({suffix})"));
+            b.push("Deserialize(absent)".to_string());
         }
         if !self.json_schema {
-            b.push(format!("JsonSchema({suffix})"));
+            b.push("JsonSchema(absent)".to_string());
         }
         b
     }
@@ -281,24 +279,17 @@ pub fn collect_inventory(
 /// member) by locating it via `cargo metadata` in `reference_workspace` and
 /// running `cargo rustdoc` directly against its manifest.
 ///
-/// `preferred_features` lists specific dep features (e.g. `&["serde"]`) to try
-/// when `--all-features` fails.  This avoids mislabelling truly absent traits as
-/// `feature_gated` on crates whose `--all-features` build fails due to conflicting
-/// or nightly-only features.
-///
-/// Build strategy (stops at first success):
-/// 1. `--all-features`
-/// 2. `--features <preferred_features>` (if non-empty and step 1 failed)
-/// 3. default features
-///
-/// Returns `(Inventory, all_features_succeeded)`.  `all_features_succeeded` is
-/// `true` for strategies 1 and 2; `false` only when we fell back to defaults.
+/// `activated_features` are the exact features our workspace has declared for
+/// this dep (e.g. `&["json", "cookies", "stream"]` for reqwest).  The build
+/// uses exactly those features — no `--all-features` guessing.  This gives an
+/// accurate picture of what trait impls are available in the context we actually
+/// use the crate in.
 #[instrument(skip(reference_workspace), fields(crate_name))]
 pub fn collect_dep_inventory(
     reference_workspace: &Path,
     crate_name: &str,
-    preferred_features: &[&str],
-) -> ElicitDocResult<(Inventory, bool)> {
+    activated_features: &[&str],
+) -> ElicitDocResult<Inventory> {
     let manifest = find_dep_manifest(reference_workspace, crate_name)?;
     let crate_dir = manifest
         .parent()
@@ -310,60 +301,29 @@ pub fn collect_dep_inventory(
         .unwrap_or_else(|_| PathBuf::from("."))
         .join("target");
 
-    let build = |features_arg: Option<&str>| -> std::io::Result<std::process::ExitStatus> {
-        let mut cmd = Command::new("cargo");
-        cmd.current_dir(crate_dir)
-            .arg("+nightly")
-            .arg("rustdoc");
-        match features_arg {
-            None => { cmd.arg("--all-features"); }
-            Some(f) if !f.is_empty() => { cmd.arg("--features").arg(f); }
-            Some(_) => {}  // empty string → default features (no flag)
-        }
-        cmd.arg("--target-dir")
-            .arg(&own_target)
-            .arg("--")
-            .arg("--output-format")
-            .arg("json")
-            .arg("-Z")
-            .arg("unstable-options");
-        cmd.status()
-    };
+    let mut cmd = Command::new("cargo");
+    cmd.current_dir(crate_dir)
+        .arg("+nightly")
+        .arg("rustdoc");
+    if !activated_features.is_empty() {
+        cmd.arg("--features").arg(activated_features.join(","));
+    }
+    cmd.arg("--target-dir")
+        .arg(&own_target)
+        .arg("--")
+        .arg("--output-format")
+        .arg("json")
+        .arg("-Z")
+        .arg("unstable-options");
 
-    tracing::debug!(manifest = %manifest.display(), "running cargo rustdoc on dep (--all-features)");
-    let status = build(None)
+    tracing::debug!(
+        manifest = %manifest.display(),
+        features = ?activated_features,
+        "running cargo rustdoc on dep"
+    );
+    let status = cmd
+        .status()
         .map_err(|e| ElicitDocError::cargo_invocation(e.to_string()))?;
-
-    let (status, used_all_features) = if status.success() {
-        (status, true)
-    } else if !preferred_features.is_empty() {
-        let feat_str = preferred_features.join(",");
-        tracing::warn!(
-            crate_name,
-            "--all-features build failed; retrying with preferred features: {feat_str}"
-        );
-        let pref = build(Some(&feat_str))
-            .map_err(|e| ElicitDocError::cargo_invocation(e.to_string()))?;
-        if pref.success() {
-            (pref, true)
-        } else {
-            tracing::warn!(
-                crate_name,
-                "preferred-features build also failed; retrying with default features"
-            );
-            let fallback = build(Some(""))
-                .map_err(|e| ElicitDocError::cargo_invocation(e.to_string()))?;
-            (fallback, false)
-        }
-    } else {
-        tracing::warn!(
-            crate_name,
-            "--all-features build failed; retrying with default features"
-        );
-        let fallback = build(Some(""))
-            .map_err(|e| ElicitDocError::cargo_invocation(e.to_string()))?;
-        (fallback, false)
-    };
 
     if !status.success() {
         return Err(ElicitDocError::cargo_invocation(format!(
@@ -384,8 +344,7 @@ pub fn collect_dep_inventory(
 
     tracing::debug!(path = %json_path.display(), "dep rustdoc JSON produced");
     // Deps: prefix match so umbrella crates like `bevy` include `bevy_ecs::*` etc.
-    let inventory = parse_rustdoc_json(&json_path, crate_name, true)?;
-    Ok((inventory, used_all_features))
+    parse_rustdoc_json(&json_path, crate_name, true)
 }
 
 /// Scan the elicitation rustdoc JSON and return all `(foreign_type, wrapper)` pairs

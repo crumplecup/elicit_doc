@@ -264,11 +264,15 @@ fn run_impl_reports(
 
     // Accumulate all reports for gap analysis at the end.
     // Also accumulate a combined foreign-type prereq map for the trenchcoat report,
-    // and per-dep serde feature candidates for FeatureGated actionability.
+    // per-dep available serde features, and per-dep activated features for gap classification.
     let mut all_reports: Vec<(String, crate::impl_coverage::ImplCoverageReport)> = Vec::new();
     let mut combined_foreign_prereqs: std::collections::HashMap<String, crate::collect::TraitPrereqs> =
         std::collections::HashMap::new();
-    let mut dep_serde_features: std::collections::HashMap<String, Vec<String>> =
+    // All serde-related features the dep offers (from cargo metadata).
+    let mut available_serde_features: std::collections::HashMap<String, Vec<String>> =
+        std::collections::HashMap::new();
+    // Features our workspace has actually activated for each dep (from THIRD_PARTY_CRATES).
+    let mut activated_features_map: std::collections::HashMap<String, Vec<String>> =
         std::collections::HashMap::new();
 
     let total_crates = if only_crate.is_none() {
@@ -286,8 +290,8 @@ fn run_impl_reports(
     for (crate_name, _feature, dep_features) in THIRD_PARTY_CRATES {
         if only_crate.is_none_or(|c| c == *crate_name) {
             let spinner = make_spinner(mp, format!("building docs: {crate_name}…"));
-            let (source, all_features) = match collect_dep_inventory(workspace, crate_name, dep_features) {
-                Ok(pair) => pair,
+            let source = match collect_dep_inventory(workspace, crate_name, dep_features) {
+                Ok(inv) => inv,
                 Err(e) => {
                     tracing::warn!(crate_name, error = %e, "skipping: dep inventory failed");
                     spinner.finish_with_message(format!("✗ {crate_name}: {e}"));
@@ -296,16 +300,22 @@ fn run_impl_reports(
                 }
             };
             spinner.finish_with_message(format!("✓ {crate_name} docs built"));
-            // If build fell back to defaults, collect candidate unlock features
-            if !all_features {
-                match collect_dep_serde_features(workspace, crate_name) {
-                    Ok(feats) if !feats.is_empty() => {
-                        dep_serde_features.insert(crate_name.to_string(), feats);
-                    }
-                    Ok(_) => {}
-                    Err(e) => tracing::warn!(crate_name, error = %e, "could not collect dep serde features"),
+
+            // Record the features we activated for this dep.
+            activated_features_map.insert(
+                crate_name.to_string(),
+                dep_features.iter().map(|s| s.to_string()).collect(),
+            );
+
+            // Always collect serde-related features available in the dep so we can
+            // compare against what we've activated and produce actionable gap labels.
+            match collect_dep_serde_features(workspace, crate_name) {
+                Ok(feats) => {
+                    available_serde_features.insert(crate_name.to_string(), feats);
                 }
+                Err(e) => tracing::warn!(crate_name, error = %e, "could not collect dep serde features"),
             }
+
             let safe_name = crate_name.replace('-', "_");
             let dep_json = std::env::current_dir()
                 .unwrap_or_else(|_| std::path::PathBuf::from("."))
@@ -323,7 +333,7 @@ fn run_impl_reports(
             for (path, p) in &prereqs {
                 combined_foreign_prereqs.entry(path.clone()).or_default().merge(p);
             }
-            let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs, all_features);
+            let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs);
             let path = output_dir.join(format!("{safe_name}.csv"));
             write_impl_coverage_csv(&report, &path)?;
             mp.println(format!("wrote {}  ({})", path.display(), report.summary())).ok();
@@ -336,7 +346,7 @@ fn run_impl_reports(
     if only_crate.is_none_or(|c| c == "elicitation") {
         let source = collect_inventory(workspace, "elicitation", &["full"])?;
         let prereqs = collect_trait_prereqs(&elicitation_json, "elicitation", false)?;
-        let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs, true);
+        let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs);
         let path = output_dir.join("internal.csv");
         write_impl_coverage_csv(&report, &path)?;
         mp.println(format!("wrote {}  ({})", path.display(), report.summary())).ok();
@@ -350,7 +360,7 @@ fn run_impl_reports(
     let impl_gaps = if only_crate.is_none() || all_reports.len() > 1 {
         let pairs: Vec<(&str, &crate::impl_coverage::ImplCoverageReport)> =
             all_reports.iter().map(|(n, r)| (n.as_str(), r)).collect();
-        let gaps = build_impl_gaps(&pairs, &dep_serde_features);
+        let gaps = build_impl_gaps(&pairs, &available_serde_features, &activated_features_map);
         let gaps_path = output_dir.join("gaps-impl.csv");
         write_impl_gaps_csv(&gaps, &gaps_path)?;
         let ready = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::ReadyNow).count();
@@ -412,7 +422,7 @@ fn run_shadow_reports(
         if only_crate.is_none_or(|c| c == *target || c == *shadow) {
             let spinner = make_spinner(mp, format!("building docs: {target} → {shadow}…"));
             let target_inv = match collect_dep_inventory(workspace, target, &[]) {
-                Ok((inv, _)) => inv,
+                Ok(inv) => inv,
                 Err(e) => {
                     tracing::warn!(target, error = %e, "skipping shadow pair: upstream dep inventory failed");
                     spinner.finish_with_message(format!("✗ {target}: {e}"));

@@ -89,27 +89,43 @@ pub struct ImplGapEntry {
 /// Only types with `ImplStatus::Missing` are included — types that already have
 /// `ElicitComplete` are not gaps.
 ///
-/// `dep_serde_features` maps crate name → serde/schemars-related feature names
-/// (from [`crate::collect::collect_dep_serde_features`]).  For `FeatureGated` rows
-/// the matching entry is written to `candidate_unlock_features`.
-#[instrument(skip(pairs, dep_serde_features), fields(num_reports = pairs.len()))]
+/// `available_serde_features` maps crate name → all serde/schemars-related feature
+/// names the dep offers (from [`crate::collect::collect_dep_serde_features`]).
+///
+/// `activated_features` maps crate name → the feature list our workspace has
+/// actually declared for this dep (e.g. `["json", "cookies", "stream"]` for
+/// reqwest).  The intersection of available serde features and activated features
+/// tells us whether we have already tried to unlock serde for a given dep.
+/// The difference (`available - activated`) is what we could still add.
+#[instrument(skip(pairs, available_serde_features, activated_features), fields(num_reports = pairs.len()))]
 pub fn build_impl_gaps(
     pairs: &[(&str, &ImplCoverageReport)],
-    dep_serde_features: &std::collections::HashMap<String, Vec<String>>,
+    available_serde_features: &std::collections::HashMap<String, Vec<String>>,
+    activated_features: &std::collections::HashMap<String, Vec<String>>,
 ) -> Vec<ImplGapEntry> {
     let mut entries = Vec::new();
 
     for (source_crate, report) in pairs {
-        let candidate_feats = dep_serde_features
+        let available = available_serde_features
             .get(*source_crate)
             .map(|v| v.as_slice())
             .unwrap_or(&[]);
+        let activated = activated_features
+            .get(*source_crate)
+            .map(|v| v.as_slice())
+            .unwrap_or(&[]);
+        // Features that exist in the dep but we haven't activated yet.
+        let unactivated: Vec<String> = available
+            .iter()
+            .filter(|f| !activated.iter().any(|a| a == *f))
+            .cloned()
+            .collect();
         for entry in &report.entries {
             if !matches!(entry.elicit_impl, ImplStatus::Missing) {
                 continue;
             }
 
-            let gap_entry = classify_impl_gap(source_crate, entry, candidate_feats);
+            let gap_entry = classify_impl_gap(source_crate, entry, &unactivated);
             entries.push(gap_entry);
         }
     }
@@ -141,47 +157,50 @@ fn gap_kind_order(k: &ImplGapKind) -> u8 {
     }
 }
 
-fn classify_impl_gap(source_crate: &str, entry: &ImplCoverageEntry, candidate_features: &[String]) -> ImplGapEntry {
+/// Classify a single missing impl entry.
+///
+/// `unactivated_serde_features` — serde features the dep offers that our shadow
+/// crate has **not** yet activated.  When non-empty the type is `FeatureGated`
+/// (there is something we could add to Cargo.toml to potentially unlock serde).
+/// When empty the external traits are genuinely absent under our current feature
+/// set and the type belongs to `NeedsExternalImpl` (orphan-rule territory).
+fn classify_impl_gap(
+    source_crate: &str,
+    entry: &ImplCoverageEntry,
+    unactivated_serde_features: &[String],
+) -> ImplGapEntry {
     let p = &entry.prereqs;
-    let all_features = entry.all_features_build;
 
-    // Classify each missing external trait.
-    let mut missing_external: Vec<String> = Vec::new();
-    let mut any_feature_gated = false;
-
-    for (present, name) in [
+    // Classify each missing external trait — all are simply "absent" since we
+    // built the dep with exactly the features our workspace activates.
+    let missing_external: Vec<String> = [
         (p.serialize, "Serialize"),
         (p.deserialize, "Deserialize"),
         (p.json_schema, "JsonSchema"),
-    ] {
-        if !present {
-            let label = if all_features { "absent" } else { "feature_gated" };
-            missing_external.push(format!("{name}({label})"));
-            if !all_features {
-                any_feature_gated = true;
-            }
-        }
-    }
+    ]
+    .into_iter()
+    .filter(|(present, _)| !present)
+    .map(|(_, name)| format!("{name}(absent)"))
+    .collect();
 
     // Classify each missing internal trait.
-    let mut missing_our: Vec<&str> = Vec::new();
-    for (present, name) in [
+    let missing_our: Vec<&str> = [
         (p.elicitation_trait, "Elicitation"),
         (p.elicit_introspect, "ElicitIntrospect"),
         (p.elicit_spec, "ElicitSpec"),
         (p.elicit_prompt_tree, "ElicitPromptTree"),
         (p.to_code_literal, "ToCodeLiteral"),
-    ] {
-        if !present {
-            missing_our.push(name);
-        }
-    }
+    ]
+    .into_iter()
+    .filter(|(present, _)| !present)
+    .map(|(_, name)| name)
+    .collect();
 
     let all_our_present = missing_our.is_empty();
 
     let gap_kind = if missing_external.is_empty() {
         ImplGapKind::ReadyNow
-    } else if any_feature_gated {
+    } else if !unactivated_serde_features.is_empty() {
         ImplGapKind::FeatureGated
     } else {
         ImplGapKind::NeedsExternalImpl
@@ -192,31 +211,23 @@ fn classify_impl_gap(source_crate: &str, entry: &ImplCoverageEntry, candidate_fe
             "Add `impl ElicitComplete for {} {{}}` in elicitation crate",
             entry.type_path
         ),
-        ImplGapKind::FeatureGated => {
-            if candidate_features.is_empty() {
-                format!(
-                    "Enable serde/schemars features for `{source_crate}` dep and re-check; \
-                     missing: {}",
-                    missing_external.join(", ")
-                )
-            } else {
-                format!(
-                    "Add features to `{source_crate}` dep: {}; missing: {}",
-                    candidate_features.join(", "),
-                    missing_external.join(", ")
-                )
-            }
-        }
+        ImplGapKind::FeatureGated => format!(
+            "Add features to `{source_crate}` dep in shadow crate Cargo.toml: {}; \
+             then re-check whether serde traits appear",
+            unactivated_serde_features.join(", ")
+        ),
         ImplGapKind::NeedsExternalImpl => {
             if all_our_present {
                 format!(
-                    "Add trenchcoat wrapper for `{}`; our traits done, missing external: {}",
+                    "Add trenchcoat (shadow newtype) for `{}`; our traits done, \
+                     missing external: {}",
                     entry.type_path,
                     missing_external.join(", ")
                 )
             } else {
                 format!(
-                    "Add trenchcoat wrapper for `{}`; also add our traits: {}; missing external: {}",
+                    "Add trenchcoat (shadow newtype) for `{}`; \
+                     also add our traits: {}; missing external: {}",
                     entry.type_path,
                     missing_our.join(", "),
                     missing_external.join(", ")
@@ -234,11 +245,7 @@ fn classify_impl_gap(source_crate: &str, entry: &ImplCoverageEntry, candidate_fe
         missing_external_traits: missing_external.join(";"),
         missing_our_traits: missing_our.join(";"),
         all_our_traits_present: all_our_present,
-        candidate_unlock_features: if any_feature_gated {
-            candidate_features.join(";")
-        } else {
-            String::new()
-        },
+        candidate_unlock_features: unactivated_serde_features.join(";"),
         action,
     }
 }
