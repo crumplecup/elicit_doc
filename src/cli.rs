@@ -135,7 +135,7 @@ const THIRD_PARTY_CRATES: &[(&str, &str, &[&str])] = &[
     ("geojson", "geojson-types", &[]),
     ("georaster", "georaster-types", &[]),
     ("rstar", "rstar-types", &[]),
-    ("proj", "proj-types", &[]),
+    ("proj", "proj-types", &["geo-types"]),
     ("wkt", "wkt-types", &["geo-types"]),
     ("wkb", "wkb-types", &[]),
     // Storage
@@ -144,7 +144,7 @@ const THIRD_PARTY_CRATES: &[(&str, &str, &[&str])] = &[
     // Accessibility
     ("accesskit", "accesskit", &["serde"]),
     // HTTP
-    ("reqwest", "reqwest", &["json", "serde_json"]),
+    ("reqwest", "reqwest", &["json", "cookies", "stream"]),
 ];
 
 /// Shadow crate pairs: (upstream dep name, workspace member shadow name).
