@@ -493,15 +493,17 @@ pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String
 /// This is used to populate `candidate_unlock_features` on [`crate::gaps::ImplGapEntry`]
 /// rows where the dep build fell back to default features — giving an actionable list
 /// of feature flags to add to `Cargo.toml` rather than a vague "feature_gated" label.
+///
+/// Uses `--all-features` on the workspace so that optional deps (like `reqwest`,
+/// which is behind a feature gate in elicitation) are included in the resolved graph.
 #[instrument(skip(reference_workspace), fields(crate_name))]
 pub fn collect_dep_serde_features(
     reference_workspace: &Path,
     crate_name: &str,
 ) -> ElicitDocResult<Vec<String>> {
-    let manifest = find_dep_manifest(reference_workspace, crate_name)?;
     let meta = cargo_metadata::MetadataCommand::new()
-        .manifest_path(&manifest)
-        .no_deps()
+        .manifest_path(reference_workspace.join("Cargo.toml"))
+        .features(cargo_metadata::CargoOpt::AllFeatures)
         .exec()
         .map_err(|e| ElicitDocError::cargo_metadata(e.to_string()))?;
 
@@ -512,7 +514,7 @@ pub fn collect_dep_serde_features(
         .find(|p| p.name.as_str() == crate_name || p.name.replace('-', "_") == normalized)
         .ok_or_else(|| {
             ElicitDocError::cargo_invocation(format!(
-                "package '{crate_name}' not found in metadata at {manifest:?}"
+                "package '{crate_name}' not found in workspace metadata"
             ))
         })?;
 
