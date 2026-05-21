@@ -1,6 +1,6 @@
 # elicitation Coverage Summary
 
-_Generated: 2026-05-20_
+_Generated: 2026-05-21_
 
 ---
 
@@ -8,13 +8,13 @@ _Generated: 2026-05-20_
 
 | Crate | Version | Types | ElicitComplete | Coverage |
 |-------|---------|------:|---------------:|---------:|
-| `chrono` | 0.4.44 | 43 | 0 | 0.0% |
+| `chrono` | 0.4.44 | 43 | 6 | 14.0% |
 | `time` | 0.3.47 | 74 | 0 | 0.0% |
-| `jiff` | 0.2.24 | 91 | 0 | 0.0% |
-| `uuid` | 1.23.1 | 16 | 0 | 0.0% |
-| `url` | 2.5.8 | 10 | 0 | 0.0% |
+| `jiff` | 0.2.24 | 91 | 3 | 3.3% |
+| `uuid` | 1.23.1 | 16 | 1 | 6.2% |
+| `url` | 2.5.8 | 10 | 1 | 10.0% |
 | `regex` | 1.12.3 | 401 | 0 | 0.0% |
-| `serde_json` | 1.0.149 | 33 | 0 | 0.0% |
+| `serde_json` | 1.0.149 | 33 | 1 | 3.0% |
 | `toml` | 1.1.2+spec-1.1.0 | 74 | 0 | 0.0% |
 | `geo-types` | 0.7.19 | 26 | 0 | 0.0% |
 | `geo` | 0.33.1 | 126 | 0 | 0.0% |
@@ -26,19 +26,19 @@ _Generated: 2026-05-20_
 | `wkb` | 0.9.2 | 16 | 0 | 0.0% |
 | `redb` | 4.1.0 | 41 | 0 | 0.0% |
 | `csv` | 1.4.0 | 43 | 0 | 0.0% |
-| `accesskit` | 0.21.1 | 32 | 16 | 50.0% |
+| `accesskit` | 0.21.1 | 32 | 31 | 96.9% |
 | `reqwest` | 0.13.3 | 30 | 0 | 0.0% |
-| `elicitation` | 0.11.0 | 1199 | 367 | 30.6% |
-| **Total** | | **2358** | **383** | **16.2%** |
+| `elicitation` | 0.11.0 | 1264 | 416 | 32.9% |
+| **Total** | | **2423** | **459** | **18.9%** |
 
 ### Impl Gaps
 
 | Kind | Count | Notes |
 |------|------:|-------|
-| ReadyNow | 62 | All external traits present — only needs `impl ElicitComplete` |
-| FeatureGated | 131 | Traits may appear behind a feature flag |
-| NeedsExternalImpl | 1782 | Missing `Serialize`, `Deserialize`, or `JsonSchema` |
-| **Total** | **1975** | |
+| ReadyNow | 0 | All external traits present — only needs `impl ElicitComplete` |
+| FeatureGated | 124 | Traits may appear behind a feature flag |
+| NeedsExternalImpl | 1840 | Missing `Serialize`, `Deserialize`, or `JsonSchema` |
+| **Total** | **1964** | |
 
 ---
 

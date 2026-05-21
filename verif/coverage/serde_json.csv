@@ -26,7 +26,7 @@ serde_json::ser::CharEscape,Enum,false,,Missing,Missing,Missing,absent,absent,ab
 serde_json::ser::CompactFormatter,Struct,false,,Missing,Missing,Missing,absent,absent,absent,absent,absent,absent,absent,absent,absent,Serialize(absent);Deserialize(absent);JsonSchema(absent),
 serde_json::ser::PrettyFormatter,Struct,false,,Missing,Missing,Missing,absent,absent,absent,absent,absent,absent,absent,absent,absent,Serialize(absent);Deserialize(absent);JsonSchema(absent),
 serde_json::ser::Serializer,Struct,true,W;F,Missing,Missing,Missing,absent,absent,absent,absent,absent,absent,absent,absent,absent,Serialize(absent);Deserialize(absent);JsonSchema(absent),
-serde_json::value::Value,Enum,false,,Missing,Missing,Missing,present,present,absent,present,absent,absent,present,present,absent,JsonSchema(absent),
+serde_json::value::Value,Enum,false,,Complete,Missing,Missing,present,present,absent,present,present,present,present,present,absent,JsonSchema(absent),
 serde_json::value::ser::SerializeMap,Enum,false,,Missing,Missing,Missing,absent,absent,absent,absent,absent,absent,absent,absent,absent,Serialize(absent);Deserialize(absent);JsonSchema(absent),
 serde_json::value::ser::SerializeStructVariant,Struct,false,,Missing,Missing,Missing,absent,absent,absent,absent,absent,absent,absent,absent,absent,Serialize(absent);Deserialize(absent);JsonSchema(absent),
 serde_json::value::ser::SerializeTupleVariant,Struct,false,,Missing,Missing,Missing,absent,absent,absent,absent,absent,absent,absent,absent,absent,Serialize(absent);Deserialize(absent);JsonSchema(absent),

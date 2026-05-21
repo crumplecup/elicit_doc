@@ -281,13 +281,23 @@ pub fn collect_inventory(
 /// member) by locating it via `cargo metadata` in `reference_workspace` and
 /// running `cargo rustdoc` directly against its manifest.
 ///
-/// Returns `(Inventory, all_features_succeeded)`.  When `all_features_succeeded`
-/// is `false` the build fell back to default features; any missing trait impl in
-/// that inventory **may** be feature-gated rather than truly absent.
+/// `preferred_features` lists specific dep features (e.g. `&["serde"]`) to try
+/// when `--all-features` fails.  This avoids mislabelling truly absent traits as
+/// `feature_gated` on crates whose `--all-features` build fails due to conflicting
+/// or nightly-only features.
+///
+/// Build strategy (stops at first success):
+/// 1. `--all-features`
+/// 2. `--features <preferred_features>` (if non-empty and step 1 failed)
+/// 3. default features
+///
+/// Returns `(Inventory, all_features_succeeded)`.  `all_features_succeeded` is
+/// `true` for strategies 1 and 2; `false` only when we fell back to defaults.
 #[instrument(skip(reference_workspace), fields(crate_name))]
 pub fn collect_dep_inventory(
     reference_workspace: &Path,
     crate_name: &str,
+    preferred_features: &[&str],
 ) -> ElicitDocResult<(Inventory, bool)> {
     let manifest = find_dep_manifest(reference_workspace, crate_name)?;
     let crate_dir = manifest
@@ -300,13 +310,15 @@ pub fn collect_dep_inventory(
         .unwrap_or_else(|_| PathBuf::from("."))
         .join("target");
 
-    let build_with_features = |all_features: bool| -> std::io::Result<std::process::ExitStatus> {
+    let build = |features_arg: Option<&str>| -> std::io::Result<std::process::ExitStatus> {
         let mut cmd = Command::new("cargo");
         cmd.current_dir(crate_dir)
             .arg("+nightly")
             .arg("rustdoc");
-        if all_features {
-            cmd.arg("--all-features");
+        match features_arg {
+            None => { cmd.arg("--all-features"); }
+            Some(f) if !f.is_empty() => { cmd.arg("--features").arg(f); }
+            Some(_) => {}  // empty string → default features (no flag)
         }
         cmd.arg("--target-dir")
             .arg(&own_target)
@@ -319,19 +331,38 @@ pub fn collect_dep_inventory(
     };
 
     tracing::debug!(manifest = %manifest.display(), "running cargo rustdoc on dep (--all-features)");
-    let status = build_with_features(true)
+    let status = build(None)
         .map_err(|e| ElicitDocError::cargo_invocation(e.to_string()))?;
 
-    let (status, used_all_features) = if !status.success() {
+    let (status, used_all_features) = if status.success() {
+        (status, true)
+    } else if !preferred_features.is_empty() {
+        let feat_str = preferred_features.join(",");
         tracing::warn!(
             crate_name,
-            "--all-features build failed (exit {status}); retrying with default features"
+            "--all-features build failed; retrying with preferred features: {feat_str}"
         );
-        let fallback = build_with_features(false)
+        let pref = build(Some(&feat_str))
+            .map_err(|e| ElicitDocError::cargo_invocation(e.to_string()))?;
+        if pref.success() {
+            (pref, true)
+        } else {
+            tracing::warn!(
+                crate_name,
+                "preferred-features build also failed; retrying with default features"
+            );
+            let fallback = build(Some(""))
+                .map_err(|e| ElicitDocError::cargo_invocation(e.to_string()))?;
+            (fallback, false)
+        }
+    } else {
+        tracing::warn!(
+            crate_name,
+            "--all-features build failed; retrying with default features"
+        );
+        let fallback = build(Some(""))
             .map_err(|e| ElicitDocError::cargo_invocation(e.to_string()))?;
         (fallback, false)
-    } else {
-        (status, true)
     };
 
     if !status.success() {
@@ -355,6 +386,102 @@ pub fn collect_dep_inventory(
     // Deps: prefix match so umbrella crates like `bevy` include `bevy_ecs::*` etc.
     let inventory = parse_rustdoc_json(&json_path, crate_name, true)?;
     Ok((inventory, used_all_features))
+}
+
+/// Scan the elicitation rustdoc JSON and return all `(foreign_type, wrapper)` pairs
+/// found in `impl From<ForeignType> for OurWrapper` blocks where:
+/// - `OurWrapper` is in the `elicitation` namespace
+/// - `ForeignType` is not in the `elicitation`, `std`, `core`, or `alloc` namespaces
+///
+/// This captures both `select_trenchcoat!`-generated newtypes and hand-written
+/// owned wrappers (e.g. `BevyColor`, `EguiColor32`) without requiring either to
+/// already be `ElicitComplete`, making it suitable for gap analysis.
+#[instrument(skip(json_path), fields(path = %json_path.display()))]
+pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String, String)>> {
+    let content =
+        std::fs::read_to_string(json_path).map_err(|e| ElicitDocError::io(e.to_string()))?;
+    let krate: rustdoc_types::Crate =
+        serde_json::from_str(&content).map_err(|e| ElicitDocError::rustdoc_parse(e.to_string()))?;
+
+    let mut pairs: Vec<(String, String)> = Vec::new();
+    let mut seen: HashSet<(String, String)> = HashSet::new();
+
+    for item in krate.index.values() {
+        let rustdoc_types::ItemEnum::Impl(impl_item) = &item.inner else {
+            continue;
+        };
+
+        let Some(trait_) = &impl_item.trait_ else {
+            continue;
+        };
+
+        // Only care about `From` (match by last segment to handle full paths like core::convert::From)
+        let trait_short = trait_.path.split("::").last().unwrap_or("");
+        if trait_short != "From" {
+            continue;
+        }
+
+        // `for_` must be an elicitation-namespace type (our wrapper)
+        let rustdoc_types::Type::ResolvedPath(wrapper_rp) = &impl_item.for_ else {
+            continue;
+        };
+        let wrapper_path = if let Some(summary) = krate.paths.get(&wrapper_rp.id) {
+            summary.path.join("::")
+        } else {
+            let p = wrapper_rp.path.replace("crate::", "elicitation::");
+            if !p.starts_with("elicitation::") {
+                continue;
+            }
+            p
+        };
+        if !wrapper_path.starts_with("elicitation::") {
+            continue;
+        }
+
+        // Extract T from `From<T>` via the trait's angle-bracket args
+        let Some(generic_args) = trait_.args.as_deref() else {
+            continue;
+        };
+        let rustdoc_types::GenericArgs::AngleBracketed { args: angle_args, .. } = generic_args
+        else {
+            continue;
+        };
+        let Some(rustdoc_types::GenericArg::Type(inner_ty)) = angle_args.first() else {
+            continue;
+        };
+        let rustdoc_types::Type::ResolvedPath(foreign_rp) = inner_ty else {
+            continue; // primitives, references, tuples, etc. are not trenchcoat targets
+        };
+
+        // Resolve the foreign type's canonical path
+        let foreign_path = if let Some(summary) = krate.paths.get(&foreign_rp.id) {
+            summary.path.join("::")
+        } else {
+            continue; // can't identify the foreign type reliably — skip
+        };
+
+        // Skip elicitation-internal types (From<OurType> for OurType conversions)
+        if foreign_path.starts_with("elicitation::") {
+            continue;
+        }
+        // Skip std/core/alloc — From<String>, From<u32>, etc. are not trenchcoats
+        if foreign_path.starts_with("std::")
+            || foreign_path.starts_with("core::")
+            || foreign_path.starts_with("alloc::")
+        {
+            continue;
+        }
+
+        let pair = (foreign_path, wrapper_path);
+        if seen.insert(pair.clone()) {
+            pairs.push(pair);
+        }
+    }
+
+    pairs.sort_by(|a, b| a.0.cmp(&b.0).then(a.1.cmp(&b.1)));
+
+    tracing::debug!(count = pairs.len(), "found trenchcoat pairs from From<T> impls");
+    Ok(pairs)
 }
 
 /// Find the `Cargo.toml` path for a dependency named `crate_name` as seen from

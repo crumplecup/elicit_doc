@@ -13015,7 +13015,7 @@ wkt,elicit_wkt,wkt::types::dimension::Dimension,Enum,Missing,,,
 wkt,elicit_wkt,wkt::types::geometry_type::GeometryType,Enum,Missing,,,
 bevy,elicit_bevy,bevy_animation::AnimationPlugin,Struct,Drifted,elicit_bevy::animation::AnimationPlayer,0.75,probable rename
 bevy,elicit_bevy,bevy_animation::transition::AnimationTransition,Struct,Drifted,elicit_bevy::animation::AnimationTransitions,0.95,probable rename
-bevy,elicit_bevy,bevy_asset::io::memory::Dir,Struct,Drifted,elicit_bevy::math::dir::Dir2,0.75,probable rename
+bevy,elicit_bevy,bevy_asset::io::memory::Dir,Struct,Drifted,elicit_bevy::math::dir::Dir3,0.75,probable rename
 bevy,elicit_bevy,bevy_core_pipeline::oit::OrderIndependentTransparencySettings,Struct,Drifted,elicit_bevy::render_plugin::BevyOrderIndependentTransparencySettingsParams,0.76,probable rename
 bevy,elicit_bevy,bevy_core_pipeline::oit::OrderIndependentTransparencySettingsOffset,Struct,Drifted,elicit_bevy::render_plugin::BevyOrderIndependentTransparencySettingsParams,0.78,probable rename
 bevy,elicit_bevy,bevy_core_pipeline::upscaling::node::UpscalingNode,Struct,Drifted,elicit_bevy::camera::ScalingMode,0.79,probable rename
@@ -13028,7 +13028,7 @@ bevy,elicit_bevy,bevy_input::gamepad::GamepadConnectionEvent,Struct,Drifted,elic
 bevy,elicit_bevy,bevy_input::mouse::MouseMotion,Struct,Drifted,elicit_bevy::input::MouseButton,0.75,probable rename
 bevy,elicit_bevy,bevy_input_focus::directional_navigation::DirectionalNavigation,Struct,Drifted,elicit_bevy::ui::AutoDirectionalNavigation,0.81,probable rename
 bevy,elicit_bevy,bevy_math::affine3::Affine3,Struct,Drifted,elicit_bevy::math::affine::Affine2,0.86,probable rename
-bevy,elicit_bevy,bevy_math::direction::Dir4,Struct,Drifted,elicit_bevy::math::dir::Dir2,0.75,probable rename
+bevy,elicit_bevy,bevy_math::direction::Dir4,Struct,Drifted,elicit_bevy::math::dir::Dir3,0.75,probable rename
 bevy,elicit_bevy,bevy_math::primitives::dim3::Segment3d,Struct,Drifted,elicit_bevy::math::shapes::Segment2d,0.89,probable rename
 bevy,elicit_bevy,bevy_math::primitives::polygon::Segment,Struct,Drifted,elicit_bevy::math::shapes::Segment2d,0.78,probable rename
 bevy,elicit_bevy,bevy_pbr::atmosphere::GpuAtmosphereSettings,Struct,Drifted,elicit_bevy::pbr::AtmosphereSettings,0.83,probable rename

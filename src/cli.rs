@@ -6,13 +6,14 @@ use std::time::Duration;
 use clap::{Parser, Subcommand};
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 
-use crate::collect::{collect_dep_inventory, collect_elicit_complete_paths, collect_inventory, collect_proof_harness, collect_trait_prereqs};
+use crate::collect::{collect_dep_inventory, collect_elicit_complete_paths, collect_inventory, collect_proof_harness, collect_trait_prereqs, collect_trenchcoat_pairs};
 use crate::error::ElicitDocResult;
 use crate::gaps::{build_impl_gaps, build_shadow_gaps};
 use crate::impl_coverage::{ImplCoverageReport, build_impl_coverage_report};
-use crate::report::{write_impl_coverage_csv, write_impl_gaps_csv, write_shadow_csv, write_shadow_gaps_csv};
+use crate::report::{write_impl_coverage_csv, write_impl_gaps_csv, write_shadow_csv, write_shadow_gaps_csv, write_trenchcoats_csv};
 use crate::shadow::{ShadowReport, build_shadow_report};
 use crate::summary::write_summary_md;
+use crate::trenchcoat::build_trenchcoat_report;
 
 /// Determine elicit_doc's own repo root via `cargo metadata`.
 fn own_root() -> ElicitDocResult<PathBuf> {
@@ -97,14 +98,12 @@ pub fn run() -> ElicitDocResult<()> {
 
             // Write the executive summary only when we have data from both halves
             // and no single-crate filter is active.
-            if crate_name.is_none() {
-                if let (Some((impl_reports, impl_gaps)), Some((shadow_reports, shadow_gaps))) =
-                    (&impl_data, &shadow_data)
-                {
-                    let summary_path = output_dir.join("summary.md");
-                    write_summary_md(impl_reports, impl_gaps, shadow_reports, shadow_gaps, &summary_path)?;
-                    mp.println(format!("wrote {}", summary_path.display())).ok();
-                }
+            if let (None, Some((impl_reports, impl_gaps)), Some((shadow_reports, shadow_gaps))) =
+                (crate_name.as_ref(), &impl_data, &shadow_data)
+            {
+                let summary_path = output_dir.join("summary.md");
+                write_summary_md(impl_reports, impl_gaps, shadow_reports, shadow_gaps, &summary_path)?;
+                mp.println(format!("wrote {}", summary_path.display())).ok();
             }
         }
     }
@@ -112,38 +111,40 @@ pub fn run() -> ElicitDocResult<()> {
     Ok(())
 }
 
-/// Supported third-party crates: (upstream crate name, elicitation feature flag).
+/// Supported third-party crates: (upstream crate name, elicitation feature flag, dep features to try).
 ///
-/// These are external deps with value/data types that could be `ElicitComplete`.
-/// Use `collect_dep_inventory` to document them.
-const THIRD_PARTY_CRATES: &[(&str, &str)] = &[
+/// The dep features list is used as a fallback when `--all-features` fails (e.g. due to
+/// conflicting features in crates like `reqwest` or `chrono`).  These should be the
+/// minimal set of serde/schema features needed to get accurate trait coverage data.
+/// An empty slice means fall straight back to default features.
+const THIRD_PARTY_CRATES: &[(&str, &str, &[&str])] = &[
     // Date/time
-    ("chrono", "chrono"),
-    ("time", "time"),
-    ("jiff", "jiff"),
+    ("chrono", "chrono", &["serde"]),
+    ("time", "time", &["serde-human-readable"]),
+    ("jiff", "jiff", &["serde"]),
     // Identifiers / strings
-    ("uuid", "uuid"),
-    ("url", "url"),
-    ("regex", "regex"),
+    ("uuid", "uuid", &["serde"]),
+    ("url", "url", &["serde"]),
+    ("regex", "regex", &[]),
     // Serialization
-    ("serde_json", "serde_json"),
-    ("toml", "toml-types"),
+    ("serde_json", "serde_json", &[]),
+    ("toml", "toml-types", &["serde"]),
     // Geo / spatial
-    ("geo-types", "geo-types"),
-    ("geo", "geo"),
-    ("geojson", "geojson-types"),
-    ("georaster", "georaster-types"),
-    ("rstar", "rstar-types"),
-    ("proj", "proj-types"),
-    ("wkt", "wkt-types"),
-    ("wkb", "wkb-types"),
+    ("geo-types", "geo-types", &["serde"]),
+    ("geo", "geo", &["use-serde"]),
+    ("geojson", "geojson-types", &[]),
+    ("georaster", "georaster-types", &[]),
+    ("rstar", "rstar-types", &[]),
+    ("proj", "proj-types", &[]),
+    ("wkt", "wkt-types", &["geo-types"]),
+    ("wkb", "wkb-types", &[]),
     // Storage
-    ("redb", "redb-types"),
-    ("csv", "csv-types"),
+    ("redb", "redb-types", &[]),
+    ("csv", "csv-types", &[]),
     // Accessibility
-    ("accesskit", "accesskit"),
+    ("accesskit", "accesskit", &["serde"]),
     // HTTP
-    ("reqwest", "reqwest"),
+    ("reqwest", "reqwest", &["json", "serde_json"]),
 ];
 
 /// Shadow crate pairs: (upstream dep name, workspace member shadow name).
@@ -229,12 +230,15 @@ fn make_count_bar(mp: &MultiProgress, total: u64, prefix: &'static str) -> Progr
     pb
 }
 
+type ImplReportsResult = ElicitDocResult<(Vec<(String, ImplCoverageReport)>, Vec<crate::gaps::ImplGapEntry>)>;
+type ShadowReportsResult = ElicitDocResult<(Vec<(String, String, ShadowReport)>, Vec<crate::gaps::ShadowGapEntry>)>;
+
 fn run_impl_reports(
     workspace: &std::path::Path,
     output_dir: &std::path::Path,
     only_crate: Option<&str>,
     mp: &MultiProgress,
-) -> ElicitDocResult<(Vec<(String, ImplCoverageReport)>, Vec<crate::gaps::ImplGapEntry>)> {
+) -> ImplReportsResult {
     std::fs::create_dir_all(output_dir)
         .map_err(|e| crate::error::ElicitDocError::io(e.to_string()))?;
 
@@ -259,7 +263,10 @@ fn run_impl_reports(
     let complete_paths = collect_elicit_complete_paths(&elicitation_json)?;
 
     // Accumulate all reports for gap analysis at the end.
+    // Also accumulate a combined foreign-type prereq map for the trenchcoat report.
     let mut all_reports: Vec<(String, crate::impl_coverage::ImplCoverageReport)> = Vec::new();
+    let mut combined_foreign_prereqs: std::collections::HashMap<String, crate::collect::TraitPrereqs> =
+        std::collections::HashMap::new();
 
     let total_crates = if only_crate.is_none() {
         (THIRD_PARTY_CRATES.len() + 1) as u64
@@ -273,10 +280,10 @@ fn run_impl_reports(
     };
 
     // Third-party crates — documented from their registry source
-    for (crate_name, _feature) in THIRD_PARTY_CRATES {
+    for (crate_name, _feature, dep_features) in THIRD_PARTY_CRATES {
         if only_crate.is_none_or(|c| c == *crate_name) {
             let spinner = make_spinner(mp, format!("building docs: {crate_name}…"));
-            let (source, all_features) = match collect_dep_inventory(workspace, crate_name) {
+            let (source, all_features) = match collect_dep_inventory(workspace, crate_name, dep_features) {
                 Ok(pair) => pair,
                 Err(e) => {
                     tracing::warn!(crate_name, error = %e, "skipping: dep inventory failed");
@@ -298,6 +305,10 @@ fn run_impl_reports(
             let elicit_prereqs = collect_trait_prereqs(&elicitation_json, crate_name, true)?;
             for (path, p) in elicit_prereqs {
                 prereqs.entry(path).or_default().merge(&p);
+            }
+            // Accumulate into combined map for trenchcoat analysis
+            for (path, p) in &prereqs {
+                combined_foreign_prereqs.entry(path.clone()).or_default().merge(p);
             }
             let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs, all_features);
             let path = output_dir.join(format!("{safe_name}.csv"));
@@ -332,10 +343,32 @@ fn run_impl_reports(
         let ready = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::ReadyNow).count();
         let gated = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::FeatureGated).count();
         let needs = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::NeedsExternalImpl).count();
+        let our_done = gaps.iter().filter(|e| e.all_our_traits_present).count();
         mp.println(format!(
-            "wrote {}  ({} gaps: {} ready_now, {} feature_gated, {} needs_external_impl)",
-            gaps_path.display(), gaps.len(), ready, gated, needs
+            "wrote {}  ({} gaps: {} ready_now, {} feature_gated, {} needs_external_impl, {} our_traits_done)",
+            gaps_path.display(), gaps.len(), ready, gated, needs, our_done
         )).ok();
+
+        // Trenchcoat report (only on full runs)
+        if only_crate.is_none() {
+            let trenchcoat_pairs = collect_trenchcoat_pairs(&elicitation_json)?;
+            let wrapper_prereqs = collect_trait_prereqs(&elicitation_json, "elicitation", false)?;
+            let trenchcoats = build_trenchcoat_report(
+                &trenchcoat_pairs,
+                &complete_paths,
+                &wrapper_prereqs,
+                &combined_foreign_prereqs,
+            );
+            let tc_path = output_dir.join("trenchcoats.csv");
+            write_trenchcoats_csv(&trenchcoats, &tc_path)?;
+            let tc_complete = trenchcoats.iter().filter(|e| e.wrapper_elicit_complete).count();
+            let tc_incomplete = trenchcoats.iter().filter(|e| !e.wrapper_elicit_complete).count();
+            mp.println(format!(
+                "wrote {}  ({} trenchcoats: {} complete, {} incomplete)",
+                tc_path.display(), trenchcoats.len(), tc_complete, tc_incomplete
+            )).ok();
+        }
+
         gaps
     } else {
         Vec::new()
@@ -349,7 +382,7 @@ fn run_shadow_reports(
     output_dir: &std::path::Path,
     only_crate: Option<&str>,
     mp: &MultiProgress,
-) -> ElicitDocResult<(Vec<(String, String, ShadowReport)>, Vec<crate::gaps::ShadowGapEntry>)> {
+) -> ShadowReportsResult {
     std::fs::create_dir_all(output_dir)
         .map_err(|e| crate::error::ElicitDocError::io(e.to_string()))?;
 
@@ -365,7 +398,7 @@ fn run_shadow_reports(
     for (target, shadow) in SHADOW_PAIRS {
         if only_crate.is_none_or(|c| c == *target || c == *shadow) {
             let spinner = make_spinner(mp, format!("building docs: {target} → {shadow}…"));
-            let target_inv = match collect_dep_inventory(workspace, target) {
+            let target_inv = match collect_dep_inventory(workspace, target, &[]) {
                 Ok((inv, _)) => inv,
                 Err(e) => {
                     tracing::warn!(target, error = %e, "skipping shadow pair: upstream dep inventory failed");

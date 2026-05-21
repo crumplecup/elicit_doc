@@ -66,6 +66,14 @@ pub struct ImplGapEntry {
     pub missing_external_traits: String,
     /// Which of our own 5 traits are still absent for this type.
     pub missing_our_traits: String,
+    /// All 5 of our own traits (`Elicitation`, `ElicitIntrospect`, `ElicitSpec`,
+    /// `ElicitPromptTree`, `ToCodeLiteral`) are already present — only the external
+    /// traits (`Serialize`/`Deserialize`/`JsonSchema`) are blocking `ElicitComplete`.
+    ///
+    /// When `true` and `gap_kind` is `NeedsExternalImpl` this type is fully
+    /// "dressed" and only needs a trenchcoat wrapper (external traits) to become
+    /// `ElicitComplete`.  When `false` there is still OUR own trait work to do.
+    pub all_our_traits_present: bool,
     /// Short recommended action.
     pub action: String,
 }
@@ -152,6 +160,8 @@ fn classify_impl_gap(source_crate: &str, entry: &ImplCoverageEntry) -> ImplGapEn
         }
     }
 
+    let all_our_present = missing_our.is_empty();
+
     let gap_kind = if missing_external.is_empty() {
         ImplGapKind::ReadyNow
     } else if any_feature_gated {
@@ -170,11 +180,22 @@ fn classify_impl_gap(source_crate: &str, entry: &ImplCoverageEntry) -> ImplGapEn
              missing: {}",
             missing_external.join(", ")
         ),
-        ImplGapKind::NeedsExternalImpl => format!(
-            "Add trenchcoat wrapper for `{}`; missing: {}",
-            entry.type_path,
-            missing_external.join(", ")
-        ),
+        ImplGapKind::NeedsExternalImpl => {
+            if all_our_present {
+                format!(
+                    "Add trenchcoat wrapper for `{}`; our traits done, missing external: {}",
+                    entry.type_path,
+                    missing_external.join(", ")
+                )
+            } else {
+                format!(
+                    "Add trenchcoat wrapper for `{}`; also add our traits: {}; missing external: {}",
+                    entry.type_path,
+                    missing_our.join(", "),
+                    missing_external.join(", ")
+                )
+            }
+        }
     };
 
     ImplGapEntry {
@@ -185,6 +206,7 @@ fn classify_impl_gap(source_crate: &str, entry: &ImplCoverageEntry) -> ImplGapEn
         gap_kind,
         missing_external_traits: missing_external.join(";"),
         missing_our_traits: missing_our.join(";"),
+        all_our_traits_present: all_our_present,
         action,
     }
 }

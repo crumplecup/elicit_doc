@@ -140,6 +140,7 @@ pub fn write_impl_gaps_csv(entries: &[crate::gaps::ImplGapEntry], path: &Path) -
         "type_kind",
         "is_generic",
         "gap_kind",
+        "all_our_traits_present",
         "missing_external_traits",
         "missing_our_traits",
         "action",
@@ -153,6 +154,7 @@ pub fn write_impl_gaps_csv(entries: &[crate::gaps::ImplGapEntry], path: &Path) -
             &e.type_kind.to_string(),
             &e.is_generic.to_string(),
             &e.gap_kind.to_string(),
+            &e.all_our_traits_present.to_string(),
             &e.missing_external_traits,
             &e.missing_our_traits,
             &e.action,
@@ -204,5 +206,45 @@ pub fn write_shadow_gaps_csv(entries: &[crate::gaps::ShadowGapEntry], path: &Pat
     wtr.flush()
         .map_err(|e| ElicitDocError::csv(e.to_string()))?;
     tracing::info!(path = %path.display(), rows = entries.len(), "wrote shadow gaps CSV");
+    Ok(())
+}
+
+/// Write the trenchcoat report to a CSV file at `path`.
+#[instrument(skip(entries, path), fields(path = %path.display()))]
+pub fn write_trenchcoats_csv(
+    entries: &[crate::trenchcoat::TrenchcoatEntry],
+    path: &Path,
+) -> ElicitDocResult<()> {
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent).map_err(|e| ElicitDocError::io(e.to_string()))?;
+    }
+
+    let mut wtr = csv::Writer::from_path(path).map_err(|e| ElicitDocError::csv(e.to_string()))?;
+
+    wtr.write_record([
+        "foreign_crate",
+        "foreign_type",
+        "wrapper_path",
+        "wrapper_elicit_complete",
+        "wrapper_missing_our_traits",
+        "foreign_missing_our_traits",
+    ])
+    .map_err(|e| ElicitDocError::csv(e.to_string()))?;
+
+    for e in entries {
+        wtr.write_record([
+            &e.foreign_crate,
+            &e.foreign_type,
+            &e.wrapper_path,
+            &e.wrapper_elicit_complete.to_string(),
+            &e.wrapper_missing_our_traits,
+            &e.foreign_missing_our_traits,
+        ])
+        .map_err(|e| ElicitDocError::csv(e.to_string()))?;
+    }
+
+    wtr.flush()
+        .map_err(|e| ElicitDocError::csv(e.to_string()))?;
+    tracing::info!(path = %path.display(), rows = entries.len(), "wrote trenchcoats CSV");
     Ok(())
 }
