@@ -13020,7 +13020,7 @@ bevy,elicit_bevy,bevy_core_pipeline::oit::OrderIndependentTransparencySettings,S
 bevy,elicit_bevy,bevy_core_pipeline::oit::OrderIndependentTransparencySettingsOffset,Struct,Drifted,elicit_bevy::render_plugin::BevyOrderIndependentTransparencySettingsParams,0.78,probable rename
 bevy,elicit_bevy,bevy_core_pipeline::upscaling::node::UpscalingNode,Struct,Drifted,elicit_bevy::camera::ScalingMode,0.79,probable rename
 bevy,elicit_bevy,bevy_feathers::theme::ThemeBackgroundColor,Struct,Drifted,elicit_bevy::text::TextBackgroundColor,0.86,probable rename
-bevy,elicit_bevy,bevy_gizmos::config::DefaultGizmoConfigGroup,Struct,Drifted,elicit_bevy::gizmos::LightGizmoConfigGroup,0.77,probable rename
+bevy,elicit_bevy,bevy_gizmos::config::DefaultGizmoConfigGroup,Struct,Drifted,elicit_bevy::gizmos::AabbGizmoConfigGroup,0.77,probable rename
 bevy,elicit_bevy,bevy_gizmos::config::ErasedGizmoConfigGroup,Struct,Drifted,elicit_bevy::gizmos::AabbGizmoConfigGroup,0.80,probable rename
 bevy,elicit_bevy,bevy_gizmos::config::GizmoMeshConfig,Struct,Drifted,elicit_bevy::gizmos::GizmoLineConfig,0.76,probable rename
 bevy,elicit_bevy,bevy_image::image_loader::ImageLoader,Struct,Drifted,elicit_bevy::ui::ImageNode,0.75,probable rename

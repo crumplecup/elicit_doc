@@ -1165,7 +1165,7 @@ bevy_gizmos::arrows::ArrowBuilder,Struct,Missing,,,
 bevy_gizmos::circles::Ellipse2dBuilder,Struct,Missing,,,
 bevy_gizmos::circles::EllipseBuilder,Struct,Missing,,,
 bevy_gizmos::circles::SphereBuilder,Struct,Missing,,,
-bevy_gizmos::config::DefaultGizmoConfigGroup,Struct,Drifted,elicit_bevy::gizmos::LightGizmoConfigGroup,0.77,probable rename
+bevy_gizmos::config::DefaultGizmoConfigGroup,Struct,Drifted,elicit_bevy::gizmos::AabbGizmoConfigGroup,0.77,probable rename
 bevy_gizmos::config::ErasedGizmoConfigGroup,Struct,Drifted,elicit_bevy::gizmos::AabbGizmoConfigGroup,0.80,probable rename
 bevy_gizmos::config::GizmoConfig,Struct,Covered,elicit_bevy::gizmos::GizmoConfig,,
 bevy_gizmos::config::GizmoConfigStore,Struct,Missing,,,

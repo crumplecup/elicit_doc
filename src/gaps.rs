@@ -74,6 +74,12 @@ pub struct ImplGapEntry {
     /// "dressed" and only needs a trenchcoat wrapper (external traits) to become
     /// `ElicitComplete`.  When `false` there is still OUR own trait work to do.
     pub all_our_traits_present: bool,
+    /// Feature flags available in the dep that could unlock serde/schemars support.
+    ///
+    /// Only populated for `FeatureGated` rows where the dep build fell back to
+    /// default features.  Semicolon-separated.  E.g. `"serde;serde_json"`.
+    /// Empty for `ReadyNow` and `NeedsExternalImpl` rows.
+    pub candidate_unlock_features: String,
     /// Short recommended action.
     pub action: String,
 }
@@ -82,17 +88,28 @@ pub struct ImplGapEntry {
 ///
 /// Only types with `ImplStatus::Missing` are included — types that already have
 /// `ElicitComplete` are not gaps.
-#[instrument(skip(pairs), fields(num_reports = pairs.len()))]
-pub fn build_impl_gaps(pairs: &[(&str, &ImplCoverageReport)]) -> Vec<ImplGapEntry> {
+///
+/// `dep_serde_features` maps crate name → serde/schemars-related feature names
+/// (from [`crate::collect::collect_dep_serde_features`]).  For `FeatureGated` rows
+/// the matching entry is written to `candidate_unlock_features`.
+#[instrument(skip(pairs, dep_serde_features), fields(num_reports = pairs.len()))]
+pub fn build_impl_gaps(
+    pairs: &[(&str, &ImplCoverageReport)],
+    dep_serde_features: &std::collections::HashMap<String, Vec<String>>,
+) -> Vec<ImplGapEntry> {
     let mut entries = Vec::new();
 
     for (source_crate, report) in pairs {
+        let candidate_feats = dep_serde_features
+            .get(*source_crate)
+            .map(|v| v.as_slice())
+            .unwrap_or(&[]);
         for entry in &report.entries {
             if !matches!(entry.elicit_impl, ImplStatus::Missing) {
                 continue;
             }
 
-            let gap_entry = classify_impl_gap(source_crate, entry);
+            let gap_entry = classify_impl_gap(source_crate, entry, candidate_feats);
             entries.push(gap_entry);
         }
     }
@@ -124,7 +141,7 @@ fn gap_kind_order(k: &ImplGapKind) -> u8 {
     }
 }
 
-fn classify_impl_gap(source_crate: &str, entry: &ImplCoverageEntry) -> ImplGapEntry {
+fn classify_impl_gap(source_crate: &str, entry: &ImplCoverageEntry, candidate_features: &[String]) -> ImplGapEntry {
     let p = &entry.prereqs;
     let all_features = entry.all_features_build;
 
@@ -175,11 +192,21 @@ fn classify_impl_gap(source_crate: &str, entry: &ImplCoverageEntry) -> ImplGapEn
             "Add `impl ElicitComplete for {} {{}}` in elicitation crate",
             entry.type_path
         ),
-        ImplGapKind::FeatureGated => format!(
-            "Enable serde/schemars features for `{source_crate}` dep and re-check; \
-             missing: {}",
-            missing_external.join(", ")
-        ),
+        ImplGapKind::FeatureGated => {
+            if candidate_features.is_empty() {
+                format!(
+                    "Enable serde/schemars features for `{source_crate}` dep and re-check; \
+                     missing: {}",
+                    missing_external.join(", ")
+                )
+            } else {
+                format!(
+                    "Add features to `{source_crate}` dep: {}; missing: {}",
+                    candidate_features.join(", "),
+                    missing_external.join(", ")
+                )
+            }
+        }
         ImplGapKind::NeedsExternalImpl => {
             if all_our_present {
                 format!(
@@ -207,6 +234,11 @@ fn classify_impl_gap(source_crate: &str, entry: &ImplCoverageEntry) -> ImplGapEn
         missing_external_traits: missing_external.join(";"),
         missing_our_traits: missing_our.join(";"),
         all_our_traits_present: all_our_present,
+        candidate_unlock_features: if any_feature_gated {
+            candidate_features.join(";")
+        } else {
+            String::new()
+        },
         action,
     }
 }

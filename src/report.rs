@@ -143,6 +143,7 @@ pub fn write_impl_gaps_csv(entries: &[crate::gaps::ImplGapEntry], path: &Path) -
         "all_our_traits_present",
         "missing_external_traits",
         "missing_our_traits",
+        "candidate_unlock_features",
         "action",
     ])
     .map_err(|e| ElicitDocError::csv(e.to_string()))?;
@@ -157,6 +158,7 @@ pub fn write_impl_gaps_csv(entries: &[crate::gaps::ImplGapEntry], path: &Path) -
             &e.all_our_traits_present.to_string(),
             &e.missing_external_traits,
             &e.missing_our_traits,
+            &e.candidate_unlock_features,
             &e.action,
         ])
         .map_err(|e| ElicitDocError::csv(e.to_string()))?;

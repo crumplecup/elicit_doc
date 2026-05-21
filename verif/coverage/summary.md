@@ -36,8 +36,8 @@ _Generated: 2026-05-21_
 | Kind | Count | Notes |
 |------|------:|-------|
 | ReadyNow | 0 | All external traits present — only needs `impl ElicitComplete` |
-| FeatureGated | 124 | Traits may appear behind a feature flag |
-| NeedsExternalImpl | 1840 | Missing `Serialize`, `Deserialize`, or `JsonSchema` |
+| FeatureGated | 78 | Traits may appear behind a feature flag |
+| NeedsExternalImpl | 1886 | Missing `Serialize`, `Deserialize`, or `JsonSchema` |
 | **Total** | **1964** | |
 
 ---

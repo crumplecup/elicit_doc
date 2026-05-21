@@ -6,7 +6,7 @@ use std::time::Duration;
 use clap::{Parser, Subcommand};
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 
-use crate::collect::{collect_dep_inventory, collect_elicit_complete_paths, collect_inventory, collect_proof_harness, collect_trait_prereqs, collect_trenchcoat_pairs};
+use crate::collect::{collect_dep_inventory, collect_dep_serde_features, collect_elicit_complete_paths, collect_inventory, collect_proof_harness, collect_trait_prereqs, collect_trenchcoat_pairs};
 use crate::error::ElicitDocResult;
 use crate::gaps::{build_impl_gaps, build_shadow_gaps};
 use crate::impl_coverage::{ImplCoverageReport, build_impl_coverage_report};
@@ -263,9 +263,12 @@ fn run_impl_reports(
     let complete_paths = collect_elicit_complete_paths(&elicitation_json)?;
 
     // Accumulate all reports for gap analysis at the end.
-    // Also accumulate a combined foreign-type prereq map for the trenchcoat report.
+    // Also accumulate a combined foreign-type prereq map for the trenchcoat report,
+    // and per-dep serde feature candidates for FeatureGated actionability.
     let mut all_reports: Vec<(String, crate::impl_coverage::ImplCoverageReport)> = Vec::new();
     let mut combined_foreign_prereqs: std::collections::HashMap<String, crate::collect::TraitPrereqs> =
+        std::collections::HashMap::new();
+    let mut dep_serde_features: std::collections::HashMap<String, Vec<String>> =
         std::collections::HashMap::new();
 
     let total_crates = if only_crate.is_none() {
@@ -293,6 +296,16 @@ fn run_impl_reports(
                 }
             };
             spinner.finish_with_message(format!("✓ {crate_name} docs built"));
+            // If build fell back to defaults, collect candidate unlock features
+            if !all_features {
+                match collect_dep_serde_features(workspace, crate_name) {
+                    Ok(feats) if !feats.is_empty() => {
+                        dep_serde_features.insert(crate_name.to_string(), feats);
+                    }
+                    Ok(_) => {}
+                    Err(e) => tracing::warn!(crate_name, error = %e, "could not collect dep serde features"),
+                }
+            }
             let safe_name = crate_name.replace('-', "_");
             let dep_json = std::env::current_dir()
                 .unwrap_or_else(|_| std::path::PathBuf::from("."))
@@ -337,7 +350,7 @@ fn run_impl_reports(
     let impl_gaps = if only_crate.is_none() || all_reports.len() > 1 {
         let pairs: Vec<(&str, &crate::impl_coverage::ImplCoverageReport)> =
             all_reports.iter().map(|(n, r)| (n.as_str(), r)).collect();
-        let gaps = build_impl_gaps(&pairs);
+        let gaps = build_impl_gaps(&pairs, &dep_serde_features);
         let gaps_path = output_dir.join("gaps-impl.csv");
         write_impl_gaps_csv(&gaps, &gaps_path)?;
         let ready = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::ReadyNow).count();

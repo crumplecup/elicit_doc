@@ -484,6 +484,64 @@ pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String
     Ok(pairs)
 }
 
+/// Scan `cargo metadata` for a dep and return the names of features that are likely
+/// to unlock `serde`, `schemars`, or `serde_json` support.
+///
+/// A feature is included if its name OR any of the items it enables (direct deps or
+/// sub-features) mentions `"serde"`, `"schemars"`, or `"json"` (case-insensitive).
+///
+/// This is used to populate `candidate_unlock_features` on [`crate::gaps::ImplGapEntry`]
+/// rows where the dep build fell back to default features — giving an actionable list
+/// of feature flags to add to `Cargo.toml` rather than a vague "feature_gated" label.
+#[instrument(skip(reference_workspace), fields(crate_name))]
+pub fn collect_dep_serde_features(
+    reference_workspace: &Path,
+    crate_name: &str,
+) -> ElicitDocResult<Vec<String>> {
+    let manifest = find_dep_manifest(reference_workspace, crate_name)?;
+    let meta = cargo_metadata::MetadataCommand::new()
+        .manifest_path(&manifest)
+        .no_deps()
+        .exec()
+        .map_err(|e| ElicitDocError::cargo_metadata(e.to_string()))?;
+
+    let normalized = crate_name.replace('-', "_");
+    let pkg = meta
+        .packages
+        .iter()
+        .find(|p| p.name.as_str() == crate_name || p.name.replace('-', "_") == normalized)
+        .ok_or_else(|| {
+            ElicitDocError::cargo_invocation(format!(
+                "package '{crate_name}' not found in metadata at {manifest:?}"
+            ))
+        })?;
+
+    const KEYWORDS: &[&str] = &["serde", "schemars", "schema", "json"];
+
+    let mut candidates: Vec<String> = pkg
+        .features
+        .iter()
+        .filter(|(name, enables)| {
+            let name_lc = name.to_lowercase();
+            KEYWORDS.iter().any(|kw| name_lc.contains(kw))
+                || enables.iter().any(|dep| {
+                    let dep_lc = dep.to_lowercase();
+                    KEYWORDS.iter().any(|kw| dep_lc.contains(kw))
+                })
+        })
+        .map(|(name, _)| name.clone())
+        .collect();
+
+    candidates.sort();
+    tracing::debug!(
+        crate_name,
+        count = candidates.len(),
+        ?candidates,
+        "found serde-related features"
+    );
+    Ok(candidates)
+}
+
 /// Find the `Cargo.toml` path for a dependency named `crate_name` as seen from
 /// the workspace at `reference_workspace`.
 #[instrument(skip(reference_workspace), fields(crate_name))]
