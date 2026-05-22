@@ -120,7 +120,7 @@ pub fn run() -> ElicitDocResult<()> {
 const THIRD_PARTY_CRATES: &[(&str, &str, &[&str])] = &[
     // Date/time
     ("chrono", "chrono", &["serde"]),
-    ("time", "time", &["serde", "serde-well-known"]),
+    ("time", "time", &["serde", "serde-human-readable", "serde-well-known"]),
     ("jiff", "jiff", &["serde"]),
     // Identifiers / strings
     ("uuid", "uuid", &["serde"]),
