@@ -120,7 +120,7 @@ pub fn run() -> ElicitDocResult<()> {
 const THIRD_PARTY_CRATES: &[(&str, &str, &[&str])] = &[
     // Date/time
     ("chrono", "chrono", &["serde"]),
-    ("time", "time", &["serde-human-readable"]),
+    ("time", "time", &["serde", "serde-well-known"]),
     ("jiff", "jiff", &["serde"]),
     // Identifiers / strings
     ("uuid", "uuid", &["serde"]),
@@ -134,15 +134,15 @@ const THIRD_PARTY_CRATES: &[(&str, &str, &[&str])] = &[
     ("geo", "geo", &["use-serde"]),
     ("geojson", "geojson-types", &[]),
     ("georaster", "georaster-types", &[]),
-    ("rstar", "rstar-types", &[]),
+    ("rstar", "rstar-types", &["serde"]),
     ("proj", "proj-types", &["geo-types"]),
-    ("wkt", "wkt-types", &["geo-types"]),
+    ("wkt", "wkt-types", &["geo-types", "serde"]),
     ("wkb", "wkb-types", &[]),
     // Storage
     ("redb", "redb-types", &[]),
     ("csv", "csv-types", &[]),
     // Accessibility
-    ("accesskit", "accesskit", &["serde"]),
+    ("accesskit", "accesskit", &["serde", "schemars"]),
     // HTTP
     ("reqwest", "reqwest", &["json", "cookies", "stream"]),
 ];

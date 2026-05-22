@@ -215,7 +215,7 @@ fn classify_impl_gap(
             entry.type_path
         ),
         ImplGapKind::FeatureGated => format!(
-            "Add features to `{source_crate}` dep in shadow crate Cargo.toml: {}; \
+            "Add features to `{source_crate}` dep in workspace Cargo.toml: {}; \
              then re-check whether serde traits appear",
             unactivated_serde_features.join(", ")
         ),
