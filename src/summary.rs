@@ -44,12 +44,23 @@ fn write_impl_section(
     reports: &[(String, ImplCoverageReport)],
     gaps: &[ImplGapEntry],
 ) {
+    // Pre-compute per-crate "everything but ElicitComplete" counts:
+    // NeedsExternalImpl rows where all 5 of our own traits are already present.
+    let mut everything_but: std::collections::HashMap<&str, usize> =
+        std::collections::HashMap::new();
+    for g in gaps {
+        if g.gap_kind == ImplGapKind::NeedsExternalImpl && g.all_our_traits_present {
+            *everything_but.entry(g.source_crate.as_str()).or_insert(0) += 1;
+        }
+    }
+
     out.push_str("## Impl Coverage\n\n");
-    out.push_str("| Crate | Version | Types | ElicitComplete | Coverage |\n");
-    out.push_str("|-------|---------|------:|---------------:|---------:|\n");
+    out.push_str("| Crate | Version | Types | ElicitComplete | EverythingBut | Coverage |\n");
+    out.push_str("|-------|---------|------:|---------------:|--------------:|---------:|\n");
 
     let mut total_types = 0usize;
     let mut total_complete = 0usize;
+    let mut total_everything_but = 0usize;
 
     for (_, r) in reports {
         let types = r.complete_count + r.missing_impl_count;
@@ -58,12 +69,14 @@ fn write_impl_section(
         } else {
             r.complete_count as f32 / types as f32 * 100.0
         };
+        let eb = everything_but.get(r.source_crate.as_str()).copied().unwrap_or(0);
         out.push_str(&format!(
-            "| `{}` | {} | {} | {} | {:.1}% |\n",
-            r.source_crate, r.source_version, types, r.complete_count, pct
+            "| `{}` | {} | {} | {} | {} | {:.1}% |\n",
+            r.source_crate, r.source_version, types, r.complete_count, eb, pct
         ));
         total_types += types;
         total_complete += r.complete_count;
+        total_everything_but += eb;
     }
 
     let total_pct = if total_types == 0 {
@@ -72,10 +85,10 @@ fn write_impl_section(
         total_complete as f32 / total_types as f32 * 100.0
     };
     out.push_str(&format!(
-        "| **Total** | | **{}** | **{}** | **{:.1}%** |\n",
-        total_types, total_complete, total_pct
+        "| **Total** | | **{}** | **{}** | **{}** | **{:.1}%** |\n",
+        total_types, total_complete, total_everything_but, total_pct
     ));
-    out.push('\n');
+    out.push_str("\n_EverythingBut: all 5 elicitation traits present; only Serialize/Deserialize/JsonSchema missing (orphan rule). Shadow newtype needed._\n\n");
 
     if !gaps.is_empty() {
         let ready = gaps.iter().filter(|e| e.gap_kind == ImplGapKind::ReadyNow).count();
