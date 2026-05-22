@@ -301,19 +301,24 @@ fn run_impl_reports(
             };
             spinner.finish_with_message(format!("✓ {crate_name} docs built"));
 
-            // Record the features we activated for this dep.
-            activated_features_map.insert(
-                crate_name.to_string(),
-                dep_features.iter().map(|s| s.to_string()).collect(),
-            );
-
-            // Always collect serde-related features available in the dep so we can
-            // compare against what we've activated and produce actionable gap labels.
-            match collect_dep_serde_features(workspace, crate_name) {
-                Ok(feats) => {
-                    available_serde_features.insert(crate_name.to_string(), feats);
+            // Collect available serde features (name-only filter) and the transitive
+            // expansion of the features we've actually activated.  Combining these
+            // gives accurate FeatureGated / NeedsExternalImpl classification without
+            // false positives from `std`/`alloc`/`default` or alias features like
+            // `use-serde → serde`.
+            match collect_dep_serde_features(workspace, crate_name, dep_features) {
+                Ok((avail, expanded_activated)) => {
+                    available_serde_features.insert(crate_name.to_string(), avail);
+                    activated_features_map.insert(crate_name.to_string(), expanded_activated);
                 }
-                Err(e) => tracing::warn!(crate_name, error = %e, "could not collect dep serde features"),
+                Err(e) => {
+                    tracing::warn!(crate_name, error = %e, "could not collect dep serde features");
+                    // Fall back to raw activated features so gaps analysis still works.
+                    activated_features_map.insert(
+                        crate_name.to_string(),
+                        dep_features.iter().map(|s| s.to_string()).collect(),
+                    );
+                }
             }
 
             let safe_name = crate_name.replace('-', "_");

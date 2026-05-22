@@ -32,11 +32,12 @@ use crate::shadow::{ShadowReport, ShadowStatus};
 pub enum ImplGapKind {
     /// All external traits are `present`; only needs `impl ElicitComplete` added.
     ReadyNow,
-    /// At least one external trait is `feature_gated` (dep built with default
-    /// features only due to a build failure).  May be unlockable.
+    /// At least one serde/schemars feature the dep offers has not been activated
+    /// in our shadow crate.  Adding it may unlock serde for these types.
     FeatureGated,
-    /// All missing external traits are confirmed `absent` (all-features build
-    /// succeeded).  Needs a trenchcoat or upstream schemars/serde support.
+    /// All missing external traits are confirmed absent under our current feature
+    /// set and transitive expansions.  Needs a trenchcoat or upstream schemars/serde
+    /// support.
     NeedsExternalImpl,
 }
 
@@ -89,14 +90,16 @@ pub struct ImplGapEntry {
 /// Only types with `ImplStatus::Missing` are included — types that already have
 /// `ElicitComplete` are not gaps.
 ///
-/// `available_serde_features` maps crate name → all serde/schemars-related feature
-/// names the dep offers (from [`crate::collect::collect_dep_serde_features`]).
+/// `available_serde_features` maps crate name → serde/schemars-related feature
+/// names available in the dep (name-only filter, from
+/// [`crate::collect::collect_dep_serde_features`]).
 ///
-/// `activated_features` maps crate name → the feature list our workspace has
-/// actually declared for this dep (e.g. `["json", "cookies", "stream"]` for
-/// reqwest).  The intersection of available serde features and activated features
-/// tells us whether we have already tried to unlock serde for a given dep.
-/// The difference (`available - activated`) is what we could still add.
+/// `activated_features` maps crate name → the **transitively expanded** feature
+/// set our workspace has activated for this dep.  For example, if `geo` declares
+/// `use-serde → serde` and we activate `["use-serde"]`, the map contains
+/// `["serde", "use-serde", ...]` so that `serde` is correctly counted as activated.
+/// The difference (`available - expanded_activated`) drives the classification:
+/// non-empty → `FeatureGated`; empty → `NeedsExternalImpl`.
 #[instrument(skip(pairs, available_serde_features, activated_features), fields(num_reports = pairs.len()))]
 pub fn build_impl_gaps(
     pairs: &[(&str, &ImplCoverageReport)],

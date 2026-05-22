@@ -456,10 +456,23 @@ pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String
 /// Uses `--all-features` on the workspace so that optional deps (like `reqwest`,
 /// which is behind a feature gate in elicitation) are included in the resolved graph.
 #[instrument(skip(reference_workspace), fields(crate_name))]
+/// Returns `(available_serde_features, expanded_activated_features)`.
+///
+/// `available_serde_features` — feature names whose names contain serde/schema/json
+/// keywords.  We intentionally use name-only matching to avoid false positives from
+/// infrastructure features like `std`/`alloc`/`default` that happen to enable the
+/// serde dep transitively.
+///
+/// `expanded_activated_features` — the transitive closure of `activated` through
+/// the package's own feature graph.  For example, if `geo` has `use-serde → serde`,
+/// and we activate `["use-serde"]`, the expanded set is `{"use-serde", "serde"}`.
+/// This prevents spurious `FeatureGated` classification when an alias feature name
+/// is used (e.g. `use-serde` activates `serde` indirectly).
 pub fn collect_dep_serde_features(
     reference_workspace: &Path,
     crate_name: &str,
-) -> ElicitDocResult<Vec<String>> {
+    activated: &[&str],
+) -> ElicitDocResult<(Vec<String>, Vec<String>)> {
     let meta = cargo_metadata::MetadataCommand::new()
         .manifest_path(reference_workspace.join("Cargo.toml"))
         .features(cargo_metadata::CargoOpt::AllFeatures)
@@ -477,30 +490,48 @@ pub fn collect_dep_serde_features(
             ))
         })?;
 
+    // Name-only filter: only features whose own name contains a serde/schema/json keyword.
+    // Avoids including utility features like `std`/`alloc`/`default` that merely
+    // *enable* the serde dep transitively.
     const KEYWORDS: &[&str] = &["serde", "schemars", "schema", "json"];
-
-    let mut candidates: Vec<String> = pkg
+    let mut available: Vec<String> = pkg
         .features
-        .iter()
-        .filter(|(name, enables)| {
+        .keys()
+        .filter(|name| {
             let name_lc = name.to_lowercase();
             KEYWORDS.iter().any(|kw| name_lc.contains(kw))
-                || enables.iter().any(|dep| {
-                    let dep_lc = dep.to_lowercase();
-                    KEYWORDS.iter().any(|kw| dep_lc.contains(kw))
-                })
         })
-        .map(|(name, _)| name.clone())
+        .cloned()
         .collect();
+    available.sort();
 
-    candidates.sort();
+    // Transitively expand the activated features through same-package feature edges.
+    // We skip edges that cross into another package (dep:foo, foo/bar).
+    let mut expanded: std::collections::HashSet<String> =
+        activated.iter().map(|s| s.to_string()).collect();
+    let mut queue: std::collections::VecDeque<String> =
+        activated.iter().map(|s| s.to_string()).collect();
+    while let Some(feat) = queue.pop_front() {
+        if let Some(enables) = pkg.features.get(&feat) {
+            for enabled in enables {
+                if !enabled.contains(':') && !enabled.contains('/') && expanded.insert(enabled.clone()) {
+                    queue.push_back(enabled.clone());
+                }
+            }
+        }
+    }
+    let mut expanded_activated: Vec<String> = expanded.into_iter().collect();
+    expanded_activated.sort();
+
     tracing::debug!(
         crate_name,
-        count = candidates.len(),
-        ?candidates,
-        "found serde-related features"
+        available_count = available.len(),
+        ?available,
+        expanded_activated_count = expanded_activated.len(),
+        ?expanded_activated,
+        "collected dep serde features"
     );
-    Ok(candidates)
+    Ok((available, expanded_activated))
 }
 
 /// Find the `Cargo.toml` path for a dependency named `crate_name` as seen from
