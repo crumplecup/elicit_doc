@@ -1,68 +1,88 @@
-item_path,item_kind,status,shadow_item,drift_confidence,notes
-elicit_reqwest::client::DeleteParams,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::client::DeleteParamsStyle,Enum,Extra,,,"in shadow, not in target"
-elicit_reqwest::client::GetParams,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::client::GetParamsStyle,Enum,Extra,,,"in shadow, not in target"
-elicit_reqwest::client::HeadParams,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::client::HeadParamsStyle,Enum,Extra,,,"in shadow, not in target"
-elicit_reqwest::client::PatchParams,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::client::PatchParamsStyle,Enum,Extra,,,"in shadow, not in target"
-elicit_reqwest::client::PostParams,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::client::PostParamsStyle,Enum,Extra,,,"in shadow, not in target"
-elicit_reqwest::client::PutParams,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::client::PutParamsStyle,Enum,Extra,,,"in shadow, not in target"
-elicit_reqwest::context::HttpContext,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugin::Plugin,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::header_map::HeaderMapPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::http::Plugin,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::method::MethodPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::request_builder::RequestBuilderPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::request_builder::RequestSpec,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::status_code::StatusCodePlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::url::UrlPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::AuthFetchSucceeded,TypeAlias,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::AuthType,Enum,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::Authorized,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::BuildRequestParams,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::BuildRequestParamsBuilder,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::BuildRequestParamsBuilderError,Enum,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::ContentType,Enum,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::FetchResult,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::FetchSucceeded,TypeAlias,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::RequestCompleted,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::StatusSuccess,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::UrlValid,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::plugins::workflow::WorkflowPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::types::HeaderMap,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::types::Method,Struct,Extra,,,"in shadow, not in target"
-elicit_reqwest::types::StatusCode,Struct,Extra,,,"in shadow, not in target"
-reqwest::async_impl::body::Body,Struct,Missing,,,
-reqwest::async_impl::client::Client,Struct,Covered,elicit_reqwest::client::Client,,
-reqwest::async_impl::client::ClientBuilder,Struct,Missing,,,
-reqwest::async_impl::client::Pending,Struct,Missing,,,
-reqwest::async_impl::request::Request,Struct,Missing,,,
-reqwest::async_impl::request::RequestBuilder,Struct,Covered,elicit_reqwest::request_builder::RequestBuilder,,
-reqwest::async_impl::response::Response,Struct,Covered,elicit_reqwest::response::Response,,
-reqwest::async_impl::upgrade::Upgraded,Struct,Missing,,,
-reqwest::connect::sealed::Conn,Struct,Missing,,,
-reqwest::connect::sealed::Unnameable,Struct,Missing,,,
-reqwest::connect::uds::Internal,Struct,Missing,,,
-reqwest::dns::resolve::Addrs,TypeAlias,Missing,,,
-reqwest::dns::resolve::Name,Struct,Missing,,,
-reqwest::dns::resolve::Resolving,TypeAlias,Missing,,,
-reqwest::dns::resolve::sealed::InvalidNameError,Struct,Missing,,,
-reqwest::error::Error,Struct,Covered,elicit_reqwest::error::Error,,
-reqwest::error::Result,TypeAlias,Missing,,,
-reqwest::proxy::NoProxy,Struct,Missing,,,
-reqwest::proxy::Proxy,Struct,Missing,,,
-reqwest::redirect::Action,Struct,Missing,,,
-reqwest::redirect::Attempt,Struct,Missing,,,
-reqwest::redirect::Policy,Struct,Missing,,,
-reqwest::retry::Builder,Struct,Missing,,,
-reqwest::retry::classify::Action,Enum,Missing,,,
-reqwest::retry::classify::ReqRep,Struct,Missing,,,
-reqwest::tls::Certificate,Struct,Missing,,,
-reqwest::tls::CertificateRevocationList,Struct,Missing,,,
-reqwest::tls::Identity,Struct,Missing,,,
-reqwest::tls::TlsInfo,Struct,Missing,,,
-reqwest::tls::Version,Struct,Covered,elicit_reqwest::types::Version,,
+item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
+elicit_reqwest::client::DeleteParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::client::GetParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::client::HeadParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::client::PatchParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::client::PostParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::client::PutParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::client::_elicit_compat_DeleteParams::DeleteParamsStyle,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::client::_elicit_compat_GetParams::GetParamsStyle,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::client::_elicit_compat_HeadParams::HeadParamsStyle,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::client::_elicit_compat_PatchParams::PatchParamsStyle,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::client::_elicit_compat_PostParams::PostParamsStyle,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::client::_elicit_compat_PutParams::PutParamsStyle,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::context::HttpContext,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugin::Plugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::header_map::HeaderMapPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::http::Plugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::method::MethodPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::request_builder::RequestBuilderPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::request_builder::RequestSpec,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::status_code::StatusCodePlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::url::UrlPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::AuthFetchSucceeded,TypeAlias,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::AuthType,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::Authorized,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::BuildRequestParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::BuildRequestParamsBuilder,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::BuildRequestParamsBuilderError,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::ContentType,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::FetchResult,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::FetchSucceeded,TypeAlias,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::RequestCompleted,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::StatusSuccess,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::UrlValid,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::WorkflowPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::apply_auth,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::do_fetch,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::do_post,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::extract_link_next,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::timeout,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::plugins::workflow::urlencoding_simple,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::types::HeaderMap,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::types::Method,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_reqwest::types::StatusCode,Struct,Extra,,,,,,,"in shadow, not in target"
+reqwest::async_impl::body::Body,Struct,Missing,,,,,,,
+reqwest::async_impl::client::Client,Struct,Covered,elicit_reqwest::client::Client,,Complete,true,,,
+reqwest::async_impl::client::ClientBuilder,Struct,Missing,,,,,,,
+reqwest::async_impl::client::Pending,Struct,Missing,,,,,,,
+reqwest::async_impl::request::Request,Struct,Missing,,,,,,,
+reqwest::async_impl::request::RequestBuilder,Struct,Covered,elicit_reqwest::request_builder::RequestBuilder,,Complete,true,,,
+reqwest::async_impl::response::Response,Struct,Covered,elicit_reqwest::response::Response,,Complete,true,,,
+reqwest::async_impl::upgrade::Upgraded,Struct,Missing,,,,,,,
+reqwest::connect::sealed::Conn,Struct,Missing,,,,,,,
+reqwest::connect::sealed::Unnameable,Struct,Missing,,,,,,,
+reqwest::connect::uds::Internal,Struct,Missing,,,,,,,
+reqwest::connect::uds::UnixSocketProvider,Trait,Missing,,,,,,,
+reqwest::cookie::Cookie,Struct,Missing,,,,,,,
+reqwest::cookie::CookieStore,Trait,Missing,,,,,,,
+reqwest::cookie::Jar,Struct,Missing,,,,,,,
+reqwest::dns::resolve::Addrs,TypeAlias,Missing,,,,,,,
+reqwest::dns::resolve::IntoResolve,Trait,Missing,,,,,,,
+reqwest::dns::resolve::Name,Struct,Missing,,,,,,,
+reqwest::dns::resolve::Resolve,Trait,Missing,,,,,,,
+reqwest::dns::resolve::Resolving,TypeAlias,Missing,,,,,,,
+reqwest::dns::resolve::sealed::InvalidNameError,Struct,Missing,,,,,,,
+reqwest::error::Error,Struct,Covered,elicit_reqwest::error::Error,,Complete,true,,,
+reqwest::error::Result,TypeAlias,Missing,,,,,,,
+reqwest::get,Function,Missing,,,,,,,
+reqwest::into_url::IntoUrl,Trait,Missing,,,,,,,
+reqwest::into_url::IntoUrlSealed,Trait,Missing,,,,,,,
+reqwest::proxy::IntoProxy,Trait,Missing,,,,,,,
+reqwest::proxy::NoProxy,Struct,Missing,,,,,,,
+reqwest::proxy::Proxy,Struct,Missing,,,,,,,
+reqwest::redirect::Action,Struct,Missing,,,,,,,
+reqwest::redirect::Attempt,Struct,Missing,,,,,,,
+reqwest::redirect::Policy,Struct,Missing,,,,,,,
+reqwest::response::ResponseBuilderExt,Trait,Missing,,,,,,,
+reqwest::retry::Builder,Struct,Missing,,,,,,,
+reqwest::retry::classify::Action,Enum,Missing,,,,,,,
+reqwest::retry::classify::Classify,Trait,Missing,,,,,,,
+reqwest::retry::classify::ReqRep,Struct,Missing,,,,,,,
+reqwest::retry::for_host,Function,Missing,,,,,,,
+reqwest::retry::never,Function,Missing,,,,,,,
+reqwest::retry::scope::Scope,Trait,Missing,,,,,,,
+reqwest::tls::Certificate,Struct,Missing,,,,,,,
+reqwest::tls::Identity,Struct,Missing,,,,,,,
+reqwest::tls::TlsInfo,Struct,Missing,,,,,,,
+reqwest::tls::Version,Struct,Covered,elicit_reqwest::types::Version,,Complete,true,,,

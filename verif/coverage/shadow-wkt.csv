@@ -1,40 +1,65 @@
-item_path,item_kind,status,shadow_item,drift_confidence,notes
-elicit_wkt::trait_factories::ToWktF64Factory,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::trait_factories::ToWktF64VTable,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::trait_factories::ToWktParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::trait_factories::TryFromWktF64Factory,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::trait_factories::TryFromWktF64VTable,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::trait_factories::TryFromWktStrParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::trait_factories::WktStringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::wkt_item::WktItem,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::parse_plugin::ParseWktParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::parse_plugin::WktItemGeometryTypeParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::parse_plugin::WktItemStringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::parse_plugin::WktParsePlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::parse_plugin::WktParsed,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::CoordNew3dParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::CoordNewParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::CoordNewWithMParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::EmptyPointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::GeometryCollectionNewParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::LineStringNewParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::MultiLineStringNewParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::MultiPointNewParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::MultiPolygonNewParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::PointNewParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::PolygonNewParams,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::WktTypeCreated,Struct,Extra,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::WktTypesPlugin,Struct,Extra,,,"in shadow, not in target"
-wkt::Wkt,Enum,Missing,,,
-wkt::error::Error,Enum,Missing,,,
-wkt::geo_types_from_wkt::Error,Enum,Missing,,,
-wkt::types::coord::Coord,Struct,Covered,elicit_wkt::types::coord::Coord,,
-wkt::types::dimension::Dimension,Enum,Missing,,,
-wkt::types::geometry_type::GeometryType,Enum,Missing,,,
-wkt::types::geometrycollection::GeometryCollection,Struct,Covered,elicit_wkt::types::geometry_collection::GeometryCollection,,
-wkt::types::linestring::LineString,Struct,Covered,elicit_wkt::types::linestring::LineString,,
-wkt::types::multilinestring::MultiLineString,Struct,Covered,elicit_wkt::types::multilinestring::MultiLineString,,
-wkt::types::multipoint::MultiPoint,Struct,Covered,elicit_wkt::types::multipoint::MultiPoint,,
-wkt::types::multipolygon::MultiPolygon,Struct,Covered,elicit_wkt::types::multipolygon::MultiPolygon,,
-wkt::types::point::Point,Struct,Covered,elicit_wkt::types::point::Point,,
-wkt::types::polygon::Polygon,Struct,Covered,elicit_wkt::types::polygon::Polygon,,
+item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
+elicit_wkt::trait_factories::ToWktF64,Trait,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::trait_factories::ToWktF64Factory,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::trait_factories::ToWktF64VTable,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::trait_factories::ToWktParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::trait_factories::TryFromWktF64Factory,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::trait_factories::TryFromWktF64VTable,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::trait_factories::TryFromWktStrParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::trait_factories::WktStringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::trait_factories::prime_crate__trait_factories__to_wkt_f64,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::trait_factories::prime_crate__trait_factories__try_from_wkt_f64,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::wkt_item::WktItem,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::parse_plugin::ParseWktParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::parse_plugin::WktItemGeometryTypeParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::parse_plugin::WktItemStringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::parse_plugin::WktParsePlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::parse_plugin::WktParsed,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::CoordNew3dParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::CoordNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::CoordNewWithMParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::EmptyPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::GeometryCollectionNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::LineStringNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::MultiLineStringNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::MultiPointNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::MultiPolygonNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::PointNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::PolygonNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::WktTypeCreated,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::WktTypesPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+wkt::Wkt,Enum,Missing,,,,,,,
+wkt::WktFloat,Trait,Missing,,,,,,,
+wkt::WktNum,Trait,Missing,,,,,,,
+wkt::deserialize::deserialize_wkt,Function,Missing,,,,,,,
+wkt::deserialize::geo_types::deserialize_geometry,Function,Missing,,,,,,,
+wkt::deserialize::geo_types::deserialize_point,Function,Missing,,,,,,,
+wkt::error::Error,Enum,Missing,,,,,,,
+wkt::from_wkt::TryFromWkt,Trait,Drifted,elicit_wkt::trait_factories::TryFromWktF64,0.75,Missing,,,,probable rename
+wkt::geo_types_from_wkt::Error,Enum,Missing,,,,,,,
+wkt::geo_types_from_wkt::try_into_geometry,Function,Missing,,,,,,,
+wkt::geo_types_from_wkt::try_into_geometry_collection,Function,Missing,,,,,,,
+wkt::infer_type::infer_type,Function,Missing,,,,,,,
+wkt::to_wkt::ToWkt,Trait,Missing,,,,,,,
+wkt::to_wkt::geo_trait_impl::write_geometry,Function,Missing,,,,,,,
+wkt::to_wkt::geo_trait_impl::write_geometry_collection,Function,Missing,,,,,,,
+wkt::to_wkt::geo_trait_impl::write_line,Function,Missing,,,,,,,
+wkt::to_wkt::geo_trait_impl::write_linestring,Function,Missing,,,,,,,
+wkt::to_wkt::geo_trait_impl::write_multi_linestring,Function,Missing,,,,,,,
+wkt::to_wkt::geo_trait_impl::write_multi_point,Function,Missing,,,,,,,
+wkt::to_wkt::geo_trait_impl::write_multi_polygon,Function,Missing,,,,,,,
+wkt::to_wkt::geo_trait_impl::write_point,Function,Missing,,,,,,,
+wkt::to_wkt::geo_trait_impl::write_polygon,Function,Missing,,,,,,,
+wkt::to_wkt::geo_trait_impl::write_rect,Function,Missing,,,,,,,
+wkt::to_wkt::geo_trait_impl::write_triangle,Function,Missing,,,,,,,
+wkt::types::coord::Coord,Struct,Covered,elicit_wkt::types::coord::Coord,,Complete,true,,,
+wkt::types::dimension::Dimension,Enum,Missing,,,,,,,
+wkt::types::geometry_type::GeometryType,Enum,Missing,,,,,,,
+wkt::types::geometrycollection::GeometryCollection,Struct,Covered,elicit_wkt::types::geometry_collection::GeometryCollection,,Complete,true,,,
+wkt::types::linestring::LineString,Struct,Covered,elicit_wkt::types::linestring::LineString,,Complete,true,,,
+wkt::types::multilinestring::MultiLineString,Struct,Covered,elicit_wkt::types::multilinestring::MultiLineString,,Complete,true,,,
+wkt::types::multipoint::MultiPoint,Struct,Covered,elicit_wkt::types::multipoint::MultiPoint,,Complete,true,,,
+wkt::types::multipolygon::MultiPolygon,Struct,Covered,elicit_wkt::types::multipolygon::MultiPolygon,,Complete,true,,,
+wkt::types::point::Point,Struct,Covered,elicit_wkt::types::point::Point,,Complete,true,,,
+wkt::types::polygon::Polygon,Struct,Covered,elicit_wkt::types::polygon::Polygon,,Complete,true,,,
+wkt::wkt,Macro,Missing,,,,,,,

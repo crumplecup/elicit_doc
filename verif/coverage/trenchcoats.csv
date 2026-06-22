@@ -1,4 +1,5 @@
 foreign_crate,foreign_type,wrapper_path,wrapper_elicit_complete,wrapper_missing_our_traits,foreign_missing_our_traits
+bevy_ui,bevy_ui::ui_node::VisualBox,elicitation::primitives::bevy_types::ui::BevyVisualBox,false,ElicitSpec,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 derive_builder,derive_builder::error::UninitializedFieldError,elicitation::type_spec::SpecCategoryBuilderError,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 derive_builder,derive_builder::error::UninitializedFieldError,elicitation::type_spec::SpecEntryBuilderError,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 derive_builder,derive_builder::error::UninitializedFieldError,elicitation::type_spec::TypeSpecBuilderError,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
@@ -23,6 +24,7 @@ bevy_input,bevy_input::gamepad::GamepadAxis,elicitation::primitives::bevy_types:
 bevy_input,bevy_input::gamepad::GamepadButton,elicitation::primitives::bevy_types::input::BevyGamepadButton,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_input,bevy_input::mouse::MouseButton,elicitation::primitives::bevy_types::input::BevyMouseButton,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_input,bevy_input::touch::TouchPhase,elicitation::primitives::bevy_types::input::BevyTouchPhase,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
+bevy_material,bevy_material::alpha::AlphaMode,elicitation::primitives::bevy_types::render_enums::BevyAlphaMode,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_math,bevy_math::direction::Dir2,elicitation::primitives::bevy_types::ray::BevyDir2,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_math,bevy_math::direction::Dir3,elicitation::primitives::bevy_types::ray::BevyDir3,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_math,bevy_math::direction::Dir3A,elicitation::primitives::bevy_types::ray::BevyDir3A,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
@@ -50,7 +52,6 @@ bevy_math,bevy_math::ray::Ray2d,elicitation::primitives::bevy_types::ray::BevyRa
 bevy_math,bevy_math::ray::Ray3d,elicitation::primitives::bevy_types::ray::BevyRay3d,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_picking,bevy_picking::Pickable,elicitation::primitives::bevy_types::picking::BevyPickable,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_picking,bevy_picking::hover::PickingInteraction,elicitation::primitives::bevy_types::picking::BevyPickingInteraction,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
-bevy_render,bevy_render::alpha::AlphaMode,elicitation::primitives::bevy_types::render_enums::BevyAlphaMode,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_sprite,bevy_sprite::sprite::Anchor,elicitation::primitives::bevy_types::sprite::BevyAnchor,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_sprite,bevy_sprite::sprite::SpriteScalingMode,elicitation::primitives::bevy_types::sprite::BevySpriteScalingMode,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_text,bevy_text::text::FontSmoothing,elicitation::primitives::bevy_types::text::BevyFontSmoothing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
@@ -73,7 +74,7 @@ bevy_ui,bevy_ui::ui_node::JustifyContent,elicitation::primitives::bevy_types::ui
 bevy_ui,bevy_ui::ui_node::JustifyItems,elicitation::primitives::bevy_types::ui::BevyJustifyItems,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_ui,bevy_ui::ui_node::JustifySelf,elicitation::primitives::bevy_types::ui::BevyJustifySelf,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_ui,bevy_ui::ui_node::OverflowAxis,elicitation::primitives::bevy_types::ui::BevyOverflowAxis,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
-bevy_ui,bevy_ui::ui_node::OverflowClipBox,elicitation::primitives::bevy_types::ui::BevyOverflowClipBox,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
+bevy_ui,bevy_ui::ui_node::OverflowClipMargin,elicitation::primitives::bevy_types::ui::BevyOverflowClipMargin,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_ui,bevy_ui::ui_node::PositionType,elicitation::primitives::bevy_types::ui::BevyPositionType,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_window,bevy_window::window::PresentMode,elicitation::primitives::bevy_types::window::BevyPresentMode,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 bevy_window,bevy_window::window::WindowLevel,elicitation::primitives::bevy_types::window::BevyWindowLevel,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral

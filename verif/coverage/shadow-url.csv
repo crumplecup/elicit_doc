@@ -1,26 +1,31 @@
-item_path,item_kind,status,shadow_item,drift_confidence,notes
-elicit_url::url_type::JoinParams,Struct,Extra,,,"in shadow, not in target"
-elicit_url::url_type::JoinParamsStyle,Enum,Extra,,,"in shadow, not in target"
-elicit_url::workflow::AssertHttpsParams,Struct,Extra,,,"in shadow, not in target"
-elicit_url::workflow::BuildUrlParams,Struct,Extra,,,"in shadow, not in target"
-elicit_url::workflow::HttpsRequired,Struct,Extra,,,"in shadow, not in target"
-elicit_url::workflow::JoinUrlParams,Struct,Extra,,,"in shadow, not in target"
-elicit_url::workflow::ParseUrlParams,Struct,Extra,,,"in shadow, not in target"
-elicit_url::workflow::ParsedUrl,Struct,Extra,,,"in shadow, not in target"
-elicit_url::workflow::SchemeAllowed,Struct,Extra,,,"in shadow, not in target"
-elicit_url::workflow::SecureUrl,TypeAlias,Extra,,,"in shadow, not in target"
-elicit_url::workflow::SecureUrlState,Struct,Extra,,,"in shadow, not in target"
-elicit_url::workflow::UnvalidatedUrl,Struct,Extra,,,"in shadow, not in target"
-elicit_url::workflow::UrlParsed,Struct,Extra,,,"in shadow, not in target"
-elicit_url::workflow::UrlWorkflowPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_url::workflow::ValidateSchemeParams,Struct,Extra,,,"in shadow, not in target"
-url::ParseOptions,Struct,Missing,,,
-url::Url,Struct,Covered,elicit_url::url_type::Url,,
-url::UrlQuery,Struct,Missing,,,
-url::host::Host,Enum,Missing,,,
-url::origin::OpaqueOrigin,Struct,Missing,,,
-url::origin::Origin,Enum,Missing,,,
-url::parser::ParseError,Enum,Missing,,,
-url::parser::SyntaxViolation,Enum,Missing,,,
-url::path_segments::PathSegmentsMut,Struct,Missing,,,
-url::slicing::Position,Enum,Missing,,,
+item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
+elicit_url::url_type::JoinParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::url_type::_elicit_compat_JoinParams::JoinParamsStyle,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::AssertHttpsParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::BuildUrlParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::HttpsRequired,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::JoinUrlParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::ParseUrlParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::ParsedUrl,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::SchemeAllowed,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::SecureUrl,TypeAlias,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::SecureUrlState,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::UnvalidatedUrl,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::UrlParsed,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::UrlWorkflowPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::ValidateSchemeParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::assert_https_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::build_url_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::join_url_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::parse_url_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_url::workflow::validate_scheme_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+url::ParseOptions,Struct,Missing,,,,,,,
+url::Url,Struct,Covered,elicit_url::url_type::Url,,Complete,true,,,
+url::UrlQuery,Struct,Missing,,,,,,,
+url::host::Host,Enum,Missing,,,,,,,
+url::origin::OpaqueOrigin,Struct,Missing,,,,,,,
+url::origin::Origin,Enum,Missing,,,,,,,
+url::parser::ParseError,Enum,Missing,,,,,,,
+url::parser::SyntaxViolation,Enum,Missing,,,,,,,
+url::path_segments::PathSegmentsMut,Struct,Missing,,,,,,,
+url::slicing::Position,Enum,Missing,,,,,,,

@@ -1,67 +1,85 @@
-item_path,item_kind,status,shadow_item,drift_confidence,notes
-elicit_geojson::error::GeoJsonError,TypeAlias,Extra,,,"in shadow, not in target"
-elicit_geojson::error::GeoJsonResult,TypeAlias,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::conversion_plugin::FeatureCollectionFromGeoGeometryCollectionParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::conversion_plugin::GeoGeometryFromFeatureCollectionParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::conversion_plugin::GeoGeometryFromFeatureParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::conversion_plugin::GeoGeometryFromGeoJsonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::conversion_plugin::GeoGeometryFromGeometryParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::conversion_plugin::GeoGeometryFromValueParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::conversion_plugin::GeoJsonConversionPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::conversion_plugin::GeoJsonConverted,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::conversion_plugin::GeometryFromGeoGeometryParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::conversion_plugin::ValueFromGeoGeometryParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::document_plugin::GeoJsonDocumentParsed,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::document_plugin::GeoJsonDocumentPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::document_plugin::GeoJsonFromJsonValueParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::document_plugin::GeoJsonFromStrParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::document_plugin::GeoJsonToJsonValueParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::document_plugin::GeoJsonToStringPrettyParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::document_plugin::GeoJsonVariantParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::FeatureCollectionFromFeaturesParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::FeatureCollectionFromJsonValueParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::FeatureContainsPropertyParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::FeatureFromGeometryParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::FeatureFromJsonValueParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::FeatureFromValueParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::FeatureLenPropertiesParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::FeaturePropertyParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::FeatureRemovePropertyParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::FeatureSetPropertyParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::GeoJsonFeatureCreated,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::GeoJsonFeaturePlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::IdNumberParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::feature_plugin::IdStringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::GeoJsonGeometryCreated,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::GeoJsonGeometryPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::GeometryFromJsonValueParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::GeometryNewParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::ValueFromJsonValueParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::ValueGeometryCollectionParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::ValueLineStringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::ValueMultiLineStringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::ValueMultiPointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::ValueMultiPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::ValuePointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::ValuePolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geojson::workflow::geometry_plugin::ValueTypeNameParams,Struct,Extra,,,"in shadow, not in target"
-geojson::Bbox,TypeAlias,Missing,,,
-geojson::JsonObject,TypeAlias,Missing,,,
-geojson::JsonValue,TypeAlias,Missing,,,
-geojson::LineStringType,TypeAlias,Missing,,,
-geojson::PointType,TypeAlias,Missing,,,
-geojson::PolygonType,TypeAlias,Missing,,,
-geojson::errors::Error,Enum,Missing,,,
-geojson::errors::Result,TypeAlias,Missing,,,
-geojson::feature::Feature,Struct,Covered,elicit_geojson::feature::Feature,,
-geojson::feature::Id,Enum,Covered,elicit_geojson::id::Id,,
-geojson::feature_collection::FeatureCollection,Struct,Covered,elicit_geojson::feature_collection::FeatureCollection,,
-geojson::feature_iterator::FeatureIterator,Struct,Missing,,,
-geojson::feature_reader::FeatureReader,Struct,Missing,,,
-geojson::feature_writer::FeatureWriter,Struct,Missing,,,
-geojson::geojson::GeoJson,Enum,Covered,elicit_geojson::geojson::GeoJson,,
-geojson::geometry::Geometry,Struct,Covered,elicit_geojson::geometry::Geometry,,
-geojson::geometry::GeometryValue,Enum,Missing,,,
-geojson::geometry::Value,TypeAlias,Covered,elicit_geojson::geometry_value::Value,,
-geojson::geometry::deserialize::GeometryType,Enum,Missing,,,
-geojson::position::Position,Struct,Missing,,,
+item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
+elicit_geojson::error::GeoJsonError,TypeAlias,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::error::GeoJsonResult,TypeAlias,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::conversion_plugin::FeatureCollectionFromGeoGeometryCollectionParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::conversion_plugin::GeoGeometryFromFeatureCollectionParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::conversion_plugin::GeoGeometryFromFeatureParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::conversion_plugin::GeoGeometryFromGeoJsonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::conversion_plugin::GeoGeometryFromGeometryParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::conversion_plugin::GeoGeometryFromValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::conversion_plugin::GeoJsonConversionPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::conversion_plugin::GeoJsonConverted,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::conversion_plugin::GeometryFromGeoGeometryParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::conversion_plugin::ValueFromGeoGeometryParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::document_plugin::GeoJsonDocumentParsed,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::document_plugin::GeoJsonDocumentPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::document_plugin::GeoJsonFromJsonValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::document_plugin::GeoJsonFromStrParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::document_plugin::GeoJsonToJsonValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::document_plugin::GeoJsonToStringPrettyParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::document_plugin::GeoJsonVariantParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::FeatureCollectionFromFeaturesParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::FeatureCollectionFromJsonValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::FeatureContainsPropertyParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::FeatureFromGeometryParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::FeatureFromJsonValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::FeatureFromValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::FeatureLenPropertiesParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::FeaturePropertyParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::FeatureRemovePropertyParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::FeatureSetPropertyParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::GeoJsonFeatureCreated,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::GeoJsonFeaturePlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::IdNumberParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::feature_plugin::IdStringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::GeoJsonGeometryCreated,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::GeoJsonGeometryPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::GeometryFromJsonValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::GeometryNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::ValueFromJsonValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::ValueGeometryCollectionParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::ValueLineStringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::ValueMultiLineStringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::ValueMultiPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::ValueMultiPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::ValuePointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::ValuePolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geojson::workflow::geometry_plugin::ValueTypeNameParams,Struct,Extra,,,,,,,"in shadow, not in target"
+geojson::Bbox,TypeAlias,Missing,,,,,,,
+geojson::JsonObject,TypeAlias,Missing,,,,,,,
+geojson::JsonValue,TypeAlias,Missing,,,,,,,
+geojson::LineStringType,TypeAlias,Missing,,,,,,,
+geojson::PointType,TypeAlias,Missing,,,,,,,
+geojson::PolygonType,TypeAlias,Missing,,,,,,,
+geojson::conversion::quick_collection,Function,Missing,,,,,,,
+geojson::de::deserialize_feature_collection,Function,Missing,,,,,,,
+geojson::de::deserialize_feature_collection_str_to_vec,Function,Missing,,,,,,,
+geojson::de::deserialize_feature_collection_to_vec,Function,Missing,,,,,,,
+geojson::de::deserialize_features_from_feature_collection,Function,Missing,,,,,,,
+geojson::de::deserialize_geometry,Function,Missing,,,,,,,
+geojson::de::deserialize_optional_geometry,Function,Missing,,,,,,,
+geojson::de::deserialize_single_feature,Function,Missing,,,,,,,
+geojson::de::from_feature,Function,Missing,,,,,,,
+geojson::errors::Error,Enum,Missing,,,,,,,
+geojson::errors::Result,TypeAlias,Missing,,,,,,,
+geojson::feature::Feature,Struct,Covered,elicit_geojson::feature::Feature,,Complete,true,,,
+geojson::feature::Id,Enum,Covered,elicit_geojson::id::Id,,Complete,true,,,
+geojson::feature_collection::FeatureCollection,Struct,Covered,elicit_geojson::feature_collection::FeatureCollection,,Complete,true,,,
+geojson::feature_iterator::FeatureIterator,Struct,Missing,,,,,,,
+geojson::feature_reader::FeatureReader,Struct,Missing,,,,,,,
+geojson::feature_writer::FeatureWriter,Struct,Missing,,,,,,,
+geojson::geojson::GeoJson,Enum,Covered,elicit_geojson::geojson::GeoJson,,Complete,true,,,
+geojson::geometry::Geometry,Struct,Covered,elicit_geojson::geometry::Geometry,,Complete,true,,,
+geojson::geometry::GeometryValue,Enum,Missing,,,,,,,
+geojson::geometry::Value,TypeAlias,Covered,elicit_geojson::geometry_value::Value,,Complete,true,,,
+geojson::geometry::deserialize::GeometryType,Enum,Missing,,,,,,,
+geojson::position::Position,Struct,Missing,,,,,,,
+geojson::ser::serialize_geometry,Function,Missing,,,,,,,
+geojson::ser::serialize_optional_geometry,Function,Missing,,,,,,,
+geojson::ser::to_feature,Function,Missing,,,,,,,
+geojson::ser::to_feature_byte_vec,Function,Missing,,,,,,,
+geojson::ser::to_feature_collection_byte_vec,Function,Missing,,,,,,,
+geojson::ser::to_feature_collection_string,Function,Missing,,,,,,,
+geojson::ser::to_feature_collection_writer,Function,Missing,,,,,,,
+geojson::ser::to_feature_string,Function,Missing,,,,,,,
+geojson::ser::to_feature_writer,Function,Missing,,,,,,,

@@ -1,224 +1,412 @@
-item_path,item_kind,status,shadow_item,drift_confidence,notes
-elicit_geo::workflow::boolean_ops_plugin::BooleanOpApplied,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::GeoBooleanOpsPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::MultipolygonDifferenceParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::MultipolygonIntersectionParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::MultipolygonUnionParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::MultipolygonXorParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::PolygonDifferenceParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::PolygonIntersectionParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::PolygonUnionParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::PolygonXorParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::GeoCalculationsPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::GeometricCalculation,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::LinestringBoundingRectParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::LinestringCentroidParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::LinestringConvexHullParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::MultipointBoundingRectParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::MultipointCentroidParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::MultipointConvexHullParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::MultipolygonCentroidParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::PolygonBoundingRectParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::PolygonCentroidParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::PolygonConvexHullParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::GeoGeodesicPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::GeodesicBearingParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::GeodesicCalculated,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::GeodesicDestinationParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::GeodesicDistanceParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::HaversineBearingParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::HaversineDestinationParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::HaversineDistanceParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::EuclideanDistancePointLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::EuclideanDistancePointPointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::EuclideanDistancePointPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::GeoMeasurementsPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::HausdorffDistanceLinestringsParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::LineEuclideanLengthParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::LinestringEuclideanLengthParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::MeasurementComputed,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::MultiPolygonAreaParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::PolygonSignedAreaParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::PolygonUnsignedAreaParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::RectAreaParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::GeoPredicatesPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::LinestringIntersectsLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PointWithinPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PointWithinRectParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonContainsLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonContainsPointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonContainsPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonCoversLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonCoversPointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonIntersectsLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonIntersectsPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PredicateChecked,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::RectContainsPointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::RectIntersectsRectParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::DensifyLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::DensifyPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::GeoTransformationsPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::MapCoordsLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::MapCoordsPointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::MapCoordsPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::RemoveRepeatedPointsLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::RotateLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::RotatePolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::ScalePolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SimplifyLinestringRdpParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SimplifyLinestringVwParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SimplifyPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SkewLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SkewPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SmoothLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SmoothPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::TransformationApplied,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::TranslateLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::TranslatePointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::TranslatePolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::GeoValidationPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::GeometryTypeParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::LinestringCoordsCountParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::LinestringIsClosedParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::LinestringIsConvexParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::PolygonCoordsCountParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::PolygonExteriorCoordsCountParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::ValidationChecked,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::FrechetDistanceParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::GeoWorkflowPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::GeodesicLengthLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::HaversineLengthLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::LineInterpolatePointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::LineLocatePointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::NearestPointOnLinestringParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::PointInPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::PolygonExteriorLengthParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::PolygonInteriorPointParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::RemoveRepeatedPointsPolygonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::WorkflowCompleted,Struct,Extra,,,"in shadow, not in target"
-geo::algorithm::affine_ops::AffineTransform,Struct,Missing,,,
-geo::algorithm::ball_tree::BallTree,Struct,Missing,,,
-geo::algorithm::ball_tree::BallTreeBuilder,Struct,Missing,,,
-geo::algorithm::ball_tree::NearestNeighbour,Struct,Missing,,,
-geo::algorithm::ball_tree::PointWithData,Struct,Missing,,,
-geo::algorithm::bool_ops::OpType,Enum,Missing,,,
-geo::algorithm::bool_ops::i_overlay_integration::BoolOpsCoord,Struct,Missing,,,
-geo::algorithm::buffer::BufferStyle,Struct,Missing,,,
-geo::algorithm::concave_hull::ConcaveHullOptions,Struct,Missing,,,
-geo::algorithm::coordinate_position::CoordPos,Enum,Missing,,,
-geo::algorithm::dimensions::Dimensions,Enum,Missing,,,
-geo::algorithm::extremes::Extreme,Struct,Missing,,,
-geo::algorithm::extremes::Outcome,Struct,Missing,,,
-geo::algorithm::indexed::interval_tree_multipolygon::IntervalTreeMultiPolygon,Struct,Missing,,,
-geo::algorithm::indexed::prepared_geometry::PreparedGeometry,Struct,Missing,,,
-geo::algorithm::kernels::Orientation,Enum,Missing,,,
-geo::algorithm::kernels::robust::RobustKernel,Struct,Missing,,,
-geo::algorithm::kernels::simple::SimpleKernel,Struct,Missing,,,
-geo::algorithm::kmeans::KMeansParams,Struct,Missing,,,
-geo::algorithm::kmeans::error::KMeansError,Enum,Missing,,,
-geo::algorithm::kmeans::error::KMeansInitError,Enum,Missing,,,
-geo::algorithm::line_intersection::LineIntersection,Enum,Missing,,,
-geo::algorithm::line_measures::metric_spaces::euclidean::Euclidean,Struct,Missing,,,
-geo::algorithm::line_measures::metric_spaces::geodesic::GeodesicMeasure,Struct,Missing,,,
-geo::algorithm::line_measures::metric_spaces::haversine::HaversineMeasure,Struct,Missing,,,
-geo::algorithm::line_measures::metric_spaces::rhumb::Rhumb,Struct,Missing,,,
-geo::algorithm::lines_iter::LineStringIter,Struct,Missing,,,
-geo::algorithm::lines_iter::MapLinesIter,Struct,Missing,,,
-geo::algorithm::monotone::MonotonicPolygons,Struct,Missing,,,
-geo::algorithm::monotone::mono_poly::MonoPoly,Struct,Missing,,,
-geo::algorithm::monotone_chain::chain::MonotoneChain,Struct,Missing,,,
-geo::algorithm::monotone_chain::geometry::geometry::MonotoneChainGeometry,Enum,Missing,,,
-geo::algorithm::monotone_chain::geometry::linestring::MonotoneChainLineString,Struct,Missing,,,
-geo::algorithm::monotone_chain::geometry::multilinestring::MonotoneChainMultiLineString,Struct,Missing,,,
-geo::algorithm::monotone_chain::geometry::multipolygon::MonotoneChainMultiPolygon,Struct,Missing,,,
-geo::algorithm::monotone_chain::geometry::polygon::MonotoneChainPolygon,Struct,Missing,,,
-geo::algorithm::monotone_chain::segment::MonotoneChainSegment,Struct,Missing,,,
-geo::algorithm::orient::Direction,Enum,Missing,,,
-geo::algorithm::outlier_detection::PreparedDetector,Struct,Missing,,,
-geo::algorithm::relate::geomgraph::geometry_graph::GeometryGraph,Struct,Missing,,,
-geo::algorithm::relate::geomgraph::intersection_matrix::IntersectionMatrix,Struct,Missing,,,
-geo::algorithm::relate::geomgraph::intersection_matrix::InvalidInputError,Struct,Missing,,,
-geo::algorithm::repair_polygon::RepairPolygonError,Enum,Missing,,,
-geo::algorithm::stitch::LineStitchingError,Enum,Missing,,,
-geo::algorithm::sweep::Intersections,Struct,Missing,,,
-geo::algorithm::triangulate_delaunay::DelaunayTriangulationConfig,Struct,Missing,,,
-geo::algorithm::triangulate_delaunay::Triangles,TypeAlias,Missing,,,
-geo::algorithm::triangulate_delaunay::TriangulationError,Enum,Missing,,,
-geo::algorithm::triangulate_delaunay::TriangulationResult,TypeAlias,Missing,,,
-geo::algorithm::triangulate_earcut::Iter,Struct,Missing,,,
-geo::algorithm::triangulate_earcut::RawTriangulation,Struct,Missing,,,
-geo::algorithm::triangulate_spade::SpadeTriangulationConfig,Struct,Missing,,,
-geo::algorithm::triangulate_spade::Triangles,TypeAlias,Missing,,,
-geo::algorithm::triangulate_spade::TriangulationError,Enum,Missing,,,
-geo::algorithm::triangulate_spade::TriangulationResult,TypeAlias,Missing,,,
-geo::algorithm::validation::CoordIndex,Struct,Missing,,,
-geo::algorithm::validation::GeometryIndex,Struct,Missing,,,
-geo::algorithm::validation::RingRole,Enum,Missing,,,
-geo::algorithm::validation::coord::InvalidCoord,Enum,Missing,,,
-geo::algorithm::validation::geometry::InvalidGeometry,Enum,Missing,,,
-geo::algorithm::validation::geometry_collection::InvalidGeometryCollection,Enum,Missing,,,
-geo::algorithm::validation::line::InvalidLine,Enum,Missing,,,
-geo::algorithm::validation::line_string::InvalidLineString,Enum,Missing,,,
-geo::algorithm::validation::multi_line_string::InvalidMultiLineString,Enum,Missing,,,
-geo::algorithm::validation::multi_point::InvalidMultiPoint,Enum,Missing,,,
-geo::algorithm::validation::multi_polygon::InvalidMultiPolygon,Enum,Missing,,,
-geo::algorithm::validation::point::InvalidPoint,Enum,Missing,,,
-geo::algorithm::validation::polygon::InvalidPolygon,Enum,Missing,,,
-geo::algorithm::validation::rect::InvalidRect,Enum,Missing,,,
-geo::algorithm::validation::triangle::InvalidTriangle,Enum,Missing,,,
-geo::algorithm::vincenty_distance::FailedToConvergeError,Struct,Missing,,,
-geo::algorithm::voronoi::VoronoiClip,Enum,Missing,,,
-geo::algorithm::voronoi::VoronoiError,Enum,Missing,,,
-geo::algorithm::voronoi::VoronoiParams,Struct,Missing,,,
-geo::algorithm::winding_order::Points,Struct,Missing,,,
-geo::algorithm::winding_order::WindingOrder,Enum,Missing,,,
-geo::deprecated_feature_flags::UseProj,Struct,Missing,,,
-geo::deprecated_feature_flags::UseSerde,Struct,Missing,,,
-geo::geometry_cow::GeometryCow,Enum,Missing,,,
-geo::types::Closest,Enum,Missing,,,
-geo_types::error::Error,Enum,Missing,,,
-geo_types::geometry::Geometry,Enum,Missing,,,
-geo_types::geometry::_::deserialize::__Field,Enum,Missing,,,
-geo_types::geometry::_::deserialize::__FieldVisitor,Struct,Missing,,,
-geo_types::geometry::_::deserialize::__Visitor,Struct,Missing,,,
-geo_types::geometry::coord::Coord,Struct,Missing,,,
-geo_types::geometry::coord::_::deserialize::__Field,Enum,Missing,,,
-geo_types::geometry::coord::_::deserialize::__FieldVisitor,Struct,Missing,,,
-geo_types::geometry::coord::_::deserialize::__Visitor,Struct,Missing,,,
-geo_types::geometry::geometry_collection::GeometryCollection,Struct,Missing,,,
-geo_types::geometry::geometry_collection::IntoIteratorHelper,Struct,Missing,,,
-geo_types::geometry::geometry_collection::IterHelper,Struct,Missing,,,
-geo_types::geometry::geometry_collection::IterMutHelper,Struct,Missing,,,
-geo_types::geometry::geometry_collection::_::deserialize::__Visitor,Struct,Missing,,,
-geo_types::geometry::line::Line,Struct,Missing,,,
-geo_types::geometry::line::_::deserialize::__Field,Enum,Missing,,,
-geo_types::geometry::line::_::deserialize::__FieldVisitor,Struct,Missing,,,
-geo_types::geometry::line::_::deserialize::__Visitor,Struct,Missing,,,
-geo_types::geometry::line_string::CoordinatesIter,Struct,Missing,,,
-geo_types::geometry::line_string::LineString,Struct,Missing,,,
-geo_types::geometry::line_string::PointsIter,Struct,Missing,,,
-geo_types::geometry::line_string::_::deserialize::__Visitor,Struct,Missing,,,
-geo_types::geometry::multi_line_string::MultiLineString,Struct,Missing,,,
-geo_types::geometry::multi_line_string::_::deserialize::__Visitor,Struct,Missing,,,
-geo_types::geometry::multi_point::MultiPoint,Struct,Missing,,,
-geo_types::geometry::multi_point::_::deserialize::__Visitor,Struct,Missing,,,
-geo_types::geometry::multi_polygon::MultiPolygon,Struct,Missing,,,
-geo_types::geometry::multi_polygon::_::deserialize::__Visitor,Struct,Missing,,,
-geo_types::geometry::point::Point,Struct,Missing,,,
-geo_types::geometry::point::_::deserialize::__Visitor,Struct,Missing,,,
-geo_types::geometry::polygon::ListSign,Enum,Missing,,,
-geo_types::geometry::polygon::Polygon,Struct,Missing,,,
-geo_types::geometry::polygon::_::deserialize::__Field,Enum,Missing,,,
-geo_types::geometry::polygon::_::deserialize::__FieldVisitor,Struct,Missing,,,
-geo_types::geometry::polygon::_::deserialize::__Visitor,Struct,Missing,,,
-geo_types::geometry::rect::InvalidRectCoordinatesError,Struct,Missing,,,
-geo_types::geometry::rect::Rect,Struct,Missing,,,
-geo_types::geometry::rect::_::deserialize::__Field,Enum,Missing,,,
-geo_types::geometry::rect::_::deserialize::__FieldVisitor,Struct,Missing,,,
-geo_types::geometry::rect::_::deserialize::__Visitor,Struct,Missing,,,
-geo_types::geometry::triangle::Triangle,Struct,Missing,,,
-geo_types::geometry::triangle::_::deserialize::__Visitor,Struct,Missing,,,
-geographiclib_rs::geodesic::Geodesic,Struct,Missing,,,
-geographiclib_rs::geodesic_line::GeodesicLine,Struct,Missing,,,
-geographiclib_rs::polygon_area::PolygonArea,Struct,Missing,,,
-geographiclib_rs::polygon_area::Winding,Enum,Missing,,,
+item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
+elicit_geo::workflow::boolean_ops_plugin::BooleanOpApplied,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::GeoBooleanOpsPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::MultipolygonDifferenceParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::MultipolygonIntersectionParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::MultipolygonUnionParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::MultipolygonXorParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::PolygonDifferenceParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::PolygonIntersectionParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::PolygonUnionParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::PolygonXorParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::multipolygon_difference_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::multipolygon_intersection_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::multipolygon_union_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::multipolygon_xor_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::polygon_difference_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::polygon_intersection_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::polygon_union_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::polygon_xor_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::GeoCalculationsPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::GeometricCalculation,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::LinestringBoundingRectParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::LinestringCentroidParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::LinestringConvexHullParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::MultipointBoundingRectParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::MultipointCentroidParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::MultipointConvexHullParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::MultipolygonCentroidParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::PolygonBoundingRectParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::PolygonCentroidParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::PolygonConvexHullParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::linestring_bounding_rect_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::linestring_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::linestring_convex_hull_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::multipoint_bounding_rect_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::multipoint_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::multipoint_convex_hull_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::multipolygon_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::polygon_bounding_rect_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::polygon_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::polygon_convex_hull_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::GeoGeodesicPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::GeodesicBearingParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::GeodesicCalculated,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::GeodesicDestinationParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::GeodesicDistanceParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::HaversineBearingParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::HaversineDestinationParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::HaversineDistanceParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::geodesic_bearing_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::geodesic_destination_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::geodesic_distance_points_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::haversine_bearing_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::haversine_destination_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::haversine_distance_points_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::EuclideanDistancePointLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::EuclideanDistancePointPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::EuclideanDistancePointPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::GeoMeasurementsPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::HausdorffDistanceLinestringsParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::LineEuclideanLengthParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::LinestringEuclideanLengthParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::MeasurementComputed,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::MultiPolygonAreaParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::PolygonSignedAreaParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::PolygonUnsignedAreaParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::RectAreaParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::euclidean_distance_point_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::euclidean_distance_point_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::euclidean_distance_point_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::hausdorff_distance_linestrings_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::line_euclidean_length_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::linestring_euclidean_length_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::multipolygon_area_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::polygon_area_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::polygon_signed_area_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::rect_area_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::GeoPredicatesPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::LinestringIntersectsLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PointWithinPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PointWithinRectParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonContainsLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonContainsPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonContainsPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonCoversLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonCoversPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonIntersectsLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonIntersectsPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PredicateChecked,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::RectContainsPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::RectIntersectsRectParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::linestring_intersects_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::point_within_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::point_within_rect_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_contains_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_contains_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_contains_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_covers_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_covers_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_intersects_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_intersects_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::rect_contains_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::rect_intersects_rect_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::DensifyLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::DensifyPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::GeoTransformationsPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::MapCoordsLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::MapCoordsPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::MapCoordsPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::RemoveRepeatedPointsLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::RotateLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::RotatePolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::ScalePolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SimplifyLinestringRdpParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SimplifyLinestringVwParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SimplifyPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SkewLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SkewPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SmoothLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SmoothPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::TransformationApplied,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::TranslateLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::TranslatePointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::TranslatePolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::densify_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::densify_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::map_coords_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::map_coords_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::map_coords_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::remove_repeated_points_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::rotate_linestring_around_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::rotate_polygon_around_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::scale_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::simplify_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::simplify_linestring_vw_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::simplify_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::skew_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::skew_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::smooth_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::smooth_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::translate_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::translate_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::translate_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::GeoValidationPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::GeometryTypeParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::LinestringCoordsCountParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::LinestringIsClosedParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::LinestringIsConvexParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::PolygonCoordsCountParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::PolygonExteriorCoordsCountParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::ValidationChecked,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::geometry_type_name_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::linestring_coords_count_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::linestring_is_closed_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::linestring_is_convex_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::polygon_coords_count_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::polygon_exterior_coords_count_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::FrechetDistanceParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::GeoWorkflowPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::GeodesicLengthLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::HaversineLengthLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::LineInterpolatePointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::LineLocatePointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::NearestPointOnLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::PointInPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::PolygonExteriorLengthParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::PolygonInteriorPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::RemoveRepeatedPointsPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::WorkflowCompleted,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::frechet_distance_linestrings_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::geodesic_length_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::haversine_length_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::line_interpolate_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::line_locate_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::nearest_point_on_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::point_in_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::polygon_exterior_length_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::polygon_interior_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::remove_repeated_points_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+geo::GeoFloat,Trait,Missing,,,,,,,
+geo::GeoNum,Trait,Missing,,,,,,,
+geo::algorithm::affine_ops::AffineOps,Trait,Missing,,,,,,,
+geo::algorithm::affine_ops::AffineTransform,Struct,Missing,,,,,,,
+geo::algorithm::area::Area,Trait,Missing,,,,,,,
+geo::algorithm::ball_tree::BallTree,Struct,Missing,,,,,,,
+geo::algorithm::ball_tree::BallTreeBuilder,Struct,Missing,,,,,,,
+geo::algorithm::ball_tree::BallTreePoint,Trait,Missing,,,,,,,
+geo::algorithm::ball_tree::NearestNeighbour,Struct,Missing,,,,,,,
+geo::algorithm::ball_tree::PointWithData,Struct,Missing,,,,,,,
+geo::algorithm::bool_ops::BooleanOps,Trait,Missing,,,,,,,
+geo::algorithm::bool_ops::OpType,Enum,Missing,,,,,,,
+geo::algorithm::bool_ops::i_overlay_integration::BoolOpsCoord,Struct,Missing,,,,,,,
+geo::algorithm::bool_ops::i_overlay_integration::BoolOpsNum,Trait,Missing,,,,,,,
+geo::algorithm::bool_ops::unary_union,Function,Missing,,,,,,,
+geo::algorithm::bounding_rect::BoundingRect,Trait,Missing,,,,,,,
+geo::algorithm::buffer::Buffer,Trait,Missing,,,,,,,
+geo::algorithm::buffer::BufferStyle,Struct,Missing,,,,,,,
+geo::algorithm::centroid::Centroid,Trait,Missing,,,,,,,
+geo::algorithm::chaikin_smoothing::ChaikinSmoothing,Trait,Missing,,,,,,,
+geo::algorithm::chamberlain_duquette_area::ChamberlainDuquetteArea,Trait,Missing,,,,,,,
+geo::algorithm::closest_point::ClosestPoint,Trait,Missing,,,,,,,
+geo::algorithm::concave_hull::ConcaveHull,Trait,Missing,,,,,,,
+geo::algorithm::concave_hull::ConcaveHullOptions,Struct,Missing,,,,,,,
+geo::algorithm::contains::Contains,Trait,Missing,,,,,,,
+geo::algorithm::contains_properly::ContainsProperly,Trait,Missing,,,,,,,
+geo::algorithm::convert::Convert,Trait,Missing,,,,,,,
+geo::algorithm::convert::TryConvert,Trait,Missing,,,,,,,
+geo::algorithm::convert_angle_unit::ToDegrees,Trait,Missing,,,,,,,
+geo::algorithm::convert_angle_unit::ToRadians,Trait,Missing,,,,,,,
+geo::algorithm::convex_hull::ConvexHull,Trait,Missing,,,,,,,
+geo::algorithm::convex_hull::graham::graham_hull,Function,Missing,,,,,,,
+geo::algorithm::convex_hull::qhull::quick_hull,Function,Missing,,,,,,,
+geo::algorithm::coordinate_position::CoordPos,Enum,Missing,,,,,,,
+geo::algorithm::coordinate_position::CoordinatePosition,Trait,Missing,,,,,,,
+geo::algorithm::coordinate_position::coord_pos_relative_to_ring,Function,Missing,,,,,,,
+geo::algorithm::coords_iter::CoordsIter,Trait,Missing,,,,,,,
+geo::algorithm::covers::Covers,Trait,Missing,,,,,,,
+geo::algorithm::cross_track_distance::CrossTrackDistance,Trait,Missing,,,,,,,
+geo::algorithm::dbscan::Dbscan,Trait,Missing,,,,,,,
+geo::algorithm::densify_haversine::DensifyHaversine,Trait,Missing,,,,,,,
+geo::algorithm::dimensions::Dimensions,Enum,Missing,,,,,,,
+geo::algorithm::dimensions::HasDimensions,Trait,Missing,,,,,,,
+geo::algorithm::euclidean_distance::EuclideanDistance,Trait,Missing,,,,,,,
+geo::algorithm::euclidean_distance::nearest_neighbour_distance,Function,Missing,,,,,,,
+geo::algorithm::euclidean_length::EuclideanLength,Trait,Missing,,,,,,,
+geo::algorithm::extremes::Extreme,Struct,Missing,,,,,,,
+geo::algorithm::extremes::Extremes,Trait,Missing,,,,,,,
+geo::algorithm::extremes::Outcome,Struct,Missing,,,,,,,
+geo::algorithm::frechet_distance::FrechetDistance,Trait,Missing,,,,,,,
+geo::algorithm::geodesic_area::GeodesicArea,Trait,Missing,,,,,,,
+geo::algorithm::geodesic_bearing::GeodesicBearing,Trait,Missing,,,,,,,
+geo::algorithm::geodesic_destination::GeodesicDestination,Trait,Missing,,,,,,,
+geo::algorithm::geodesic_distance::GeodesicDistance,Trait,Missing,,,,,,,
+geo::algorithm::geodesic_intermediate::GeodesicIntermediate,Trait,Missing,,,,,,,
+geo::algorithm::geodesic_length::GeodesicLength,Trait,Missing,,,,,,,
+geo::algorithm::hausdorff_distance::HausdorffDistance,Trait,Missing,,,,,,,
+geo::algorithm::haversine_bearing::HaversineBearing,Trait,Missing,,,,,,,
+geo::algorithm::haversine_closest_point::HaversineClosestPoint,Trait,Missing,,,,,,,
+geo::algorithm::haversine_destination::HaversineDestination,Trait,Missing,,,,,,,
+geo::algorithm::haversine_distance::HaversineDistance,Trait,Missing,,,,,,,
+geo::algorithm::haversine_intermediate::HaversineIntermediate,Trait,Missing,,,,,,,
+geo::algorithm::haversine_length::HaversineLength,Trait,Missing,,,,,,,
+geo::algorithm::indexed::interval_tree_multipolygon::IntervalTreeMultiPolygon,Struct,Missing,,,,,,,
+geo::algorithm::indexed::prepared_geometry::PreparedGeometry,Struct,Missing,,,,,,,
+geo::algorithm::interior_point::InteriorPoint,Trait,Missing,,,,,,,
+geo::algorithm::intersects::Intersects,Trait,Missing,,,,,,,
+geo::algorithm::is_convex::IsConvex,Trait,Missing,,,,,,,
+geo::algorithm::k_nearest_concave_hull::KNearestConcaveHull,Trait,Missing,,,,,,,
+geo::algorithm::kernels::Kernel,Trait,Missing,,,,,,,
+geo::algorithm::kernels::Orientation,Enum,Missing,,,,,,,
+geo::algorithm::kernels::robust::RobustKernel,Struct,Missing,,,,,,,
+geo::algorithm::kernels::simple::SimpleKernel,Struct,Missing,,,,,,,
+geo::algorithm::kmeans::KMeans,Trait,Missing,,,,,,,
+geo::algorithm::kmeans::KMeansParams,Struct,Missing,,,,,,,
+geo::algorithm::kmeans::error::KMeansError,Enum,Missing,,,,,,,
+geo::algorithm::kmeans::error::KMeansInitError,Enum,Missing,,,,,,,
+geo::algorithm::line_interpolate_point::LineInterpolatePoint,Trait,Missing,,,,,,,
+geo::algorithm::line_intersection::LineIntersection,Enum,Missing,,,,,,,
+geo::algorithm::line_intersection::line_intersection,Function,Missing,,,,,,,
+geo::algorithm::line_locate_point::LineLocatePoint,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::bearing::Bearing,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::densify::Densifiable,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::densify::Densify,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::destination::Destination,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::distance::Distance,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::frechet_distance::FrechetDistance,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::interpolate_line::InterpolatableLine,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::interpolate_line::InterpolateLine,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::interpolate_point::InterpolatePoint,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::length::Length,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::length::LengthMeasurable,Trait,Missing,,,,,,,
+geo::algorithm::line_measures::metric_spaces::euclidean::Euclidean,Struct,Missing,,,,,,,
+geo::algorithm::line_measures::metric_spaces::geodesic::GeodesicMeasure,Struct,Missing,,,,,,,
+geo::algorithm::line_measures::metric_spaces::haversine::Haversine,Constant,Missing,,,,,,,
+geo::algorithm::line_measures::metric_spaces::haversine::HaversineMeasure,Struct,Missing,,,,,,,
+geo::algorithm::line_measures::metric_spaces::rhumb::Rhumb,Struct,Missing,,,,,,,
+geo::algorithm::lines_iter::LineStringIter,Struct,Missing,,,,,,,
+geo::algorithm::lines_iter::LinesIter,Trait,Missing,,,,,,,
+geo::algorithm::lines_iter::MapLinesIter,Struct,Missing,,,,,,,
+geo::algorithm::linestring_segment::LineStringSegmentize,Trait,Missing,,,,,,,
+geo::algorithm::linestring_segment::LineStringSegmentizeHaversine,Trait,Missing,,,,,,,
+geo::algorithm::map_coords::MapCoords,Trait,Missing,,,,,,,
+geo::algorithm::map_coords::MapCoordsInPlace,Trait,Missing,,,,,,,
+geo::algorithm::minimum_rotated_rect::MinimumRotatedRect,Trait,Missing,,,,,,,
+geo::algorithm::monotone::MonotonicPolygons,Struct,Missing,,,,,,,
+geo::algorithm::monotone::builder::monotone_subdivision,Function,Missing,,,,,,,
+geo::algorithm::monotone::mono_poly::MonoPoly,Struct,Missing,,,,,,,
+geo::algorithm::monotone_chain::chain::MonotoneChain,Struct,Missing,,,,,,,
+geo::algorithm::monotone_chain::chain_iter::MonotoneChains,Trait,Missing,,,,,,,
+geo::algorithm::monotone_chain::geometry::geometry::MonotoneChainGeometry,Enum,Missing,,,,,,,
+geo::algorithm::monotone_chain::geometry::linestring::MonotoneChainLineString,Struct,Missing,,,,,,,
+geo::algorithm::monotone_chain::geometry::multilinestring::MonotoneChainMultiLineString,Struct,Missing,,,,,,,
+geo::algorithm::monotone_chain::geometry::multipolygon::MonotoneChainMultiPolygon,Struct,Missing,,,,,,,
+geo::algorithm::monotone_chain::geometry::polygon::MonotoneChainPolygon,Struct,Missing,,,,,,,
+geo::algorithm::monotone_chain::segment::MonotoneChainSegment,Struct,Missing,,,,,,,
+geo::algorithm::orient::Direction,Enum,Missing,,,,,,,
+geo::algorithm::orient::Orient,Trait,Missing,,,,,,,
+geo::algorithm::outlier_detection::OutlierDetection,Trait,Missing,,,,,,,
+geo::algorithm::outlier_detection::PreparedDetector,Struct,Missing,,,,,,,
+geo::algorithm::relate::Relate,Trait,Missing,,,,,,,
+geo::algorithm::relate::geomgraph::geometry_graph::GeometryGraph,Struct,Missing,,,,,,,
+geo::algorithm::relate::geomgraph::intersection_matrix::IntersectionMatrix,Struct,Missing,,,,,,,
+geo::algorithm::relate::geomgraph::intersection_matrix::InvalidInputError,Struct,Missing,,,,,,,
+geo::algorithm::remove_repeated_points::RemoveRepeatedPoints,Trait,Missing,,,,,,,
+geo::algorithm::repair_polygon::MakeValid,Trait,Missing,,,,,,,
+geo::algorithm::repair_polygon::RepairPolygonError,Enum,Missing,,,,,,,
+geo::algorithm::rhumb::bearing::RhumbBearing,Trait,Missing,,,,,,,
+geo::algorithm::rhumb::destination::RhumbDestination,Trait,Missing,,,,,,,
+geo::algorithm::rhumb::distance::RhumbDistance,Trait,Missing,,,,,,,
+geo::algorithm::rhumb::intermediate::RhumbIntermediate,Trait,Missing,,,,,,,
+geo::algorithm::rhumb::length::RhumbLength,Trait,Missing,,,,,,,
+geo::algorithm::rotate::Rotate,Trait,Missing,,,,,,,
+geo::algorithm::scale::Scale,Trait,Missing,,,,,,,
+geo::algorithm::simplify::Simplify,Trait,Missing,,,,,,,
+geo::algorithm::simplify::SimplifyIdx,Trait,Missing,,,,,,,
+geo::algorithm::simplify_vw::SimplifyVw,Trait,Missing,,,,,,,
+geo::algorithm::simplify_vw::SimplifyVwIdx,Trait,Missing,,,,,,,
+geo::algorithm::simplify_vw::SimplifyVwPreserve,Trait,Missing,,,,,,,
+geo::algorithm::skew::Skew,Trait,Missing,,,,,,,
+geo::algorithm::stitch::LineStitchingError,Enum,Missing,,,,,,,
+geo::algorithm::stitch::StitchTriangles,Trait,Missing,,,,,,,
+geo::algorithm::stitch::private::Stitchable,Trait,Missing,,,,,,,
+geo::algorithm::sweep::Intersections,Struct,Missing,,,,,,,
+geo::algorithm::sweep::cross::Cross,Trait,Missing,,,,,,,
+geo::algorithm::translate::Translate,Trait,Missing,,,,,,,
+geo::algorithm::triangulate_delaunay::DelaunayTriangulationConfig,Struct,Missing,,,,,,,
+geo::algorithm::triangulate_delaunay::SpadeTriangulationFloat,Trait,Missing,,,,,,,
+geo::algorithm::triangulate_delaunay::Triangles,TypeAlias,Missing,,,,,,,
+geo::algorithm::triangulate_delaunay::TriangulateDelaunay,Trait,Missing,,,,,,,
+geo::algorithm::triangulate_delaunay::TriangulateDelaunayUnconstrained,Trait,Missing,,,,,,,
+geo::algorithm::triangulate_delaunay::TriangulationError,Enum,Missing,,,,,,,
+geo::algorithm::triangulate_delaunay::TriangulationResult,TypeAlias,Missing,,,,,,,
+geo::algorithm::triangulate_delaunay::private::ConstrainedRequirementTrait,Trait,Missing,,,,,,,
+geo::algorithm::triangulate_delaunay::private::UnconstrainedRequirementTrait,Trait,Missing,,,,,,,
+geo::algorithm::triangulate_earcut::Iter,Struct,Missing,,,,,,,
+geo::algorithm::triangulate_earcut::RawTriangulation,Struct,Missing,,,,,,,
+geo::algorithm::triangulate_earcut::TriangulateEarcut,Trait,Missing,,,,,,,
+geo::algorithm::triangulate_spade::SpadeTriangulationConfig,Struct,Missing,,,,,,,
+geo::algorithm::triangulate_spade::SpadeTriangulationFloat,Trait,Missing,,,,,,,
+geo::algorithm::triangulate_spade::Triangles,TypeAlias,Missing,,,,,,,
+geo::algorithm::triangulate_spade::TriangulateSpade,Trait,Missing,,,,,,,
+geo::algorithm::triangulate_spade::TriangulationError,Enum,Missing,,,,,,,
+geo::algorithm::triangulate_spade::TriangulationResult,TypeAlias,Missing,,,,,,,
+geo::algorithm::triangulate_spade::private::TriangulationRequirementTrait,Trait,Missing,,,,,,,
+geo::algorithm::validation::CoordIndex,Struct,Missing,,,,,,,
+geo::algorithm::validation::GeometryIndex,Struct,Missing,,,,,,,
+geo::algorithm::validation::RingRole,Enum,Missing,,,,,,,
+geo::algorithm::validation::Validation,Trait,Missing,,,,,,,
+geo::algorithm::validation::coord::InvalidCoord,Enum,Missing,,,,,,,
+geo::algorithm::validation::geometry::InvalidGeometry,Enum,Missing,,,,,,,
+geo::algorithm::validation::geometry_collection::InvalidGeometryCollection,Enum,Missing,,,,,,,
+geo::algorithm::validation::line::InvalidLine,Enum,Missing,,,,,,,
+geo::algorithm::validation::line_string::InvalidLineString,Enum,Missing,,,,,,,
+geo::algorithm::validation::multi_line_string::InvalidMultiLineString,Enum,Missing,,,,,,,
+geo::algorithm::validation::multi_point::InvalidMultiPoint,Enum,Missing,,,,,,,
+geo::algorithm::validation::multi_polygon::InvalidMultiPolygon,Enum,Missing,,,,,,,
+geo::algorithm::validation::point::InvalidPoint,Enum,Missing,,,,,,,
+geo::algorithm::validation::polygon::InvalidPolygon,Enum,Missing,,,,,,,
+geo::algorithm::validation::rect::InvalidRect,Enum,Missing,,,,,,,
+geo::algorithm::validation::triangle::InvalidTriangle,Enum,Missing,,,,,,,
+geo::algorithm::vector_ops::Vector2DOps,Trait,Missing,,,,,,,
+geo::algorithm::vincenty_distance::FailedToConvergeError,Struct,Missing,,,,,,,
+geo::algorithm::vincenty_distance::VincentyDistance,Trait,Missing,,,,,,,
+geo::algorithm::vincenty_length::VincentyLength,Trait,Missing,,,,,,,
+geo::algorithm::voronoi::Voronoi,Trait,Missing,,,,,,,
+geo::algorithm::voronoi::VoronoiClip,Enum,Missing,,,,,,,
+geo::algorithm::voronoi::VoronoiError,Enum,Missing,,,,,,,
+geo::algorithm::voronoi::VoronoiParams,Struct,Missing,,,,,,,
+geo::algorithm::winding_order::Points,Struct,Missing,,,,,,,
+geo::algorithm::winding_order::Winding,Trait,Missing,,,,,,,
+geo::algorithm::winding_order::WindingOrder,Enum,Missing,,,,,,,
+geo::algorithm::winding_order::triangle_winding_order,Function,Missing,,,,,,,
+geo::algorithm::within::Within,Trait,Missing,,,,,,,
+geo::geometry_cow::GeometryCow,Enum,Missing,,,,,,,
+geo::geometry_delegate_impl,Macro,Missing,,,,,,,
+geo::types::Closest,Enum,Missing,,,,,,,
+geo_types::CoordFloat,Trait,Missing,,,,,,,
+geo_types::CoordNum,Trait,Missing,,,,,,,
+geo_types::CoordinateType,Trait,Missing,,,,,,,
+geo_types::coord,Macro,Missing,,,,,,,
+geo_types::error::Error,Enum,Missing,,,,,,,
+geo_types::geometry::Geometry,Enum,Missing,,,,,,,
+geo_types::geometry::coord::Coord,Struct,Missing,,,,,,,
+geo_types::geometry::geometry_collection::GeometryCollection,Struct,Missing,,,,,,,
+geo_types::geometry::geometry_collection::IntoIteratorHelper,Struct,Missing,,,,,,,
+geo_types::geometry::geometry_collection::IterHelper,Struct,Missing,,,,,,,
+geo_types::geometry::geometry_collection::IterMutHelper,Struct,Missing,,,,,,,
+geo_types::geometry::line::Line,Struct,Missing,,,,,,,
+geo_types::geometry::line_string::CoordinatesIter,Struct,Missing,,,,,,,
+geo_types::geometry::line_string::LineString,Struct,Missing,,,,,,,
+geo_types::geometry::line_string::PointsIter,Struct,Missing,,,,,,,
+geo_types::geometry::multi_line_string::MultiLineString,Struct,Missing,,,,,,,
+geo_types::geometry::multi_point::MultiPoint,Struct,Missing,,,,,,,
+geo_types::geometry::multi_polygon::MultiPolygon,Struct,Missing,,,,,,,
+geo_types::geometry::point::Point,Struct,Missing,,,,,,,
+geo_types::geometry::polygon::ListSign,Enum,Missing,,,,,,,
+geo_types::geometry::polygon::Polygon,Struct,Missing,,,,,,,
+geo_types::geometry::rect::InvalidRectCoordinatesError,Struct,Missing,,,,,,,
+geo_types::geometry::rect::Rect,Struct,Missing,,,,,,,
+geo_types::geometry::triangle::Triangle,Struct,Missing,,,,,,,
+geo_types::line_string,Macro,Missing,,,,,,,
+geo_types::point,Macro,Missing,,,,,,,
+geo_types::polygon,Macro,Missing,,,,,,,
+geo_types::private_utils::get_bounding_rect,Function,Missing,,,,,,,
+geo_types::private_utils::line_string_bounding_rect,Function,Missing,,,,,,,
+geo_types::wkt,Macro,Missing,,,,,,,
+geographiclib_rs::geodesic::DirectGeodesic,Trait,Missing,,,,,,,
+geographiclib_rs::geodesic::Geodesic,Struct,Missing,,,,,,,
+geographiclib_rs::geodesic::InverseGeodesic,Trait,Missing,,,,,,,
+geographiclib_rs::geodesic_line::GeodesicLine,Struct,Missing,,,,,,,
+geographiclib_rs::polygon_area::PolygonArea,Struct,Missing,,,,,,,
+geographiclib_rs::polygon_area::Winding,Enum,Missing,,,,,,,

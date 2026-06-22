@@ -1,392 +1,566 @@
-item_path,item_kind,status,shadow_item,drift_confidence,notes
-egui::Rounding,TypeAlias,Missing,,,
-egui::WidgetType,Enum,Drifted,elicit_egui::style_tools::WidgetState,0.75,probable rename
-egui::atomics::atom::Atom,Struct,Missing,,,
-egui::atomics::atom_kind::AtomClosure,TypeAlias,Missing,,,
-egui::atomics::atom_kind::AtomKind,Enum,Missing,,,
-egui::atomics::atom_kind::IntoSizedArgs,Struct,Missing,,,
-egui::atomics::atom_kind::IntoSizedResult,Struct,Missing,,,
-egui::atomics::atom_layout::AllocatedAtomLayout,Struct,Missing,,,
-egui::atomics::atom_layout::AtomLayout,Struct,Missing,,,
-egui::atomics::atom_layout::AtomLayoutResponse,Struct,Missing,,,
-egui::atomics::atoms::Atoms,Struct,Missing,,,
-egui::atomics::sized_atom::SizedAtom,Struct,Missing,,,
-egui::atomics::sized_atom_kind::SizedAtomKind,Enum,Missing,,,
-egui::cache::cache_storage::CacheStorage,Struct,Missing,,,
-egui::cache::frame_cache::FrameCache,Struct,Missing,,,
-egui::cache::frame_publisher::FramePublisher,Struct,Missing,,,
-egui::containers::area::Area,Struct,Missing,,,
-egui::containers::area::AreaState,Struct,Missing,,,
-egui::containers::close_tag::ClosableTag,Struct,Missing,,,
-egui::containers::collapsing_header::CollapsingHeader,Struct,Missing,,,
-egui::containers::collapsing_header::CollapsingResponse,Struct,Missing,,,
-egui::containers::collapsing_header::CollapsingState,Struct,Missing,,,
-egui::containers::collapsing_header::HeaderResponse,Struct,Missing,,,
-egui::containers::collapsing_header::IconPainter,TypeAlias,Missing,,,
-egui::containers::combo_box::ComboBox,Struct,Missing,,,
-egui::containers::combo_box::IconPainter,TypeAlias,Missing,,,
-egui::containers::frame::Frame,Struct,Missing,,,
-egui::containers::frame::Prepared,Struct,Missing,,,
-egui::containers::menu::Bar,TypeAlias,Missing,,,
-egui::containers::menu::MenuBar,Struct,Missing,,,
-egui::containers::menu::MenuButton,Struct,Missing,,,
-egui::containers::menu::MenuConfig,Struct,Missing,,,
-egui::containers::menu::MenuState,Struct,Missing,,,
-egui::containers::menu::SubMenu,Struct,Missing,,,
-egui::containers::menu::SubMenuButton,Struct,Missing,,,
-egui::containers::modal::Modal,Struct,Missing,,,
-egui::containers::modal::ModalResponse,Struct,Missing,,,
-egui::containers::old_popup::AboveOrBelow,Enum,Missing,,,
-egui::containers::panel::CentralPanel,Struct,Missing,,,
-egui::containers::panel::Panel,Struct,Missing,,,
-egui::containers::panel::PanelState,Struct,Missing,,,
-egui::containers::panel::SidePanel,TypeAlias,Missing,,,
-egui::containers::panel::TopBottomPanel,TypeAlias,Missing,,,
-egui::containers::popup::Popup,Struct,Missing,,,
-egui::containers::popup::PopupAnchor,Enum,Missing,,,
-egui::containers::popup::PopupCloseBehavior,Enum,Missing,,,
-egui::containers::popup::PopupKind,Enum,Missing,,,
-egui::containers::popup::SetOpenCommand,Enum,Missing,,,
-egui::containers::resize::Resize,Struct,Missing,,,
-egui::containers::scene::DragPanButtons,Struct,Missing,,,
-egui::containers::scene::Scene,Struct,Missing,,,
-egui::containers::scroll_area::ScrollArea,Struct,Missing,,,
-egui::containers::scroll_area::ScrollAreaOutput,Struct,Missing,,,
-egui::containers::scroll_area::ScrollBarVisibility,Enum,Missing,,,
-egui::containers::scroll_area::ScrollSource,Struct,Missing,,,
-egui::containers::scroll_area::State,Struct,Missing,,,
-egui::containers::sides::Sides,Struct,Missing,,,
-egui::containers::tooltip::Tooltip,Struct,Missing,,,
-egui::containers::window::Window,Struct,Missing,,,
-egui::context::Context,Struct,Missing,,,
-egui::context::RepaintCause,Struct,Missing,,,
-egui::context::RequestRepaintInfo,Struct,Missing,,,
-egui::context::ViewportState,Struct,Missing,,,
-egui::data::input::DroppedFile,Struct,Missing,,,
-egui::data::input::Event,Enum,Missing,,,
-egui::data::input::EventFilter,Struct,Missing,,,
-egui::data::input::HoveredFile,Struct,Missing,,,
-egui::data::input::ImeEvent,Enum,Missing,,,
-egui::data::input::KeyboardShortcut,Struct,Missing,,,
-egui::data::input::ModifierNames,Struct,Missing,,,
-egui::data::input::Modifiers,Struct,Missing,,,
-egui::data::input::MouseWheelUnit,Enum,Missing,,,
-egui::data::input::PointerButton,Enum,Missing,,,
-egui::data::input::RawInput,Struct,Missing,,,
-egui::data::input::SafeAreaInsets,Struct,Missing,,,
-egui::data::input::TouchDeviceId,Struct,Missing,,,
-egui::data::input::TouchId,Struct,Missing,,,
-egui::data::input::TouchPhase,Enum,Missing,,,
-egui::data::input::ViewportEvent,Enum,Missing,,,
-egui::data::input::ViewportInfo,Struct,Missing,,,
-egui::data::key::Key,Enum,Missing,,,
-egui::data::output::CursorIcon,Enum,Missing,,,
-egui::data::output::FullOutput,Struct,Missing,,,
-egui::data::output::IMEOutput,Struct,Missing,,,
-egui::data::output::OpenUrl,Struct,Missing,,,
-egui::data::output::OutputCommand,Enum,Missing,,,
-egui::data::output::OutputEvent,Enum,Missing,,,
-egui::data::output::PlatformOutput,Struct,Missing,,,
-egui::data::output::UserAttentionType,Enum,Missing,,,
-egui::data::output::WidgetInfo,Struct,Missing,,,
-egui::data::user_data::UserData,Struct,Missing,,,
-egui::debug_text::DebugTextPlugin,Struct,Missing,,,
-egui::drag_and_drop::DragAndDrop,Struct,Missing,,,
-egui::grid::Grid,Struct,Missing,,,
-egui::hit_test::WidgetHits,Struct,Missing,,,
-egui::id::Id,Struct,Missing,,,
-egui::id::IdMap,TypeAlias,Missing,,,
-egui::id::IdSet,TypeAlias,Missing,,,
-egui::input_state::InputOptions,Struct,Missing,,,
-egui::input_state::InputState,Struct,Missing,,,
-egui::input_state::PointerState,Struct,Missing,,,
-egui::input_state::SurrenderFocusOn,Enum,Missing,,,
-egui::input_state::touch_state::MultiTouchInfo,Struct,Missing,,,
-egui::interaction::InteractionSnapshot,Struct,Missing,,,
-egui::layers::GraphicLayers,Struct,Missing,,,
-egui::layers::LayerId,Struct,Missing,,,
-egui::layers::Order,Enum,Missing,,,
-egui::layers::PaintList,Struct,Missing,,,
-egui::layers::ShapeIdx,Struct,Missing,,,
-egui::layout::Layout,Struct,Missing,,,
-egui::load::Bytes,Enum,Missing,,,
-egui::load::BytesLoadResult,TypeAlias,Missing,,,
-egui::load::BytesPoll,Enum,Missing,,,
-egui::load::ImageLoadResult,TypeAlias,Missing,,,
-egui::load::ImagePoll,Enum,Missing,,,
-egui::load::LoadError,Enum,Missing,,,
-egui::load::Loaders,Struct,Missing,,,
-egui::load::Result,TypeAlias,Missing,,,
-egui::load::SizeHint,Enum,Missing,,,
-egui::load::SizedTexture,Struct,Missing,,,
-egui::load::TextureLoadResult,TypeAlias,Missing,,,
-egui::load::TexturePoll,Enum,Missing,,,
-egui::load::bytes_loader::DefaultBytesLoader,Struct,Missing,,,
-egui::load::texture_loader::DefaultTextureLoader,Struct,Missing,,,
-egui::memory::Areas,Struct,Missing,,,
-egui::memory::FocusDirection,Enum,Missing,,,
-egui::memory::Memory,Struct,Missing,,,
-egui::memory::Options,Struct,Missing,,,
-egui::memory::theme::Theme,Enum,Missing,,,
-egui::memory::theme::ThemePreference,Enum,Missing,,,
-egui::menu::BarState,Struct,Missing,,,
-egui::menu::MenuResponse,Enum,Missing,,,
-egui::menu::MenuRoot,Struct,Missing,,,
-egui::menu::MenuRootManager,Struct,Missing,,,
-egui::menu::MenuState,Struct,Missing,,,
-egui::menu::SubMenu,Struct,Missing,,,
-egui::menu::SubMenuButton,Struct,Missing,,,
-egui::os::OperatingSystem,Enum,Missing,,,
-egui::painter::Painter,Struct,Missing,,,
-egui::pass_state::AccessKitPassState,Struct,Missing,,,
-egui::pass_state::DebugRect,Struct,Missing,,,
-egui::pass_state::PassState,Struct,Missing,,,
-egui::pass_state::PerLayerState,Struct,Missing,,,
-egui::pass_state::PerWidgetTooltipState,Struct,Missing,,,
-egui::pass_state::ScrollTarget,Struct,Missing,,,
-egui::pass_state::TooltipPassState,Struct,Missing,,,
-egui::plugin::ContextCallback,TypeAlias,Missing,,,
-egui::plugin::TypedPluginGuard,Struct,Missing,,,
-egui::plugin::TypedPluginHandle,Struct,Missing,,,
-egui::response::InnerResponse,Struct,Missing,,,
-egui::response::Response,Struct,Missing,,,
-egui::sense::Sense,Struct,Missing,,,
-egui::style::DebugOptions,Struct,Missing,,,
-egui::style::FontSelection,Enum,Missing,,,
-egui::style::HandleShape,Enum,Missing,,,
-egui::style::Interaction,Struct,Missing,,,
-egui::style::NumberFormatter,Struct,Missing,,,
-egui::style::NumericColorSpace,Enum,Missing,,,
-egui::style::ScrollAnimation,Struct,Missing,,,
-egui::style::ScrollFadeStyle,Struct,Missing,,,
-egui::style::ScrollStyle,Struct,Missing,,,
-egui::style::Selection,Struct,Missing,,,
-egui::style::Spacing,Struct,Missing,,,
-egui::style::Style,Struct,Missing,,,
-egui::style::StyleModifier,Struct,Missing,,,
-egui::style::TextCursorStyle,Struct,Missing,,,
-egui::style::TextStyle,Enum,Missing,,,
-egui::style::Visuals,Struct,Missing,,,
-egui::style::WidgetVisuals,Struct,Missing,,,
-egui::style::Widgets,Struct,Missing,,,
-egui::text_selection::cursor_range::CCursorRange,Struct,Missing,,,
-egui::text_selection::label_text_selection::LabelSelectionState,Struct,Missing,,,
-egui::text_selection::text_cursor_state::TextCursorState,Struct,Missing,,,
-egui::text_selection::visuals::RowVertexIndices,Struct,Missing,,,
-egui::ui::Ui,Struct,Missing,,,
-egui::ui_builder::UiBuilder,Struct,Missing,,,
-egui::ui_stack::UiKind,Enum,Missing,,,
-egui::ui_stack::UiStack,Struct,Missing,,,
-egui::ui_stack::UiStackInfo,Struct,Missing,,,
-egui::ui_stack::UiStackIterator,Struct,Missing,,,
-egui::ui_stack::UiTags,Struct,Missing,,,
-egui::util::id_type_map::IdTypeMap,Struct,Missing,,,
-egui::util::id_type_map::RawKey,Struct,Missing,,,
-egui::util::id_type_map::TypeId,Struct,Missing,,,
-egui::util::undoer::Settings,Struct,Missing,,,
-egui::util::undoer::Undoer,Struct,Missing,,,
-egui::viewport::CursorGrab,Enum,Missing,,,
-egui::viewport::DeferredViewportUiCallback,TypeAlias,Missing,,,
-egui::viewport::IMEPurpose,Enum,Missing,,,
-egui::viewport::IconData,Struct,Missing,,,
-egui::viewport::ImmediateViewport,Struct,Missing,,,
-egui::viewport::ImmediateViewportRendererCallback,TypeAlias,Missing,,,
-egui::viewport::OrderedViewportIdMap,TypeAlias,Missing,,,
-egui::viewport::ResizeDirection,Enum,Missing,,,
-egui::viewport::SystemTheme,Enum,Missing,,,
-egui::viewport::ViewportBuilder,Struct,Missing,,,
-egui::viewport::ViewportClass,Enum,Missing,,,
-egui::viewport::ViewportCommand,Enum,Missing,,,
-egui::viewport::ViewportId,Struct,Missing,,,
-egui::viewport::ViewportIdMap,TypeAlias,Missing,,,
-egui::viewport::ViewportIdPair,Struct,Missing,,,
-egui::viewport::ViewportIdSet,TypeAlias,Missing,,,
-egui::viewport::ViewportOutput,Struct,Missing,,,
-egui::viewport::WindowLevel,Enum,Missing,,,
-egui::viewport::X11WindowType,Enum,Missing,,,
-egui::widget_rect::InteractOptions,Struct,Missing,,,
-egui::widget_rect::WidgetRect,Struct,Missing,,,
-egui::widget_rect::WidgetRects,Struct,Missing,,,
-egui::widget_style::ButtonStyle,Struct,Missing,,,
-egui::widget_style::CheckboxStyle,Struct,Missing,,,
-egui::widget_style::LabelStyle,Struct,Missing,,,
-egui::widget_style::SeparatorStyle,Struct,Missing,,,
-egui::widget_style::TextVisuals,Struct,Missing,,,
-egui::widget_style::WidgetState,Enum,Covered,elicit_egui::style_tools::WidgetState,,
-egui::widget_style::WidgetStyle,Struct,Missing,,,
-egui::widget_text::RichText,Struct,Missing,,,
-egui::widget_text::WidgetText,Enum,Missing,,,
-egui::widgets::button::Button,Struct,Missing,,,
-egui::widgets::checkbox::Checkbox,Struct,Missing,,,
-egui::widgets::color_picker::Alpha,Enum,Missing,,,
-egui::widgets::drag_value::DragValue,Struct,Missing,,,
-egui::widgets::hyperlink::Hyperlink,Struct,Missing,,,
-egui::widgets::hyperlink::Link,Struct,Missing,,,
-egui::widgets::image::FrameDurations,Struct,Missing,,,
-egui::widgets::image::Image,Struct,Missing,,,
-egui::widgets::image::ImageFit,Enum,Missing,,,
-egui::widgets::image::ImageOptions,Struct,Missing,,,
-egui::widgets::image::ImageSize,Struct,Missing,,,
-egui::widgets::image::ImageSource,Enum,Missing,,,
-egui::widgets::image_button::ImageButton,Struct,Missing,,,
-egui::widgets::label::Label,Struct,Missing,,,
-egui::widgets::progress_bar::ProgressBar,Struct,Missing,,,
-egui::widgets::radio_button::RadioButton,Struct,Missing,,,
-egui::widgets::selected_label::SelectableLabel,Struct,Missing,,,
-egui::widgets::separator::Separator,Struct,Missing,,,
-egui::widgets::slider::Slider,Struct,Missing,,,
-egui::widgets::slider::SliderClamping,Enum,Missing,,,
-egui::widgets::slider::SliderOrientation,Enum,Missing,,,
-egui::widgets::spinner::Spinner,Struct,Missing,,,
-egui::widgets::text_edit::builder::TextEdit,Struct,Missing,,,
-egui::widgets::text_edit::output::TextEditOutput,Struct,Missing,,,
-egui::widgets::text_edit::state::TextEditState,Struct,Missing,,,
-elicit_egui::accesskit_bridge::EguiBackend,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::BottomPanelParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::CollapsingParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::EmptyContainerParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::FrameParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::LeftPanelParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::MenuParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::PopupParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::RightPanelParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::ScrollAreaParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::TooltipParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::TopPanelParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::container_tools::WindowParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::AppStateParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::FormFieldDef,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::FormParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::MessageEnumParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::MessageVariantDef,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::NativeAppParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::SettingsFieldDef,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::SettingsPanelParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::SettingsSectionDef,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::SidebarLayoutParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::StateFieldDef,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::TabDef,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::TabPanelParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::TableColumnDef,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::TableParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::ToolbarButtonDef,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::ToolbarParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::fragment_tools::WebAppParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::input_tools::ClipboardSetParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::input_tools::EmptyInputParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::input_tools::FocusParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::input_tools::InputActionJson,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::input_tools::KeyParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::input_tools::ModifiersJson,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::input_tools::PointerButtonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::layout_tools::AddSpaceParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::layout_tools::ColumnsParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::layout_tools::EmptyLayoutParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::layout_tools::GridParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::layout_tools::HorizontalParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::layout_tools::IndentParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::layout_tools::VerticalParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::AlertDialogParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::ConfirmDialogParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::ContextMenuItemParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::ContextMenuParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::EmptyMenuParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::MenuActionJson,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::MenuPopupParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::MenuTooltipParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::ModalParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::NotificationParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::PopupBelowWidgetParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::TooltipAtPointerParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::menu_tools::TooltipRichParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::response_tools::ClickedNParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::response_tools::EmptyResponseParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::response_tools::ResponseInfoJson,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::response_tools::ResponseQueryJson,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::response_tools::SetEnabledParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::response_tools::ShowTooltipParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::ColorJson,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::ContainerJson,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::CornerRadiusJson,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::LayoutAlign,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::LayoutDirection,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::LayoutJson,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::MarginJson,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::RangeJson,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::RectJson,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::ResponseJson,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::StrokeJson,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::UiNode,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::Vec2Json,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::serde_types::WidgetJson,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::AnimationTimeParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::ButtonPaddingParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::ColorOverrideParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::DebugOptionsParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::EmptyStyleParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::FontFamily,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::InteractionParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::MenuMarginParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::OverrideTextStyleParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::ResizeGripSizeParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::ScrollBarWidthParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::SelectionParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::SetFontsParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::SetTextValignParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::SpacingParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::StyleIndentParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::StyleJson,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::TextCursorBlinkParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::TextCursorParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::TextStyleName,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::TextValign,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::VisualParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::VisualProperty,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::WidgetStrokeParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::WidgetVisualsParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::WindowRoundingParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::WindowShadowParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::style_tools::WindowStrokeParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::ButtonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::CheckboxParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::CodeEditorParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::CodeParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::ColorEditButtonHsvaParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::ColorEditButtonSrgbaParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::ColoredLabelParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::DragAngleParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::DragAngleTauParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::DragValueParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::EmptyParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::HeadingParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::HyperlinkParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::ImageParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::LabelParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::LinkParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::MonospaceParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::ProgressBarParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::RadioParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::RadioValueParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::SelectableLabelParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::SimpleTextParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::SliderParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::SliderVerticalParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::SmallButtonParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::TextEditMultilineParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::TextEditSinglelineParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::widget_tools::ToggleValueParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitAppConfigured,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitAppConfiguredStyle,Enum,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitCtx,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitDescribeParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitEmitParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitNewParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitNewResult,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetDecorationsParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetRendererParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetResizableParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetSizeParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetThemeParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetTitleParams,Struct,Extra,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetVsyncParams,Struct,Extra,,,"in shadow, not in target"
+item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
+egui::Rounding,TypeAlias,Missing,,,,,,,
+egui::WidgetType,Enum,Drifted,elicit_egui::style_tools::WidgetState,0.75,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree,probable rename
+egui::__run_test_ctx,Function,Missing,,,,,,,
+egui::__run_test_ui,Function,Missing,,,,,,,
+egui::accesskit_root_id,Function,Missing,,,,,,,
+egui::atomics::atom::Atom,Struct,Missing,,,,,,,
+egui::atomics::atom_ext::AtomExt,Trait,Missing,,,,,,,
+egui::atomics::atom_kind::AtomClosure,TypeAlias,Missing,,,,,,,
+egui::atomics::atom_kind::AtomKind,Enum,Missing,,,,,,,
+egui::atomics::atom_kind::IntoSizedArgs,Struct,Missing,,,,,,,
+egui::atomics::atom_kind::IntoSizedResult,Struct,Missing,,,,,,,
+egui::atomics::atom_layout::AllocatedAtomLayout,Struct,Missing,,,,,,,
+egui::atomics::atom_layout::AtomLayout,Struct,Missing,,,,,,,
+egui::atomics::atom_layout::AtomLayoutResponse,Struct,Missing,,,,,,,
+egui::atomics::atoms::Atoms,Struct,Missing,,,,,,,
+egui::atomics::atoms::IntoAtoms,Trait,Missing,,,,,,,
+egui::atomics::sized_atom::SizedAtom,Struct,Missing,,,,,,,
+egui::atomics::sized_atom_kind::SizedAtomKind,Enum,Missing,,,,,,,
+egui::cache::cache_storage::CacheStorage,Struct,Missing,,,,,,,
+egui::cache::cache_trait::CacheTrait,Trait,Missing,,,,,,,
+egui::cache::frame_cache::ComputerMut,Trait,Missing,,,,,,,
+egui::cache::frame_cache::FrameCache,Struct,Missing,,,,,,,
+egui::cache::frame_publisher::FramePublisher,Struct,Missing,,,,,,,
+egui::containers::area::Area,Struct,Missing,,,,,,,
+egui::containers::area::AreaState,Struct,Missing,,,,,,,
+egui::containers::close_tag::ClosableTag,Struct,Missing,,,,,,,
+egui::containers::collapsing_header::CollapsingHeader,Struct,Missing,,,,,,,
+egui::containers::collapsing_header::CollapsingResponse,Struct,Missing,,,,,,,
+egui::containers::collapsing_header::CollapsingState,Struct,Missing,,,,,,,
+egui::containers::collapsing_header::HeaderResponse,Struct,Missing,,,,,,,
+egui::containers::collapsing_header::IconPainter,TypeAlias,Missing,,,,,,,
+egui::containers::collapsing_header::paint_default_icon,Function,Missing,,,,,,,
+egui::containers::combo_box::ComboBox,Struct,Missing,,,,,,,
+egui::containers::combo_box::IconPainter,TypeAlias,Missing,,,,,,,
+egui::containers::frame::Frame,Struct,Missing,,,,,,,
+egui::containers::frame::Prepared,Struct,Missing,,,,,,,
+egui::containers::menu::Bar,TypeAlias,Missing,,,,,,,
+egui::containers::menu::MenuBar,Struct,Missing,,,,,,,
+egui::containers::menu::MenuButton,Struct,Missing,,,,,,,
+egui::containers::menu::MenuConfig,Struct,Missing,,,,,,,
+egui::containers::menu::MenuState,Struct,Missing,,,,,,,
+egui::containers::menu::SubMenu,Struct,Missing,,,,,,,
+egui::containers::menu::SubMenuButton,Struct,Missing,,,,,,,
+egui::containers::menu::find_menu_root,Function,Missing,,,,,,,
+egui::containers::menu::is_in_menu,Function,Missing,,,,,,,
+egui::containers::menu::menu_style,Function,Missing,,,,,,,
+egui::containers::modal::Modal,Struct,Missing,,,,,,,
+egui::containers::modal::ModalResponse,Struct,Missing,,,,,,,
+egui::containers::old_popup::AboveOrBelow,Enum,Missing,,,,,,,
+egui::containers::old_popup::popup_above_or_below_widget,Function,Missing,,,,,,,
+egui::containers::old_popup::popup_below_widget,Function,Missing,,,,,,,
+egui::containers::old_popup::show_tooltip,Function,Missing,,,,,,,
+egui::containers::old_popup::show_tooltip_at,Function,Missing,,,,,,,
+egui::containers::old_popup::show_tooltip_at_pointer,Function,Missing,,,,,,,
+egui::containers::old_popup::show_tooltip_for,Function,Missing,,,,,,,
+egui::containers::old_popup::show_tooltip_text,Function,Missing,,,,,,,
+egui::containers::old_popup::was_tooltip_open_last_frame,Function,Missing,,,,,,,
+egui::containers::panel::CentralPanel,Struct,Missing,,,,,,,
+egui::containers::panel::Panel,Struct,Missing,,,,,,,
+egui::containers::panel::PanelState,Struct,Missing,,,,,,,
+egui::containers::panel::SidePanel,TypeAlias,Missing,,,,,,,
+egui::containers::panel::TopBottomPanel,TypeAlias,Missing,,,,,,,
+egui::containers::popup::Popup,Struct,Missing,,,,,,,
+egui::containers::popup::PopupAnchor,Enum,Missing,,,,,,,
+egui::containers::popup::PopupCloseBehavior,Enum,Missing,,,,,,,
+egui::containers::popup::PopupKind,Enum,Missing,,,,,,,
+egui::containers::popup::SetOpenCommand,Enum,Missing,,,,,,,
+egui::containers::resize::Resize,Struct,Missing,,,,,,,
+egui::containers::scene::DragPanButtons,Struct,Missing,,,,,,,
+egui::containers::scene::Scene,Struct,Missing,,,,,,,
+egui::containers::scroll_area::ScrollArea,Struct,Missing,,,,,,,
+egui::containers::scroll_area::ScrollAreaOutput,Struct,Missing,,,,,,,
+egui::containers::scroll_area::ScrollBarVisibility,Enum,Missing,,,,,,,
+egui::containers::scroll_area::ScrollSource,Struct,Missing,,,,,,,
+egui::containers::scroll_area::State,Struct,Missing,,,,,,,
+egui::containers::sides::Sides,Struct,Missing,,,,,,,
+egui::containers::tooltip::Tooltip,Struct,Missing,,,,,,,
+egui::containers::window::Window,Struct,Missing,,,,,,,
+egui::context::Context,Struct,Missing,,,,,,,
+egui::context::RepaintCause,Struct,Missing,,,,,,,
+egui::context::RequestRepaintInfo,Struct,Missing,,,,,,,
+egui::context::ViewportState,Struct,Missing,,,,,,,
+egui::data::input::DroppedFile,Struct,Missing,,,,,,,
+egui::data::input::Event,Enum,Missing,,,,,,,
+egui::data::input::EventFilter,Struct,Missing,,,,,,,
+egui::data::input::HoveredFile,Struct,Missing,,,,,,,
+egui::data::input::ImeEvent,Enum,Missing,,,,,,,
+egui::data::input::KeyboardShortcut,Struct,Missing,,,,,,,
+egui::data::input::ModifierNames,Struct,Missing,,,,,,,
+egui::data::input::Modifiers,Struct,Missing,,,,,,,
+egui::data::input::MouseWheelUnit,Enum,Missing,,,,,,,
+egui::data::input::NUM_POINTER_BUTTONS,Constant,Missing,,,,,,,
+egui::data::input::PointerButton,Enum,Missing,,,,,,,
+egui::data::input::RawInput,Struct,Missing,,,,,,,
+egui::data::input::SafeAreaInsets,Struct,Missing,,,,,,,
+egui::data::input::TouchDeviceId,Struct,Missing,,,,,,,
+egui::data::input::TouchId,Struct,Missing,,,,,,,
+egui::data::input::TouchPhase,Enum,Missing,,,,,,,
+egui::data::input::ViewportEvent,Enum,Missing,,,,,,,
+egui::data::input::ViewportInfo,Struct,Missing,,,,,,,
+egui::data::key::Key,Enum,Missing,,,,,,,
+egui::data::output::CursorIcon,Enum,Missing,,,,,,,
+egui::data::output::FullOutput,Struct,Missing,,,,,,,
+egui::data::output::IMEOutput,Struct,Missing,,,,,,,
+egui::data::output::OpenUrl,Struct,Missing,,,,,,,
+egui::data::output::OutputCommand,Enum,Missing,,,,,,,
+egui::data::output::OutputEvent,Enum,Missing,,,,,,,
+egui::data::output::PlatformOutput,Struct,Missing,,,,,,,
+egui::data::output::UserAttentionType,Enum,Missing,,,,,,,
+egui::data::output::WidgetInfo,Struct,Missing,,,,,,,
+egui::data::user_data::UserData,Struct,Missing,,,,,,,
+egui::debug_text::DebugTextPlugin,Struct,Missing,,,,,,,
+egui::debug_text::print,Function,Missing,,,,,,,
+egui::drag_and_drop::DragAndDrop,Struct,Missing,,,,,,,
+egui::generate_loader_id,Macro,Missing,,,,,,,
+egui::github_link_file,Macro,Missing,,,,,,,
+egui::github_link_file_line,Macro,Missing,,,,,,,
+egui::grid::Grid,Struct,Missing,,,,,,,
+egui::gui_zoom::kb_shortcuts::ZOOM_IN,Constant,Missing,,,,,,,
+egui::gui_zoom::kb_shortcuts::ZOOM_IN_SECONDARY,Constant,Missing,,,,,,,
+egui::gui_zoom::kb_shortcuts::ZOOM_OUT,Constant,Missing,,,,,,,
+egui::gui_zoom::kb_shortcuts::ZOOM_RESET,Constant,Missing,,,,,,,
+egui::gui_zoom::zoom_in,Function,Missing,,,,,,,
+egui::gui_zoom::zoom_menu_buttons,Function,Missing,,,,,,,
+egui::gui_zoom::zoom_out,Function,Missing,,,,,,,
+egui::hit_test::WidgetHits,Struct,Missing,,,,,,,
+egui::id::Id,Struct,Missing,,,,,,,
+egui::id::IdMap,TypeAlias,Missing,,,,,,,
+egui::id::IdSet,TypeAlias,Missing,,,,,,,
+egui::include_image,Macro,Missing,,,,,,,
+egui::input_state::InputOptions,Struct,Missing,,,,,,,
+egui::input_state::InputState,Struct,Missing,,,,,,,
+egui::input_state::PointerState,Struct,Missing,,,,,,,
+egui::input_state::SurrenderFocusOn,Enum,Missing,,,,,,,
+egui::input_state::touch_state::MultiTouchInfo,Struct,Missing,,,,,,,
+egui::interaction::InteractionSnapshot,Struct,Missing,,,,,,,
+egui::introspection::font_family_ui,Function,Missing,,,,,,,
+egui::introspection::font_id_ui,Function,Missing,,,,,,,
+egui::layers::GraphicLayers,Struct,Missing,,,,,,,
+egui::layers::LayerId,Struct,Missing,,,,,,,
+egui::layers::Order,Enum,Missing,,,,,,,
+egui::layers::PaintList,Struct,Missing,,,,,,,
+egui::layers::ShapeIdx,Struct,Missing,,,,,,,
+egui::layout::Layout,Struct,Missing,,,,,,,
+egui::load::Bytes,Enum,Missing,,,,,,,
+egui::load::BytesLoadResult,TypeAlias,Missing,,,,,,,
+egui::load::BytesLoader,Trait,Missing,,,,,,,
+egui::load::BytesPoll,Enum,Missing,,,,,,,
+egui::load::ImageLoadResult,TypeAlias,Missing,,,,,,,
+egui::load::ImageLoader,Trait,Missing,,,,,,,
+egui::load::ImagePoll,Enum,Missing,,,,,,,
+egui::load::LoadError,Enum,Missing,,,,,,,
+egui::load::Loaders,Struct,Missing,,,,,,,
+egui::load::Result,TypeAlias,Missing,,,,,,,
+egui::load::SizeHint,Enum,Missing,,,,,,,
+egui::load::SizedTexture,Struct,Missing,,,,,,,
+egui::load::TextureLoadResult,TypeAlias,Missing,,,,,,,
+egui::load::TextureLoader,Trait,Missing,,,,,,,
+egui::load::TexturePoll,Enum,Missing,,,,,,,
+egui::load::bytes_loader::DefaultBytesLoader,Struct,Missing,,,,,,,
+egui::load::texture_loader::DefaultTextureLoader,Struct,Missing,,,,,,,
+egui::memory::Areas,Struct,Missing,,,,,,,
+egui::memory::FocusDirection,Enum,Missing,,,,,,,
+egui::memory::Memory,Struct,Missing,,,,,,,
+egui::memory::Options,Struct,Missing,,,,,,,
+egui::memory::theme::Theme,Enum,Missing,,,,,,,
+egui::memory::theme::ThemePreference,Enum,Missing,,,,,,,
+egui::menu::BarState,Struct,Missing,,,,,,,
+egui::menu::MenuResponse,Enum,Missing,,,,,,,
+egui::menu::MenuRoot,Struct,Missing,,,,,,,
+egui::menu::MenuRootManager,Struct,Missing,,,,,,,
+egui::menu::MenuState,Struct,Missing,,,,,,,
+egui::menu::SubMenu,Struct,Missing,,,,,,,
+egui::menu::SubMenuButton,Struct,Missing,,,,,,,
+egui::menu::bar,Function,Missing,,,,,,,
+egui::menu::context_menu,Function,Missing,,,,,,,
+egui::menu::context_menu_opened,Function,Missing,,,,,,,
+egui::menu::menu_button,Function,Missing,,,,,,,
+egui::menu::menu_custom_button,Function,Missing,,,,,,,
+egui::menu::menu_image_button,Function,Missing,,,,,,,
+egui::menu::submenu_button,Function,Missing,,,,,,,
+egui::os::OperatingSystem,Enum,Missing,,,,,,,
+egui::painter::Painter,Struct,Missing,,,,,,,
+egui::pass_state::AccessKitPassState,Struct,Missing,,,,,,,
+egui::pass_state::DebugRect,Struct,Missing,,,,,,,
+egui::pass_state::PassState,Struct,Missing,,,,,,,
+egui::pass_state::PerLayerState,Struct,Missing,,,,,,,
+egui::pass_state::PerWidgetTooltipState,Struct,Missing,,,,,,,
+egui::pass_state::ScrollTarget,Struct,Missing,,,,,,,
+egui::pass_state::TooltipPassState,Struct,Missing,,,,,,,
+egui::plugin::ContextCallback,TypeAlias,Missing,,,,,,,
+egui::plugin::Plugin,Trait,Missing,,,,,,,
+egui::plugin::TypedPluginGuard,Struct,Missing,,,,,,,
+egui::plugin::TypedPluginHandle,Struct,Missing,,,,,,,
+egui::response::InnerResponse,Struct,Missing,,,,,,,
+egui::response::Response,Struct,Missing,,,,,,,
+egui::sense::Sense,Struct,Missing,,,,,,,
+egui::special_emojis::GIT,Constant,Missing,,,,,,,
+egui::special_emojis::GITHUB,Constant,Missing,,,,,,,
+egui::special_emojis::OS_ANDROID,Constant,Missing,,,,,,,
+egui::special_emojis::OS_APPLE,Constant,Missing,,,,,,,
+egui::special_emojis::OS_LINUX,Constant,Missing,,,,,,,
+egui::special_emojis::OS_WINDOWS,Constant,Missing,,,,,,,
+egui::style::DebugOptions,Struct,Missing,,,,,,,
+egui::style::FontSelection,Enum,Missing,,,,,,,
+egui::style::HandleShape,Enum,Missing,,,,,,,
+egui::style::Interaction,Struct,Missing,,,,,,,
+egui::style::NumberFormatter,Struct,Missing,,,,,,,
+egui::style::NumericColorSpace,Enum,Missing,,,,,,,
+egui::style::ScrollAnimation,Struct,Missing,,,,,,,
+egui::style::ScrollFadeStyle,Struct,Missing,,,,,,,
+egui::style::ScrollStyle,Struct,Missing,,,,,,,
+egui::style::Selection,Struct,Missing,,,,,,,
+egui::style::Spacing,Struct,Missing,,,,,,,
+egui::style::Style,Struct,Missing,,,,,,,
+egui::style::StyleModifier,Struct,Missing,,,,,,,
+egui::style::TextCursorStyle,Struct,Missing,,,,,,,
+egui::style::TextStyle,Enum,Missing,,,,,,,
+egui::style::Visuals,Struct,Missing,,,,,,,
+egui::style::WidgetVisuals,Struct,Missing,,,,,,,
+egui::style::Widgets,Struct,Missing,,,,,,,
+egui::style::default_text_styles,Function,Missing,,,,,,,
+egui::text_selection::accesskit_text::update_accesskit_for_text_widget,Function,Missing,,,,,,,
+egui::text_selection::cursor_range::CCursorRange,Struct,Missing,,,,,,,
+egui::text_selection::label_text_selection::LabelSelectionState,Struct,Missing,,,,,,,
+egui::text_selection::text_cursor_state::TextCursorState,Struct,Missing,,,,,,,
+egui::text_selection::text_cursor_state::byte_index_from_char_index,Function,Missing,,,,,,,
+egui::text_selection::text_cursor_state::ccursor_next_word,Function,Missing,,,,,,,
+egui::text_selection::text_cursor_state::ccursor_previous_word,Function,Missing,,,,,,,
+egui::text_selection::text_cursor_state::char_index_from_byte_index,Function,Missing,,,,,,,
+egui::text_selection::text_cursor_state::cursor_rect,Function,Missing,,,,,,,
+egui::text_selection::text_cursor_state::find_line_start,Function,Missing,,,,,,,
+egui::text_selection::text_cursor_state::is_word_char,Function,Missing,,,,,,,
+egui::text_selection::text_cursor_state::slice_char_range,Function,Missing,,,,,,,
+egui::text_selection::visuals::RowVertexIndices,Struct,Missing,,,,,,,
+egui::text_selection::visuals::paint_cursor_end,Function,Missing,,,,,,,
+egui::text_selection::visuals::paint_text_cursor,Function,Missing,,,,,,,
+egui::text_selection::visuals::paint_text_selection,Function,Missing,,,,,,,
+egui::ui::Ui,Struct,Missing,,,,,,,
+egui::ui_builder::UiBuilder,Struct,Missing,,,,,,,
+egui::ui_stack::UiKind,Enum,Missing,,,,,,,
+egui::ui_stack::UiStack,Struct,Missing,,,,,,,
+egui::ui_stack::UiStackInfo,Struct,Missing,,,,,,,
+egui::ui_stack::UiStackIterator,Struct,Missing,,,,,,,
+egui::ui_stack::UiTags,Struct,Missing,,,,,,,
+egui::util::id_type_map::IdTypeMap,Struct,Missing,,,,,,,
+egui::util::id_type_map::RawKey,Struct,Missing,,,,,,,
+egui::util::id_type_map::SerializableAny,Trait,Missing,,,,,,,
+egui::util::id_type_map::TypeId,Struct,Missing,,,,,,,
+egui::util::undoer::Settings,Struct,Missing,,,,,,,
+egui::util::undoer::Undoer,Struct,Missing,,,,,,,
+egui::viewport::CursorGrab,Enum,Missing,,,,,,,
+egui::viewport::DeferredViewportUiCallback,TypeAlias,Missing,,,,,,,
+egui::viewport::IMEPurpose,Enum,Missing,,,,,,,
+egui::viewport::IconData,Struct,Missing,,,,,,,
+egui::viewport::ImmediateViewport,Struct,Missing,,,,,,,
+egui::viewport::ImmediateViewportRendererCallback,TypeAlias,Missing,,,,,,,
+egui::viewport::OrderedViewportIdMap,TypeAlias,Missing,,,,,,,
+egui::viewport::ResizeDirection,Enum,Missing,,,,,,,
+egui::viewport::SystemTheme,Enum,Missing,,,,,,,
+egui::viewport::ViewportBuilder,Struct,Missing,,,,,,,
+egui::viewport::ViewportClass,Enum,Missing,,,,,,,
+egui::viewport::ViewportCommand,Enum,Missing,,,,,,,
+egui::viewport::ViewportId,Struct,Missing,,,,,,,
+egui::viewport::ViewportIdMap,TypeAlias,Missing,,,,,,,
+egui::viewport::ViewportIdPair,Struct,Missing,,,,,,,
+egui::viewport::ViewportIdSet,TypeAlias,Missing,,,,,,,
+egui::viewport::ViewportOutput,Struct,Missing,,,,,,,
+egui::viewport::WindowLevel,Enum,Missing,,,,,,,
+egui::viewport::X11WindowType,Enum,Missing,,,,,,,
+egui::warn_if_debug_build,Function,Missing,,,,,,,
+egui::widget_rect::InteractOptions,Struct,Missing,,,,,,,
+egui::widget_rect::WidgetRect,Struct,Missing,,,,,,,
+egui::widget_rect::WidgetRects,Struct,Missing,,,,,,,
+egui::widget_style::ButtonStyle,Struct,Missing,,,,,,,
+egui::widget_style::CheckboxStyle,Struct,Missing,,,,,,,
+egui::widget_style::LabelStyle,Struct,Missing,,,,,,,
+egui::widget_style::SeparatorStyle,Struct,Missing,,,,,,,
+egui::widget_style::TextVisuals,Struct,Missing,,,,,,,
+egui::widget_style::WidgetState,Enum,Covered,elicit_egui::style_tools::WidgetState,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree,
+egui::widget_style::WidgetStyle,Struct,Missing,,,,,,,
+egui::widget_text::RichText,Struct,Missing,,,,,,,
+egui::widget_text::WidgetText,Enum,Missing,,,,,,,
+egui::widgets::Widget,Trait,Missing,,,,,,,
+egui::widgets::WidgetWithState,Trait,Missing,,,,,,,
+egui::widgets::button::Button,Struct,Missing,,,,,,,
+egui::widgets::checkbox::Checkbox,Struct,Missing,,,,,,,
+egui::widgets::color_picker::Alpha,Enum,Missing,,,,,,,
+egui::widgets::color_picker::color_edit_button_hsva,Function,Missing,,,,,,,
+egui::widgets::color_picker::color_edit_button_rgb,Function,Missing,,,,,,,
+egui::widgets::color_picker::color_edit_button_rgba,Function,Missing,,,,,,,
+egui::widgets::color_picker::color_edit_button_srgb,Function,Missing,,,,,,,
+egui::widgets::color_picker::color_edit_button_srgba,Function,Missing,,,,,,,
+egui::widgets::color_picker::color_picker_color32,Function,Missing,,,,,,,
+egui::widgets::color_picker::color_picker_hsva_2d,Function,Missing,,,,,,,
+egui::widgets::color_picker::show_color,Function,Missing,,,,,,,
+egui::widgets::color_picker::show_color_at,Function,Missing,,,,,,,
+egui::widgets::drag_value::DragValue,Struct,Missing,,,,,,,
+egui::widgets::global_dark_light_mode_buttons,Function,Missing,,,,,,,
+egui::widgets::global_dark_light_mode_switch,Function,Missing,,,,,,,
+egui::widgets::global_theme_preference_buttons,Function,Missing,,,,,,,
+egui::widgets::global_theme_preference_switch,Function,Missing,,,,,,,
+egui::widgets::hyperlink::Hyperlink,Struct,Missing,,,,,,,
+egui::widgets::hyperlink::Link,Struct,Missing,,,,,,,
+egui::widgets::image::FrameDurations,Struct,Missing,,,,,,,
+egui::widgets::image::Image,Struct,Missing,,,,,,,
+egui::widgets::image::ImageFit,Enum,Missing,,,,,,,
+egui::widgets::image::ImageOptions,Struct,Missing,,,,,,,
+egui::widgets::image::ImageSize,Struct,Missing,,,,,,,
+egui::widgets::image::ImageSource,Enum,Missing,,,,,,,
+egui::widgets::image::decode_animated_image_uri,Function,Missing,,,,,,,
+egui::widgets::image::has_gif_magic_header,Function,Missing,,,,,,,
+egui::widgets::image::has_webp_header,Function,Missing,,,,,,,
+egui::widgets::image::paint_texture_at,Function,Missing,,,,,,,
+egui::widgets::image_button::ImageButton,Struct,Missing,,,,,,,
+egui::widgets::label::Label,Struct,Missing,,,,,,,
+egui::widgets::progress_bar::ProgressBar,Struct,Missing,,,,,,,
+egui::widgets::radio_button::RadioButton,Struct,Missing,,,,,,,
+egui::widgets::reset_button,Function,Missing,,,,,,,
+egui::widgets::reset_button_with,Function,Missing,,,,,,,
+egui::widgets::selected_label::SelectableLabel,Struct,Missing,,,,,,,
+egui::widgets::separator::Separator,Struct,Missing,,,,,,,
+egui::widgets::slider::Slider,Struct,Missing,,,,,,,
+egui::widgets::slider::SliderClamping,Enum,Missing,,,,,,,
+egui::widgets::slider::SliderOrientation,Enum,Missing,,,,,,,
+egui::widgets::spinner::Spinner,Struct,Missing,,,,,,,
+egui::widgets::stroke_ui,Function,Missing,,,,,,,
+egui::widgets::text_edit::builder::TextEdit,Struct,Missing,,,,,,,
+egui::widgets::text_edit::output::TextEditOutput,Struct,Missing,,,,,,,
+egui::widgets::text_edit::state::TextEditState,Struct,Missing,,,,,,,
+egui::widgets::text_edit::text_buffer::TextBuffer,Trait,Missing,,,,,,,
+elicit_egui::accesskit_bridge::EguiBackend,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::accesskit_bridge::bounds_to_size,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::accesskit_bridge::render_tree,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::BottomPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::CollapsingParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::EmptyContainerParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::FrameParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::LeftPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::MenuParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::PopupParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::RightPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::ScrollAreaParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::TooltipParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::TopPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::container_tools::WindowParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::egui_accesskit_convert::tree_update_to_ui_node,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::egui_accesskit_convert::ui_node_to_tree_update,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::AppStateParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::FormFieldDef,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::FormParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::MessageEnumParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::MessageVariantDef,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::NativeAppParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::SettingsFieldDef,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::SettingsPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::SettingsSectionDef,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::SidebarLayoutParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::StateFieldDef,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::TabDef,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::TabPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::TableColumnDef,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::TableParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::ToolbarButtonDef,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::ToolbarParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::WebAppParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_app_state_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_form_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_message_enum_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_native_app_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_settings_panel_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_sidebar_layout_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_tab_panel_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_table_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_toolbar_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_web_app_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::input_tools::ClipboardSetParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::input_tools::EmptyInputParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::input_tools::FocusParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::input_tools::InputActionJson,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::input_tools::KeyParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::input_tools::ModifiersJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::input_tools::PointerButtonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::layout_tools::AddSpaceParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::layout_tools::ColumnsParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::layout_tools::EmptyLayoutParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::layout_tools::GridParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::layout_tools::HorizontalParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::layout_tools::IndentParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::layout_tools::VerticalParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::AlertDialogParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::ConfirmDialogParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::ContextMenuItemParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::ContextMenuParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::EmptyMenuParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::MenuActionJson,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::MenuPopupParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::MenuTooltipParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::ModalParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::NotificationParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::PopupBelowWidgetParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::TooltipAtPointerParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::menu_tools::TooltipRichParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::render_context::EguiRenderContext,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::response_tools::ClickedNParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::response_tools::EmptyResponseParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::response_tools::ResponseInfoJson,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::response_tools::ResponseQueryJson,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::response_tools::SetEnabledParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::response_tools::ShowTooltipParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::ColorJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::ContainerJson,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::CornerRadiusJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::LayoutAlign,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::LayoutDirection,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::LayoutJson,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::MarginJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::RangeJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::RectJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::ResponseJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::StrokeJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::UiNode,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::Vec2Json,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::serde_types::WidgetJson,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::AnimationTimeParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::ButtonPaddingParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::ColorOverrideParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::DebugOptionsParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::EmptyStyleParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::FontFamily,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::InteractionParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::MenuMarginParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::OverrideTextStyleParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::ResizeGripSizeParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::ScrollBarWidthParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::SelectionParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::SetFontsParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::SetTextValignParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::SpacingParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::StyleIndentParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::StyleJson,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::TextCursorBlinkParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::TextCursorParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::TextStyleName,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::TextValign,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::VisualParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::VisualProperty,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::WidgetStrokeParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::WidgetVisualsParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::WindowRoundingParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::WindowShadowParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::WindowStrokeParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_override_text_style_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_animation_time_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_button_padding_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_code_bg_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_debug_options_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_error_fg_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_extreme_bg_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_faint_bg_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_fonts_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_hyperlink_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_indent_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_interaction_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_menu_margin_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_resize_grip_size_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_scroll_bar_width_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_text_cursor_width_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_text_valign_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_warn_fg_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_widget_stroke_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::egui_set_window_stroke_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::style_dark_mode_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::style_light_mode_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::style_selection_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::style_spacing_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::style_text_cursor_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::style_visual_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::style_widget_visuals_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::style_window_rounding_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::style_tools::style_window_shadow_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::ButtonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::CheckboxParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::CodeEditorParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::CodeParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::ColorEditButtonHsvaParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::ColorEditButtonSrgbaParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::ColoredLabelParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::DragAngleParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::DragAngleTauParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::DragValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::EmptyParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::HeadingParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::HyperlinkParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::ImageParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::LabelParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::LinkParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::MonospaceParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::ProgressBarParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::RadioParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::RadioValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::SelectableLabelParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::SimpleTextParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::SliderParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::SliderVerticalParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::SmallButtonParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::TextEditMultilineParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::TextEditSinglelineParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::ToggleValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_button_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_checkbox_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_code_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_code_editor_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_color_edit_button_hsva_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_color_edit_button_srgba_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_colored_label_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_drag_angle_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_drag_angle_tau_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_drag_value_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_heading_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_hyperlink_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_image_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_label_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_link_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_monospace_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_progress_bar_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_radio_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_radio_value_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_selectable_label_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_separator_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_slider_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_slider_vertical_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_small_button_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_small_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_spinner_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_strong_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_text_edit_multiline_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_text_edit_singleline_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_toggle_value_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::widget_tools::widget_weak_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitAppConfigured,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitCtx,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitDescribeParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitEmitParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitNewResult,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetDecorationsParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetRendererParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetResizableParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetSizeParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetThemeParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetTitleParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetVsyncParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::_elicit_compat_EguiWinitAppConfigured::EguiWinitAppConfiguredStyle,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::describe_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::emit_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::new_config_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::set_decorations_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::set_renderer_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::set_resizable_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::set_size_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::set_theme_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::set_title_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_egui::winit_plugin::set_vsync_descriptor,Function,Extra,,,,,,,"in shadow, not in target"

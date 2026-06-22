@@ -1,45 +1,51 @@
-item_path,item_kind,status,shadow_item,drift_confidence,notes
-accesskit::Action,Enum,Covered,elicit_accesskit::enums::Action,,
-accesskit::ActionData,Enum,Missing,,,
-accesskit::ActionRequest,Struct,Missing,,,
-accesskit::AriaCurrent,Enum,Covered,elicit_accesskit::enums::AriaCurrent,,
-accesskit::AutoComplete,Enum,Covered,elicit_accesskit::enums::AutoComplete,,
-accesskit::CustomAction,Struct,Covered,elicit_accesskit::structs::CustomAction,,
-accesskit::HasPopup,Enum,Covered,elicit_accesskit::enums::HasPopup,,
-accesskit::Invalid,Enum,Covered,elicit_accesskit::enums::Invalid,,
-accesskit::ListStyle,Enum,Covered,elicit_accesskit::enums::ListStyle,,
-accesskit::Live,Enum,Covered,elicit_accesskit::enums::Live,,
-accesskit::Node,Struct,Missing,,,
-accesskit::NodeId,Struct,Covered,elicit_accesskit::node_id::NodeId,,
-accesskit::NodeIdContent,TypeAlias,Missing,,,
-accesskit::Orientation,Enum,Covered,elicit_accesskit::enums::Orientation,,
-accesskit::Role,Enum,Covered,elicit_accesskit::enums::Role,,
-accesskit::ScrollHint,Enum,Covered,elicit_accesskit::enums::ScrollHint,,
-accesskit::ScrollUnit,Enum,Covered,elicit_accesskit::enums::ScrollUnit,,
-accesskit::SortDirection,Enum,Covered,elicit_accesskit::enums::SortDirection,,
-accesskit::TextAlign,Enum,Covered,elicit_accesskit::enums::TextAlign,,
-accesskit::TextDecoration,Enum,Covered,elicit_accesskit::structs::TextDecoration,,
-accesskit::TextDirection,Enum,Covered,elicit_accesskit::enums::TextDirection,,
-accesskit::TextPosition,Struct,Covered,elicit_accesskit::structs::TextPosition,,
-accesskit::TextSelection,Struct,Covered,elicit_accesskit::structs::TextSelection,,
-accesskit::Toggled,Enum,Covered,elicit_accesskit::enums::Toggled,,
-accesskit::Tree,Struct,Covered,elicit_accesskit::structs::Tree,,
-accesskit::TreeUpdate,Struct,Missing,,,
-accesskit::VerticalOffset,Enum,Covered,elicit_accesskit::enums::VerticalOffset,,
-accesskit::geometry::Affine,Struct,Covered,elicit_accesskit::geometry::Affine,,
-accesskit::geometry::Point,Struct,Covered,elicit_accesskit::geometry::Point,,
-accesskit::geometry::Rect,Struct,Covered,elicit_accesskit::geometry::Rect,,
-accesskit::geometry::Size,Struct,Covered,elicit_accesskit::geometry::Size,,
-accesskit::geometry::Vec2,Struct,Covered,elicit_accesskit::geometry::Vec2,,
-elicit_accesskit::enums::TextDecorationStyle,Struct,Extra,,,"in shadow, not in target"
-elicit_accesskit::node::NodeJson,Struct,Extra,,,"in shadow, not in target"
-elicit_accesskit::node_id::TreeId,Struct,Extra,,,"in shadow, not in target"
-elicit_accesskit::sql::SqlToken,Struct,Extra,,,"in shadow, not in target"
-elicit_accesskit::sql::SqlTokenKind,Enum,Extra,,,"in shadow, not in target"
-elicit_accesskit::status_bar::ColorTheme,Enum,Extra,,,"in shadow, not in target"
-elicit_accesskit::status_bar::ColorThemeIter,Struct,Extra,,,"in shadow, not in target"
-elicit_accesskit::status_bar::KeyBinding,Struct,Extra,,,"in shadow, not in target"
-elicit_accesskit::status_bar::StatusBarDescriptor,Struct,Extra,,,"in shadow, not in target"
-elicit_accesskit::structs::Color,Struct,Extra,,,"in shadow, not in target"
-elicit_accesskit::tree_update::NodeEntry,Struct,Extra,,,"in shadow, not in target"
-elicit_accesskit::tree_update::TreeUpdateJson,Struct,Extra,,,"in shadow, not in target"
+item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
+accesskit::Action,Enum,Covered,elicit_accesskit::enums::Action,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::ActionData,Enum,Missing,,,,,,,
+accesskit::ActionHandler,Trait,Missing,,,,,,,
+accesskit::ActionRequest,Struct,Missing,,,,,,,
+accesskit::ActivationHandler,Trait,Missing,,,,,,,
+accesskit::AriaCurrent,Enum,Covered,elicit_accesskit::enums::AriaCurrent,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::AutoComplete,Enum,Covered,elicit_accesskit::enums::AutoComplete,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::Color,Struct,Covered,elicit_accesskit::structs::Color,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::CustomAction,Struct,Covered,elicit_accesskit::structs::CustomAction,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::DeactivationHandler,Trait,Missing,,,,,,,
+accesskit::HasPopup,Enum,Covered,elicit_accesskit::enums::HasPopup,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::Invalid,Enum,Covered,elicit_accesskit::enums::Invalid,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::ListStyle,Enum,Covered,elicit_accesskit::enums::ListStyle,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::Live,Enum,Covered,elicit_accesskit::enums::Live,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::Node,Struct,Missing,,,,,,,
+accesskit::NodeId,Struct,Covered,elicit_accesskit::node_id::NodeId,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::NodeIdContent,TypeAlias,Missing,,,,,,,
+accesskit::Orientation,Enum,Covered,elicit_accesskit::enums::Orientation,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::Role,Enum,Covered,elicit_accesskit::enums::Role,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::ScrollHint,Enum,Covered,elicit_accesskit::enums::ScrollHint,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::ScrollUnit,Enum,Covered,elicit_accesskit::enums::ScrollUnit,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::SortDirection,Enum,Covered,elicit_accesskit::enums::SortDirection,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::TextAlign,Enum,Covered,elicit_accesskit::enums::TextAlign,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::TextDecoration,Struct,Covered,elicit_accesskit::structs::TextDecoration,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::TextDecorationStyle,Enum,Covered,elicit_accesskit::enums::TextDecorationStyle,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::TextDirection,Enum,Covered,elicit_accesskit::enums::TextDirection,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::TextPosition,Struct,Covered,elicit_accesskit::structs::TextPosition,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::TextSelection,Struct,Covered,elicit_accesskit::structs::TextSelection,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::Toggled,Enum,Covered,elicit_accesskit::enums::Toggled,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::Tree,Struct,Covered,elicit_accesskit::structs::Tree,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::TreeId,Struct,Covered,elicit_accesskit::node_id::TreeId,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::TreeUpdate,Struct,Missing,,,,,,,
+accesskit::VerticalOffset,Enum,Covered,elicit_accesskit::enums::VerticalOffset,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::geometry::Affine,Struct,Covered,elicit_accesskit::geometry::Affine,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::geometry::Point,Struct,Covered,elicit_accesskit::geometry::Point,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::geometry::Rect,Struct,Covered,elicit_accesskit::geometry::Rect,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::geometry::Size,Struct,Covered,elicit_accesskit::geometry::Size,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+accesskit::geometry::Vec2,Struct,Covered,elicit_accesskit::geometry::Vec2,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+elicit_accesskit::accesskit_copy_enum,Macro,Extra,,,,,,,"in shadow, not in target"
+elicit_accesskit::node::NodeJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_accesskit::node::node_label,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_accesskit::sql::SqlToken,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_accesskit::sql::SqlTokenKind,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_accesskit::sql::sql_tokens,Function,Extra,,,,,,,"in shadow, not in target"
+elicit_accesskit::status_bar::ColorTheme,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_accesskit::status_bar::ColorThemeIter,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_accesskit::status_bar::KeyBinding,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_accesskit::status_bar::StatusBarDescriptor,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_accesskit::tree_update::NodeEntry,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_accesskit::tree_update::TreeUpdateJson,Struct,Extra,,,,,,,"in shadow, not in target"

@@ -1,58 +1,75 @@
-item_path,item_kind,status,shadow_item,drift_confidence,notes
-elicit_serde_json::number::JsonNumber,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::value::JsonValue,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::value::PointerParams,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::value::PointerParamsStyle,Enum,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::FieldChainEmit,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::FocusedJson,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::IsObject,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::JsonParsed,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::JsonWorkflowPlugin,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::LocatedValue,TypeAlias,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::MissingKeyPolicy,Enum,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::ObjectJson,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::ObjectMergeMode,Enum,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::ParseAndFocusEmit,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::ParsedJson,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::ParsedObject,TypeAlias,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::PointerResolved,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::PointerUpdateEmit,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::RawJson,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::RequiredKeysPresent,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::SafeMergeEmit,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::UpdateApplied,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::ValidateObjectEmit,Struct,Extra,,,"in shadow, not in target"
-elicit_serde_json::workflow::ValidatedObject,TypeAlias,Extra,,,"in shadow, not in target"
-serde_json::de::Deserializer,Struct,Missing,,,
-serde_json::de::StreamDeserializer,Struct,Missing,,,
-serde_json::error::Category,Enum,Missing,,,
-serde_json::error::Error,Struct,Missing,,,
-serde_json::error::Result,TypeAlias,Missing,,,
-serde_json::map::Entry,Enum,Missing,,,
-serde_json::map::IntoIter,Struct,Missing,,,
-serde_json::map::IntoValues,Struct,Missing,,,
-serde_json::map::Iter,Struct,Missing,,,
-serde_json::map::IterMut,Struct,Missing,,,
-serde_json::map::Keys,Struct,Missing,,,
-serde_json::map::Map,Struct,Missing,,,
-serde_json::map::OccupiedEntry,Struct,Missing,,,
-serde_json::map::VacantEntry,Struct,Missing,,,
-serde_json::map::Values,Struct,Missing,,,
-serde_json::map::ValuesMut,Struct,Missing,,,
-serde_json::number::Number,Struct,Missing,,,
-serde_json::raw::RawValue,Struct,Missing,,,
-serde_json::read::IoRead,Struct,Missing,,,
-serde_json::read::Position,Struct,Missing,,,
-serde_json::read::Reference,Enum,Missing,,,
-serde_json::read::SliceRead,Struct,Missing,,,
-serde_json::read::StrRead,Struct,Missing,,,
-serde_json::ser::CharEscape,Enum,Missing,,,
-serde_json::ser::CompactFormatter,Struct,Missing,,,
-serde_json::ser::PrettyFormatter,Struct,Missing,,,
-serde_json::ser::Serializer,Struct,Missing,,,
-serde_json::value::Value,Enum,Missing,,,
-serde_json::value::ser::SerializeMap,Enum,Missing,,,
-serde_json::value::ser::SerializeStructVariant,Struct,Missing,,,
-serde_json::value::ser::SerializeTupleVariant,Struct,Missing,,,
-serde_json::value::ser::SerializeVec,Struct,Missing,,,
-serde_json::value::ser::Serializer,Struct,Missing,,,
+item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
+elicit_serde_json::number::JsonNumber,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::value::JsonValue,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::value::PointerParams,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::value::_elicit_compat_PointerParams::PointerParamsStyle,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::FieldChainEmit,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::FocusedJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::IsObject,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::JsonParsed,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::JsonWorkflowPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::LocatedValue,TypeAlias,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::MissingKeyPolicy,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::ObjectJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::ObjectMergeMode,Enum,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::ParseAndFocusEmit,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::ParsedJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::ParsedObject,TypeAlias,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::PointerResolved,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::PointerUpdateEmit,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::RawJson,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::RequiredKeysPresent,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::SafeMergeEmit,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::UpdateApplied,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::ValidateObjectEmit,Struct,Extra,,,,,,,"in shadow, not in target"
+elicit_serde_json::workflow::ValidatedObject,TypeAlias,Extra,,,,,,,"in shadow, not in target"
+serde_json::de::Deserializer,Struct,Missing,,,,,,,
+serde_json::de::StreamDeserializer,Struct,Missing,,,,,,,
+serde_json::de::from_reader,Function,Missing,,,,,,,
+serde_json::de::from_slice,Function,Missing,,,,,,,
+serde_json::de::from_str,Function,Missing,,,,,,,
+serde_json::error::Category,Enum,Missing,,,,,,,
+serde_json::error::Error,Struct,Missing,,,,,,,
+serde_json::error::Result,TypeAlias,Missing,,,,,,,
+serde_json::json,Macro,Missing,,,,,,,
+serde_json::map::Entry,Enum,Missing,,,,,,,
+serde_json::map::IntoIter,Struct,Missing,,,,,,,
+serde_json::map::IntoValues,Struct,Missing,,,,,,,
+serde_json::map::Iter,Struct,Missing,,,,,,,
+serde_json::map::IterMut,Struct,Missing,,,,,,,
+serde_json::map::Keys,Struct,Missing,,,,,,,
+serde_json::map::Map,Struct,Missing,,,,,,,
+serde_json::map::OccupiedEntry,Struct,Missing,,,,,,,
+serde_json::map::VacantEntry,Struct,Missing,,,,,,,
+serde_json::map::Values,Struct,Missing,,,,,,,
+serde_json::map::ValuesMut,Struct,Missing,,,,,,,
+serde_json::number::Number,Struct,Missing,,,,,,,
+serde_json::read::Fused,Trait,Missing,,,,,,,
+serde_json::read::IoRead,Struct,Missing,,,,,,,
+serde_json::read::Position,Struct,Missing,,,,,,,
+serde_json::read::Read,Trait,Missing,,,,,,,
+serde_json::read::Reference,Enum,Missing,,,,,,,
+serde_json::read::SliceRead,Struct,Missing,,,,,,,
+serde_json::read::StrRead,Struct,Missing,,,,,,,
+serde_json::read::private::Sealed,Trait,Missing,,,,,,,
+serde_json::ser::CharEscape,Enum,Missing,,,,,,,
+serde_json::ser::CompactFormatter,Struct,Missing,,,,,,,
+serde_json::ser::Formatter,Trait,Missing,,,,,,,
+serde_json::ser::PrettyFormatter,Struct,Missing,,,,,,,
+serde_json::ser::Serializer,Struct,Missing,,,,,,,
+serde_json::ser::to_string,Function,Missing,,,,,,,
+serde_json::ser::to_string_pretty,Function,Missing,,,,,,,
+serde_json::ser::to_vec,Function,Missing,,,,,,,
+serde_json::ser::to_vec_pretty,Function,Missing,,,,,,,
+serde_json::ser::to_writer,Function,Missing,,,,,,,
+serde_json::ser::to_writer_pretty,Function,Missing,,,,,,,
+serde_json::value::Value,Enum,Missing,,,,,,,
+serde_json::value::from_value,Function,Missing,,,,,,,
+serde_json::value::index::Index,Trait,Missing,,,,,,,
+serde_json::value::index::private::Sealed,Trait,Missing,,,,,,,
+serde_json::value::ser::SerializeMap,Enum,Missing,,,,,,,
+serde_json::value::ser::SerializeStructVariant,Struct,Missing,,,,,,,
+serde_json::value::ser::SerializeTupleVariant,Struct,Missing,,,,,,,
+serde_json::value::ser::SerializeVec,Struct,Missing,,,,,,,
+serde_json::value::ser::Serializer,Struct,Missing,,,,,,,
+serde_json::value::to_value,Function,Missing,,,,,,,
