@@ -18,21 +18,26 @@ mod shadow;
 mod summary;
 mod trenchcoat;
 
-#[cfg(feature = "cli")]
 pub mod cli;
 
-pub use collect::{collect_dep_serde_features, collect_inventory, collect_proof_harness, collect_trait_prereqs, collect_trenchcoat_pairs, TraitPrereqs};
+pub use collect::{
+    DepBuildConfig, TraitPrereqs, collect_dep_build_config, collect_dep_serde_features,
+    collect_inventory, collect_member_dep_build_config, collect_proof_harness,
+    collect_trait_prereqs, collect_trenchcoat_pairs,
+};
 pub use error::{ElicitDocError, ElicitDocErrorKind, ElicitDocResult};
 pub use gaps::{
-    ImplGapEntry, ImplGapKind, ShadowGapEntry, ShadowGapKind,
-    build_impl_gaps, build_shadow_gaps,
+    ImplGapEntry, ImplGapKind, ShadowGapEntry, ShadowGapKind, build_impl_gaps, build_shadow_gaps,
 };
 pub use impl_coverage::{
     ImplCoverageEntry, ImplCoverageReport, ImplStatus, ProofHarness, TestStatus,
     build_impl_coverage_report,
 };
 pub use inventory::{Inventory, Item, ItemKind};
-pub use report::{write_impl_coverage_csv, write_impl_gaps_csv, write_shadow_csv, write_shadow_gaps_csv, write_trenchcoats_csv};
+pub use report::{
+    write_impl_coverage_csv, write_impl_gaps_csv, write_shadow_csv, write_shadow_gaps_csv,
+    write_trenchcoats_csv,
+};
 pub use shadow::{DriftPair, ShadowReport, build_shadow_report};
 pub use summary::write_summary_md;
 pub use trenchcoat::{TrenchcoatEntry, build_trenchcoat_report};

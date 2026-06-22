@@ -29,6 +29,7 @@ pub fn write_impl_coverage_csv(report: &ImplCoverageReport, path: &Path) -> Elic
         "type_path",
         "type_kind",
         "is_generic",
+        "lifetime_params",
         "type_params",
         "elicit_impl",
         "proof_test",
@@ -56,6 +57,7 @@ pub fn write_impl_coverage_csv(report: &ImplCoverageReport, path: &Path) -> Elic
             &entry.type_path,
             &entry.type_kind.to_string(),
             &entry.is_generic.to_string(),
+            &entry.lifetime_params.join(";"),
             &entry.type_params.join(";"),
             &entry.elicit_impl.to_string(),
             &entry.proof_test.to_string(),
@@ -68,7 +70,7 @@ pub fn write_impl_coverage_csv(report: &ImplCoverageReport, path: &Path) -> Elic
             avail(p.elicit_spec),
             avail(p.elicit_prompt_tree),
             avail(p.to_code_literal),
-            avail(p.can_be_direct()),
+            avail(entry.can_be_direct()),
             &blockers,
             &entry.notes,
         ])
@@ -96,6 +98,10 @@ pub fn write_shadow_csv(report: &ShadowReport, path: &Path) -> ElicitDocResult<(
         "status",
         "shadow_item",
         "drift_confidence",
+        "shadow_elicit_impl",
+        "shadow_can_be_direct",
+        "shadow_missing_external_traits",
+        "shadow_missing_our_traits",
         "notes",
     ])
     .map_err(|e| ElicitDocError::csv(e.to_string()))?;
@@ -107,6 +113,10 @@ pub fn write_shadow_csv(report: &ShadowReport, path: &Path) -> ElicitDocResult<(
             &row.status.to_string(),
             &row.shadow_item,
             &row.drift_confidence,
+            &row.shadow_elicit_impl,
+            &row.shadow_can_be_direct,
+            &row.shadow_missing_external_traits,
+            &row.shadow_missing_our_traits,
             &row.notes,
         ])
         .map_err(|e| ElicitDocError::csv(e.to_string()))?;
@@ -120,7 +130,10 @@ pub fn write_shadow_csv(report: &ShadowReport, path: &Path) -> ElicitDocResult<(
 
 /// Write the consolidated impl gaps list to a CSV file at `path`.
 #[instrument(skip(entries, path), fields(path = %path.display()))]
-pub fn write_impl_gaps_csv(entries: &[crate::gaps::ImplGapEntry], path: &Path) -> ElicitDocResult<()> {
+pub fn write_impl_gaps_csv(
+    entries: &[crate::gaps::ImplGapEntry],
+    path: &Path,
+) -> ElicitDocResult<()> {
     if let Some(parent) = path.parent() {
         std::fs::create_dir_all(parent).map_err(|e| ElicitDocError::io(e.to_string()))?;
     }
@@ -133,7 +146,11 @@ pub fn write_impl_gaps_csv(entries: &[crate::gaps::ImplGapEntry], path: &Path) -
         "type_kind",
         "is_generic",
         "gap_kind",
-        "all_our_traits_present",
+        "our_traits_complete",
+        "can_be_direct",
+        "elicit_complete_gap",
+        "feature_gated_external",
+        "blocked_by_orphan_rule",
         "missing_external_traits",
         "missing_our_traits",
         "candidate_unlock_features",
@@ -148,7 +165,11 @@ pub fn write_impl_gaps_csv(entries: &[crate::gaps::ImplGapEntry], path: &Path) -
             &e.type_kind.to_string(),
             &e.is_generic.to_string(),
             &e.gap_kind.to_string(),
-            &e.all_our_traits_present.to_string(),
+            &e.our_traits_complete.to_string(),
+            &e.can_be_direct.to_string(),
+            &e.elicit_complete_gap.to_string(),
+            &e.feature_gated_external.to_string(),
+            &e.blocked_by_orphan_rule.to_string(),
             &e.missing_external_traits,
             &e.missing_our_traits,
             &e.candidate_unlock_features,
@@ -165,7 +186,10 @@ pub fn write_impl_gaps_csv(entries: &[crate::gaps::ImplGapEntry], path: &Path) -
 
 /// Write the consolidated shadow gaps list to a CSV file at `path`.
 #[instrument(skip(entries, path), fields(path = %path.display()))]
-pub fn write_shadow_gaps_csv(entries: &[crate::gaps::ShadowGapEntry], path: &Path) -> ElicitDocResult<()> {
+pub fn write_shadow_gaps_csv(
+    entries: &[crate::gaps::ShadowGapEntry],
+    path: &Path,
+) -> ElicitDocResult<()> {
     if let Some(parent) = path.parent() {
         std::fs::create_dir_all(parent).map_err(|e| ElicitDocError::io(e.to_string()))?;
     }
@@ -180,6 +204,11 @@ pub fn write_shadow_gaps_csv(entries: &[crate::gaps::ShadowGapEntry], path: &Pat
         "gap_kind",
         "matched_shadow_item",
         "drift_confidence",
+        "shadow_elicit_impl",
+        "shadow_can_be_direct",
+        "shadow_missing_external_traits",
+        "shadow_missing_our_traits",
+        "action",
         "notes",
     ])
     .map_err(|e| ElicitDocError::csv(e.to_string()))?;
@@ -193,6 +222,11 @@ pub fn write_shadow_gaps_csv(entries: &[crate::gaps::ShadowGapEntry], path: &Pat
             &e.gap_kind.to_string(),
             &e.matched_shadow_item,
             &e.drift_confidence,
+            &e.shadow_elicit_impl,
+            &e.shadow_can_be_direct,
+            &e.shadow_missing_external_traits,
+            &e.shadow_missing_our_traits,
+            &e.action,
             &e.notes,
         ])
         .map_err(|e| ElicitDocError::csv(e.to_string()))?;

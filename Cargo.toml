@@ -7,7 +7,6 @@ description = "Coverage and drift analysis for the elicitation ecosystem"
 [[bin]]
 name = "elicit_doc"
 path = "src/main.rs"
-required-features = ["cli"]
 
 [lib]
 name = "elicit_doc"
@@ -25,14 +24,8 @@ csv = "1.4"
 
 [dependencies.clap]
 version = "4"
-optional = true
 features = ["derive", "env"]
 
 [dependencies.indicatif]
 version = "0.17"
-optional = true
 features = ["improved_unicode"]
-
-[features]
-default = []
-cli = ["dep:clap", "dep:indicatif"]

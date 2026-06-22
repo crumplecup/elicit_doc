@@ -79,11 +79,7 @@ pub fn build_trenchcoat_report(
     let mut entries: Vec<TrenchcoatEntry> = pairs
         .iter()
         .map(|(foreign, wrapper)| {
-            let foreign_crate = foreign
-                .split("::")
-                .next()
-                .unwrap_or(foreign)
-                .to_string();
+            let foreign_crate = foreign.split("::").next().unwrap_or(foreign).to_string();
 
             let wrapper_complete = complete_paths.concrete.contains(wrapper.as_str());
             let wrapper_missing = missing_our_traits(wrapper_prereqs.get(wrapper.as_str()));
@@ -111,7 +107,10 @@ pub fn build_trenchcoat_report(
     tracing::info!(
         total = entries.len(),
         complete = entries.iter().filter(|e| e.wrapper_elicit_complete).count(),
-        incomplete = entries.iter().filter(|e| !e.wrapper_elicit_complete).count(),
+        incomplete = entries
+            .iter()
+            .filter(|e| !e.wrapper_elicit_complete)
+            .count(),
         "built trenchcoat report"
     );
 

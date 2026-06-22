@@ -44,39 +44,67 @@ fn write_impl_section(
     reports: &[(String, ImplCoverageReport)],
     gaps: &[ImplGapEntry],
 ) {
-    // Pre-compute per-crate "everything but ElicitComplete" counts:
-    // NeedsExternalImpl rows where all 5 of our own traits are already present.
-    let mut everything_but: std::collections::HashMap<&str, usize> =
-        std::collections::HashMap::new();
-    for g in gaps {
-        if g.gap_kind == ImplGapKind::NeedsExternalImpl && g.all_our_traits_present {
-            *everything_but.entry(g.source_crate.as_str()).or_insert(0) += 1;
-        }
-    }
-
     out.push_str("## Impl Coverage\n\n");
-    out.push_str("| Crate | Version | Types | ElicitComplete | EverythingBut | Coverage |\n");
-    out.push_str("|-------|---------|------:|---------------:|--------------:|---------:|\n");
+    out.push_str("| Crate | Version | Types | OurTraitsDone | MissingOurTraits | ElicitComplete | ElicitCompleteGap | ExternallyBlocked | Coverage |\n");
+    out.push_str("|-------|---------|------:|--------------:|-----------------:|---------------:|------------------:|------------------:|---------:|\n");
 
     let mut total_types = 0usize;
+    let mut total_our_traits_done = 0usize;
+    let mut total_missing_our_traits = 0usize;
     let mut total_complete = 0usize;
-    let mut total_everything_but = 0usize;
+    let mut total_elicit_complete_gap = 0usize;
+    let mut total_externally_blocked = 0usize;
 
     for (_, r) in reports {
-        let types = r.complete_count + r.missing_impl_count;
+        let types = r.entries.len();
+        let our_traits_done = r
+            .entries
+            .iter()
+            .filter(|e| e.effective_our_traits_complete())
+            .count();
+        let missing_our_traits = types.saturating_sub(our_traits_done);
+        let elicit_complete_gap = r
+            .entries
+            .iter()
+            .filter(|e| {
+                matches!(e.elicit_impl, crate::impl_coverage::ImplStatus::Missing)
+                    && e.effective_our_traits_complete()
+                    && e.can_be_direct()
+            })
+            .count();
+        let externally_blocked = r
+            .entries
+            .iter()
+            .filter(|e| {
+                matches!(e.elicit_impl, crate::impl_coverage::ImplStatus::Missing)
+                    && e.effective_our_traits_complete()
+                    && !e.can_be_direct()
+                    && !e.lifetime_blocks_elicitation()
+            })
+            .count();
         let pct = if types == 0 {
             0.0
         } else {
             r.complete_count as f32 / types as f32 * 100.0
         };
-        let eb = everything_but.get(r.source_crate.as_str()).copied().unwrap_or(0);
         out.push_str(&format!(
-            "| `{}` | {} | {} | {} | {} | {:.1}% |\n",
-            r.source_crate, r.source_version, types, r.complete_count, eb, pct
+            "| `{}` | {} | {} | {} | {} | {} | {} | {} | {:.1}% |\n",
+            r.source_crate,
+            r.source_version,
+            types,
+            our_traits_done,
+            missing_our_traits,
+            r.complete_count,
+            elicit_complete_gap,
+            externally_blocked,
+            pct
         ));
         total_types += types;
+        total_our_traits_done += our_traits_done;
+        total_missing_our_traits += missing_our_traits;
         total_complete += r.complete_count;
-        total_everything_but += eb;
+        total_elicit_complete_gap += elicit_complete_gap;
+        total_externally_blocked += externally_blocked;
     }
 
     let total_pct = if total_types == 0 {
@@ -85,35 +113,48 @@ fn write_impl_section(
         total_complete as f32 / total_types as f32 * 100.0
     };
     out.push_str(&format!(
-        "| **Total** | | **{}** | **{}** | **{}** | **{:.1}%** |\n",
-        total_types, total_complete, total_everything_but, total_pct
+        "| **Total** | | **{}** | **{}** | **{}** | **{}** | **{}** | **{}** | **{:.1}%** |\n",
+        total_types,
+        total_our_traits_done,
+        total_missing_our_traits,
+        total_complete,
+        total_elicit_complete_gap,
+        total_externally_blocked,
+        total_pct
     ));
-    out.push_str("\n_EverythingBut: all 5 elicitation traits present; only Serialize/Deserialize/JsonSchema missing (orphan rule). Shadow newtype needed._\n\n");
+    out.push_str("\n`OurTraitsDone` counts all elicitation-owned traits that are actually implementable for the type. Lifetime-bound types such as `Pixels<'a, R>` are not expected to implement `Elicitation` or `ElicitIntrospect` because `Elicitation` requires `'static`.\n\n");
+    out.push_str("`ExternallyBlocked` means the implementable elicitation-owned traits are present, but direct `ElicitComplete` is blocked by missing `Serialize`, `Deserialize`, or `JsonSchema` on the target type.\n\n");
 
     if !gaps.is_empty() {
-        let ready = gaps.iter().filter(|e| e.gap_kind == ImplGapKind::ReadyNow).count();
-        let gated = gaps.iter().filter(|e| e.gap_kind == ImplGapKind::FeatureGated).count();
-        let needs = gaps.iter().filter(|e| e.gap_kind == ImplGapKind::NeedsExternalImpl).count();
+        let missing_our = gaps
+            .iter()
+            .filter(|e| e.gap_kind == ImplGapKind::MissingOurTraits)
+            .count();
+        let ready = gaps
+            .iter()
+            .filter(|e| e.gap_kind == ImplGapKind::ReadyForElicitComplete)
+            .count();
+        let gated = gaps
+            .iter()
+            .filter(|e| e.gap_kind == ImplGapKind::FeatureGatedExternal)
+            .count();
 
         out.push_str("### Impl Gaps\n\n");
         out.push_str("| Kind | Count | Notes |\n");
         out.push_str("|------|------:|-------|\n");
         out.push_str(&format!(
-            "| ReadyNow | {} | All external traits present — only needs `impl ElicitComplete` |\n",
+            "| MissingOurTraits | {} | Missing one or more elicitation-owned support traits |\n",
+            missing_our
+        ));
+        out.push_str(&format!(
+            "| ReadyForElicitComplete | {} | All prerequisites present; only `impl ElicitComplete` is missing |\n",
             ready
         ));
         out.push_str(&format!(
-            "| FeatureGated | {} | Traits may appear behind a feature flag |\n",
+            "| FeatureGatedExternal | {} | Missing external serde/schemars traits may be unlockable with more features |\n",
             gated
         ));
-        out.push_str(&format!(
-            "| NeedsExternalImpl | {} | Missing `Serialize`, `Deserialize`, or `JsonSchema` |\n",
-            needs
-        ));
-        out.push_str(&format!(
-            "| **Total** | **{}** | |\n",
-            gaps.len()
-        ));
+        out.push_str(&format!("| **Total** | **{}** | |\n", gaps.len()));
         out.push('\n');
     }
 
@@ -126,52 +167,71 @@ fn write_shadow_section(
     gaps: &[ShadowGapEntry],
 ) {
     out.push_str("## Shadow Coverage\n\n");
-    out.push_str("| Upstream | Version | Shadow Crate | Covered | Total | Coverage |\n");
-    out.push_str("|----------|---------|-------------|--------:|------:|---------:|\n");
+    out.push_str("| Upstream | Version | Shadow Crate | Covered | Drifted | Total | VerificationGaps | Coverage |\n");
+    out.push_str("|----------|---------|-------------|--------:|--------:|------:|-----------------:|---------:|\n");
 
     for (_, _, r) in reports {
-        let total = r.covered_count + r.missing_count;
+        let total = r.covered_count + r.drifted_count + r.missing_count;
         out.push_str(&format!(
-            "| `{}` | {} | `{}` | {} | {} | {:.1}% |\n",
+            "| `{}` | {} | `{}` | {} | {} | {} | {} | {:.1}% |\n",
             r.target_crate,
             r.target_version,
             r.shadow_crate,
             r.covered_count,
+            r.drifted_count,
             total,
+            r.verification_gap_count,
             r.coverage_pct,
         ));
     }
     out.push('\n');
 
     if !gaps.is_empty() {
-        let missing = gaps.iter().filter(|e| e.gap_kind == ShadowGapKind::Missing).count();
-        let drifted = gaps.iter().filter(|e| e.gap_kind == ShadowGapKind::Drifted).count();
-        let stale = gaps.iter().filter(|e| e.gap_kind == ShadowGapKind::PossiblyStale).count();
-        let infra = gaps.iter().filter(|e| e.gap_kind == ShadowGapKind::InfrastructureExtra).count();
+        let missing = gaps
+            .iter()
+            .filter(|e| e.gap_kind == ShadowGapKind::Missing)
+            .count();
+        let drifted = gaps
+            .iter()
+            .filter(|e| e.gap_kind == ShadowGapKind::Drifted)
+            .count();
+        let stale = gaps
+            .iter()
+            .filter(|e| e.gap_kind == ShadowGapKind::PossiblyStale)
+            .count();
+        let infra = gaps
+            .iter()
+            .filter(|e| e.gap_kind == ShadowGapKind::InfrastructureExtra)
+            .count();
+        let verification = gaps
+            .iter()
+            .filter(|e| e.gap_kind == ShadowGapKind::ShadowVerificationGap)
+            .count();
 
         out.push_str("### Shadow Gaps\n\n");
         out.push_str("| Kind | Count | Notes |\n");
         out.push_str("|------|------:|-------|\n");
         out.push_str(&format!(
-            "| Missing | {} | Upstream type not yet shadowed |\n",
+            "| Missing | {} | Upstream public item not yet shadowed |\n",
             missing
         ));
         out.push_str(&format!(
-            "| Drifted | {} | Probable rename — similar name in shadow crate |\n",
+            "| Drifted | {} | Probable rename or naming drift in the shadow crate |\n",
             drifted
         ));
         out.push_str(&format!(
-            "| PossiblyStale | {} | Shadow type with no matching upstream — needs audit |\n",
+            "| PossiblyStale | {} | Shadow item with no matching upstream — needs audit |\n",
             stale
         ));
         out.push_str(&format!(
-            "| InfrastructureExtra | {} | Our own tool params / plugins / ctx types — expected |\n",
+            "| InfrastructureExtra | {} | Shadow-only infrastructure item — expected |\n",
             infra
         ));
         out.push_str(&format!(
-            "| **Total** | **{}** | |\n",
-            gaps.len()
+            "| ShadowVerificationGap | {} | Matched shadow type exists but is not yet `ElicitComplete`-ready |\n",
+            verification
         ));
+        out.push_str(&format!("| **Total** | **{}** | |\n", gaps.len()));
         out.push('\n');
     }
 }

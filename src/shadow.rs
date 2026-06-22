@@ -3,9 +3,13 @@
 //! Compares a target crate's [`Inventory`] against its shadow crate inventory
 //! to produce a [`ShadowReport`] showing coverage, extras, and probable drifts.
 
+use std::collections::{HashMap, HashSet};
+
 use serde::{Deserialize, Serialize};
 use tracing::instrument;
 
+use crate::collect::{ElicitCompleteSet, TraitPrereqs};
+use crate::impl_coverage::ImplStatus;
 use crate::inventory::{Inventory, Item, ItemKind};
 
 /// How a target item relates to the shadow crate.
@@ -42,6 +46,11 @@ pub struct ShadowRow {
     pub shadow_item: String,
     /// Confidence score for drift matches (0.0–1.0, empty for non-drift rows).
     pub drift_confidence: String,
+    /// Verification readiness of the matched shadow type, when applicable.
+    pub shadow_elicit_impl: String,
+    pub shadow_can_be_direct: String,
+    pub shadow_missing_external_traits: String,
+    pub shadow_missing_our_traits: String,
     pub notes: String,
 }
 
@@ -66,6 +75,7 @@ pub struct ShadowReport {
     pub extra_count: usize,
     pub drifted_count: usize,
     pub coverage_pct: f32,
+    pub verification_gap_count: usize,
 }
 
 impl ShadowReport {
@@ -93,36 +103,57 @@ impl ShadowReport {
 /// Drift detection runs separately on unmatched items and flags probable renames
 /// with edit-distance heuristics (shown as `Drifted`, not `Covered`).
 #[instrument(
-    skip(target, shadow),
+    skip(target, shadow, shadow_complete, shadow_prereqs),
     fields(target = %target.crate_name, shadow = %shadow.crate_name)
 )]
-pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowReport {
+pub fn build_shadow_report(
+    target: &Inventory,
+    shadow: &Inventory,
+    shadow_complete: &ElicitCompleteSet,
+    shadow_prereqs: &HashMap<String, TraitPrereqs>,
+) -> ShadowReport {
     // Exact name → shadow item (same kind wins over cross-kind collision).
     // We collect all shadow items by bare name; if multiple items share a name,
     // prefer the one whose kind matches the target item at lookup time.
-    let mut shadow_by_name: std::collections::HashMap<&str, Vec<&Item>> =
-        std::collections::HashMap::new();
-    for item in shadow.type_items() {
-        shadow_by_name.entry(item.name.as_str()).or_default().push(item);
+    let mut shadow_by_name: HashMap<&str, Vec<&Item>> = HashMap::new();
+    for item in &shadow.items {
+        if !counts_toward_shadow_coverage(item) {
+            continue;
+        }
+        shadow_by_name
+            .entry(item.name.as_str())
+            .or_default()
+            .push(item);
     }
 
     // Normalized map used only for drift detection (not coverage).
-    let shadow_normalized: std::collections::HashMap<String, &Item> = shadow
-        .type_items()
-        .map(|i| (normalize_name(&i.name), i))
-        .collect();
+    let mut shadow_normalized: HashMap<String, Vec<&Item>> = HashMap::new();
+    for item in &shadow.items {
+        if !counts_toward_shadow_coverage(item) {
+            continue;
+        }
+        shadow_normalized
+            .entry(normalize_name(&item.name))
+            .or_default()
+            .push(item);
+    }
 
     let mut rows: Vec<ShadowRow> = Vec::new();
 
-    for target_item in target.type_items() {
+    for target_item in &target.items {
+        if !counts_toward_shadow_coverage(target_item) {
+            continue;
+        }
         // Exact name match — kind-preferred, any accepted
-        let exact = shadow_by_name.get(target_item.name.as_str()).and_then(|candidates| {
-            candidates
-                .iter()
-                .find(|c| c.kind == target_item.kind)
-                .or_else(|| candidates.first())
-                .copied()
-        });
+        let exact = shadow_by_name
+            .get(target_item.name.as_str())
+            .and_then(|candidates| {
+                candidates
+                    .iter()
+                    .find(|c| c.kind == target_item.kind)
+                    .or_else(|| candidates.first())
+                    .copied()
+            });
 
         if let Some(shadow_item) = exact {
             rows.push(ShadowRow {
@@ -131,6 +162,13 @@ pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowRepo
                 status: ShadowStatus::Covered,
                 shadow_item: shadow_item.path_str(),
                 drift_confidence: String::new(),
+                shadow_elicit_impl: shadow_impl_status(shadow_item, shadow_complete).to_string(),
+                shadow_can_be_direct: shadow_can_be_direct(shadow_item, shadow_prereqs),
+                shadow_missing_external_traits: shadow_missing_external_traits(
+                    shadow_item,
+                    shadow_prereqs,
+                ),
+                shadow_missing_our_traits: shadow_missing_our_traits(shadow_item, shadow_prereqs),
                 notes: String::new(),
             });
         } else if let Some((shadow_item, confidence)) =
@@ -142,6 +180,13 @@ pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowRepo
                 status: ShadowStatus::Drifted,
                 shadow_item: shadow_item.path_str(),
                 drift_confidence: format!("{confidence:.2}"),
+                shadow_elicit_impl: shadow_impl_status(shadow_item, shadow_complete).to_string(),
+                shadow_can_be_direct: shadow_can_be_direct(shadow_item, shadow_prereqs),
+                shadow_missing_external_traits: shadow_missing_external_traits(
+                    shadow_item,
+                    shadow_prereqs,
+                ),
+                shadow_missing_our_traits: shadow_missing_our_traits(shadow_item, shadow_prereqs),
                 notes: "probable rename".to_string(),
             });
         } else {
@@ -151,19 +196,26 @@ pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowRepo
                 status: ShadowStatus::Missing,
                 shadow_item: String::new(),
                 drift_confidence: String::new(),
+                shadow_elicit_impl: String::new(),
+                shadow_can_be_direct: String::new(),
+                shadow_missing_external_traits: String::new(),
+                shadow_missing_our_traits: String::new(),
                 notes: String::new(),
             });
         }
     }
 
     // Extra items: in shadow but not matched to any target
-    let matched_shadow_paths: std::collections::HashSet<String> = rows
+    let matched_shadow_paths: HashSet<String> = rows
         .iter()
         .filter(|r| matches!(r.status, ShadowStatus::Covered | ShadowStatus::Drifted))
         .map(|r| r.shadow_item.clone())
         .collect();
 
-    for shadow_item in shadow.type_items() {
+    for shadow_item in &shadow.items {
+        if !counts_toward_shadow_coverage(shadow_item) {
+            continue;
+        }
         if !matched_shadow_paths.contains(&shadow_item.path_str()) {
             rows.push(ShadowRow {
                 item_path: shadow_item.path_str(),
@@ -171,6 +223,10 @@ pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowRepo
                 status: ShadowStatus::Extra,
                 shadow_item: String::new(),
                 drift_confidence: String::new(),
+                shadow_elicit_impl: String::new(),
+                shadow_can_be_direct: String::new(),
+                shadow_missing_external_traits: String::new(),
+                shadow_missing_our_traits: String::new(),
                 notes: "in shadow, not in target".to_string(),
             });
         }
@@ -194,12 +250,17 @@ pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowRepo
         .iter()
         .filter(|r| r.status == ShadowStatus::Drifted)
         .count();
-    let total_target = target.type_items().count();
+    let total_target = target
+        .items
+        .iter()
+        .filter(|item| counts_toward_shadow_coverage(item))
+        .count();
     let coverage_pct = if total_target == 0 {
         100.0
     } else {
         (covered_count + drifted_count) as f32 / total_target as f32 * 100.0
     };
+    let verification_gap_count = rows.iter().filter(|r| shadow_verification_gap(r)).count();
 
     tracing::info!(
         covered = covered_count,
@@ -207,6 +268,7 @@ pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowRepo
         extra = extra_count,
         drifted = drifted_count,
         pct = coverage_pct,
+        verification_gaps = verification_gap_count,
         "built shadow report"
     );
 
@@ -221,7 +283,12 @@ pub fn build_shadow_report(target: &Inventory, shadow: &Inventory) -> ShadowRepo
         extra_count,
         drifted_count,
         coverage_pct,
+        verification_gap_count,
     }
+}
+
+fn counts_toward_shadow_coverage(item: &Item) -> bool {
+    item.kind != ItemKind::Module
 }
 
 /// Normalize a type name for **drift detection only** — lowercase + snake_case,
@@ -251,31 +318,97 @@ fn to_snake_case(s: &str) -> String {
 /// within edit distance 2 of the target's normalized name.
 fn find_drift_match<'a>(
     target_item: &Item,
-    shadow_names: &std::collections::HashMap<String, &'a Item>,
+    shadow_names: &HashMap<String, Vec<&'a Item>>,
 ) -> Option<(&'a Item, f32)> {
     let target_norm = normalize_name(&target_item.name);
     let mut best: Option<(&Item, f32)> = None;
 
-    for (shadow_norm, shadow_item) in shadow_names {
-        // Only match same kind
-        if shadow_item.kind != target_item.kind {
-            continue;
-        }
+    for (shadow_norm, candidates) in shadow_names {
         let dist = edit_distance(&target_norm, shadow_norm);
         let max_len = target_norm.len().max(shadow_norm.len());
         if max_len == 0 {
             continue;
         }
         let confidence = 1.0 - (dist as f32 / max_len as f32);
-        // Only surface high-confidence matches (>= 0.75)
-        if confidence >= 0.75
-            && best.is_none_or(|(_, c)| confidence > c)
-        {
-            best = Some((shadow_item, confidence));
+        if confidence < 0.75 {
+            continue;
+        }
+        for shadow_item in candidates {
+            if shadow_item.kind != target_item.kind {
+                continue;
+            }
+            if best.is_none_or(|(_, c)| confidence > c) {
+                best = Some((shadow_item, confidence));
+            }
         }
     }
 
     best
+}
+
+fn shadow_impl_status(item: &Item, complete: &ElicitCompleteSet) -> ImplStatus {
+    if !item.kind.is_type() {
+        return ImplStatus::Missing;
+    }
+
+    let path = item.path_str();
+    if complete.factory.contains(&path) {
+        ImplStatus::CompleteFactory
+    } else if complete.concrete.contains(&path) {
+        ImplStatus::Complete
+    } else {
+        ImplStatus::Missing
+    }
+}
+
+fn shadow_can_be_direct(item: &Item, prereqs: &HashMap<String, TraitPrereqs>) -> String {
+    if !item.kind.is_type() {
+        return String::new();
+    }
+    prereqs
+        .get(&item.path_str())
+        .map(|p| p.can_be_direct().to_string())
+        .unwrap_or_else(|| "false".to_string())
+}
+
+fn shadow_missing_external_traits(item: &Item, prereqs: &HashMap<String, TraitPrereqs>) -> String {
+    if !item.kind.is_type() {
+        return String::new();
+    }
+    prereqs
+        .get(&item.path_str())
+        .map(|p| p.external_blockers_absent().join(";"))
+        .unwrap_or_else(|| "Serialize(absent);Deserialize(absent);JsonSchema(absent)".to_string())
+}
+
+fn shadow_missing_our_traits(item: &Item, prereqs: &HashMap<String, TraitPrereqs>) -> String {
+    if !item.kind.is_type() {
+        return String::new();
+    }
+    prereqs
+        .get(&item.path_str())
+        .map(|p| p.missing_our_traits().join(";"))
+        .unwrap_or_else(|| {
+            [
+                "Elicitation",
+                "ElicitIntrospect",
+                "ElicitSpec",
+                "ElicitPromptTree",
+                "ToCodeLiteral",
+            ]
+            .join(";")
+        })
+}
+
+fn shadow_verification_gap(row: &ShadowRow) -> bool {
+    if !matches!(row.status, ShadowStatus::Covered | ShadowStatus::Drifted)
+        || !row.item_kind.is_type()
+    {
+        return false;
+    }
+
+    row.shadow_elicit_impl != ImplStatus::Complete.to_string()
+        && row.shadow_elicit_impl != ImplStatus::CompleteFactory.to_string()
 }
 
 /// Simple iterative Levenshtein edit distance.
@@ -301,4 +434,125 @@ fn edit_distance(a: &str, b: &str) -> usize {
         }
     }
     dp[m][n]
+}
+
+#[cfg(test)]
+mod tests {
+    use std::collections::HashMap;
+
+    use super::*;
+    use crate::collect::ElicitCompleteSet;
+    use crate::inventory::{Inventory, Item, ItemKind};
+
+    #[test]
+    fn covers_full_public_surface_not_just_types() {
+        let target = Inventory {
+            crate_name: "upstream".to_string(),
+            crate_version: "1.0.0".to_string(),
+            items: vec![
+                Item {
+                    path: vec!["upstream".to_string(), "Widget".to_string()],
+                    kind: ItemKind::Struct,
+                    name: "Widget".to_string(),
+                    is_generic: false,
+                    lifetime_params: Vec::new(),
+                    type_params: Vec::new(),
+                },
+                Item {
+                    path: vec!["upstream".to_string(), "build_widget".to_string()],
+                    kind: ItemKind::Function,
+                    name: "build_widget".to_string(),
+                    is_generic: false,
+                    lifetime_params: Vec::new(),
+                    type_params: Vec::new(),
+                },
+            ],
+        };
+        let shadow = Inventory {
+            crate_name: "elicit_upstream".to_string(),
+            crate_version: "1.0.0".to_string(),
+            items: vec![Item {
+                path: vec!["elicit_upstream".to_string(), "Widget".to_string()],
+                kind: ItemKind::Struct,
+                name: "Widget".to_string(),
+                is_generic: false,
+                lifetime_params: Vec::new(),
+                type_params: Vec::new(),
+            }],
+        };
+
+        let report = build_shadow_report(
+            &target,
+            &shadow,
+            &ElicitCompleteSet::default(),
+            &HashMap::new(),
+        );
+
+        let function_row = report
+            .rows
+            .iter()
+            .find(|row| row.item_path == "upstream::build_widget")
+            .expect("expected function row");
+        assert_eq!(function_row.item_kind, ItemKind::Function);
+        assert_eq!(function_row.status, ShadowStatus::Missing);
+        assert_eq!(report.missing_count, 1);
+    }
+
+    #[test]
+    fn ignores_modules_in_shadow_coverage() {
+        let target = Inventory {
+            crate_name: "upstream".to_string(),
+            crate_version: "1.0.0".to_string(),
+            items: vec![
+                Item {
+                    path: vec!["upstream".to_string()],
+                    kind: ItemKind::Module,
+                    name: "upstream".to_string(),
+                    is_generic: false,
+                    lifetime_params: Vec::new(),
+                    type_params: Vec::new(),
+                },
+                Item {
+                    path: vec!["upstream".to_string(), "nested".to_string()],
+                    kind: ItemKind::Module,
+                    name: "nested".to_string(),
+                    is_generic: false,
+                    lifetime_params: Vec::new(),
+                    type_params: Vec::new(),
+                },
+                Item {
+                    path: vec!["upstream".to_string(), "Widget".to_string()],
+                    kind: ItemKind::Struct,
+                    name: "Widget".to_string(),
+                    is_generic: false,
+                    lifetime_params: Vec::new(),
+                    type_params: Vec::new(),
+                },
+            ],
+        };
+        let shadow = Inventory {
+            crate_name: "elicit_upstream".to_string(),
+            crate_version: "1.0.0".to_string(),
+            items: vec![Item {
+                path: vec!["elicit_upstream".to_string(), "Widget".to_string()],
+                kind: ItemKind::Struct,
+                name: "Widget".to_string(),
+                is_generic: false,
+                lifetime_params: Vec::new(),
+                type_params: Vec::new(),
+            }],
+        };
+
+        let report = build_shadow_report(
+            &target,
+            &shadow,
+            &ElicitCompleteSet::default(),
+            &HashMap::new(),
+        );
+
+        assert_eq!(report.covered_count, 1);
+        assert_eq!(report.missing_count, 0);
+        assert_eq!(report.coverage_pct, 100.0);
+        assert!(report.rows.iter().all(|row| row.item_kind != ItemKind::Module));
+    }
 }

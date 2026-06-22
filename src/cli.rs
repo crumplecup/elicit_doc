@@ -6,11 +6,20 @@ use std::time::Duration;
 use clap::{Parser, Subcommand};
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 
-use crate::collect::{collect_dep_inventory, collect_dep_serde_features, collect_elicit_complete_paths, collect_inventory, collect_proof_harness, collect_trait_prereqs, collect_trenchcoat_pairs};
+use crate::collect::{
+    DepBuildConfig, collect_dep_inventory, collect_dep_inventory_with_json_path,
+    collect_dep_serde_features, collect_dep_trait_prereqs_with_features,
+    collect_elicit_complete_paths, collect_inventory, collect_inventory_with_json_path,
+    collect_member_dep_build_config, collect_proof_harness, collect_trait_prereqs,
+    collect_trenchcoat_pairs,
+};
 use crate::error::ElicitDocResult;
 use crate::gaps::{build_impl_gaps, build_shadow_gaps};
 use crate::impl_coverage::{ImplCoverageReport, build_impl_coverage_report};
-use crate::report::{write_impl_coverage_csv, write_impl_gaps_csv, write_shadow_csv, write_shadow_gaps_csv, write_trenchcoats_csv};
+use crate::report::{
+    write_impl_coverage_csv, write_impl_gaps_csv, write_shadow_csv, write_shadow_gaps_csv,
+    write_trenchcoats_csv,
+};
 use crate::shadow::{ShadowReport, build_shadow_report};
 use crate::summary::write_summary_md;
 use crate::trenchcoat::build_trenchcoat_report;
@@ -67,9 +76,7 @@ enum ReportKind {
 pub fn run() -> ElicitDocResult<()> {
     let cli = Cli::parse();
     let own = own_root()?;
-    let output_dir = cli
-        .output_dir
-        .unwrap_or_else(|| own.join("verif/coverage"));
+    let output_dir = cli.output_dir.unwrap_or_else(|| own.join("verif/coverage"));
 
     // Resolve elicitation workspace: explicit flag > env > sibling directory
     let elicitation_workspace = cli.workspace.unwrap_or_else(|| {
@@ -86,12 +93,22 @@ pub fn run() -> ElicitDocResult<()> {
             let run_shadows = matches!(only, None | Some(ReportKind::Shadows));
 
             let impl_data = if run_impls {
-                Some(run_impl_reports(&elicitation_workspace, &output_dir, crate_name.as_deref(), &mp)?)
+                Some(run_impl_reports(
+                    &elicitation_workspace,
+                    &output_dir,
+                    crate_name.as_deref(),
+                    &mp,
+                )?)
             } else {
                 None
             };
             let shadow_data = if run_shadows {
-                Some(run_shadow_reports(&elicitation_workspace, &output_dir, crate_name.as_deref(), &mp)?)
+                Some(run_shadow_reports(
+                    &elicitation_workspace,
+                    &output_dir,
+                    crate_name.as_deref(),
+                    &mp,
+                )?)
             } else {
                 None
             };
@@ -102,7 +119,13 @@ pub fn run() -> ElicitDocResult<()> {
                 (crate_name.as_ref(), &impl_data, &shadow_data)
             {
                 let summary_path = output_dir.join("summary.md");
-                write_summary_md(impl_reports, impl_gaps, shadow_reports, shadow_gaps, &summary_path)?;
+                write_summary_md(
+                    impl_reports,
+                    impl_gaps,
+                    shadow_reports,
+                    shadow_gaps,
+                    &summary_path,
+                )?;
                 mp.println(format!("wrote {}", summary_path.display())).ok();
             }
         }
@@ -111,16 +134,20 @@ pub fn run() -> ElicitDocResult<()> {
     Ok(())
 }
 
-/// Supported third-party crates: (upstream crate name, elicitation feature flag, dep features to try).
+/// Supported third-party crates: (upstream crate name, elicitation feature flag, fallback dep features).
 ///
-/// The dep features list is used as a fallback when `--all-features` fails (e.g. due to
-/// conflicting features in crates like `reqwest` or `chrono`).  These should be the
-/// minimal set of serde/schema features needed to get accurate trait coverage data.
+/// The fallback dep feature list is only used when cargo metadata cannot resolve the
+/// real dependency spec from the `elicitation` crate. These should be the minimal set
+/// of serde/schema features needed to get a useful build in that degraded mode.
 /// An empty slice means fall straight back to default features.
 const THIRD_PARTY_CRATES: &[(&str, &str, &[&str])] = &[
     // Date/time
     ("chrono", "chrono", &["serde"]),
-    ("time", "time", &["serde", "serde-human-readable", "serde-well-known"]),
+    (
+        "time",
+        "time",
+        &["serde", "serde-human-readable", "serde-well-known"],
+    ),
     ("jiff", "jiff", &["serde"]),
     // Identifiers / strings
     ("uuid", "uuid", &["serde"]),
@@ -166,7 +193,7 @@ const SHADOW_PAIRS: &[(&str, &str)] = &[
     ("axum", "elicit_axum"),
     ("reqwest", "elicit_reqwest"),
     // Data
-    ("polars", "elicit_polars"),   // excluded from workspace — skipped if unavailable
+    ("polars", "elicit_polars"), // excluded from workspace — skipped if unavailable
     // CLI
     ("clap", "elicit_clap"),
     // Reactive / web
@@ -187,7 +214,7 @@ const SHADOW_PAIRS: &[(&str, &str)] = &[
     // Database
     ("sqlx", "elicit_sqlx"),
     ("redb", "elicit_redb"),
-    ("surrealdb-types", "elicit_surrealdb"),  // excluded from workspace — skipped if unavailable
+    ("surrealdb-types", "elicit_surrealdb"), // excluded from workspace — skipped if unavailable
     // Geo / spatial
     ("geo-types", "elicit_geo_types"),
     ("geo", "elicit_geo"),
@@ -230,8 +257,37 @@ fn make_count_bar(mp: &MultiProgress, total: u64, prefix: &'static str) -> Progr
     pb
 }
 
-type ImplReportsResult = ElicitDocResult<(Vec<(String, ImplCoverageReport)>, Vec<crate::gaps::ImplGapEntry>)>;
-type ShadowReportsResult = ElicitDocResult<(Vec<(String, String, ShadowReport)>, Vec<crate::gaps::ShadowGapEntry>)>;
+type ImplReportsResult = ElicitDocResult<(
+    Vec<(String, ImplCoverageReport)>,
+    Vec<crate::gaps::ImplGapEntry>,
+)>;
+type ShadowReportsResult = ElicitDocResult<(
+    Vec<(String, String, ShadowReport)>,
+    Vec<crate::gaps::ShadowGapEntry>,
+)>;
+
+fn resolve_dep_build_config(
+    workspace: &std::path::Path,
+    member_crate_name: &str,
+    crate_name: &str,
+    fallback_features: &[&str],
+) -> DepBuildConfig {
+    match collect_member_dep_build_config(workspace, member_crate_name, crate_name) {
+        Ok(config) => config,
+        Err(e) => {
+            tracing::warn!(
+                member_crate_name,
+                crate_name,
+                error = %e,
+                "falling back to baked-in dependency feature hints"
+            );
+            DepBuildConfig {
+                activated_features: fallback_features.iter().map(|f| (*f).to_string()).collect(),
+                uses_default_features: true,
+            }
+        }
+    }
+}
 
 fn run_impl_reports(
     workspace: &std::path::Path,
@@ -256,24 +312,31 @@ fn run_impl_reports(
     // Collect elicitation inventory once (with full feature set), then extract
     // the real ElicitComplete impl set directly from its rustdoc JSON.
     let spinner = make_spinner(mp, "building elicitation docs…");
-    let _elicitation = collect_inventory(workspace, "elicitation", &["full"])?;
+    let (_elicitation, elicitation_json) =
+        collect_inventory_with_json_path(workspace, "elicitation", &["full"])?;
     spinner.finish_with_message("✓ elicitation docs built");
-
-    let elicitation_json = workspace.join("target/doc/elicitation.json");
-    let complete_paths = collect_elicit_complete_paths(&elicitation_json)?;
+    let complete_paths = collect_elicit_complete_paths(&elicitation_json, "elicitation")?;
 
     // Accumulate all reports for gap analysis at the end.
     // Also accumulate a combined foreign-type prereq map for the trenchcoat report,
     // per-dep available serde features, and per-dep activated features for gap classification.
     let mut all_reports: Vec<(String, crate::impl_coverage::ImplCoverageReport)> = Vec::new();
-    let mut combined_foreign_prereqs: std::collections::HashMap<String, crate::collect::TraitPrereqs> =
-        std::collections::HashMap::new();
+    let mut combined_foreign_prereqs: std::collections::HashMap<
+        String,
+        crate::collect::TraitPrereqs,
+    > = std::collections::HashMap::new();
     // All serde-related features the dep offers (from cargo metadata).
     let mut available_serde_features: std::collections::HashMap<String, Vec<String>> =
         std::collections::HashMap::new();
-    // Features our workspace has actually activated for each dep (from THIRD_PARTY_CRATES).
+    // Features our workspace has actually activated for each dep (from cargo metadata,
+    // with THIRD_PARTY_CRATES only as a fallback when lookup fails).
     let mut activated_features_map: std::collections::HashMap<String, Vec<String>> =
         std::collections::HashMap::new();
+    // Trait prereqs observed after probing additional serde/schemars-related features.
+    let mut feature_probe_prereqs: std::collections::HashMap<
+        String,
+        std::collections::HashMap<String, crate::collect::TraitPrereqs>,
+    > = std::collections::HashMap::new();
 
     let total_crates = if only_crate.is_none() {
         (THIRD_PARTY_CRATES.len() + 1) as u64
@@ -289,9 +352,18 @@ fn run_impl_reports(
     // Third-party crates — documented from their registry source
     for (crate_name, _feature, dep_features) in THIRD_PARTY_CRATES {
         if only_crate.is_none_or(|c| c == *crate_name) {
+            let dep_config =
+                resolve_dep_build_config(workspace, "elicitation", crate_name, dep_features);
+            let activated_owned = dep_config.activated_features.clone();
+            let activated_refs: Vec<&str> = activated_owned.iter().map(String::as_str).collect();
             let spinner = make_spinner(mp, format!("building docs: {crate_name}…"));
-            let source = match collect_dep_inventory(workspace, crate_name, dep_features) {
-                Ok(inv) => inv,
+            let (source, dep_json) = match collect_dep_inventory_with_json_path(
+                workspace,
+                crate_name,
+                &activated_refs,
+                dep_config.uses_default_features,
+            ) {
+                Ok(bundle) => bundle,
                 Err(e) => {
                     tracing::warn!(crate_name, error = %e, "skipping: dep inventory failed");
                     spinner.finish_with_message(format!("✗ {crate_name}: {e}"));
@@ -301,12 +373,12 @@ fn run_impl_reports(
             };
             spinner.finish_with_message(format!("✓ {crate_name} docs built"));
 
-            // Collect available serde features (name-only filter) and the transitive
-            // expansion of the features we've actually activated.  Combining these
-            // gives accurate FeatureGated / NeedsExternalImpl classification without
-            // false positives from `std`/`alloc`/`default` or alias features like
-            // `use-serde → serde`.
-            match collect_dep_serde_features(workspace, crate_name, dep_features) {
+            // Collect candidate serde/schema/json features and the transitive
+            // expansion of the features we've actually activated. Combining these
+            // lets gap analysis distinguish feature-gated external blockers from
+            // true orphan-rule blockers without false positives from
+            // `std`/`alloc`/`default` or alias features like `use-serde → serde`.
+            match collect_dep_serde_features(workspace, crate_name, &activated_refs) {
                 Ok((avail, expanded_activated)) => {
                     available_serde_features.insert(crate_name.to_string(), avail);
                     activated_features_map.insert(crate_name.to_string(), expanded_activated);
@@ -314,34 +386,66 @@ fn run_impl_reports(
                 Err(e) => {
                     tracing::warn!(crate_name, error = %e, "could not collect dep serde features");
                     // Fall back to raw activated features so gaps analysis still works.
-                    activated_features_map.insert(
-                        crate_name.to_string(),
-                        dep_features.iter().map(|s| s.to_string()).collect(),
-                    );
+                    activated_features_map.insert(crate_name.to_string(), activated_owned.clone());
                 }
             }
 
-            let safe_name = crate_name.replace('-', "_");
-            let dep_json = std::env::current_dir()
-                .unwrap_or_else(|_| std::path::PathBuf::from("."))
-                .join(format!("target/doc/{safe_name}.json"));
-            let mut prereqs = if dep_json.exists() {
-                collect_trait_prereqs(&dep_json, crate_name, true)?
-            } else {
-                std::collections::HashMap::new()
-            };
+            let mut prereqs = collect_trait_prereqs(&dep_json, crate_name, true)?;
             let elicit_prereqs = collect_trait_prereqs(&elicitation_json, crate_name, true)?;
             for (path, p) in elicit_prereqs {
                 prereqs.entry(path).or_default().merge(&p);
             }
+
+            if let (Some(available), Some(expanded_activated)) = (
+                available_serde_features.get(*crate_name),
+                activated_features_map.get(*crate_name),
+            ) {
+                let expanded_set: std::collections::HashSet<&str> =
+                    expanded_activated.iter().map(String::as_str).collect();
+                let mut probe_features: std::collections::BTreeSet<String> =
+                    activated_owned.iter().cloned().collect();
+                for feature in available {
+                    if !expanded_set.contains(feature.as_str()) {
+                        probe_features.insert(feature.clone());
+                    }
+                }
+
+                if probe_features.len() > activated_owned.len() {
+                    let probe_owned: Vec<String> = probe_features.into_iter().collect();
+                    let probe_refs: Vec<&str> = probe_owned.iter().map(String::as_str).collect();
+                    match collect_dep_trait_prereqs_with_features(
+                        workspace,
+                        crate_name,
+                        &probe_refs,
+                        dep_config.uses_default_features,
+                    ) {
+                        Ok(probed) => {
+                            feature_probe_prereqs.insert(crate_name.to_string(), probed);
+                        }
+                        Err(e) => {
+                            tracing::warn!(
+                                crate_name,
+                                error = %e,
+                                "could not probe extra serde/schemars features for dep"
+                            );
+                        }
+                    }
+                }
+            }
+
             // Accumulate into combined map for trenchcoat analysis
             for (path, p) in &prereqs {
-                combined_foreign_prereqs.entry(path.clone()).or_default().merge(p);
+                combined_foreign_prereqs
+                    .entry(path.clone())
+                    .or_default()
+                    .merge(p);
             }
             let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs);
+            let safe_name = crate_name.replace('-', "_");
             let path = output_dir.join(format!("{safe_name}.csv"));
             write_impl_coverage_csv(&report, &path)?;
-            mp.println(format!("wrote {}  ({})", path.display(), report.summary())).ok();
+            mp.println(format!("wrote {}  ({})", path.display(), report.summary()))
+                .ok();
             all_reports.push((crate_name.to_string(), report));
             overall.inc(1);
         }
@@ -354,7 +458,8 @@ fn run_impl_reports(
         let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs);
         let path = output_dir.join("internal.csv");
         write_impl_coverage_csv(&report, &path)?;
-        mp.println(format!("wrote {}  ({})", path.display(), report.summary())).ok();
+        mp.println(format!("wrote {}  ({})", path.display(), report.summary()))
+            .ok();
         all_reports.push(("elicitation".to_string(), report));
         overall.inc(1);
     }
@@ -365,16 +470,29 @@ fn run_impl_reports(
     let impl_gaps = if only_crate.is_none() || all_reports.len() > 1 {
         let pairs: Vec<(&str, &crate::impl_coverage::ImplCoverageReport)> =
             all_reports.iter().map(|(n, r)| (n.as_str(), r)).collect();
-        let gaps = build_impl_gaps(&pairs, &available_serde_features, &activated_features_map);
+        let gaps = build_impl_gaps(
+            &pairs,
+            &available_serde_features,
+            &activated_features_map,
+            &feature_probe_prereqs,
+        );
         let gaps_path = output_dir.join("gaps-impl.csv");
         write_impl_gaps_csv(&gaps, &gaps_path)?;
-        let ready = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::ReadyNow).count();
-        let gated = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::FeatureGated).count();
-        let needs = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ImplGapKind::NeedsExternalImpl).count();
-        let our_done = gaps.iter().filter(|e| e.all_our_traits_present).count();
+        let missing_our = gaps
+            .iter()
+            .filter(|e| e.gap_kind == crate::gaps::ImplGapKind::MissingOurTraits)
+            .count();
+        let ready = gaps
+            .iter()
+            .filter(|e| e.gap_kind == crate::gaps::ImplGapKind::ReadyForElicitComplete)
+            .count();
+        let gated = gaps
+            .iter()
+            .filter(|e| e.gap_kind == crate::gaps::ImplGapKind::FeatureGatedExternal)
+            .count();
         mp.println(format!(
-            "wrote {}  ({} gaps: {} ready_now, {} feature_gated, {} needs_external_impl, {} our_traits_done)",
-            gaps_path.display(), gaps.len(), ready, gated, needs, our_done
+            "wrote {}  ({} gaps: {} missing_our_traits, {} ready_for_elicit_complete, {} feature_gated_external)",
+            gaps_path.display(), gaps.len(), missing_our, ready, gated
         )).ok();
 
         // Trenchcoat report (only on full runs)
@@ -389,12 +507,22 @@ fn run_impl_reports(
             );
             let tc_path = output_dir.join("trenchcoats.csv");
             write_trenchcoats_csv(&trenchcoats, &tc_path)?;
-            let tc_complete = trenchcoats.iter().filter(|e| e.wrapper_elicit_complete).count();
-            let tc_incomplete = trenchcoats.iter().filter(|e| !e.wrapper_elicit_complete).count();
+            let tc_complete = trenchcoats
+                .iter()
+                .filter(|e| e.wrapper_elicit_complete)
+                .count();
+            let tc_incomplete = trenchcoats
+                .iter()
+                .filter(|e| !e.wrapper_elicit_complete)
+                .count();
             mp.println(format!(
                 "wrote {}  ({} trenchcoats: {} complete, {} incomplete)",
-                tc_path.display(), trenchcoats.len(), tc_complete, tc_incomplete
-            )).ok();
+                tc_path.display(),
+                trenchcoats.len(),
+                tc_complete,
+                tc_incomplete
+            ))
+            .ok();
         }
 
         gaps
@@ -416,7 +544,11 @@ fn run_shadow_reports(
 
     let mut all_shadow: Vec<(String, String, crate::shadow::ShadowReport)> = Vec::new();
 
-    let total_pairs = if only_crate.is_none() { SHADOW_PAIRS.len() as u64 } else { 0 };
+    let total_pairs = if only_crate.is_none() {
+        SHADOW_PAIRS.len() as u64
+    } else {
+        0
+    };
     let overall = if total_pairs > 0 {
         make_count_bar(mp, total_pairs, "shadow coverage")
     } else {
@@ -425,8 +557,19 @@ fn run_shadow_reports(
 
     for (target, shadow) in SHADOW_PAIRS {
         if only_crate.is_none_or(|c| c == *target || c == *shadow) {
+            let dep_config = resolve_dep_build_config(workspace, shadow, target, &[]);
+            let activated_refs: Vec<&str> = dep_config
+                .activated_features
+                .iter()
+                .map(String::as_str)
+                .collect();
             let spinner = make_spinner(mp, format!("building docs: {target} → {shadow}…"));
-            let target_inv = match collect_dep_inventory(workspace, target, &[]) {
+            let target_inv = match collect_dep_inventory(
+                workspace,
+                target,
+                &activated_refs,
+                dep_config.uses_default_features,
+            ) {
                 Ok(inv) => inv,
                 Err(e) => {
                     tracing::warn!(target, error = %e, "skipping shadow pair: upstream dep inventory failed");
@@ -435,8 +578,12 @@ fn run_shadow_reports(
                     continue;
                 }
             };
-            let shadow_inv = match collect_inventory(workspace, shadow, &[]) {
-                Ok(inv) => inv,
+            let (shadow_inv, shadow_json) = match collect_inventory_with_json_path(
+                workspace,
+                shadow,
+                &[],
+            ) {
+                Ok(bundle) => bundle,
                 Err(e) => {
                     tracing::warn!(shadow, error = %e, "skipping shadow pair: shadow inventory failed");
                     spinner.finish_with_message(format!("✗ {shadow}: {e}"));
@@ -445,10 +592,14 @@ fn run_shadow_reports(
                 }
             };
             spinner.finish_with_message(format!("✓ {target} → {shadow} docs built"));
-            let report = build_shadow_report(&target_inv, &shadow_inv);
+            let shadow_complete = collect_elicit_complete_paths(&shadow_json, shadow)?;
+            let shadow_prereqs = collect_trait_prereqs(&shadow_json, shadow, false)?;
+            let report =
+                build_shadow_report(&target_inv, &shadow_inv, &shadow_complete, &shadow_prereqs);
             let path = output_dir.join(format!("shadow-{target}.csv"));
             write_shadow_csv(&report, &path)?;
-            mp.println(format!("wrote {}  ({})", path.display(), report.summary())).ok();
+            mp.println(format!("wrote {}  ({})", path.display(), report.summary()))
+                .ok();
             all_shadow.push((target.to_string(), shadow.to_string(), report));
             overall.inc(1);
         }
@@ -458,18 +609,36 @@ fn run_shadow_reports(
 
     // Consolidated shadow gaps report
     let shadow_gaps = if only_crate.is_none() || all_shadow.len() > 1 {
-        let pairs: Vec<(&str, &str, &crate::shadow::ShadowReport)> =
-            all_shadow.iter().map(|(t, s, r)| (t.as_str(), s.as_str(), r)).collect();
+        let pairs: Vec<(&str, &str, &crate::shadow::ShadowReport)> = all_shadow
+            .iter()
+            .map(|(t, s, r)| (t.as_str(), s.as_str(), r))
+            .collect();
         let gaps = build_shadow_gaps(&pairs);
         let gaps_path = output_dir.join("gaps-shadow.csv");
         write_shadow_gaps_csv(&gaps, &gaps_path)?;
-        let missing = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::Missing).count();
-        let drifted = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::Drifted).count();
-        let stale = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::PossiblyStale).count();
-        let infra = gaps.iter().filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::InfrastructureExtra).count();
+        let missing = gaps
+            .iter()
+            .filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::Missing)
+            .count();
+        let drifted = gaps
+            .iter()
+            .filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::Drifted)
+            .count();
+        let stale = gaps
+            .iter()
+            .filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::PossiblyStale)
+            .count();
+        let infra = gaps
+            .iter()
+            .filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::InfrastructureExtra)
+            .count();
+        let verification = gaps
+            .iter()
+            .filter(|e| e.gap_kind == crate::gaps::ShadowGapKind::ShadowVerificationGap)
+            .count();
         mp.println(format!(
-            "wrote {}  ({} total: {} missing, {} drifted, {} possibly_stale, {} infra_extra)",
-            gaps_path.display(), gaps.len(), missing, drifted, stale, infra
+            "wrote {}  ({} total: {} missing, {} drifted, {} possibly_stale, {} infra_extra, {} verification)",
+            gaps_path.display(), gaps.len(), missing, drifted, stale, infra, verification
         )).ok();
         gaps
     } else {

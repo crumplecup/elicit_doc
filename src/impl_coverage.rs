@@ -76,6 +76,7 @@ pub struct ImplCoverageEntry {
     pub type_path: String,
     pub type_kind: ItemKind,
     pub is_generic: bool,
+    pub lifetime_params: Vec<String>,
     pub type_params: Vec<String>,
     pub elicit_impl: ImplStatus,
     pub proof_test: TestStatus,
@@ -84,6 +85,36 @@ pub struct ImplCoverageEntry {
     pub prereqs: TraitPrereqs,
     /// Human-readable note, e.g. the concrete instantiation used in the harness.
     pub notes: String,
+}
+
+impl ImplCoverageEntry {
+    /// `Elicitation` requires `'static`, so lifetime-parameterized types can never
+    /// directly implement it or the `ElicitIntrospect: Elicitation` supertrait.
+    pub fn lifetime_blocks_elicitation(&self) -> bool {
+        !self.lifetime_params.is_empty()
+    }
+
+    /// Missing elicitation-owned traits after removing those blocked by the type's shape.
+    pub fn effective_missing_our_traits(&self) -> Vec<&'static str> {
+        self.prereqs
+            .missing_our_traits()
+            .into_iter()
+            .filter(|trait_name| {
+                !self.lifetime_blocks_elicitation()
+                    || !matches!(*trait_name, "Elicitation" | "ElicitIntrospect")
+            })
+            .collect()
+    }
+
+    /// True when every elicitation-owned trait that can be implemented is present.
+    pub fn effective_our_traits_complete(&self) -> bool {
+        self.effective_missing_our_traits().is_empty()
+    }
+
+    /// True when this type can legally receive a direct `ElicitComplete` impl.
+    pub fn can_be_direct(&self) -> bool {
+        !self.lifetime_blocks_elicitation() && self.prereqs.can_be_direct()
+    }
 }
 
 /// Full impl coverage report for one source crate.
@@ -142,15 +173,13 @@ pub fn build_impl_coverage_report(
         let (proof_test, composition_test, notes) =
             determine_test_status(item, &elicit_impl, harness);
 
-        let prereqs = prereqs_map
-            .get(&path_str)
-            .cloned()
-            .unwrap_or_default();
+        let prereqs = prereqs_map.get(&path_str).cloned().unwrap_or_default();
 
         entries.push(ImplCoverageEntry {
             type_path: path_str,
             type_kind: item.kind,
             is_generic: item.is_generic,
+            lifetime_params: item.lifetime_params.clone(),
             type_params: item.type_params.clone(),
             elicit_impl,
             proof_test,

@@ -34,6 +34,8 @@ pub struct Item {
     pub name: String,
     /// Whether this item is generic (has type parameters).
     pub is_generic: bool,
+    /// Lifetime parameter names if generic, e.g. `["'a"]`.
+    pub lifetime_params: Vec<String>,
     /// Type parameter names if generic, e.g. `["T", "K", "V"]`.
     pub type_params: Vec<String>,
 }

@@ -2,16 +2,16 @@ default:
     just --list
 
 check:
-    cargo check --features cli
+    cargo check
 
 build:
-    cargo build --features cli
+    cargo build
 
 fmt:
     cargo fmt --all
 
 clippy:
-    cargo clippy --features cli -- -D warnings
+    cargo clippy -- -D warnings
 
 test:
     cargo test
@@ -21,12 +21,12 @@ check-all: fmt clippy test
 
 # Regenerate all coverage CSVs to verif/coverage/
 run *ARGS:
-    cargo run --features cli -- run {{ARGS}}
+    cargo run -- run {{ARGS}}
 
 # Regenerate only shadow reports
 run-shadows *ARGS:
-    cargo run --features cli -- run --only shadows {{ARGS}}
+    cargo run -- run --only shadows {{ARGS}}
 
 # Regenerate only impl coverage reports
 run-impls *ARGS:
-    cargo run --features cli -- run --only impls {{ARGS}}
+    cargo run -- run --only impls {{ARGS}}

@@ -64,6 +64,32 @@ impl TraitPrereqs {
         self.serialize && self.deserialize && self.json_schema
     }
 
+    /// Short names of our five elicitation-owned traits that are still missing.
+    pub fn missing_our_traits(&self) -> Vec<&'static str> {
+        let mut missing = Vec::new();
+        if !self.elicitation_trait {
+            missing.push("Elicitation");
+        }
+        if !self.elicit_introspect {
+            missing.push("ElicitIntrospect");
+        }
+        if !self.elicit_spec {
+            missing.push("ElicitSpec");
+        }
+        if !self.elicit_prompt_tree {
+            missing.push("ElicitPromptTree");
+        }
+        if !self.to_code_literal {
+            missing.push("ToCodeLiteral");
+        }
+        missing
+    }
+
+    /// True when all five elicitation-owned support traits are present.
+    pub fn our_traits_complete(&self) -> bool {
+        self.missing_our_traits().is_empty()
+    }
+
     /// Short names of the external traits that are still missing.
     pub fn external_blockers(&self) -> Vec<&'static str> {
         let mut b = Vec::new();
@@ -93,6 +119,15 @@ impl TraitPrereqs {
         }
         b
     }
+}
+
+/// How the reference workspace currently depends on an upstream crate.
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct DepBuildConfig {
+    /// Exact upstream features enabled by the workspace dependency declaration.
+    pub activated_features: Vec<String>,
+    /// Whether the workspace leaves the dependency's default feature set enabled.
+    pub uses_default_features: bool,
 }
 
 /// Scan a rustdoc JSON file and return a map from canonical type path to
@@ -173,7 +208,7 @@ pub fn collect_trait_prereqs(
     Ok(map)
 }
 
-/// The set of types that have `impl ElicitComplete for T` in the elicitation crate,
+/// The set of types that have `impl ElicitComplete for T` in a local crate,
 /// extracted directly from its rustdoc JSON (not from the inventory heuristic).
 #[derive(Debug, Clone, Default)]
 pub struct ElicitCompleteSet {
@@ -186,17 +221,21 @@ pub struct ElicitCompleteSet {
     pub factory: HashSet<String>,
 }
 
-/// Scan the elicitation rustdoc JSON and return the set of types that have an
+/// Scan a local crate rustdoc JSON and return the set of types that have an
 /// `impl ElicitComplete for T` block, split into concrete and factory impls.
 ///
-/// `json_path` should point to `{workspace}/target/doc/elicitation.json`.
+/// `json_path` should point to `{workspace}/target/doc/<crate>.json`.
+/// `local_crate_name` is the crate whose `crate::` paths should be normalized.
 ///
-/// Paths are resolved via the rustdoc ID→path map so that elicitation-internal
+/// Paths are resolved via the rustdoc ID→path map so that local-crate
 /// types are stored with their canonical module path (e.g.
 /// `"elicitation::primitives::tower_types::handles::TowerBalanceHandle"`)
 /// matching what [`parse_rustdoc_json`] produces for the source inventory.
 #[instrument(skip(json_path), fields(path = %json_path.display()))]
-pub fn collect_elicit_complete_paths(json_path: &Path) -> ElicitDocResult<ElicitCompleteSet> {
+pub fn collect_elicit_complete_paths(
+    json_path: &Path,
+    local_crate_name: &str,
+) -> ElicitDocResult<ElicitCompleteSet> {
     let content =
         std::fs::read_to_string(json_path).map_err(|e| ElicitDocError::io(e.to_string()))?;
 
@@ -223,9 +262,11 @@ pub fn collect_elicit_complete_paths(json_path: &Path) -> ElicitDocResult<Elicit
         }
 
         // Factory: impl has at least one type-parameter
-        let is_factory = impl_item.generics.params.iter().any(|p| {
-            matches!(p.kind, rustdoc_types::GenericParamDefKind::Type { .. })
-        });
+        let is_factory = impl_item
+            .generics
+            .params
+            .iter()
+            .any(|p| matches!(p.kind, rustdoc_types::GenericParamDefKind::Type { .. }));
 
         // Resolve the canonical path via the ID→path map. This handles re-exports
         // correctly: `for_` might say `crate::TowerBalanceHandle` (re-exported),
@@ -237,7 +278,7 @@ pub fn collect_elicit_complete_paths(json_path: &Path) -> ElicitDocResult<Elicit
                     summary.path.join("::")
                 } else {
                     // Fallback: normalize crate-relative path
-                    p.path.replace("crate::", "elicitation::")
+                    p.path.replace("crate::", &format!("{local_crate_name}::"))
                 }
             }
             rustdoc_types::Type::Primitive(name) => name.clone(),
@@ -270,9 +311,25 @@ pub fn collect_inventory(
     crate_name: &str,
     features: &[&str],
 ) -> ElicitDocResult<Inventory> {
+    let (inventory, _) = collect_inventory_with_json_path(workspace_root, crate_name, features)?;
+    Ok(inventory)
+}
+
+/// Invoke `cargo rustdoc --output-format json` for a **workspace member** crate
+/// and return both the parsed [`Inventory`] and the exact JSON path that rustdoc produced.
+///
+/// This is useful when follow-on analyses need to read the same JSON again
+/// (for example to inspect impl blocks) without re-guessing where cargo placed it.
+#[instrument(skip(workspace_root), fields(crate_name, workspace_root = %workspace_root.display()))]
+pub fn collect_inventory_with_json_path(
+    workspace_root: &Path,
+    crate_name: &str,
+    features: &[&str],
+) -> ElicitDocResult<(Inventory, PathBuf)> {
     let json_path = run_cargo_rustdoc(workspace_root, crate_name, features)?;
     // Workspace members: exact name match (no transitive dep bleed)
-    parse_rustdoc_json(&json_path, crate_name, false)
+    let inventory = parse_rustdoc_json(&json_path, crate_name, false)?;
+    Ok((inventory, json_path))
 }
 
 /// Collect the [`Inventory`] for an **external dependency** (not a workspace
@@ -289,11 +346,64 @@ pub fn collect_dep_inventory(
     reference_workspace: &Path,
     crate_name: &str,
     activated_features: &[&str],
+    uses_default_features: bool,
 ) -> ElicitDocResult<Inventory> {
+    let (inventory, _) = collect_dep_inventory_with_json_path(
+        reference_workspace,
+        crate_name,
+        activated_features,
+        uses_default_features,
+    )?;
+    Ok(inventory)
+}
+
+/// Collect the [`Inventory`] for an external dependency and return the exact rustdoc JSON
+/// path that was produced for the build.
+#[instrument(skip(reference_workspace), fields(crate_name))]
+pub fn collect_dep_inventory_with_json_path(
+    reference_workspace: &Path,
+    crate_name: &str,
+    activated_features: &[&str],
+    uses_default_features: bool,
+) -> ElicitDocResult<(Inventory, PathBuf)> {
+    let json_path = run_dep_cargo_rustdoc(
+        reference_workspace,
+        crate_name,
+        activated_features,
+        uses_default_features,
+    )?;
+    let inventory = parse_rustdoc_json(&json_path, crate_name, true)?;
+    Ok((inventory, json_path))
+}
+
+/// Build a dependency with the provided feature set and collect its trait prereqs directly
+/// from the resulting rustdoc JSON.
+#[instrument(skip(reference_workspace, activated_features), fields(crate_name))]
+pub fn collect_dep_trait_prereqs_with_features(
+    reference_workspace: &Path,
+    crate_name: &str,
+    activated_features: &[&str],
+    uses_default_features: bool,
+) -> ElicitDocResult<HashMap<String, TraitPrereqs>> {
+    let json_path = run_dep_cargo_rustdoc(
+        reference_workspace,
+        crate_name,
+        activated_features,
+        uses_default_features,
+    )?;
+    collect_trait_prereqs(&json_path, crate_name, true)
+}
+
+fn run_dep_cargo_rustdoc(
+    reference_workspace: &Path,
+    crate_name: &str,
+    activated_features: &[&str],
+    uses_default_features: bool,
+) -> ElicitDocResult<PathBuf> {
     let manifest = find_dep_manifest(reference_workspace, crate_name)?;
-    let crate_dir = manifest
-        .parent()
-        .ok_or_else(|| ElicitDocError::cargo_invocation(format!("no parent dir for {manifest:?}")))?;
+    let crate_dir = manifest.parent().ok_or_else(|| {
+        ElicitDocError::cargo_invocation(format!("no parent dir for {manifest:?}"))
+    })?;
 
     // Use a shared target dir under elicit_doc so we don't write into the
     // registry cache, and reuse build artefacts across multiple dep runs.
@@ -302,9 +412,10 @@ pub fn collect_dep_inventory(
         .join("target");
 
     let mut cmd = Command::new("cargo");
-    cmd.current_dir(crate_dir)
-        .arg("+nightly")
-        .arg("rustdoc");
+    cmd.current_dir(crate_dir).arg("+nightly").arg("rustdoc");
+    if !uses_default_features {
+        cmd.arg("--no-default-features");
+    }
     if !activated_features.is_empty() {
         cmd.arg("--features").arg(activated_features.join(","));
     }
@@ -332,9 +443,7 @@ pub fn collect_dep_inventory(
     }
 
     let normalized = crate_name.replace('-', "_");
-    let json_path = own_target
-        .join("doc")
-        .join(format!("{normalized}.json"));
+    let json_path = own_target.join("doc").join(format!("{normalized}.json"));
 
     if !json_path.exists() {
         return Err(ElicitDocError::rustdoc_missing(
@@ -343,8 +452,67 @@ pub fn collect_dep_inventory(
     }
 
     tracing::debug!(path = %json_path.display(), "dep rustdoc JSON produced");
-    // Deps: prefix match so umbrella crates like `bevy` include `bevy_ecs::*` etc.
-    parse_rustdoc_json(&json_path, crate_name, true)
+    Ok(json_path)
+}
+
+/// Resolve the dependency features and `default-features` setting the `elicitation`
+/// crate currently uses for an upstream dep.
+#[instrument(skip(reference_workspace), fields(crate_name))]
+pub fn collect_dep_build_config(
+    reference_workspace: &Path,
+    crate_name: &str,
+) -> ElicitDocResult<DepBuildConfig> {
+    collect_member_dep_build_config(reference_workspace, "elicitation", crate_name)
+}
+
+/// Resolve the dependency features and `default-features` setting a specific
+/// workspace member currently uses for an upstream dep.
+#[instrument(skip(reference_workspace), fields(member_crate_name, crate_name))]
+pub fn collect_member_dep_build_config(
+    reference_workspace: &Path,
+    member_crate_name: &str,
+    crate_name: &str,
+) -> ElicitDocResult<DepBuildConfig> {
+    let meta = cargo_metadata::MetadataCommand::new()
+        .manifest_path(reference_workspace.join("Cargo.toml"))
+        .exec()
+        .map_err(|e| ElicitDocError::cargo_metadata(e.to_string()))?;
+
+    let member_pkg = meta
+        .packages
+        .iter()
+        .find(|pkg| pkg.name == member_crate_name)
+        .ok_or_else(|| {
+            ElicitDocError::cargo_invocation(format!(
+                "workspace package `{member_crate_name}` not found in cargo metadata"
+            ))
+        })?;
+
+    let normalized = crate_name.replace('-', "_");
+    let dep = member_pkg
+        .dependencies
+        .iter()
+        .find(|dep| {
+            dep.name == crate_name
+                || dep.name.replace('-', "_") == normalized
+                || dep.rename.as_deref().is_some_and(|rename| {
+                    rename == crate_name || rename.replace('-', "_") == normalized
+                })
+        })
+        .ok_or_else(|| {
+            ElicitDocError::cargo_invocation(format!(
+                "dependency '{crate_name}' not found in `{member_crate_name}` package metadata"
+            ))
+        })?;
+
+    let mut activated_features = dep.features.clone();
+    activated_features.sort();
+    activated_features.dedup();
+
+    Ok(DepBuildConfig {
+        activated_features,
+        uses_default_features: dep.uses_default_features,
+    })
 }
 
 /// Scan the elicitation rustdoc JSON and return all `(foreign_type, wrapper)` pairs
@@ -401,7 +569,9 @@ pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String
         let Some(generic_args) = trait_.args.as_deref() else {
             continue;
         };
-        let rustdoc_types::GenericArgs::AngleBracketed { args: angle_args, .. } = generic_args
+        let rustdoc_types::GenericArgs::AngleBracketed {
+            args: angle_args, ..
+        } = generic_args
         else {
             continue;
         };
@@ -439,7 +609,10 @@ pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String
 
     pairs.sort_by(|a, b| a.0.cmp(&b.0).then(a.1.cmp(&b.1)));
 
-    tracing::debug!(count = pairs.len(), "found trenchcoat pairs from From<T> impls");
+    tracing::debug!(
+        count = pairs.len(),
+        "found trenchcoat pairs from From<T> impls"
+    );
     Ok(pairs)
 }
 
@@ -458,10 +631,10 @@ pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String
 #[instrument(skip(reference_workspace), fields(crate_name))]
 /// Returns `(available_serde_features, expanded_activated_features)`.
 ///
-/// `available_serde_features` — feature names whose names contain serde/schema/json
-/// keywords.  We intentionally use name-only matching to avoid false positives from
-/// infrastructure features like `std`/`alloc`/`default` that happen to enable the
-/// serde dep transitively.
+/// `available_serde_features` — feature names whose transitive closure reaches
+/// serde / schemars / serde_json-related deps or sibling features. This catches
+/// alias features and oddly-named gates rather than relying only on the feature's
+/// own spelling.
 ///
 /// `expanded_activated_features` — the transitive closure of `activated` through
 /// the package's own feature graph.  For example, if `geo` has `use-serde → serde`,
@@ -490,17 +663,11 @@ pub fn collect_dep_serde_features(
             ))
         })?;
 
-    // Name-only filter: only features whose own name contains a serde/schema/json keyword.
-    // Avoids including utility features like `std`/`alloc`/`default` that merely
-    // *enable* the serde dep transitively.
     const KEYWORDS: &[&str] = &["serde", "schemars", "schema", "json"];
     let mut available: Vec<String> = pkg
         .features
         .keys()
-        .filter(|name| {
-            let name_lc = name.to_lowercase();
-            KEYWORDS.iter().any(|kw| name_lc.contains(kw))
-        })
+        .filter(|name| feature_reaches_external_support(name, &pkg.features, KEYWORDS))
         .cloned()
         .collect();
     available.sort();
@@ -514,7 +681,10 @@ pub fn collect_dep_serde_features(
     while let Some(feat) = queue.pop_front() {
         if let Some(enables) = pkg.features.get(&feat) {
             for enabled in enables {
-                if !enabled.contains(':') && !enabled.contains('/') && expanded.insert(enabled.clone()) {
+                if !enabled.contains(':')
+                    && !enabled.contains('/')
+                    && expanded.insert(enabled.clone())
+                {
                     queue.push_back(enabled.clone());
                 }
             }
@@ -532,6 +702,58 @@ pub fn collect_dep_serde_features(
         "collected dep serde features"
     );
     Ok((available, expanded_activated))
+}
+
+fn feature_reaches_external_support(
+    root: &str,
+    features: &std::collections::BTreeMap<String, Vec<String>>,
+    keywords: &[&str],
+) -> bool {
+    let mut seen: HashSet<String> = HashSet::new();
+    let mut queue: std::collections::VecDeque<String> = std::iter::once(root.to_string()).collect();
+
+    while let Some(feature) = queue.pop_front() {
+        if !seen.insert(feature.clone()) {
+            continue;
+        }
+
+        let feature_lc = feature.to_lowercase();
+        if keywords.iter().any(|kw| feature_lc.contains(kw)) {
+            return true;
+        }
+
+        let Some(edges) = features.get(&feature) else {
+            continue;
+        };
+
+        for edge in edges {
+            let edge_lc = edge.to_lowercase();
+            if keywords.iter().any(|kw| edge_lc.contains(kw)) {
+                return true;
+            }
+
+            // Same-package feature edge.
+            if !edge.contains(':') && !edge.contains('/') {
+                queue.push_back(edge.clone());
+                continue;
+            }
+
+            // dep:serde / foo?/serde / foo/serde_with kinds of edges.
+            let normalized = edge
+                .trim_start_matches("dep:")
+                .replace('?', "/")
+                .replace(':', "/");
+            if normalized.split('/').any(|segment| {
+                keywords
+                    .iter()
+                    .any(|kw| segment.to_lowercase().contains(kw))
+            }) {
+                return true;
+            }
+        }
+    }
+
+    false
 }
 
 /// Find the `Cargo.toml` path for a dependency named `crate_name` as seen from
@@ -688,10 +910,7 @@ fn extract_items(krate: &rustdoc_types::Crate, own_crate: &str, prefix_match: bo
         };
 
         let path = summary.path.clone();
-        let name = path
-            .last()
-            .cloned()
-            .unwrap_or_default();
+        let name = path.last().cloned().unwrap_or_default();
 
         if name.is_empty() {
             continue;
@@ -699,20 +918,21 @@ fn extract_items(krate: &rustdoc_types::Crate, own_crate: &str, prefix_match: bo
 
         // Attempt to read generics from the index entry (only present when
         // the item is defined in this crate, not re-exported from a subcrate).
-        let (is_generic, type_params) = krate
+        let (is_generic, lifetime_params, type_params) = krate
             .index
             .get(id)
             .map(|item| {
-                let (_, g, tp) = classify_item(item);
-                (g, tp)
+                let (_, g, lp, tp) = classify_item(item);
+                (g, lp, tp)
             })
-            .unwrap_or((false, vec![]));
+            .unwrap_or((false, vec![], vec![]));
 
         items.push(Item {
             path,
             kind,
             name,
             is_generic,
+            lifetime_params,
             type_params,
         });
     }
@@ -723,46 +943,57 @@ fn extract_items(krate: &rustdoc_types::Crate, own_crate: &str, prefix_match: bo
 }
 
 /// Map a rustdoc item to our [`ItemKind`], and extract generics info.
-fn classify_item(item: &rustdoc_types::Item) -> (ItemKind, bool, Vec<String>) {
+fn classify_item(item: &rustdoc_types::Item) -> (ItemKind, bool, Vec<String>, Vec<String>) {
     match &item.inner {
         rustdoc_types::ItemEnum::Struct(s) => {
-            let params = extract_generic_params(&s.generics);
-            let is_generic = !params.is_empty();
-            (ItemKind::Struct, is_generic, params)
+            let (lifetime_params, type_params) = extract_generic_params(&s.generics);
+            let is_generic = !lifetime_params.is_empty() || !type_params.is_empty();
+            (ItemKind::Struct, is_generic, lifetime_params, type_params)
         }
         rustdoc_types::ItemEnum::Enum(e) => {
-            let params = extract_generic_params(&e.generics);
-            let is_generic = !params.is_empty();
-            (ItemKind::Enum, is_generic, params)
+            let (lifetime_params, type_params) = extract_generic_params(&e.generics);
+            let is_generic = !lifetime_params.is_empty() || !type_params.is_empty();
+            (ItemKind::Enum, is_generic, lifetime_params, type_params)
         }
         rustdoc_types::ItemEnum::Trait(t) => {
-            let params = extract_generic_params(&t.generics);
-            let is_generic = !params.is_empty();
-            (ItemKind::Trait, is_generic, params)
+            let (lifetime_params, type_params) = extract_generic_params(&t.generics);
+            let is_generic = !lifetime_params.is_empty() || !type_params.is_empty();
+            (ItemKind::Trait, is_generic, lifetime_params, type_params)
         }
         rustdoc_types::ItemEnum::TypeAlias(t) => {
-            let params = extract_generic_params(&t.generics);
-            let is_generic = !params.is_empty();
-            (ItemKind::TypeAlias, is_generic, params)
+            let (lifetime_params, type_params) = extract_generic_params(&t.generics);
+            let is_generic = !lifetime_params.is_empty() || !type_params.is_empty();
+            (
+                ItemKind::TypeAlias,
+                is_generic,
+                lifetime_params,
+                type_params,
+            )
         }
-        rustdoc_types::ItemEnum::Function(_) => (ItemKind::Function, false, vec![]),
-        rustdoc_types::ItemEnum::Macro(_) => (ItemKind::Macro, false, vec![]),
-        rustdoc_types::ItemEnum::Constant { .. } => (ItemKind::Constant, false, vec![]),
-        rustdoc_types::ItemEnum::Module(_) => (ItemKind::Module, false, vec![]),
-        _ => (ItemKind::Other, false, vec![]),
+        rustdoc_types::ItemEnum::Function(_) => (ItemKind::Function, false, vec![], vec![]),
+        rustdoc_types::ItemEnum::Macro(_) => (ItemKind::Macro, false, vec![], vec![]),
+        rustdoc_types::ItemEnum::Constant { .. } => (ItemKind::Constant, false, vec![], vec![]),
+        rustdoc_types::ItemEnum::Module(_) => (ItemKind::Module, false, vec![], vec![]),
+        _ => (ItemKind::Other, false, vec![], vec![]),
     }
 }
 
-/// Extract type parameter names from a [`Generics`] block.
-fn extract_generic_params(generics: &rustdoc_types::Generics) -> Vec<String> {
-    generics
-        .params
-        .iter()
-        .filter_map(|p| match &p.kind {
-            rustdoc_types::GenericParamDefKind::Type { .. } => Some(p.name.clone()),
-            _ => None,
-        })
-        .collect()
+/// Extract lifetime and type parameter names from a [`Generics`] block.
+fn extract_generic_params(generics: &rustdoc_types::Generics) -> (Vec<String>, Vec<String>) {
+    let mut lifetime_params = Vec::new();
+    let mut type_params = Vec::new();
+
+    for param in &generics.params {
+        match &param.kind {
+            rustdoc_types::GenericParamDefKind::Lifetime { .. } => {
+                lifetime_params.push(param.name.clone())
+            }
+            rustdoc_types::GenericParamDefKind::Type { .. } => type_params.push(param.name.clone()),
+            _ => {}
+        }
+    }
+
+    (lifetime_params, type_params)
 }
 
 /// Scan a proof harness test file and return a [`ProofHarness`] containing the

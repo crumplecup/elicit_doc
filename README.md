@@ -82,29 +82,34 @@ short recommended action. Sorted highest-priority first:
 
 | `gap_kind` | Meaning | Action |
 |---|---|---|
-| `ReadyNow` | All external traits present, just needs `impl ElicitComplete` | Add the impl |
-| `FeatureGated` | External traits may be available behind a feature flag | Enable serde/schemars features and re-check |
-| `NeedsExternalImpl` | External traits confirmed absent | Add a trenchcoat wrapper |
+| `MissingOurTraits` | One or more elicitation-owned support traits are missing | Add the missing support trait impls |
+| `ReadyForElicitComplete` | All prerequisites are present, but `impl ElicitComplete` is still missing | Add the impl |
+| `FeatureGatedExternal` | External serde/schemars traits may unlock behind more dep features | Enable features and re-check |
 
-The `all_our_traits_present` column distinguishes two sub-cases of `NeedsExternalImpl`:
+The CSV now separates the important axes explicitly:
 
-- **`true`** — our 5 traits are already implemented; only the trenchcoat is needed
-- **`false`** — our traits are also missing; the `missing_our_traits` column lists them
+- `our_traits_complete` tells you whether the type already has the five elicitation-owned traits
+- `can_be_direct` tells you whether direct `ElicitComplete` is legal
+- `blocked_by_orphan_rule` identifies types that are fully "everything but" and therefore should not be treated as direct `ElicitComplete` gaps
+
+Fully-covered orphan-blocked types are intentionally omitted from `gaps-impl.csv`. They are covered enough for elicitation-core work, but still need a trenchcoat or shadow when formal verification requires a fully `ElicitComplete` type.
 
 ### Shadow coverage (`shadow-<crate>.csv`, `gaps-shadow.csv`)
 
-Per-upstream-type status for each shadow crate:
+Per-upstream-item status for each shadow crate:
 
 | `status` | Meaning |
 |---|---|
-| `Covered` | Type has a matching shadow type |
-| `Missing` | Upstream type not yet in the shadow crate |
-| `Drifted` | Probable rename — similar name found in shadow crate |
-| `Extra` | Shadow crate has a type with no upstream match |
+| `Covered` | Upstream public item has a matching shadow item |
+| `Missing` | Upstream public item is not yet represented in the shadow crate |
+| `Drifted` | Probable rename — similar name found in the shadow crate |
+| `Extra` | Shadow crate has an item with no upstream match |
 
 `gaps-shadow.csv` consolidates across all shadow pairs. `Extra` rows are further
 classified as `InfrastructureExtra` (our own `*Params`, `*Plugin`, `*Ctx` types — expected)
-or `PossiblyStale` (unexpected — may need removal or renaming).
+or `PossiblyStale` (unexpected — may need removal or renaming). Matched type rows can
+also produce `ShadowVerificationGap` when the shadow exists but is still not
+`ElicitComplete`-ready.
 
 ### Trenchcoat inventory (`trenchcoats.csv`)
 
@@ -125,8 +130,15 @@ entry under a foreign type means that type is fully accessible from any VSM that
 
 ### Executive summary (`summary.md`)
 
-High-level table summarising impl and shadow coverage percentages across all tracked
-crates. Only written when running the full report (no `--only` or `--crate-name` filter).
+High-level table summarising impl and shadow coverage across all tracked crates.
+The impl summary distinguishes:
+
+- support-trait completeness
+- true direct `ElicitComplete` gaps
+- orphan-blocked "everything but" coverage
+
+The shadow summary uses the full public API surface as its denominator and also
+surfaces matched shadow types that still fail verification readiness.
 
 ---
 
@@ -161,27 +173,29 @@ elicit_doc --workspace /path/to/elicitation run
 ## Interpreting the data for next steps
 
 1. **Start with `gaps-impl.csv`, sorted by `gap_kind`.**
-   `ReadyNow` rows are free wins — add `impl ElicitComplete for Type {}` in the
-   elicitation crate. No external work required.
+   `MissingOurTraits` rows are the first correctness problem: they indicate public
+   target types that elicitation-core still does not fully model with its own traits.
 
-2. **`NeedsExternalImpl` rows with `all_our_traits_present = true`** are the next
-   priority. Our 5 traits are already done; only the trenchcoat wrapper is missing.
-   Use `select_trenchcoat!` or write a hand wrapper that implements
-   `Serialize + Deserialize + JsonSchema`, then impl `From<ForeignType>` so it appears
-   in the trenchcoat inventory.
+2. **`ReadyForElicitComplete` rows** are the next easiest wins. The type already
+   satisfies all prerequisites, so you only need to add `impl ElicitComplete for Type {}`.
 
-3. **Check `trenchcoats.csv` for incomplete wrappers.**
+3. **Treat fully-covered orphan-blocked types as coverage, not false-positive gaps.**
+   If a type has all five of our traits but still lacks external serde/schemars support,
+   it will show up in the summary as externally blocked rather than as an impl gap.
+
+4. **Check `trenchcoats.csv` for incomplete wrappers.**
    A wrapper that exists but has `wrapper_elicit_complete = false` is a trenchcoat that
    didn't go all the way. The `wrapper_missing_our_traits` column shows exactly what
    remains.
 
-4. **`FeatureGated` rows** may resolve automatically once the dep's serde/schemars
+5. **`FeatureGatedExternal` rows** may resolve automatically once the dep's serde/schemars
    feature flags are enabled in Cargo.toml. The per-dep feature lists in `cli.rs`
    (`THIRD_PARTY_CRATES`) control what `elicit_doc` tries; update them if a dep gains
    new optional serde support.
 
-5. **`gaps-shadow.csv` `Missing` rows** represent upstream types not yet in a shadow
-   crate. Each one is a type that could become an MCP tool but isn't yet reachable.
+6. **`gaps-shadow.csv` `Missing` rows** represent upstream public API surface that is
+   not yet shadowed. `ShadowVerificationGap` rows are the follow-on queue for matched
+   shadow types that still cannot participate in formal verification.
 
 ---
 
