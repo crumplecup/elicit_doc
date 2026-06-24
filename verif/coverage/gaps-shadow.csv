@@ -12161,11 +12161,11 @@ bevy,elicit_bevy,bevy_animation::transition::AnimationTransition,Struct,Drifted,
 bevy,elicit_bevy,bevy_anti_alias::contrast_adaptive_sharpening::CasPlugin,Struct,Drifted,elicit_bevy::resource_bridge::ResPlugin,0.80,Missing,false,Serialize(absent);Deserialize(absent);JsonSchema(absent),Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,,probable rename
 bevy,elicit_bevy,bevy_app::plugin::Plugins,Trait,Drifted,elicit_bevy::trait_factories::Plugin,0.86,Missing,,,,,probable rename
 bevy,elicit_bevy,bevy_app::plugin::sealed::Plugins,Trait,Drifted,elicit_bevy::trait_factories::Plugin,0.86,Missing,,,,,probable rename
-bevy,elicit_bevy,bevy_asset::io::memory::Dir,Struct,Drifted,elicit_bevy::math::dir::Dir2,0.75,Complete,true,,,,probable rename
+bevy,elicit_bevy,bevy_asset::io::memory::Dir,Struct,Drifted,elicit_bevy::math::dir::Dir3,0.75,Complete,true,,,,probable rename
 bevy,elicit_bevy,bevy_core_pipeline::oit::OrderIndependentTransparencySettings,Struct,Drifted,elicit_bevy::render_plugin::BevyOrderIndependentTransparencySettingsParams,0.76,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree,,probable rename
 bevy,elicit_bevy,bevy_core_pipeline::oit::OrderIndependentTransparencySettingsOffset,Struct,Drifted,elicit_bevy::render_plugin::BevyOrderIndependentTransparencySettingsParams,0.78,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree,,probable rename
 bevy,elicit_bevy,bevy_ecs::template::VecTemplate,Struct,Drifted,elicit_bevy::derive_plugin::ItemTemplate,0.77,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,,probable rename
-bevy,elicit_bevy,bevy_gizmos::config::DefaultGizmoConfigGroup,Struct,Drifted,elicit_bevy::gizmos::LightGizmoConfigGroup,0.77,Complete,true,,,,probable rename
+bevy,elicit_bevy,bevy_gizmos::config::DefaultGizmoConfigGroup,Struct,Drifted,elicit_bevy::gizmos::AabbGizmoConfigGroup,0.77,Complete,true,,,,probable rename
 bevy,elicit_bevy,bevy_gizmos::config::ErasedGizmoConfigGroup,Struct,Drifted,elicit_bevy::gizmos::AabbGizmoConfigGroup,0.80,Complete,true,,,,probable rename
 bevy,elicit_bevy,bevy_gizmos::config::GizmoMeshConfig,Struct,Drifted,elicit_bevy::gizmos::GizmoLineConfig,0.76,Complete,true,,,,probable rename
 bevy,elicit_bevy,bevy_gizmos::frustum::FrustumGizmoConfigGroup,Struct,Drifted,elicit_bevy::gizmos::LightGizmoConfigGroup,0.77,Complete,true,,,,probable rename
@@ -12174,7 +12174,7 @@ bevy,elicit_bevy,bevy_input::gamepad::GamepadConnectionEvent,Struct,Drifted,elic
 bevy,elicit_bevy,bevy_input::mouse::MouseMotion,Struct,Drifted,elicit_bevy::input::MouseButton,0.75,Complete,true,,,,probable rename
 bevy,elicit_bevy,bevy_input_focus::directional_navigation::DirectionalNavigation,Struct,Drifted,elicit_bevy::ui::AutoDirectionalNavigation,0.81,Complete,true,,,,probable rename
 bevy,elicit_bevy,bevy_light::probe::GeneratedEnvironmentMapLightTemplate,Struct,Drifted,elicit_bevy::light::GeneratedEnvironmentMapLight,0.77,Complete,true,,,,probable rename
-bevy,elicit_bevy,bevy_math::direction::Dir4,Struct,Drifted,elicit_bevy::math::dir::Dir2,0.75,Complete,true,,,,probable rename
+bevy,elicit_bevy,bevy_math::direction::Dir4,Struct,Drifted,elicit_bevy::math::dir::Dir3,0.75,Complete,true,,,,probable rename
 bevy,elicit_bevy,bevy_math::primitives::dim3::Segment3d,Struct,Drifted,elicit_bevy::math::shapes::Segment2d,0.89,Complete,true,,,,probable rename
 bevy,elicit_bevy,bevy_math::primitives::polygon::Segment,Struct,Drifted,elicit_bevy::math::shapes::Segment2d,0.78,Complete,true,,,,probable rename
 bevy,elicit_bevy,bevy_mesh::MeshPlugin,Struct,Drifted,elicit_bevy::resource_bridge::ResPlugin,0.82,Missing,false,Serialize(absent);Deserialize(absent);JsonSchema(absent),Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,,probable rename
@@ -14091,12 +14091,16 @@ reqwest,elicit_reqwest,elicit_reqwest::client::HeadParams,Struct,InfrastructureE
 reqwest,elicit_reqwest,elicit_reqwest::client::PatchParams,Struct,InfrastructureExtra,,,,,,,,"in shadow, not in target"
 reqwest,elicit_reqwest,elicit_reqwest::client::PostParams,Struct,InfrastructureExtra,,,,,,,,"in shadow, not in target"
 reqwest,elicit_reqwest,elicit_reqwest::client::PutParams,Struct,InfrastructureExtra,,,,,,,,"in shadow, not in target"
+reqwest,elicit_reqwest,elicit_reqwest::client::RequestParams,Struct,InfrastructureExtra,,,,,,,,"in shadow, not in target"
+reqwest,elicit_reqwest,elicit_reqwest::client::RequestUrlParams,Struct,InfrastructureExtra,,,,,,,,"in shadow, not in target"
 reqwest,elicit_reqwest,elicit_reqwest::client::_elicit_compat_DeleteParams::DeleteParamsStyle,Enum,InfrastructureExtra,,,,,,,,"in shadow, not in target"
 reqwest,elicit_reqwest,elicit_reqwest::client::_elicit_compat_GetParams::GetParamsStyle,Enum,InfrastructureExtra,,,,,,,,"in shadow, not in target"
 reqwest,elicit_reqwest,elicit_reqwest::client::_elicit_compat_HeadParams::HeadParamsStyle,Enum,InfrastructureExtra,,,,,,,,"in shadow, not in target"
 reqwest,elicit_reqwest,elicit_reqwest::client::_elicit_compat_PatchParams::PatchParamsStyle,Enum,InfrastructureExtra,,,,,,,,"in shadow, not in target"
 reqwest,elicit_reqwest,elicit_reqwest::client::_elicit_compat_PostParams::PostParamsStyle,Enum,InfrastructureExtra,,,,,,,,"in shadow, not in target"
 reqwest,elicit_reqwest,elicit_reqwest::client::_elicit_compat_PutParams::PutParamsStyle,Enum,InfrastructureExtra,,,,,,,,"in shadow, not in target"
+reqwest,elicit_reqwest,elicit_reqwest::client::_elicit_compat_RequestParams::RequestParamsStyle,Enum,InfrastructureExtra,,,,,,,,"in shadow, not in target"
+reqwest,elicit_reqwest,elicit_reqwest::client::_elicit_compat_RequestUrlParams::RequestUrlParamsStyle,Enum,InfrastructureExtra,,,,,,,,"in shadow, not in target"
 reqwest,elicit_reqwest,elicit_reqwest::plugin::Plugin,Struct,InfrastructureExtra,,,,,,,,"in shadow, not in target"
 reqwest,elicit_reqwest,elicit_reqwest::plugins::header_map::HeaderMapPlugin,Struct,InfrastructureExtra,,,,,,,,"in shadow, not in target"
 reqwest,elicit_reqwest,elicit_reqwest::plugins::http::Plugin,Struct,InfrastructureExtra,,,,,,,,"in shadow, not in target"

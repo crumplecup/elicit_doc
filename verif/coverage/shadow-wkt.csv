@@ -1,65 +1,65 @@
-item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
-elicit_wkt::trait_factories::ToWktF64,Trait,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::trait_factories::ToWktF64Factory,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::trait_factories::ToWktF64VTable,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::trait_factories::ToWktParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::trait_factories::TryFromWktF64Factory,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::trait_factories::TryFromWktF64VTable,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::trait_factories::TryFromWktStrParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::trait_factories::WktStringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::trait_factories::prime_crate__trait_factories__to_wkt_f64,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::trait_factories::prime_crate__trait_factories__try_from_wkt_f64,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::wkt_item::WktItem,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::parse_plugin::ParseWktParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::parse_plugin::WktItemGeometryTypeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::parse_plugin::WktItemStringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::parse_plugin::WktParsePlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::parse_plugin::WktParsed,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::CoordNew3dParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::CoordNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::CoordNewWithMParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::EmptyPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::GeometryCollectionNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::LineStringNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::MultiLineStringNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::MultiPointNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::MultiPolygonNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::PointNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::PolygonNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::WktTypeCreated,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_wkt::workflow::types_plugin::WktTypesPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-wkt::Wkt,Enum,Missing,,,,,,,
-wkt::WktFloat,Trait,Missing,,,,,,,
-wkt::WktNum,Trait,Missing,,,,,,,
-wkt::deserialize::deserialize_wkt,Function,Missing,,,,,,,
-wkt::deserialize::geo_types::deserialize_geometry,Function,Missing,,,,,,,
-wkt::deserialize::geo_types::deserialize_point,Function,Missing,,,,,,,
-wkt::error::Error,Enum,Missing,,,,,,,
-wkt::from_wkt::TryFromWkt,Trait,Drifted,elicit_wkt::trait_factories::TryFromWktF64,0.75,Missing,,,,probable rename
-wkt::geo_types_from_wkt::Error,Enum,Missing,,,,,,,
-wkt::geo_types_from_wkt::try_into_geometry,Function,Missing,,,,,,,
-wkt::geo_types_from_wkt::try_into_geometry_collection,Function,Missing,,,,,,,
-wkt::infer_type::infer_type,Function,Missing,,,,,,,
-wkt::to_wkt::ToWkt,Trait,Missing,,,,,,,
-wkt::to_wkt::geo_trait_impl::write_geometry,Function,Missing,,,,,,,
-wkt::to_wkt::geo_trait_impl::write_geometry_collection,Function,Missing,,,,,,,
-wkt::to_wkt::geo_trait_impl::write_line,Function,Missing,,,,,,,
-wkt::to_wkt::geo_trait_impl::write_linestring,Function,Missing,,,,,,,
-wkt::to_wkt::geo_trait_impl::write_multi_linestring,Function,Missing,,,,,,,
-wkt::to_wkt::geo_trait_impl::write_multi_point,Function,Missing,,,,,,,
-wkt::to_wkt::geo_trait_impl::write_multi_polygon,Function,Missing,,,,,,,
-wkt::to_wkt::geo_trait_impl::write_point,Function,Missing,,,,,,,
-wkt::to_wkt::geo_trait_impl::write_polygon,Function,Missing,,,,,,,
-wkt::to_wkt::geo_trait_impl::write_rect,Function,Missing,,,,,,,
-wkt::to_wkt::geo_trait_impl::write_triangle,Function,Missing,,,,,,,
-wkt::types::coord::Coord,Struct,Covered,elicit_wkt::types::coord::Coord,,Complete,true,,,
-wkt::types::dimension::Dimension,Enum,Missing,,,,,,,
-wkt::types::geometry_type::GeometryType,Enum,Missing,,,,,,,
-wkt::types::geometrycollection::GeometryCollection,Struct,Covered,elicit_wkt::types::geometry_collection::GeometryCollection,,Complete,true,,,
-wkt::types::linestring::LineString,Struct,Covered,elicit_wkt::types::linestring::LineString,,Complete,true,,,
-wkt::types::multilinestring::MultiLineString,Struct,Covered,elicit_wkt::types::multilinestring::MultiLineString,,Complete,true,,,
-wkt::types::multipoint::MultiPoint,Struct,Covered,elicit_wkt::types::multipoint::MultiPoint,,Complete,true,,,
-wkt::types::multipolygon::MultiPolygon,Struct,Covered,elicit_wkt::types::multipolygon::MultiPolygon,,Complete,true,,,
-wkt::types::point::Point,Struct,Covered,elicit_wkt::types::point::Point,,Complete,true,,,
-wkt::types::polygon::Polygon,Struct,Covered,elicit_wkt::types::polygon::Polygon,,Complete,true,,,
-wkt::wkt,Macro,Missing,,,,,,,
+item_path,item_kind,api_family,status,coverage_kind,primary_gap_kind,shadow_item,drift_confidence,shadow_elicit_impl,verification_gap,verification_ready,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,action,notes
+wkt::Wkt,Enum,wkt::Wkt,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `wkt::Wkt` and make the new wrapper `ElicitComplete`,
+wkt::WktFloat,Trait,wkt::WktFloat,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::WktFloat` so the full public API surface is represented,
+wkt::WktNum,Trait,wkt::WktNum,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::WktNum` so the full public API surface is represented,
+wkt::deserialize::deserialize_wkt,Function,wkt::deserialize::deserialize_wkt,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::deserialize::deserialize_wkt` so the full public API surface is represented,
+wkt::deserialize::geo_types::deserialize_geometry,Function,wkt::deserialize::geo_types,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::deserialize::geo_types::deserialize_geometry` so the full public API surface is represented,
+wkt::deserialize::geo_types::deserialize_point,Function,wkt::deserialize::geo_types,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::deserialize::geo_types::deserialize_point` so the full public API surface is represented,
+wkt::error::Error,Enum,wkt::error::Error,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `wkt::error::Error` and make the new wrapper `ElicitComplete`,
+wkt::geo_types_from_wkt::Error,Enum,wkt::geo_types_from_wkt::Error,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `wkt::geo_types_from_wkt::Error` and make the new wrapper `ElicitComplete`,
+wkt::geo_types_from_wkt::try_into_geometry,Function,wkt::geo_types_from_wkt::try_into_geometry,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::geo_types_from_wkt::try_into_geometry` so the full public API surface is represented,
+wkt::geo_types_from_wkt::try_into_geometry_collection,Function,wkt::geo_types_from_wkt::try_into_geometry_collection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::geo_types_from_wkt::try_into_geometry_collection` so the full public API surface is represented,
+wkt::infer_type::infer_type,Function,wkt::infer_type::infer_type,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::infer_type::infer_type` so the full public API surface is represented,
+wkt::to_wkt::ToWkt,Trait,wkt::to_wkt::ToWkt,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::ToWkt` so the full public API surface is represented,
+wkt::to_wkt::geo_trait_impl::write_geometry,Function,wkt::to_wkt::geo_trait_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::geo_trait_impl::write_geometry` so the full public API surface is represented,
+wkt::to_wkt::geo_trait_impl::write_geometry_collection,Function,wkt::to_wkt::geo_trait_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::geo_trait_impl::write_geometry_collection` so the full public API surface is represented,
+wkt::to_wkt::geo_trait_impl::write_line,Function,wkt::to_wkt::geo_trait_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::geo_trait_impl::write_line` so the full public API surface is represented,
+wkt::to_wkt::geo_trait_impl::write_linestring,Function,wkt::to_wkt::geo_trait_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::geo_trait_impl::write_linestring` so the full public API surface is represented,
+wkt::to_wkt::geo_trait_impl::write_multi_linestring,Function,wkt::to_wkt::geo_trait_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::geo_trait_impl::write_multi_linestring` so the full public API surface is represented,
+wkt::to_wkt::geo_trait_impl::write_multi_point,Function,wkt::to_wkt::geo_trait_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::geo_trait_impl::write_multi_point` so the full public API surface is represented,
+wkt::to_wkt::geo_trait_impl::write_multi_polygon,Function,wkt::to_wkt::geo_trait_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::geo_trait_impl::write_multi_polygon` so the full public API surface is represented,
+wkt::to_wkt::geo_trait_impl::write_point,Function,wkt::to_wkt::geo_trait_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::geo_trait_impl::write_point` so the full public API surface is represented,
+wkt::to_wkt::geo_trait_impl::write_polygon,Function,wkt::to_wkt::geo_trait_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::geo_trait_impl::write_polygon` so the full public API surface is represented,
+wkt::to_wkt::geo_trait_impl::write_rect,Function,wkt::to_wkt::geo_trait_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::geo_trait_impl::write_rect` so the full public API surface is represented,
+wkt::to_wkt::geo_trait_impl::write_triangle,Function,wkt::to_wkt::geo_trait_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::to_wkt::geo_trait_impl::write_triangle` so the full public API surface is represented,
+wkt::types::dimension::Dimension,Enum,wkt::types::dimension,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `wkt::types::dimension::Dimension` and make the new wrapper `ElicitComplete`,
+wkt::types::geometry_type::GeometryType,Enum,wkt::types::geometry_type,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `wkt::types::geometry_type::GeometryType` and make the new wrapper `ElicitComplete`,
+wkt::wkt,Macro,wkt::wkt,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `wkt::wkt` so the full public API surface is represented,
+wkt::from_wkt::TryFromWkt,Trait,wkt::from_wkt::TryFromWkt,Drifted,Drifted,Drifted,elicit_wkt::trait_factories::TryFromWktF64,0.75,Missing,false,false,,,,Rename or replace `elicit_wkt::trait_factories::TryFromWktF64` so upstream `wkt::from_wkt::TryFromWkt` is shadowed exactly,probable rename
+elicit_wkt::trait_factories::ToWktF64,Trait,elicit_wkt::trait_factories::ToWktF64,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_wkt::trait_factories::ToWktF64`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_wkt::trait_factories::ToWktF64VTable,Struct,elicit_wkt::trait_factories::ToWktF64VTable,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_wkt::trait_factories::ToWktF64VTable`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_wkt::trait_factories::TryFromWktF64VTable,Struct,elicit_wkt::trait_factories::TryFromWktF64VTable,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_wkt::trait_factories::TryFromWktF64VTable`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_wkt::trait_factories::prime_crate__trait_factories__to_wkt_f64,Function,elicit_wkt::trait_factories::prime_crate__trait_factories__to_wkt_f64,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_wkt::trait_factories::prime_crate__trait_factories__to_wkt_f64`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_wkt::trait_factories::prime_crate__trait_factories__try_from_wkt_f64,Function,elicit_wkt::trait_factories::prime_crate__trait_factories__try_from_wkt_f64,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_wkt::trait_factories::prime_crate__trait_factories__try_from_wkt_f64`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_wkt::wkt_item::WktItem,Struct,elicit_wkt::wkt_item::WktItem,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_wkt::wkt_item::WktItem`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_wkt::workflow::parse_plugin::WktParsed,Struct,elicit_wkt::workflow::parse_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_wkt::workflow::parse_plugin::WktParsed`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_wkt::workflow::types_plugin::WktTypeCreated,Struct,elicit_wkt::workflow::types_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_wkt::workflow::types_plugin::WktTypeCreated`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_wkt::trait_factories::ToWktF64Factory,Struct,elicit_wkt::trait_factories::ToWktF64Factory,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::trait_factories::ToWktParams,Struct,elicit_wkt::trait_factories::ToWktParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::trait_factories::TryFromWktF64Factory,Struct,elicit_wkt::trait_factories::TryFromWktF64Factory,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::trait_factories::TryFromWktStrParams,Struct,elicit_wkt::trait_factories::TryFromWktStrParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::trait_factories::WktStringParams,Struct,elicit_wkt::trait_factories::WktStringParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::parse_plugin::ParseWktParams,Struct,elicit_wkt::workflow::parse_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::parse_plugin::WktItemGeometryTypeParams,Struct,elicit_wkt::workflow::parse_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::parse_plugin::WktItemStringParams,Struct,elicit_wkt::workflow::parse_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::parse_plugin::WktParsePlugin,Struct,elicit_wkt::workflow::parse_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::CoordNew3dParams,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::CoordNewParams,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::CoordNewWithMParams,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::EmptyPointParams,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::GeometryCollectionNewParams,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::LineStringNewParams,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::MultiLineStringNewParams,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::MultiPointNewParams,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::MultiPolygonNewParams,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::PointNewParams,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::PolygonNewParams,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_wkt::workflow::types_plugin::WktTypesPlugin,Struct,elicit_wkt::workflow::types_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+wkt::types::coord::Coord,Struct,wkt::types::coord,Covered,Covered,,elicit_wkt::types::coord::Coord,,Complete,false,true,true,,,,
+wkt::types::geometrycollection::GeometryCollection,Struct,wkt::types::geometrycollection,Covered,Covered,,elicit_wkt::types::geometry_collection::GeometryCollection,,Complete,false,true,true,,,,
+wkt::types::linestring::LineString,Struct,wkt::types::linestring,Covered,Covered,,elicit_wkt::types::linestring::LineString,,Complete,false,true,true,,,,
+wkt::types::multilinestring::MultiLineString,Struct,wkt::types::multilinestring,Covered,Covered,,elicit_wkt::types::multilinestring::MultiLineString,,Complete,false,true,true,,,,
+wkt::types::multipoint::MultiPoint,Struct,wkt::types::multipoint,Covered,Covered,,elicit_wkt::types::multipoint::MultiPoint,,Complete,false,true,true,,,,
+wkt::types::multipolygon::MultiPolygon,Struct,wkt::types::multipolygon,Covered,Covered,,elicit_wkt::types::multipolygon::MultiPolygon,,Complete,false,true,true,,,,
+wkt::types::point::Point,Struct,wkt::types::point,Covered,Covered,,elicit_wkt::types::point::Point,,Complete,false,true,true,,,,
+wkt::types::polygon::Polygon,Struct,wkt::types::polygon,Covered,Covered,,elicit_wkt::types::polygon::Polygon,,Complete,false,true,true,,,,

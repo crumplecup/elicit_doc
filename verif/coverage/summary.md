@@ -1,6 +1,6 @@
 # elicitation Coverage Summary
 
-_Generated: 2026-06-22_
+_Generated: 2026-06-23_
 
 ---
 
@@ -27,9 +27,9 @@ _Generated: 2026-06-22_
 | `redb` | 4.1.0 | 41 | 0 | 41 | 0 | 0 | 0 | 0.0% |
 | `csv` | 1.4.0 | 43 | 0 | 43 | 0 | 0 | 0 | 0.0% |
 | `accesskit` | 0.24.0 | 35 | 32 | 3 | 32 | 0 | 0 | 91.4% |
-| `reqwest` | 0.12.28 | 31 | 0 | 31 | 0 | 0 | 0 | 0.0% |
-| `elicitation` | 0.11.1 | 1275 | 416 | 859 | 416 | 0 | 0 | 32.6% |
-| **Total** | | **2364** | **474** | **1890** | **460** | **0** | **14** | **19.5%** |
+| `reqwest` | 0.12.28 | 31 | 4 | 27 | 0 | 0 | 4 | 0.0% |
+| `elicitation` | 0.11.1 | 1278 | 416 | 862 | 416 | 0 | 0 | 32.6% |
+| **Total** | | **2367** | **478** | **1889** | **460** | **0** | **18** | **19.4%** |
 
 `OurTraitsDone` counts all elicitation-owned traits that are actually implementable for the type. Lifetime-bound types such as `Pixels<'a, R>` are not expected to implement `Elicitation` or `ElicitIntrospect` because `Elicitation` requires `'static`.
 
@@ -39,10 +39,10 @@ _Generated: 2026-06-22_
 
 | Kind | Count | Notes |
 |------|------:|-------|
-| MissingOurTraits | 1889 | Missing one or more elicitation-owned support traits |
+| MissingOurTraits | 1888 | Missing one or more elicitation-owned support traits |
 | ReadyForElicitComplete | 0 | All prerequisites present; only `impl ElicitComplete` is missing |
-| FeatureGatedExternal | 1 | Missing external serde/schemars traits may be unlockable with more features |
-| **Total** | **1890** | |
+| FeatureGatedExternal | 0 | Missing external serde/schemars traits may be unlockable with more features |
+| **Total** | **1888** | |
 
 ---
 
@@ -88,7 +88,7 @@ _Generated: 2026-06-22_
 | Missing | 12157 | Upstream public item not yet shadowed |
 | Drifted | 59 | Probable rename or naming drift in the shadow crate |
 | PossiblyStale | 681 | Shadow item with no matching upstream — needs audit |
-| InfrastructureExtra | 1478 | Shadow-only infrastructure item — expected |
+| InfrastructureExtra | 1482 | Shadow-only infrastructure item — expected |
 | ShadowVerificationGap | 74 | Matched shadow type exists but is not yet `ElicitComplete`-ready |
-| **Total** | **14449** | |
+| **Total** | **14453** | |
 

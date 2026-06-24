@@ -1,31 +1,31 @@
-item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
-elicit_url::url_type::JoinParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::url_type::_elicit_compat_JoinParams::JoinParamsStyle,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::AssertHttpsParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::BuildUrlParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::HttpsRequired,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::JoinUrlParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::ParseUrlParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::ParsedUrl,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::SchemeAllowed,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::SecureUrl,TypeAlias,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::SecureUrlState,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::UnvalidatedUrl,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::UrlParsed,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::UrlWorkflowPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::ValidateSchemeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::assert_https_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::build_url_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::join_url_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::parse_url_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_url::workflow::validate_scheme_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-url::ParseOptions,Struct,Missing,,,,,,,
-url::Url,Struct,Covered,elicit_url::url_type::Url,,Complete,true,,,
-url::UrlQuery,Struct,Missing,,,,,,,
-url::host::Host,Enum,Missing,,,,,,,
-url::origin::OpaqueOrigin,Struct,Missing,,,,,,,
-url::origin::Origin,Enum,Missing,,,,,,,
-url::parser::ParseError,Enum,Missing,,,,,,,
-url::parser::SyntaxViolation,Enum,Missing,,,,,,,
-url::path_segments::PathSegmentsMut,Struct,Missing,,,,,,,
-url::slicing::Position,Enum,Missing,,,,,,,
+item_path,item_kind,api_family,status,coverage_kind,primary_gap_kind,shadow_item,drift_confidence,shadow_elicit_impl,verification_gap,verification_ready,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,action,notes
+url::ParseOptions,Struct,url::ParseOptions,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `url::ParseOptions` and make the new wrapper `ElicitComplete`,
+url::UrlQuery,Struct,url::UrlQuery,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `url::UrlQuery` and make the new wrapper `ElicitComplete`,
+url::host::Host,Enum,url::host::Host,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `url::host::Host` and make the new wrapper `ElicitComplete`,
+url::origin::OpaqueOrigin,Struct,url::origin::OpaqueOrigin,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `url::origin::OpaqueOrigin` and make the new wrapper `ElicitComplete`,
+url::origin::Origin,Enum,url::origin::Origin,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `url::origin::Origin` and make the new wrapper `ElicitComplete`,
+url::parser::ParseError,Enum,url::parser::ParseError,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `url::parser::ParseError` and make the new wrapper `ElicitComplete`,
+url::parser::SyntaxViolation,Enum,url::parser::SyntaxViolation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `url::parser::SyntaxViolation` and make the new wrapper `ElicitComplete`,
+url::path_segments::PathSegmentsMut,Struct,url::path_segments::PathSegmentsMut,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `url::path_segments::PathSegmentsMut` and make the new wrapper `ElicitComplete`,
+url::slicing::Position,Enum,url::slicing::Position,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `url::slicing::Position` and make the new wrapper `ElicitComplete`,
+elicit_url::workflow::HttpsRequired,Struct,elicit_url::workflow::HttpsRequired,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::HttpsRequired`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::workflow::ParsedUrl,Struct,elicit_url::workflow::ParsedUrl,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::ParsedUrl`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::workflow::SchemeAllowed,Struct,elicit_url::workflow::SchemeAllowed,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::SchemeAllowed`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::workflow::SecureUrl,TypeAlias,elicit_url::workflow::SecureUrl,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::SecureUrl`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::workflow::SecureUrlState,Struct,elicit_url::workflow::SecureUrlState,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::SecureUrlState`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::workflow::UnvalidatedUrl,Struct,elicit_url::workflow::UnvalidatedUrl,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::UnvalidatedUrl`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::workflow::UrlParsed,Struct,elicit_url::workflow::UrlParsed,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::UrlParsed`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::workflow::assert_https_descriptor,Function,elicit_url::workflow::assert_https_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::assert_https_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::workflow::build_url_descriptor,Function,elicit_url::workflow::build_url_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::build_url_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::workflow::join_url_descriptor,Function,elicit_url::workflow::join_url_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::join_url_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::workflow::parse_url_descriptor,Function,elicit_url::workflow::parse_url_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::parse_url_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::workflow::validate_scheme_descriptor,Function,elicit_url::workflow::validate_scheme_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_url::workflow::validate_scheme_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_url::url_type::JoinParams,Struct,elicit_url::url_type::JoinParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_url::url_type::_elicit_compat_JoinParams::JoinParamsStyle,Enum,elicit_url::url_type::_elicit_compat_JoinParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_url::workflow::AssertHttpsParams,Struct,elicit_url::workflow::AssertHttpsParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_url::workflow::BuildUrlParams,Struct,elicit_url::workflow::BuildUrlParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_url::workflow::JoinUrlParams,Struct,elicit_url::workflow::JoinUrlParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_url::workflow::ParseUrlParams,Struct,elicit_url::workflow::ParseUrlParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_url::workflow::UrlWorkflowPlugin,Struct,elicit_url::workflow::UrlWorkflowPlugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_url::workflow::ValidateSchemeParams,Struct,elicit_url::workflow::ValidateSchemeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+url::Url,Struct,url::Url,Covered,Covered,,elicit_url::url_type::Url,,Complete,false,true,true,,,,

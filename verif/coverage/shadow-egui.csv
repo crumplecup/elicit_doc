@@ -1,566 +1,566 @@
-item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
-egui::Rounding,TypeAlias,Missing,,,,,,,
-egui::WidgetType,Enum,Drifted,elicit_egui::style_tools::WidgetState,0.75,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree,probable rename
-egui::__run_test_ctx,Function,Missing,,,,,,,
-egui::__run_test_ui,Function,Missing,,,,,,,
-egui::accesskit_root_id,Function,Missing,,,,,,,
-egui::atomics::atom::Atom,Struct,Missing,,,,,,,
-egui::atomics::atom_ext::AtomExt,Trait,Missing,,,,,,,
-egui::atomics::atom_kind::AtomClosure,TypeAlias,Missing,,,,,,,
-egui::atomics::atom_kind::AtomKind,Enum,Missing,,,,,,,
-egui::atomics::atom_kind::IntoSizedArgs,Struct,Missing,,,,,,,
-egui::atomics::atom_kind::IntoSizedResult,Struct,Missing,,,,,,,
-egui::atomics::atom_layout::AllocatedAtomLayout,Struct,Missing,,,,,,,
-egui::atomics::atom_layout::AtomLayout,Struct,Missing,,,,,,,
-egui::atomics::atom_layout::AtomLayoutResponse,Struct,Missing,,,,,,,
-egui::atomics::atoms::Atoms,Struct,Missing,,,,,,,
-egui::atomics::atoms::IntoAtoms,Trait,Missing,,,,,,,
-egui::atomics::sized_atom::SizedAtom,Struct,Missing,,,,,,,
-egui::atomics::sized_atom_kind::SizedAtomKind,Enum,Missing,,,,,,,
-egui::cache::cache_storage::CacheStorage,Struct,Missing,,,,,,,
-egui::cache::cache_trait::CacheTrait,Trait,Missing,,,,,,,
-egui::cache::frame_cache::ComputerMut,Trait,Missing,,,,,,,
-egui::cache::frame_cache::FrameCache,Struct,Missing,,,,,,,
-egui::cache::frame_publisher::FramePublisher,Struct,Missing,,,,,,,
-egui::containers::area::Area,Struct,Missing,,,,,,,
-egui::containers::area::AreaState,Struct,Missing,,,,,,,
-egui::containers::close_tag::ClosableTag,Struct,Missing,,,,,,,
-egui::containers::collapsing_header::CollapsingHeader,Struct,Missing,,,,,,,
-egui::containers::collapsing_header::CollapsingResponse,Struct,Missing,,,,,,,
-egui::containers::collapsing_header::CollapsingState,Struct,Missing,,,,,,,
-egui::containers::collapsing_header::HeaderResponse,Struct,Missing,,,,,,,
-egui::containers::collapsing_header::IconPainter,TypeAlias,Missing,,,,,,,
-egui::containers::collapsing_header::paint_default_icon,Function,Missing,,,,,,,
-egui::containers::combo_box::ComboBox,Struct,Missing,,,,,,,
-egui::containers::combo_box::IconPainter,TypeAlias,Missing,,,,,,,
-egui::containers::frame::Frame,Struct,Missing,,,,,,,
-egui::containers::frame::Prepared,Struct,Missing,,,,,,,
-egui::containers::menu::Bar,TypeAlias,Missing,,,,,,,
-egui::containers::menu::MenuBar,Struct,Missing,,,,,,,
-egui::containers::menu::MenuButton,Struct,Missing,,,,,,,
-egui::containers::menu::MenuConfig,Struct,Missing,,,,,,,
-egui::containers::menu::MenuState,Struct,Missing,,,,,,,
-egui::containers::menu::SubMenu,Struct,Missing,,,,,,,
-egui::containers::menu::SubMenuButton,Struct,Missing,,,,,,,
-egui::containers::menu::find_menu_root,Function,Missing,,,,,,,
-egui::containers::menu::is_in_menu,Function,Missing,,,,,,,
-egui::containers::menu::menu_style,Function,Missing,,,,,,,
-egui::containers::modal::Modal,Struct,Missing,,,,,,,
-egui::containers::modal::ModalResponse,Struct,Missing,,,,,,,
-egui::containers::old_popup::AboveOrBelow,Enum,Missing,,,,,,,
-egui::containers::old_popup::popup_above_or_below_widget,Function,Missing,,,,,,,
-egui::containers::old_popup::popup_below_widget,Function,Missing,,,,,,,
-egui::containers::old_popup::show_tooltip,Function,Missing,,,,,,,
-egui::containers::old_popup::show_tooltip_at,Function,Missing,,,,,,,
-egui::containers::old_popup::show_tooltip_at_pointer,Function,Missing,,,,,,,
-egui::containers::old_popup::show_tooltip_for,Function,Missing,,,,,,,
-egui::containers::old_popup::show_tooltip_text,Function,Missing,,,,,,,
-egui::containers::old_popup::was_tooltip_open_last_frame,Function,Missing,,,,,,,
-egui::containers::panel::CentralPanel,Struct,Missing,,,,,,,
-egui::containers::panel::Panel,Struct,Missing,,,,,,,
-egui::containers::panel::PanelState,Struct,Missing,,,,,,,
-egui::containers::panel::SidePanel,TypeAlias,Missing,,,,,,,
-egui::containers::panel::TopBottomPanel,TypeAlias,Missing,,,,,,,
-egui::containers::popup::Popup,Struct,Missing,,,,,,,
-egui::containers::popup::PopupAnchor,Enum,Missing,,,,,,,
-egui::containers::popup::PopupCloseBehavior,Enum,Missing,,,,,,,
-egui::containers::popup::PopupKind,Enum,Missing,,,,,,,
-egui::containers::popup::SetOpenCommand,Enum,Missing,,,,,,,
-egui::containers::resize::Resize,Struct,Missing,,,,,,,
-egui::containers::scene::DragPanButtons,Struct,Missing,,,,,,,
-egui::containers::scene::Scene,Struct,Missing,,,,,,,
-egui::containers::scroll_area::ScrollArea,Struct,Missing,,,,,,,
-egui::containers::scroll_area::ScrollAreaOutput,Struct,Missing,,,,,,,
-egui::containers::scroll_area::ScrollBarVisibility,Enum,Missing,,,,,,,
-egui::containers::scroll_area::ScrollSource,Struct,Missing,,,,,,,
-egui::containers::scroll_area::State,Struct,Missing,,,,,,,
-egui::containers::sides::Sides,Struct,Missing,,,,,,,
-egui::containers::tooltip::Tooltip,Struct,Missing,,,,,,,
-egui::containers::window::Window,Struct,Missing,,,,,,,
-egui::context::Context,Struct,Missing,,,,,,,
-egui::context::RepaintCause,Struct,Missing,,,,,,,
-egui::context::RequestRepaintInfo,Struct,Missing,,,,,,,
-egui::context::ViewportState,Struct,Missing,,,,,,,
-egui::data::input::DroppedFile,Struct,Missing,,,,,,,
-egui::data::input::Event,Enum,Missing,,,,,,,
-egui::data::input::EventFilter,Struct,Missing,,,,,,,
-egui::data::input::HoveredFile,Struct,Missing,,,,,,,
-egui::data::input::ImeEvent,Enum,Missing,,,,,,,
-egui::data::input::KeyboardShortcut,Struct,Missing,,,,,,,
-egui::data::input::ModifierNames,Struct,Missing,,,,,,,
-egui::data::input::Modifiers,Struct,Missing,,,,,,,
-egui::data::input::MouseWheelUnit,Enum,Missing,,,,,,,
-egui::data::input::NUM_POINTER_BUTTONS,Constant,Missing,,,,,,,
-egui::data::input::PointerButton,Enum,Missing,,,,,,,
-egui::data::input::RawInput,Struct,Missing,,,,,,,
-egui::data::input::SafeAreaInsets,Struct,Missing,,,,,,,
-egui::data::input::TouchDeviceId,Struct,Missing,,,,,,,
-egui::data::input::TouchId,Struct,Missing,,,,,,,
-egui::data::input::TouchPhase,Enum,Missing,,,,,,,
-egui::data::input::ViewportEvent,Enum,Missing,,,,,,,
-egui::data::input::ViewportInfo,Struct,Missing,,,,,,,
-egui::data::key::Key,Enum,Missing,,,,,,,
-egui::data::output::CursorIcon,Enum,Missing,,,,,,,
-egui::data::output::FullOutput,Struct,Missing,,,,,,,
-egui::data::output::IMEOutput,Struct,Missing,,,,,,,
-egui::data::output::OpenUrl,Struct,Missing,,,,,,,
-egui::data::output::OutputCommand,Enum,Missing,,,,,,,
-egui::data::output::OutputEvent,Enum,Missing,,,,,,,
-egui::data::output::PlatformOutput,Struct,Missing,,,,,,,
-egui::data::output::UserAttentionType,Enum,Missing,,,,,,,
-egui::data::output::WidgetInfo,Struct,Missing,,,,,,,
-egui::data::user_data::UserData,Struct,Missing,,,,,,,
-egui::debug_text::DebugTextPlugin,Struct,Missing,,,,,,,
-egui::debug_text::print,Function,Missing,,,,,,,
-egui::drag_and_drop::DragAndDrop,Struct,Missing,,,,,,,
-egui::generate_loader_id,Macro,Missing,,,,,,,
-egui::github_link_file,Macro,Missing,,,,,,,
-egui::github_link_file_line,Macro,Missing,,,,,,,
-egui::grid::Grid,Struct,Missing,,,,,,,
-egui::gui_zoom::kb_shortcuts::ZOOM_IN,Constant,Missing,,,,,,,
-egui::gui_zoom::kb_shortcuts::ZOOM_IN_SECONDARY,Constant,Missing,,,,,,,
-egui::gui_zoom::kb_shortcuts::ZOOM_OUT,Constant,Missing,,,,,,,
-egui::gui_zoom::kb_shortcuts::ZOOM_RESET,Constant,Missing,,,,,,,
-egui::gui_zoom::zoom_in,Function,Missing,,,,,,,
-egui::gui_zoom::zoom_menu_buttons,Function,Missing,,,,,,,
-egui::gui_zoom::zoom_out,Function,Missing,,,,,,,
-egui::hit_test::WidgetHits,Struct,Missing,,,,,,,
-egui::id::Id,Struct,Missing,,,,,,,
-egui::id::IdMap,TypeAlias,Missing,,,,,,,
-egui::id::IdSet,TypeAlias,Missing,,,,,,,
-egui::include_image,Macro,Missing,,,,,,,
-egui::input_state::InputOptions,Struct,Missing,,,,,,,
-egui::input_state::InputState,Struct,Missing,,,,,,,
-egui::input_state::PointerState,Struct,Missing,,,,,,,
-egui::input_state::SurrenderFocusOn,Enum,Missing,,,,,,,
-egui::input_state::touch_state::MultiTouchInfo,Struct,Missing,,,,,,,
-egui::interaction::InteractionSnapshot,Struct,Missing,,,,,,,
-egui::introspection::font_family_ui,Function,Missing,,,,,,,
-egui::introspection::font_id_ui,Function,Missing,,,,,,,
-egui::layers::GraphicLayers,Struct,Missing,,,,,,,
-egui::layers::LayerId,Struct,Missing,,,,,,,
-egui::layers::Order,Enum,Missing,,,,,,,
-egui::layers::PaintList,Struct,Missing,,,,,,,
-egui::layers::ShapeIdx,Struct,Missing,,,,,,,
-egui::layout::Layout,Struct,Missing,,,,,,,
-egui::load::Bytes,Enum,Missing,,,,,,,
-egui::load::BytesLoadResult,TypeAlias,Missing,,,,,,,
-egui::load::BytesLoader,Trait,Missing,,,,,,,
-egui::load::BytesPoll,Enum,Missing,,,,,,,
-egui::load::ImageLoadResult,TypeAlias,Missing,,,,,,,
-egui::load::ImageLoader,Trait,Missing,,,,,,,
-egui::load::ImagePoll,Enum,Missing,,,,,,,
-egui::load::LoadError,Enum,Missing,,,,,,,
-egui::load::Loaders,Struct,Missing,,,,,,,
-egui::load::Result,TypeAlias,Missing,,,,,,,
-egui::load::SizeHint,Enum,Missing,,,,,,,
-egui::load::SizedTexture,Struct,Missing,,,,,,,
-egui::load::TextureLoadResult,TypeAlias,Missing,,,,,,,
-egui::load::TextureLoader,Trait,Missing,,,,,,,
-egui::load::TexturePoll,Enum,Missing,,,,,,,
-egui::load::bytes_loader::DefaultBytesLoader,Struct,Missing,,,,,,,
-egui::load::texture_loader::DefaultTextureLoader,Struct,Missing,,,,,,,
-egui::memory::Areas,Struct,Missing,,,,,,,
-egui::memory::FocusDirection,Enum,Missing,,,,,,,
-egui::memory::Memory,Struct,Missing,,,,,,,
-egui::memory::Options,Struct,Missing,,,,,,,
-egui::memory::theme::Theme,Enum,Missing,,,,,,,
-egui::memory::theme::ThemePreference,Enum,Missing,,,,,,,
-egui::menu::BarState,Struct,Missing,,,,,,,
-egui::menu::MenuResponse,Enum,Missing,,,,,,,
-egui::menu::MenuRoot,Struct,Missing,,,,,,,
-egui::menu::MenuRootManager,Struct,Missing,,,,,,,
-egui::menu::MenuState,Struct,Missing,,,,,,,
-egui::menu::SubMenu,Struct,Missing,,,,,,,
-egui::menu::SubMenuButton,Struct,Missing,,,,,,,
-egui::menu::bar,Function,Missing,,,,,,,
-egui::menu::context_menu,Function,Missing,,,,,,,
-egui::menu::context_menu_opened,Function,Missing,,,,,,,
-egui::menu::menu_button,Function,Missing,,,,,,,
-egui::menu::menu_custom_button,Function,Missing,,,,,,,
-egui::menu::menu_image_button,Function,Missing,,,,,,,
-egui::menu::submenu_button,Function,Missing,,,,,,,
-egui::os::OperatingSystem,Enum,Missing,,,,,,,
-egui::painter::Painter,Struct,Missing,,,,,,,
-egui::pass_state::AccessKitPassState,Struct,Missing,,,,,,,
-egui::pass_state::DebugRect,Struct,Missing,,,,,,,
-egui::pass_state::PassState,Struct,Missing,,,,,,,
-egui::pass_state::PerLayerState,Struct,Missing,,,,,,,
-egui::pass_state::PerWidgetTooltipState,Struct,Missing,,,,,,,
-egui::pass_state::ScrollTarget,Struct,Missing,,,,,,,
-egui::pass_state::TooltipPassState,Struct,Missing,,,,,,,
-egui::plugin::ContextCallback,TypeAlias,Missing,,,,,,,
-egui::plugin::Plugin,Trait,Missing,,,,,,,
-egui::plugin::TypedPluginGuard,Struct,Missing,,,,,,,
-egui::plugin::TypedPluginHandle,Struct,Missing,,,,,,,
-egui::response::InnerResponse,Struct,Missing,,,,,,,
-egui::response::Response,Struct,Missing,,,,,,,
-egui::sense::Sense,Struct,Missing,,,,,,,
-egui::special_emojis::GIT,Constant,Missing,,,,,,,
-egui::special_emojis::GITHUB,Constant,Missing,,,,,,,
-egui::special_emojis::OS_ANDROID,Constant,Missing,,,,,,,
-egui::special_emojis::OS_APPLE,Constant,Missing,,,,,,,
-egui::special_emojis::OS_LINUX,Constant,Missing,,,,,,,
-egui::special_emojis::OS_WINDOWS,Constant,Missing,,,,,,,
-egui::style::DebugOptions,Struct,Missing,,,,,,,
-egui::style::FontSelection,Enum,Missing,,,,,,,
-egui::style::HandleShape,Enum,Missing,,,,,,,
-egui::style::Interaction,Struct,Missing,,,,,,,
-egui::style::NumberFormatter,Struct,Missing,,,,,,,
-egui::style::NumericColorSpace,Enum,Missing,,,,,,,
-egui::style::ScrollAnimation,Struct,Missing,,,,,,,
-egui::style::ScrollFadeStyle,Struct,Missing,,,,,,,
-egui::style::ScrollStyle,Struct,Missing,,,,,,,
-egui::style::Selection,Struct,Missing,,,,,,,
-egui::style::Spacing,Struct,Missing,,,,,,,
-egui::style::Style,Struct,Missing,,,,,,,
-egui::style::StyleModifier,Struct,Missing,,,,,,,
-egui::style::TextCursorStyle,Struct,Missing,,,,,,,
-egui::style::TextStyle,Enum,Missing,,,,,,,
-egui::style::Visuals,Struct,Missing,,,,,,,
-egui::style::WidgetVisuals,Struct,Missing,,,,,,,
-egui::style::Widgets,Struct,Missing,,,,,,,
-egui::style::default_text_styles,Function,Missing,,,,,,,
-egui::text_selection::accesskit_text::update_accesskit_for_text_widget,Function,Missing,,,,,,,
-egui::text_selection::cursor_range::CCursorRange,Struct,Missing,,,,,,,
-egui::text_selection::label_text_selection::LabelSelectionState,Struct,Missing,,,,,,,
-egui::text_selection::text_cursor_state::TextCursorState,Struct,Missing,,,,,,,
-egui::text_selection::text_cursor_state::byte_index_from_char_index,Function,Missing,,,,,,,
-egui::text_selection::text_cursor_state::ccursor_next_word,Function,Missing,,,,,,,
-egui::text_selection::text_cursor_state::ccursor_previous_word,Function,Missing,,,,,,,
-egui::text_selection::text_cursor_state::char_index_from_byte_index,Function,Missing,,,,,,,
-egui::text_selection::text_cursor_state::cursor_rect,Function,Missing,,,,,,,
-egui::text_selection::text_cursor_state::find_line_start,Function,Missing,,,,,,,
-egui::text_selection::text_cursor_state::is_word_char,Function,Missing,,,,,,,
-egui::text_selection::text_cursor_state::slice_char_range,Function,Missing,,,,,,,
-egui::text_selection::visuals::RowVertexIndices,Struct,Missing,,,,,,,
-egui::text_selection::visuals::paint_cursor_end,Function,Missing,,,,,,,
-egui::text_selection::visuals::paint_text_cursor,Function,Missing,,,,,,,
-egui::text_selection::visuals::paint_text_selection,Function,Missing,,,,,,,
-egui::ui::Ui,Struct,Missing,,,,,,,
-egui::ui_builder::UiBuilder,Struct,Missing,,,,,,,
-egui::ui_stack::UiKind,Enum,Missing,,,,,,,
-egui::ui_stack::UiStack,Struct,Missing,,,,,,,
-egui::ui_stack::UiStackInfo,Struct,Missing,,,,,,,
-egui::ui_stack::UiStackIterator,Struct,Missing,,,,,,,
-egui::ui_stack::UiTags,Struct,Missing,,,,,,,
-egui::util::id_type_map::IdTypeMap,Struct,Missing,,,,,,,
-egui::util::id_type_map::RawKey,Struct,Missing,,,,,,,
-egui::util::id_type_map::SerializableAny,Trait,Missing,,,,,,,
-egui::util::id_type_map::TypeId,Struct,Missing,,,,,,,
-egui::util::undoer::Settings,Struct,Missing,,,,,,,
-egui::util::undoer::Undoer,Struct,Missing,,,,,,,
-egui::viewport::CursorGrab,Enum,Missing,,,,,,,
-egui::viewport::DeferredViewportUiCallback,TypeAlias,Missing,,,,,,,
-egui::viewport::IMEPurpose,Enum,Missing,,,,,,,
-egui::viewport::IconData,Struct,Missing,,,,,,,
-egui::viewport::ImmediateViewport,Struct,Missing,,,,,,,
-egui::viewport::ImmediateViewportRendererCallback,TypeAlias,Missing,,,,,,,
-egui::viewport::OrderedViewportIdMap,TypeAlias,Missing,,,,,,,
-egui::viewport::ResizeDirection,Enum,Missing,,,,,,,
-egui::viewport::SystemTheme,Enum,Missing,,,,,,,
-egui::viewport::ViewportBuilder,Struct,Missing,,,,,,,
-egui::viewport::ViewportClass,Enum,Missing,,,,,,,
-egui::viewport::ViewportCommand,Enum,Missing,,,,,,,
-egui::viewport::ViewportId,Struct,Missing,,,,,,,
-egui::viewport::ViewportIdMap,TypeAlias,Missing,,,,,,,
-egui::viewport::ViewportIdPair,Struct,Missing,,,,,,,
-egui::viewport::ViewportIdSet,TypeAlias,Missing,,,,,,,
-egui::viewport::ViewportOutput,Struct,Missing,,,,,,,
-egui::viewport::WindowLevel,Enum,Missing,,,,,,,
-egui::viewport::X11WindowType,Enum,Missing,,,,,,,
-egui::warn_if_debug_build,Function,Missing,,,,,,,
-egui::widget_rect::InteractOptions,Struct,Missing,,,,,,,
-egui::widget_rect::WidgetRect,Struct,Missing,,,,,,,
-egui::widget_rect::WidgetRects,Struct,Missing,,,,,,,
-egui::widget_style::ButtonStyle,Struct,Missing,,,,,,,
-egui::widget_style::CheckboxStyle,Struct,Missing,,,,,,,
-egui::widget_style::LabelStyle,Struct,Missing,,,,,,,
-egui::widget_style::SeparatorStyle,Struct,Missing,,,,,,,
-egui::widget_style::TextVisuals,Struct,Missing,,,,,,,
-egui::widget_style::WidgetState,Enum,Covered,elicit_egui::style_tools::WidgetState,,Missing,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree,
-egui::widget_style::WidgetStyle,Struct,Missing,,,,,,,
-egui::widget_text::RichText,Struct,Missing,,,,,,,
-egui::widget_text::WidgetText,Enum,Missing,,,,,,,
-egui::widgets::Widget,Trait,Missing,,,,,,,
-egui::widgets::WidgetWithState,Trait,Missing,,,,,,,
-egui::widgets::button::Button,Struct,Missing,,,,,,,
-egui::widgets::checkbox::Checkbox,Struct,Missing,,,,,,,
-egui::widgets::color_picker::Alpha,Enum,Missing,,,,,,,
-egui::widgets::color_picker::color_edit_button_hsva,Function,Missing,,,,,,,
-egui::widgets::color_picker::color_edit_button_rgb,Function,Missing,,,,,,,
-egui::widgets::color_picker::color_edit_button_rgba,Function,Missing,,,,,,,
-egui::widgets::color_picker::color_edit_button_srgb,Function,Missing,,,,,,,
-egui::widgets::color_picker::color_edit_button_srgba,Function,Missing,,,,,,,
-egui::widgets::color_picker::color_picker_color32,Function,Missing,,,,,,,
-egui::widgets::color_picker::color_picker_hsva_2d,Function,Missing,,,,,,,
-egui::widgets::color_picker::show_color,Function,Missing,,,,,,,
-egui::widgets::color_picker::show_color_at,Function,Missing,,,,,,,
-egui::widgets::drag_value::DragValue,Struct,Missing,,,,,,,
-egui::widgets::global_dark_light_mode_buttons,Function,Missing,,,,,,,
-egui::widgets::global_dark_light_mode_switch,Function,Missing,,,,,,,
-egui::widgets::global_theme_preference_buttons,Function,Missing,,,,,,,
-egui::widgets::global_theme_preference_switch,Function,Missing,,,,,,,
-egui::widgets::hyperlink::Hyperlink,Struct,Missing,,,,,,,
-egui::widgets::hyperlink::Link,Struct,Missing,,,,,,,
-egui::widgets::image::FrameDurations,Struct,Missing,,,,,,,
-egui::widgets::image::Image,Struct,Missing,,,,,,,
-egui::widgets::image::ImageFit,Enum,Missing,,,,,,,
-egui::widgets::image::ImageOptions,Struct,Missing,,,,,,,
-egui::widgets::image::ImageSize,Struct,Missing,,,,,,,
-egui::widgets::image::ImageSource,Enum,Missing,,,,,,,
-egui::widgets::image::decode_animated_image_uri,Function,Missing,,,,,,,
-egui::widgets::image::has_gif_magic_header,Function,Missing,,,,,,,
-egui::widgets::image::has_webp_header,Function,Missing,,,,,,,
-egui::widgets::image::paint_texture_at,Function,Missing,,,,,,,
-egui::widgets::image_button::ImageButton,Struct,Missing,,,,,,,
-egui::widgets::label::Label,Struct,Missing,,,,,,,
-egui::widgets::progress_bar::ProgressBar,Struct,Missing,,,,,,,
-egui::widgets::radio_button::RadioButton,Struct,Missing,,,,,,,
-egui::widgets::reset_button,Function,Missing,,,,,,,
-egui::widgets::reset_button_with,Function,Missing,,,,,,,
-egui::widgets::selected_label::SelectableLabel,Struct,Missing,,,,,,,
-egui::widgets::separator::Separator,Struct,Missing,,,,,,,
-egui::widgets::slider::Slider,Struct,Missing,,,,,,,
-egui::widgets::slider::SliderClamping,Enum,Missing,,,,,,,
-egui::widgets::slider::SliderOrientation,Enum,Missing,,,,,,,
-egui::widgets::spinner::Spinner,Struct,Missing,,,,,,,
-egui::widgets::stroke_ui,Function,Missing,,,,,,,
-egui::widgets::text_edit::builder::TextEdit,Struct,Missing,,,,,,,
-egui::widgets::text_edit::output::TextEditOutput,Struct,Missing,,,,,,,
-egui::widgets::text_edit::state::TextEditState,Struct,Missing,,,,,,,
-egui::widgets::text_edit::text_buffer::TextBuffer,Trait,Missing,,,,,,,
-elicit_egui::accesskit_bridge::EguiBackend,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::accesskit_bridge::bounds_to_size,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::accesskit_bridge::render_tree,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::BottomPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::CollapsingParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::EmptyContainerParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::FrameParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::LeftPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::MenuParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::PopupParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::RightPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::ScrollAreaParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::TooltipParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::TopPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::container_tools::WindowParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::egui_accesskit_convert::tree_update_to_ui_node,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::egui_accesskit_convert::ui_node_to_tree_update,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::AppStateParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::FormFieldDef,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::FormParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::MessageEnumParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::MessageVariantDef,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::NativeAppParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::SettingsFieldDef,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::SettingsPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::SettingsSectionDef,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::SidebarLayoutParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::StateFieldDef,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::TabDef,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::TabPanelParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::TableColumnDef,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::TableParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::ToolbarButtonDef,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::ToolbarParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::WebAppParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::egui_fragment_app_state_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::egui_fragment_form_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::egui_fragment_message_enum_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::egui_fragment_native_app_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::egui_fragment_settings_panel_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::egui_fragment_sidebar_layout_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::egui_fragment_tab_panel_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::egui_fragment_table_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::egui_fragment_toolbar_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::fragment_tools::egui_fragment_web_app_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::input_tools::ClipboardSetParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::input_tools::EmptyInputParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::input_tools::FocusParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::input_tools::InputActionJson,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::input_tools::KeyParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::input_tools::ModifiersJson,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::input_tools::PointerButtonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::layout_tools::AddSpaceParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::layout_tools::ColumnsParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::layout_tools::EmptyLayoutParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::layout_tools::GridParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::layout_tools::HorizontalParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::layout_tools::IndentParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::layout_tools::VerticalParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::AlertDialogParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::ConfirmDialogParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::ContextMenuItemParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::ContextMenuParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::EmptyMenuParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::MenuActionJson,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::MenuPopupParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::MenuTooltipParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::ModalParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::NotificationParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::PopupBelowWidgetParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::TooltipAtPointerParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::menu_tools::TooltipRichParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::render_context::EguiRenderContext,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::response_tools::ClickedNParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::response_tools::EmptyResponseParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::response_tools::ResponseInfoJson,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::response_tools::ResponseQueryJson,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::response_tools::SetEnabledParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::response_tools::ShowTooltipParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::ColorJson,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::ContainerJson,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::CornerRadiusJson,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::LayoutAlign,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::LayoutDirection,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::LayoutJson,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::MarginJson,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::RangeJson,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::RectJson,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::ResponseJson,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::StrokeJson,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::UiNode,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::Vec2Json,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::serde_types::WidgetJson,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::AnimationTimeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::ButtonPaddingParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::ColorOverrideParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::DebugOptionsParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::EmptyStyleParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::FontFamily,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::InteractionParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::MenuMarginParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::OverrideTextStyleParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::ResizeGripSizeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::ScrollBarWidthParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::SelectionParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::SetFontsParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::SetTextValignParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::SpacingParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::StyleIndentParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::StyleJson,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::TextCursorBlinkParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::TextCursorParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::TextStyleName,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::TextValign,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::VisualParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::VisualProperty,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::WidgetStrokeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::WidgetVisualsParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::WindowRoundingParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::WindowShadowParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::WindowStrokeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_override_text_style_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_animation_time_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_button_padding_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_code_bg_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_debug_options_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_error_fg_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_extreme_bg_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_faint_bg_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_fonts_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_hyperlink_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_indent_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_interaction_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_menu_margin_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_resize_grip_size_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_scroll_bar_width_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_text_cursor_width_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_text_valign_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_warn_fg_color_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_widget_stroke_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::egui_set_window_stroke_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::style_dark_mode_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::style_light_mode_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::style_selection_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::style_spacing_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::style_text_cursor_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::style_visual_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::style_widget_visuals_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::style_window_rounding_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::style_tools::style_window_shadow_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::ButtonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::CheckboxParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::CodeEditorParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::CodeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::ColorEditButtonHsvaParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::ColorEditButtonSrgbaParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::ColoredLabelParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::DragAngleParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::DragAngleTauParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::DragValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::EmptyParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::HeadingParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::HyperlinkParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::ImageParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::LabelParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::LinkParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::MonospaceParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::ProgressBarParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::RadioParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::RadioValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::SelectableLabelParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::SimpleTextParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::SliderParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::SliderVerticalParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::SmallButtonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::TextEditMultilineParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::TextEditSinglelineParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::ToggleValueParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_button_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_checkbox_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_code_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_code_editor_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_color_edit_button_hsva_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_color_edit_button_srgba_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_colored_label_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_drag_angle_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_drag_angle_tau_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_drag_value_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_heading_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_hyperlink_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_image_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_label_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_link_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_monospace_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_progress_bar_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_radio_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_radio_value_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_selectable_label_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_separator_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_slider_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_slider_vertical_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_small_button_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_small_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_spinner_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_strong_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_text_edit_multiline_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_text_edit_singleline_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_toggle_value_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::widget_tools::widget_weak_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitAppConfigured,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitCtx,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitDescribeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitEmitParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitNewResult,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetDecorationsParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetRendererParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetResizableParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetSizeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetThemeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetTitleParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::EguiWinitSetVsyncParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::_elicit_compat_EguiWinitAppConfigured::EguiWinitAppConfiguredStyle,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::describe_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::emit_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::new_config_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::set_decorations_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::set_renderer_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::set_resizable_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::set_size_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::set_theme_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::set_title_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_egui::winit_plugin::set_vsync_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+item_path,item_kind,api_family,status,coverage_kind,primary_gap_kind,shadow_item,drift_confidence,shadow_elicit_impl,verification_gap,verification_ready,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,action,notes
+egui::Rounding,TypeAlias,egui::Rounding,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::Rounding` and make the new wrapper `ElicitComplete`,
+egui::__run_test_ctx,Function,egui::__run_test_ctx,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::__run_test_ctx` so the full public API surface is represented,
+egui::__run_test_ui,Function,egui::__run_test_ui,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::__run_test_ui` so the full public API surface is represented,
+egui::accesskit_root_id,Function,egui::accesskit_root_id,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::accesskit_root_id` so the full public API surface is represented,
+egui::atomics::atom::Atom,Struct,egui::atomics::atom,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::atomics::atom::Atom` and make the new wrapper `ElicitComplete`,
+egui::atomics::atom_ext::AtomExt,Trait,egui::atomics::atom_ext,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::atomics::atom_ext::AtomExt` so the full public API surface is represented,
+egui::atomics::atom_kind::AtomClosure,TypeAlias,egui::atomics::atom_kind,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::atomics::atom_kind::AtomClosure` and make the new wrapper `ElicitComplete`,
+egui::atomics::atom_kind::AtomKind,Enum,egui::atomics::atom_kind,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::atomics::atom_kind::AtomKind` and make the new wrapper `ElicitComplete`,
+egui::atomics::atom_kind::IntoSizedArgs,Struct,egui::atomics::atom_kind,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::atomics::atom_kind::IntoSizedArgs` and make the new wrapper `ElicitComplete`,
+egui::atomics::atom_kind::IntoSizedResult,Struct,egui::atomics::atom_kind,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::atomics::atom_kind::IntoSizedResult` and make the new wrapper `ElicitComplete`,
+egui::atomics::atom_layout::AllocatedAtomLayout,Struct,egui::atomics::atom_layout,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::atomics::atom_layout::AllocatedAtomLayout` and make the new wrapper `ElicitComplete`,
+egui::atomics::atom_layout::AtomLayout,Struct,egui::atomics::atom_layout,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::atomics::atom_layout::AtomLayout` and make the new wrapper `ElicitComplete`,
+egui::atomics::atom_layout::AtomLayoutResponse,Struct,egui::atomics::atom_layout,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::atomics::atom_layout::AtomLayoutResponse` and make the new wrapper `ElicitComplete`,
+egui::atomics::atoms::Atoms,Struct,egui::atomics::atoms,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::atomics::atoms::Atoms` and make the new wrapper `ElicitComplete`,
+egui::atomics::atoms::IntoAtoms,Trait,egui::atomics::atoms,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::atomics::atoms::IntoAtoms` so the full public API surface is represented,
+egui::atomics::sized_atom::SizedAtom,Struct,egui::atomics::sized_atom,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::atomics::sized_atom::SizedAtom` and make the new wrapper `ElicitComplete`,
+egui::atomics::sized_atom_kind::SizedAtomKind,Enum,egui::atomics::sized_atom_kind,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::atomics::sized_atom_kind::SizedAtomKind` and make the new wrapper `ElicitComplete`,
+egui::cache::cache_storage::CacheStorage,Struct,egui::cache::cache_storage,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::cache::cache_storage::CacheStorage` and make the new wrapper `ElicitComplete`,
+egui::cache::cache_trait::CacheTrait,Trait,egui::cache::cache_trait,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::cache::cache_trait::CacheTrait` so the full public API surface is represented,
+egui::cache::frame_cache::ComputerMut,Trait,egui::cache::frame_cache,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::cache::frame_cache::ComputerMut` so the full public API surface is represented,
+egui::cache::frame_cache::FrameCache,Struct,egui::cache::frame_cache,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::cache::frame_cache::FrameCache` and make the new wrapper `ElicitComplete`,
+egui::cache::frame_publisher::FramePublisher,Struct,egui::cache::frame_publisher,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::cache::frame_publisher::FramePublisher` and make the new wrapper `ElicitComplete`,
+egui::containers::area::Area,Struct,egui::containers::area,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::area::Area` and make the new wrapper `ElicitComplete`,
+egui::containers::area::AreaState,Struct,egui::containers::area,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::area::AreaState` and make the new wrapper `ElicitComplete`,
+egui::containers::close_tag::ClosableTag,Struct,egui::containers::close_tag,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::close_tag::ClosableTag` and make the new wrapper `ElicitComplete`,
+egui::containers::collapsing_header::CollapsingHeader,Struct,egui::containers::collapsing_header,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::collapsing_header::CollapsingHeader` and make the new wrapper `ElicitComplete`,
+egui::containers::collapsing_header::CollapsingResponse,Struct,egui::containers::collapsing_header,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::collapsing_header::CollapsingResponse` and make the new wrapper `ElicitComplete`,
+egui::containers::collapsing_header::CollapsingState,Struct,egui::containers::collapsing_header,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::collapsing_header::CollapsingState` and make the new wrapper `ElicitComplete`,
+egui::containers::collapsing_header::HeaderResponse,Struct,egui::containers::collapsing_header,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::collapsing_header::HeaderResponse` and make the new wrapper `ElicitComplete`,
+egui::containers::collapsing_header::IconPainter,TypeAlias,egui::containers::collapsing_header,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::collapsing_header::IconPainter` and make the new wrapper `ElicitComplete`,
+egui::containers::collapsing_header::paint_default_icon,Function,egui::containers::collapsing_header,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::collapsing_header::paint_default_icon` so the full public API surface is represented,
+egui::containers::combo_box::ComboBox,Struct,egui::containers::combo_box,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::combo_box::ComboBox` and make the new wrapper `ElicitComplete`,
+egui::containers::combo_box::IconPainter,TypeAlias,egui::containers::combo_box,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::combo_box::IconPainter` and make the new wrapper `ElicitComplete`,
+egui::containers::frame::Frame,Struct,egui::containers::frame,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::frame::Frame` and make the new wrapper `ElicitComplete`,
+egui::containers::frame::Prepared,Struct,egui::containers::frame,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::frame::Prepared` and make the new wrapper `ElicitComplete`,
+egui::containers::menu::Bar,TypeAlias,egui::containers::menu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::menu::Bar` and make the new wrapper `ElicitComplete`,
+egui::containers::menu::MenuBar,Struct,egui::containers::menu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::menu::MenuBar` and make the new wrapper `ElicitComplete`,
+egui::containers::menu::MenuButton,Struct,egui::containers::menu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::menu::MenuButton` and make the new wrapper `ElicitComplete`,
+egui::containers::menu::MenuConfig,Struct,egui::containers::menu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::menu::MenuConfig` and make the new wrapper `ElicitComplete`,
+egui::containers::menu::MenuState,Struct,egui::containers::menu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::menu::MenuState` and make the new wrapper `ElicitComplete`,
+egui::containers::menu::SubMenu,Struct,egui::containers::menu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::menu::SubMenu` and make the new wrapper `ElicitComplete`,
+egui::containers::menu::SubMenuButton,Struct,egui::containers::menu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::menu::SubMenuButton` and make the new wrapper `ElicitComplete`,
+egui::containers::menu::find_menu_root,Function,egui::containers::menu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::menu::find_menu_root` so the full public API surface is represented,
+egui::containers::menu::is_in_menu,Function,egui::containers::menu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::menu::is_in_menu` so the full public API surface is represented,
+egui::containers::menu::menu_style,Function,egui::containers::menu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::menu::menu_style` so the full public API surface is represented,
+egui::containers::modal::Modal,Struct,egui::containers::modal,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::modal::Modal` and make the new wrapper `ElicitComplete`,
+egui::containers::modal::ModalResponse,Struct,egui::containers::modal,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::modal::ModalResponse` and make the new wrapper `ElicitComplete`,
+egui::containers::old_popup::AboveOrBelow,Enum,egui::containers::old_popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::old_popup::AboveOrBelow` and make the new wrapper `ElicitComplete`,
+egui::containers::old_popup::popup_above_or_below_widget,Function,egui::containers::old_popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::old_popup::popup_above_or_below_widget` so the full public API surface is represented,
+egui::containers::old_popup::popup_below_widget,Function,egui::containers::old_popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::old_popup::popup_below_widget` so the full public API surface is represented,
+egui::containers::old_popup::show_tooltip,Function,egui::containers::old_popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::old_popup::show_tooltip` so the full public API surface is represented,
+egui::containers::old_popup::show_tooltip_at,Function,egui::containers::old_popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::old_popup::show_tooltip_at` so the full public API surface is represented,
+egui::containers::old_popup::show_tooltip_at_pointer,Function,egui::containers::old_popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::old_popup::show_tooltip_at_pointer` so the full public API surface is represented,
+egui::containers::old_popup::show_tooltip_for,Function,egui::containers::old_popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::old_popup::show_tooltip_for` so the full public API surface is represented,
+egui::containers::old_popup::show_tooltip_text,Function,egui::containers::old_popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::old_popup::show_tooltip_text` so the full public API surface is represented,
+egui::containers::old_popup::was_tooltip_open_last_frame,Function,egui::containers::old_popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::containers::old_popup::was_tooltip_open_last_frame` so the full public API surface is represented,
+egui::containers::panel::CentralPanel,Struct,egui::containers::panel,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::panel::CentralPanel` and make the new wrapper `ElicitComplete`,
+egui::containers::panel::Panel,Struct,egui::containers::panel,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::panel::Panel` and make the new wrapper `ElicitComplete`,
+egui::containers::panel::PanelState,Struct,egui::containers::panel,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::panel::PanelState` and make the new wrapper `ElicitComplete`,
+egui::containers::panel::SidePanel,TypeAlias,egui::containers::panel,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::panel::SidePanel` and make the new wrapper `ElicitComplete`,
+egui::containers::panel::TopBottomPanel,TypeAlias,egui::containers::panel,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::panel::TopBottomPanel` and make the new wrapper `ElicitComplete`,
+egui::containers::popup::Popup,Struct,egui::containers::popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::popup::Popup` and make the new wrapper `ElicitComplete`,
+egui::containers::popup::PopupAnchor,Enum,egui::containers::popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::popup::PopupAnchor` and make the new wrapper `ElicitComplete`,
+egui::containers::popup::PopupCloseBehavior,Enum,egui::containers::popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::popup::PopupCloseBehavior` and make the new wrapper `ElicitComplete`,
+egui::containers::popup::PopupKind,Enum,egui::containers::popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::popup::PopupKind` and make the new wrapper `ElicitComplete`,
+egui::containers::popup::SetOpenCommand,Enum,egui::containers::popup,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::popup::SetOpenCommand` and make the new wrapper `ElicitComplete`,
+egui::containers::resize::Resize,Struct,egui::containers::resize,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::resize::Resize` and make the new wrapper `ElicitComplete`,
+egui::containers::scene::DragPanButtons,Struct,egui::containers::scene,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::scene::DragPanButtons` and make the new wrapper `ElicitComplete`,
+egui::containers::scene::Scene,Struct,egui::containers::scene,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::scene::Scene` and make the new wrapper `ElicitComplete`,
+egui::containers::scroll_area::ScrollArea,Struct,egui::containers::scroll_area,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::scroll_area::ScrollArea` and make the new wrapper `ElicitComplete`,
+egui::containers::scroll_area::ScrollAreaOutput,Struct,egui::containers::scroll_area,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::scroll_area::ScrollAreaOutput` and make the new wrapper `ElicitComplete`,
+egui::containers::scroll_area::ScrollBarVisibility,Enum,egui::containers::scroll_area,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::scroll_area::ScrollBarVisibility` and make the new wrapper `ElicitComplete`,
+egui::containers::scroll_area::ScrollSource,Struct,egui::containers::scroll_area,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::scroll_area::ScrollSource` and make the new wrapper `ElicitComplete`,
+egui::containers::scroll_area::State,Struct,egui::containers::scroll_area,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::scroll_area::State` and make the new wrapper `ElicitComplete`,
+egui::containers::sides::Sides,Struct,egui::containers::sides,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::sides::Sides` and make the new wrapper `ElicitComplete`,
+egui::containers::tooltip::Tooltip,Struct,egui::containers::tooltip,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::tooltip::Tooltip` and make the new wrapper `ElicitComplete`,
+egui::containers::window::Window,Struct,egui::containers::window,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::containers::window::Window` and make the new wrapper `ElicitComplete`,
+egui::context::Context,Struct,egui::context::Context,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::context::Context` and make the new wrapper `ElicitComplete`,
+egui::context::RepaintCause,Struct,egui::context::RepaintCause,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::context::RepaintCause` and make the new wrapper `ElicitComplete`,
+egui::context::RequestRepaintInfo,Struct,egui::context::RequestRepaintInfo,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::context::RequestRepaintInfo` and make the new wrapper `ElicitComplete`,
+egui::context::ViewportState,Struct,egui::context::ViewportState,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::context::ViewportState` and make the new wrapper `ElicitComplete`,
+egui::data::input::DroppedFile,Struct,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::DroppedFile` and make the new wrapper `ElicitComplete`,
+egui::data::input::Event,Enum,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::Event` and make the new wrapper `ElicitComplete`,
+egui::data::input::EventFilter,Struct,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::EventFilter` and make the new wrapper `ElicitComplete`,
+egui::data::input::HoveredFile,Struct,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::HoveredFile` and make the new wrapper `ElicitComplete`,
+egui::data::input::ImeEvent,Enum,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::ImeEvent` and make the new wrapper `ElicitComplete`,
+egui::data::input::KeyboardShortcut,Struct,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::KeyboardShortcut` and make the new wrapper `ElicitComplete`,
+egui::data::input::ModifierNames,Struct,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::ModifierNames` and make the new wrapper `ElicitComplete`,
+egui::data::input::Modifiers,Struct,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::Modifiers` and make the new wrapper `ElicitComplete`,
+egui::data::input::MouseWheelUnit,Enum,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::MouseWheelUnit` and make the new wrapper `ElicitComplete`,
+egui::data::input::NUM_POINTER_BUTTONS,Constant,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::data::input::NUM_POINTER_BUTTONS` so the full public API surface is represented,
+egui::data::input::PointerButton,Enum,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::PointerButton` and make the new wrapper `ElicitComplete`,
+egui::data::input::RawInput,Struct,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::RawInput` and make the new wrapper `ElicitComplete`,
+egui::data::input::SafeAreaInsets,Struct,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::SafeAreaInsets` and make the new wrapper `ElicitComplete`,
+egui::data::input::TouchDeviceId,Struct,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::TouchDeviceId` and make the new wrapper `ElicitComplete`,
+egui::data::input::TouchId,Struct,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::TouchId` and make the new wrapper `ElicitComplete`,
+egui::data::input::TouchPhase,Enum,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::TouchPhase` and make the new wrapper `ElicitComplete`,
+egui::data::input::ViewportEvent,Enum,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::ViewportEvent` and make the new wrapper `ElicitComplete`,
+egui::data::input::ViewportInfo,Struct,egui::data::input,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::input::ViewportInfo` and make the new wrapper `ElicitComplete`,
+egui::data::key::Key,Enum,egui::data::key,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::key::Key` and make the new wrapper `ElicitComplete`,
+egui::data::output::CursorIcon,Enum,egui::data::output,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::output::CursorIcon` and make the new wrapper `ElicitComplete`,
+egui::data::output::FullOutput,Struct,egui::data::output,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::output::FullOutput` and make the new wrapper `ElicitComplete`,
+egui::data::output::IMEOutput,Struct,egui::data::output,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::output::IMEOutput` and make the new wrapper `ElicitComplete`,
+egui::data::output::OpenUrl,Struct,egui::data::output,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::output::OpenUrl` and make the new wrapper `ElicitComplete`,
+egui::data::output::OutputCommand,Enum,egui::data::output,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::output::OutputCommand` and make the new wrapper `ElicitComplete`,
+egui::data::output::OutputEvent,Enum,egui::data::output,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::output::OutputEvent` and make the new wrapper `ElicitComplete`,
+egui::data::output::PlatformOutput,Struct,egui::data::output,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::output::PlatformOutput` and make the new wrapper `ElicitComplete`,
+egui::data::output::UserAttentionType,Enum,egui::data::output,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::output::UserAttentionType` and make the new wrapper `ElicitComplete`,
+egui::data::output::WidgetInfo,Struct,egui::data::output,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::output::WidgetInfo` and make the new wrapper `ElicitComplete`,
+egui::data::user_data::UserData,Struct,egui::data::user_data,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::data::user_data::UserData` and make the new wrapper `ElicitComplete`,
+egui::debug_text::DebugTextPlugin,Struct,egui::debug_text::DebugTextPlugin,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::debug_text::DebugTextPlugin` and make the new wrapper `ElicitComplete`,
+egui::debug_text::print,Function,egui::debug_text::print,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::debug_text::print` so the full public API surface is represented,
+egui::drag_and_drop::DragAndDrop,Struct,egui::drag_and_drop::DragAndDrop,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::drag_and_drop::DragAndDrop` and make the new wrapper `ElicitComplete`,
+egui::generate_loader_id,Macro,egui::generate_loader_id,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::generate_loader_id` so the full public API surface is represented,
+egui::github_link_file,Macro,egui::github_link_file,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::github_link_file` so the full public API surface is represented,
+egui::github_link_file_line,Macro,egui::github_link_file_line,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::github_link_file_line` so the full public API surface is represented,
+egui::grid::Grid,Struct,egui::grid::Grid,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::grid::Grid` and make the new wrapper `ElicitComplete`,
+egui::gui_zoom::kb_shortcuts::ZOOM_IN,Constant,egui::gui_zoom::kb_shortcuts,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::gui_zoom::kb_shortcuts::ZOOM_IN` so the full public API surface is represented,
+egui::gui_zoom::kb_shortcuts::ZOOM_IN_SECONDARY,Constant,egui::gui_zoom::kb_shortcuts,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::gui_zoom::kb_shortcuts::ZOOM_IN_SECONDARY` so the full public API surface is represented,
+egui::gui_zoom::kb_shortcuts::ZOOM_OUT,Constant,egui::gui_zoom::kb_shortcuts,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::gui_zoom::kb_shortcuts::ZOOM_OUT` so the full public API surface is represented,
+egui::gui_zoom::kb_shortcuts::ZOOM_RESET,Constant,egui::gui_zoom::kb_shortcuts,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::gui_zoom::kb_shortcuts::ZOOM_RESET` so the full public API surface is represented,
+egui::gui_zoom::zoom_in,Function,egui::gui_zoom::zoom_in,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::gui_zoom::zoom_in` so the full public API surface is represented,
+egui::gui_zoom::zoom_menu_buttons,Function,egui::gui_zoom::zoom_menu_buttons,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::gui_zoom::zoom_menu_buttons` so the full public API surface is represented,
+egui::gui_zoom::zoom_out,Function,egui::gui_zoom::zoom_out,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::gui_zoom::zoom_out` so the full public API surface is represented,
+egui::hit_test::WidgetHits,Struct,egui::hit_test::WidgetHits,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::hit_test::WidgetHits` and make the new wrapper `ElicitComplete`,
+egui::id::Id,Struct,egui::id::Id,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::id::Id` and make the new wrapper `ElicitComplete`,
+egui::id::IdMap,TypeAlias,egui::id::IdMap,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::id::IdMap` and make the new wrapper `ElicitComplete`,
+egui::id::IdSet,TypeAlias,egui::id::IdSet,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::id::IdSet` and make the new wrapper `ElicitComplete`,
+egui::include_image,Macro,egui::include_image,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::include_image` so the full public API surface is represented,
+egui::input_state::InputOptions,Struct,egui::input_state::InputOptions,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::input_state::InputOptions` and make the new wrapper `ElicitComplete`,
+egui::input_state::InputState,Struct,egui::input_state::InputState,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::input_state::InputState` and make the new wrapper `ElicitComplete`,
+egui::input_state::PointerState,Struct,egui::input_state::PointerState,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::input_state::PointerState` and make the new wrapper `ElicitComplete`,
+egui::input_state::SurrenderFocusOn,Enum,egui::input_state::SurrenderFocusOn,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::input_state::SurrenderFocusOn` and make the new wrapper `ElicitComplete`,
+egui::input_state::touch_state::MultiTouchInfo,Struct,egui::input_state::touch_state,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::input_state::touch_state::MultiTouchInfo` and make the new wrapper `ElicitComplete`,
+egui::interaction::InteractionSnapshot,Struct,egui::interaction::InteractionSnapshot,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::interaction::InteractionSnapshot` and make the new wrapper `ElicitComplete`,
+egui::introspection::font_family_ui,Function,egui::introspection::font_family_ui,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::introspection::font_family_ui` so the full public API surface is represented,
+egui::introspection::font_id_ui,Function,egui::introspection::font_id_ui,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::introspection::font_id_ui` so the full public API surface is represented,
+egui::layers::GraphicLayers,Struct,egui::layers::GraphicLayers,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::layers::GraphicLayers` and make the new wrapper `ElicitComplete`,
+egui::layers::LayerId,Struct,egui::layers::LayerId,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::layers::LayerId` and make the new wrapper `ElicitComplete`,
+egui::layers::Order,Enum,egui::layers::Order,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::layers::Order` and make the new wrapper `ElicitComplete`,
+egui::layers::PaintList,Struct,egui::layers::PaintList,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::layers::PaintList` and make the new wrapper `ElicitComplete`,
+egui::layers::ShapeIdx,Struct,egui::layers::ShapeIdx,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::layers::ShapeIdx` and make the new wrapper `ElicitComplete`,
+egui::layout::Layout,Struct,egui::layout::Layout,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::layout::Layout` and make the new wrapper `ElicitComplete`,
+egui::load::Bytes,Enum,egui::load::Bytes,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::Bytes` and make the new wrapper `ElicitComplete`,
+egui::load::BytesLoadResult,TypeAlias,egui::load::BytesLoadResult,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::BytesLoadResult` and make the new wrapper `ElicitComplete`,
+egui::load::BytesLoader,Trait,egui::load::BytesLoader,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::load::BytesLoader` so the full public API surface is represented,
+egui::load::BytesPoll,Enum,egui::load::BytesPoll,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::BytesPoll` and make the new wrapper `ElicitComplete`,
+egui::load::ImageLoadResult,TypeAlias,egui::load::ImageLoadResult,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::ImageLoadResult` and make the new wrapper `ElicitComplete`,
+egui::load::ImageLoader,Trait,egui::load::ImageLoader,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::load::ImageLoader` so the full public API surface is represented,
+egui::load::ImagePoll,Enum,egui::load::ImagePoll,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::ImagePoll` and make the new wrapper `ElicitComplete`,
+egui::load::LoadError,Enum,egui::load::LoadError,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::LoadError` and make the new wrapper `ElicitComplete`,
+egui::load::Loaders,Struct,egui::load::Loaders,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::Loaders` and make the new wrapper `ElicitComplete`,
+egui::load::Result,TypeAlias,egui::load::Result,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::Result` and make the new wrapper `ElicitComplete`,
+egui::load::SizeHint,Enum,egui::load::SizeHint,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::SizeHint` and make the new wrapper `ElicitComplete`,
+egui::load::SizedTexture,Struct,egui::load::SizedTexture,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::SizedTexture` and make the new wrapper `ElicitComplete`,
+egui::load::TextureLoadResult,TypeAlias,egui::load::TextureLoadResult,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::TextureLoadResult` and make the new wrapper `ElicitComplete`,
+egui::load::TextureLoader,Trait,egui::load::TextureLoader,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::load::TextureLoader` so the full public API surface is represented,
+egui::load::TexturePoll,Enum,egui::load::TexturePoll,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::TexturePoll` and make the new wrapper `ElicitComplete`,
+egui::load::bytes_loader::DefaultBytesLoader,Struct,egui::load::bytes_loader,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::bytes_loader::DefaultBytesLoader` and make the new wrapper `ElicitComplete`,
+egui::load::texture_loader::DefaultTextureLoader,Struct,egui::load::texture_loader,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::load::texture_loader::DefaultTextureLoader` and make the new wrapper `ElicitComplete`,
+egui::memory::Areas,Struct,egui::memory::Areas,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::memory::Areas` and make the new wrapper `ElicitComplete`,
+egui::memory::FocusDirection,Enum,egui::memory::FocusDirection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::memory::FocusDirection` and make the new wrapper `ElicitComplete`,
+egui::memory::Memory,Struct,egui::memory::Memory,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::memory::Memory` and make the new wrapper `ElicitComplete`,
+egui::memory::Options,Struct,egui::memory::Options,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::memory::Options` and make the new wrapper `ElicitComplete`,
+egui::memory::theme::Theme,Enum,egui::memory::theme,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::memory::theme::Theme` and make the new wrapper `ElicitComplete`,
+egui::memory::theme::ThemePreference,Enum,egui::memory::theme,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::memory::theme::ThemePreference` and make the new wrapper `ElicitComplete`,
+egui::menu::BarState,Struct,egui::menu::BarState,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::menu::BarState` and make the new wrapper `ElicitComplete`,
+egui::menu::MenuResponse,Enum,egui::menu::MenuResponse,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::menu::MenuResponse` and make the new wrapper `ElicitComplete`,
+egui::menu::MenuRoot,Struct,egui::menu::MenuRoot,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::menu::MenuRoot` and make the new wrapper `ElicitComplete`,
+egui::menu::MenuRootManager,Struct,egui::menu::MenuRootManager,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::menu::MenuRootManager` and make the new wrapper `ElicitComplete`,
+egui::menu::MenuState,Struct,egui::menu::MenuState,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::menu::MenuState` and make the new wrapper `ElicitComplete`,
+egui::menu::SubMenu,Struct,egui::menu::SubMenu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::menu::SubMenu` and make the new wrapper `ElicitComplete`,
+egui::menu::SubMenuButton,Struct,egui::menu::SubMenuButton,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::menu::SubMenuButton` and make the new wrapper `ElicitComplete`,
+egui::menu::bar,Function,egui::menu::bar,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::menu::bar` so the full public API surface is represented,
+egui::menu::context_menu,Function,egui::menu::context_menu,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::menu::context_menu` so the full public API surface is represented,
+egui::menu::context_menu_opened,Function,egui::menu::context_menu_opened,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::menu::context_menu_opened` so the full public API surface is represented,
+egui::menu::menu_button,Function,egui::menu::menu_button,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::menu::menu_button` so the full public API surface is represented,
+egui::menu::menu_custom_button,Function,egui::menu::menu_custom_button,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::menu::menu_custom_button` so the full public API surface is represented,
+egui::menu::menu_image_button,Function,egui::menu::menu_image_button,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::menu::menu_image_button` so the full public API surface is represented,
+egui::menu::submenu_button,Function,egui::menu::submenu_button,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::menu::submenu_button` so the full public API surface is represented,
+egui::os::OperatingSystem,Enum,egui::os::OperatingSystem,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::os::OperatingSystem` and make the new wrapper `ElicitComplete`,
+egui::painter::Painter,Struct,egui::painter::Painter,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::painter::Painter` and make the new wrapper `ElicitComplete`,
+egui::pass_state::AccessKitPassState,Struct,egui::pass_state::AccessKitPassState,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::pass_state::AccessKitPassState` and make the new wrapper `ElicitComplete`,
+egui::pass_state::DebugRect,Struct,egui::pass_state::DebugRect,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::pass_state::DebugRect` and make the new wrapper `ElicitComplete`,
+egui::pass_state::PassState,Struct,egui::pass_state::PassState,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::pass_state::PassState` and make the new wrapper `ElicitComplete`,
+egui::pass_state::PerLayerState,Struct,egui::pass_state::PerLayerState,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::pass_state::PerLayerState` and make the new wrapper `ElicitComplete`,
+egui::pass_state::PerWidgetTooltipState,Struct,egui::pass_state::PerWidgetTooltipState,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::pass_state::PerWidgetTooltipState` and make the new wrapper `ElicitComplete`,
+egui::pass_state::ScrollTarget,Struct,egui::pass_state::ScrollTarget,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::pass_state::ScrollTarget` and make the new wrapper `ElicitComplete`,
+egui::pass_state::TooltipPassState,Struct,egui::pass_state::TooltipPassState,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::pass_state::TooltipPassState` and make the new wrapper `ElicitComplete`,
+egui::plugin::ContextCallback,TypeAlias,egui::plugin::ContextCallback,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::plugin::ContextCallback` and make the new wrapper `ElicitComplete`,
+egui::plugin::Plugin,Trait,egui::plugin::Plugin,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::plugin::Plugin` so the full public API surface is represented,
+egui::plugin::TypedPluginGuard,Struct,egui::plugin::TypedPluginGuard,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::plugin::TypedPluginGuard` and make the new wrapper `ElicitComplete`,
+egui::plugin::TypedPluginHandle,Struct,egui::plugin::TypedPluginHandle,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::plugin::TypedPluginHandle` and make the new wrapper `ElicitComplete`,
+egui::response::InnerResponse,Struct,egui::response::InnerResponse,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::response::InnerResponse` and make the new wrapper `ElicitComplete`,
+egui::response::Response,Struct,egui::response::Response,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::response::Response` and make the new wrapper `ElicitComplete`,
+egui::sense::Sense,Struct,egui::sense::Sense,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::sense::Sense` and make the new wrapper `ElicitComplete`,
+egui::special_emojis::GIT,Constant,egui::special_emojis::GIT,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::special_emojis::GIT` so the full public API surface is represented,
+egui::special_emojis::GITHUB,Constant,egui::special_emojis::GITHUB,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::special_emojis::GITHUB` so the full public API surface is represented,
+egui::special_emojis::OS_ANDROID,Constant,egui::special_emojis::OS_ANDROID,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::special_emojis::OS_ANDROID` so the full public API surface is represented,
+egui::special_emojis::OS_APPLE,Constant,egui::special_emojis::OS_APPLE,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::special_emojis::OS_APPLE` so the full public API surface is represented,
+egui::special_emojis::OS_LINUX,Constant,egui::special_emojis::OS_LINUX,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::special_emojis::OS_LINUX` so the full public API surface is represented,
+egui::special_emojis::OS_WINDOWS,Constant,egui::special_emojis::OS_WINDOWS,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::special_emojis::OS_WINDOWS` so the full public API surface is represented,
+egui::style::DebugOptions,Struct,egui::style::DebugOptions,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::DebugOptions` and make the new wrapper `ElicitComplete`,
+egui::style::FontSelection,Enum,egui::style::FontSelection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::FontSelection` and make the new wrapper `ElicitComplete`,
+egui::style::HandleShape,Enum,egui::style::HandleShape,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::HandleShape` and make the new wrapper `ElicitComplete`,
+egui::style::Interaction,Struct,egui::style::Interaction,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::Interaction` and make the new wrapper `ElicitComplete`,
+egui::style::NumberFormatter,Struct,egui::style::NumberFormatter,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::NumberFormatter` and make the new wrapper `ElicitComplete`,
+egui::style::NumericColorSpace,Enum,egui::style::NumericColorSpace,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::NumericColorSpace` and make the new wrapper `ElicitComplete`,
+egui::style::ScrollAnimation,Struct,egui::style::ScrollAnimation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::ScrollAnimation` and make the new wrapper `ElicitComplete`,
+egui::style::ScrollFadeStyle,Struct,egui::style::ScrollFadeStyle,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::ScrollFadeStyle` and make the new wrapper `ElicitComplete`,
+egui::style::ScrollStyle,Struct,egui::style::ScrollStyle,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::ScrollStyle` and make the new wrapper `ElicitComplete`,
+egui::style::Selection,Struct,egui::style::Selection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::Selection` and make the new wrapper `ElicitComplete`,
+egui::style::Spacing,Struct,egui::style::Spacing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::Spacing` and make the new wrapper `ElicitComplete`,
+egui::style::Style,Struct,egui::style::Style,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::Style` and make the new wrapper `ElicitComplete`,
+egui::style::StyleModifier,Struct,egui::style::StyleModifier,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::StyleModifier` and make the new wrapper `ElicitComplete`,
+egui::style::TextCursorStyle,Struct,egui::style::TextCursorStyle,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::TextCursorStyle` and make the new wrapper `ElicitComplete`,
+egui::style::TextStyle,Enum,egui::style::TextStyle,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::TextStyle` and make the new wrapper `ElicitComplete`,
+egui::style::Visuals,Struct,egui::style::Visuals,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::Visuals` and make the new wrapper `ElicitComplete`,
+egui::style::WidgetVisuals,Struct,egui::style::WidgetVisuals,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::WidgetVisuals` and make the new wrapper `ElicitComplete`,
+egui::style::Widgets,Struct,egui::style::Widgets,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::style::Widgets` and make the new wrapper `ElicitComplete`,
+egui::style::default_text_styles,Function,egui::style::default_text_styles,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::style::default_text_styles` so the full public API surface is represented,
+egui::text_selection::accesskit_text::update_accesskit_for_text_widget,Function,egui::text_selection::accesskit_text,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::accesskit_text::update_accesskit_for_text_widget` so the full public API surface is represented,
+egui::text_selection::cursor_range::CCursorRange,Struct,egui::text_selection::cursor_range,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::text_selection::cursor_range::CCursorRange` and make the new wrapper `ElicitComplete`,
+egui::text_selection::label_text_selection::LabelSelectionState,Struct,egui::text_selection::label_text_selection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::text_selection::label_text_selection::LabelSelectionState` and make the new wrapper `ElicitComplete`,
+egui::text_selection::text_cursor_state::TextCursorState,Struct,egui::text_selection::text_cursor_state,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::text_selection::text_cursor_state::TextCursorState` and make the new wrapper `ElicitComplete`,
+egui::text_selection::text_cursor_state::byte_index_from_char_index,Function,egui::text_selection::text_cursor_state,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::text_cursor_state::byte_index_from_char_index` so the full public API surface is represented,
+egui::text_selection::text_cursor_state::ccursor_next_word,Function,egui::text_selection::text_cursor_state,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::text_cursor_state::ccursor_next_word` so the full public API surface is represented,
+egui::text_selection::text_cursor_state::ccursor_previous_word,Function,egui::text_selection::text_cursor_state,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::text_cursor_state::ccursor_previous_word` so the full public API surface is represented,
+egui::text_selection::text_cursor_state::char_index_from_byte_index,Function,egui::text_selection::text_cursor_state,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::text_cursor_state::char_index_from_byte_index` so the full public API surface is represented,
+egui::text_selection::text_cursor_state::cursor_rect,Function,egui::text_selection::text_cursor_state,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::text_cursor_state::cursor_rect` so the full public API surface is represented,
+egui::text_selection::text_cursor_state::find_line_start,Function,egui::text_selection::text_cursor_state,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::text_cursor_state::find_line_start` so the full public API surface is represented,
+egui::text_selection::text_cursor_state::is_word_char,Function,egui::text_selection::text_cursor_state,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::text_cursor_state::is_word_char` so the full public API surface is represented,
+egui::text_selection::text_cursor_state::slice_char_range,Function,egui::text_selection::text_cursor_state,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::text_cursor_state::slice_char_range` so the full public API surface is represented,
+egui::text_selection::visuals::RowVertexIndices,Struct,egui::text_selection::visuals,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::text_selection::visuals::RowVertexIndices` and make the new wrapper `ElicitComplete`,
+egui::text_selection::visuals::paint_cursor_end,Function,egui::text_selection::visuals,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::visuals::paint_cursor_end` so the full public API surface is represented,
+egui::text_selection::visuals::paint_text_cursor,Function,egui::text_selection::visuals,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::visuals::paint_text_cursor` so the full public API surface is represented,
+egui::text_selection::visuals::paint_text_selection,Function,egui::text_selection::visuals,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::text_selection::visuals::paint_text_selection` so the full public API surface is represented,
+egui::ui::Ui,Struct,egui::ui::Ui,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::ui::Ui` and make the new wrapper `ElicitComplete`,
+egui::ui_builder::UiBuilder,Struct,egui::ui_builder::UiBuilder,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::ui_builder::UiBuilder` and make the new wrapper `ElicitComplete`,
+egui::ui_stack::UiKind,Enum,egui::ui_stack::UiKind,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::ui_stack::UiKind` and make the new wrapper `ElicitComplete`,
+egui::ui_stack::UiStack,Struct,egui::ui_stack::UiStack,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::ui_stack::UiStack` and make the new wrapper `ElicitComplete`,
+egui::ui_stack::UiStackInfo,Struct,egui::ui_stack::UiStackInfo,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::ui_stack::UiStackInfo` and make the new wrapper `ElicitComplete`,
+egui::ui_stack::UiStackIterator,Struct,egui::ui_stack::UiStackIterator,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::ui_stack::UiStackIterator` and make the new wrapper `ElicitComplete`,
+egui::ui_stack::UiTags,Struct,egui::ui_stack::UiTags,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::ui_stack::UiTags` and make the new wrapper `ElicitComplete`,
+egui::util::id_type_map::IdTypeMap,Struct,egui::util::id_type_map,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::util::id_type_map::IdTypeMap` and make the new wrapper `ElicitComplete`,
+egui::util::id_type_map::RawKey,Struct,egui::util::id_type_map,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::util::id_type_map::RawKey` and make the new wrapper `ElicitComplete`,
+egui::util::id_type_map::SerializableAny,Trait,egui::util::id_type_map,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::util::id_type_map::SerializableAny` so the full public API surface is represented,
+egui::util::id_type_map::TypeId,Struct,egui::util::id_type_map,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::util::id_type_map::TypeId` and make the new wrapper `ElicitComplete`,
+egui::util::undoer::Settings,Struct,egui::util::undoer,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::util::undoer::Settings` and make the new wrapper `ElicitComplete`,
+egui::util::undoer::Undoer,Struct,egui::util::undoer,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::util::undoer::Undoer` and make the new wrapper `ElicitComplete`,
+egui::viewport::CursorGrab,Enum,egui::viewport::CursorGrab,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::CursorGrab` and make the new wrapper `ElicitComplete`,
+egui::viewport::DeferredViewportUiCallback,TypeAlias,egui::viewport::DeferredViewportUiCallback,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::DeferredViewportUiCallback` and make the new wrapper `ElicitComplete`,
+egui::viewport::IMEPurpose,Enum,egui::viewport::IMEPurpose,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::IMEPurpose` and make the new wrapper `ElicitComplete`,
+egui::viewport::IconData,Struct,egui::viewport::IconData,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::IconData` and make the new wrapper `ElicitComplete`,
+egui::viewport::ImmediateViewport,Struct,egui::viewport::ImmediateViewport,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::ImmediateViewport` and make the new wrapper `ElicitComplete`,
+egui::viewport::ImmediateViewportRendererCallback,TypeAlias,egui::viewport::ImmediateViewportRendererCallback,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::ImmediateViewportRendererCallback` and make the new wrapper `ElicitComplete`,
+egui::viewport::OrderedViewportIdMap,TypeAlias,egui::viewport::OrderedViewportIdMap,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::OrderedViewportIdMap` and make the new wrapper `ElicitComplete`,
+egui::viewport::ResizeDirection,Enum,egui::viewport::ResizeDirection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::ResizeDirection` and make the new wrapper `ElicitComplete`,
+egui::viewport::SystemTheme,Enum,egui::viewport::SystemTheme,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::SystemTheme` and make the new wrapper `ElicitComplete`,
+egui::viewport::ViewportBuilder,Struct,egui::viewport::ViewportBuilder,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::ViewportBuilder` and make the new wrapper `ElicitComplete`,
+egui::viewport::ViewportClass,Enum,egui::viewport::ViewportClass,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::ViewportClass` and make the new wrapper `ElicitComplete`,
+egui::viewport::ViewportCommand,Enum,egui::viewport::ViewportCommand,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::ViewportCommand` and make the new wrapper `ElicitComplete`,
+egui::viewport::ViewportId,Struct,egui::viewport::ViewportId,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::ViewportId` and make the new wrapper `ElicitComplete`,
+egui::viewport::ViewportIdMap,TypeAlias,egui::viewport::ViewportIdMap,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::ViewportIdMap` and make the new wrapper `ElicitComplete`,
+egui::viewport::ViewportIdPair,Struct,egui::viewport::ViewportIdPair,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::ViewportIdPair` and make the new wrapper `ElicitComplete`,
+egui::viewport::ViewportIdSet,TypeAlias,egui::viewport::ViewportIdSet,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::ViewportIdSet` and make the new wrapper `ElicitComplete`,
+egui::viewport::ViewportOutput,Struct,egui::viewport::ViewportOutput,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::ViewportOutput` and make the new wrapper `ElicitComplete`,
+egui::viewport::WindowLevel,Enum,egui::viewport::WindowLevel,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::WindowLevel` and make the new wrapper `ElicitComplete`,
+egui::viewport::X11WindowType,Enum,egui::viewport::X11WindowType,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::viewport::X11WindowType` and make the new wrapper `ElicitComplete`,
+egui::warn_if_debug_build,Function,egui::warn_if_debug_build,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::warn_if_debug_build` so the full public API surface is represented,
+egui::widget_rect::InteractOptions,Struct,egui::widget_rect::InteractOptions,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widget_rect::InteractOptions` and make the new wrapper `ElicitComplete`,
+egui::widget_rect::WidgetRect,Struct,egui::widget_rect::WidgetRect,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widget_rect::WidgetRect` and make the new wrapper `ElicitComplete`,
+egui::widget_rect::WidgetRects,Struct,egui::widget_rect::WidgetRects,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widget_rect::WidgetRects` and make the new wrapper `ElicitComplete`,
+egui::widget_style::ButtonStyle,Struct,egui::widget_style::ButtonStyle,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widget_style::ButtonStyle` and make the new wrapper `ElicitComplete`,
+egui::widget_style::CheckboxStyle,Struct,egui::widget_style::CheckboxStyle,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widget_style::CheckboxStyle` and make the new wrapper `ElicitComplete`,
+egui::widget_style::LabelStyle,Struct,egui::widget_style::LabelStyle,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widget_style::LabelStyle` and make the new wrapper `ElicitComplete`,
+egui::widget_style::SeparatorStyle,Struct,egui::widget_style::SeparatorStyle,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widget_style::SeparatorStyle` and make the new wrapper `ElicitComplete`,
+egui::widget_style::TextVisuals,Struct,egui::widget_style::TextVisuals,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widget_style::TextVisuals` and make the new wrapper `ElicitComplete`,
+egui::widget_style::WidgetStyle,Struct,egui::widget_style::WidgetStyle,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widget_style::WidgetStyle` and make the new wrapper `ElicitComplete`,
+egui::widget_text::RichText,Struct,egui::widget_text::RichText,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widget_text::RichText` and make the new wrapper `ElicitComplete`,
+egui::widget_text::WidgetText,Enum,egui::widget_text::WidgetText,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widget_text::WidgetText` and make the new wrapper `ElicitComplete`,
+egui::widgets::Widget,Trait,egui::widgets::Widget,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::Widget` so the full public API surface is represented,
+egui::widgets::WidgetWithState,Trait,egui::widgets::WidgetWithState,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::WidgetWithState` so the full public API surface is represented,
+egui::widgets::button::Button,Struct,egui::widgets::button,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::button::Button` and make the new wrapper `ElicitComplete`,
+egui::widgets::checkbox::Checkbox,Struct,egui::widgets::checkbox,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::checkbox::Checkbox` and make the new wrapper `ElicitComplete`,
+egui::widgets::color_picker::Alpha,Enum,egui::widgets::color_picker,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::color_picker::Alpha` and make the new wrapper `ElicitComplete`,
+egui::widgets::color_picker::color_edit_button_hsva,Function,egui::widgets::color_picker,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::color_picker::color_edit_button_hsva` so the full public API surface is represented,
+egui::widgets::color_picker::color_edit_button_rgb,Function,egui::widgets::color_picker,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::color_picker::color_edit_button_rgb` so the full public API surface is represented,
+egui::widgets::color_picker::color_edit_button_rgba,Function,egui::widgets::color_picker,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::color_picker::color_edit_button_rgba` so the full public API surface is represented,
+egui::widgets::color_picker::color_edit_button_srgb,Function,egui::widgets::color_picker,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::color_picker::color_edit_button_srgb` so the full public API surface is represented,
+egui::widgets::color_picker::color_edit_button_srgba,Function,egui::widgets::color_picker,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::color_picker::color_edit_button_srgba` so the full public API surface is represented,
+egui::widgets::color_picker::color_picker_color32,Function,egui::widgets::color_picker,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::color_picker::color_picker_color32` so the full public API surface is represented,
+egui::widgets::color_picker::color_picker_hsva_2d,Function,egui::widgets::color_picker,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::color_picker::color_picker_hsva_2d` so the full public API surface is represented,
+egui::widgets::color_picker::show_color,Function,egui::widgets::color_picker,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::color_picker::show_color` so the full public API surface is represented,
+egui::widgets::color_picker::show_color_at,Function,egui::widgets::color_picker,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::color_picker::show_color_at` so the full public API surface is represented,
+egui::widgets::drag_value::DragValue,Struct,egui::widgets::drag_value,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::drag_value::DragValue` and make the new wrapper `ElicitComplete`,
+egui::widgets::global_dark_light_mode_buttons,Function,egui::widgets::global_dark_light_mode_buttons,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::global_dark_light_mode_buttons` so the full public API surface is represented,
+egui::widgets::global_dark_light_mode_switch,Function,egui::widgets::global_dark_light_mode_switch,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::global_dark_light_mode_switch` so the full public API surface is represented,
+egui::widgets::global_theme_preference_buttons,Function,egui::widgets::global_theme_preference_buttons,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::global_theme_preference_buttons` so the full public API surface is represented,
+egui::widgets::global_theme_preference_switch,Function,egui::widgets::global_theme_preference_switch,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::global_theme_preference_switch` so the full public API surface is represented,
+egui::widgets::hyperlink::Hyperlink,Struct,egui::widgets::hyperlink,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::hyperlink::Hyperlink` and make the new wrapper `ElicitComplete`,
+egui::widgets::hyperlink::Link,Struct,egui::widgets::hyperlink,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::hyperlink::Link` and make the new wrapper `ElicitComplete`,
+egui::widgets::image::FrameDurations,Struct,egui::widgets::image,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::image::FrameDurations` and make the new wrapper `ElicitComplete`,
+egui::widgets::image::Image,Struct,egui::widgets::image,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::image::Image` and make the new wrapper `ElicitComplete`,
+egui::widgets::image::ImageFit,Enum,egui::widgets::image,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::image::ImageFit` and make the new wrapper `ElicitComplete`,
+egui::widgets::image::ImageOptions,Struct,egui::widgets::image,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::image::ImageOptions` and make the new wrapper `ElicitComplete`,
+egui::widgets::image::ImageSize,Struct,egui::widgets::image,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::image::ImageSize` and make the new wrapper `ElicitComplete`,
+egui::widgets::image::ImageSource,Enum,egui::widgets::image,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::image::ImageSource` and make the new wrapper `ElicitComplete`,
+egui::widgets::image::decode_animated_image_uri,Function,egui::widgets::image,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::image::decode_animated_image_uri` so the full public API surface is represented,
+egui::widgets::image::has_gif_magic_header,Function,egui::widgets::image,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::image::has_gif_magic_header` so the full public API surface is represented,
+egui::widgets::image::has_webp_header,Function,egui::widgets::image,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::image::has_webp_header` so the full public API surface is represented,
+egui::widgets::image::paint_texture_at,Function,egui::widgets::image,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::image::paint_texture_at` so the full public API surface is represented,
+egui::widgets::image_button::ImageButton,Struct,egui::widgets::image_button,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::image_button::ImageButton` and make the new wrapper `ElicitComplete`,
+egui::widgets::label::Label,Struct,egui::widgets::label,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::label::Label` and make the new wrapper `ElicitComplete`,
+egui::widgets::progress_bar::ProgressBar,Struct,egui::widgets::progress_bar,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::progress_bar::ProgressBar` and make the new wrapper `ElicitComplete`,
+egui::widgets::radio_button::RadioButton,Struct,egui::widgets::radio_button,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::radio_button::RadioButton` and make the new wrapper `ElicitComplete`,
+egui::widgets::reset_button,Function,egui::widgets::reset_button,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::reset_button` so the full public API surface is represented,
+egui::widgets::reset_button_with,Function,egui::widgets::reset_button_with,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::reset_button_with` so the full public API surface is represented,
+egui::widgets::selected_label::SelectableLabel,Struct,egui::widgets::selected_label,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::selected_label::SelectableLabel` and make the new wrapper `ElicitComplete`,
+egui::widgets::separator::Separator,Struct,egui::widgets::separator,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::separator::Separator` and make the new wrapper `ElicitComplete`,
+egui::widgets::slider::Slider,Struct,egui::widgets::slider,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::slider::Slider` and make the new wrapper `ElicitComplete`,
+egui::widgets::slider::SliderClamping,Enum,egui::widgets::slider,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::slider::SliderClamping` and make the new wrapper `ElicitComplete`,
+egui::widgets::slider::SliderOrientation,Enum,egui::widgets::slider,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::slider::SliderOrientation` and make the new wrapper `ElicitComplete`,
+egui::widgets::spinner::Spinner,Struct,egui::widgets::spinner,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::spinner::Spinner` and make the new wrapper `ElicitComplete`,
+egui::widgets::stroke_ui,Function,egui::widgets::stroke_ui,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::stroke_ui` so the full public API surface is represented,
+egui::widgets::text_edit::builder::TextEdit,Struct,egui::widgets::text_edit,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::text_edit::builder::TextEdit` and make the new wrapper `ElicitComplete`,
+egui::widgets::text_edit::output::TextEditOutput,Struct,egui::widgets::text_edit,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::text_edit::output::TextEditOutput` and make the new wrapper `ElicitComplete`,
+egui::widgets::text_edit::state::TextEditState,Struct,egui::widgets::text_edit,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `egui::widgets::text_edit::state::TextEditState` and make the new wrapper `ElicitComplete`,
+egui::widgets::text_edit::text_buffer::TextBuffer,Trait,egui::widgets::text_edit,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `egui::widgets::text_edit::text_buffer::TextBuffer` so the full public API surface is represented,
+egui::WidgetType,Enum,egui::WidgetType,Drifted,Drifted,Drifted,elicit_egui::style_tools::WidgetState,0.75,Missing,true,false,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree,"Rename or replace `elicit_egui::style_tools::WidgetState` so upstream `egui::WidgetType` is shadowed exactly; then Finish `elicit_egui::style_tools::WidgetState` by adding our traits: Elicitation, ElicitIntrospect, ElicitSpec, ElicitPromptTree; then add `impl ElicitComplete`",probable rename
+egui::widget_style::WidgetState,Enum,egui::widget_style::WidgetState,Covered,Covered,,elicit_egui::style_tools::WidgetState,,Missing,true,false,true,,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree,"Finish `elicit_egui::style_tools::WidgetState` by adding our traits: Elicitation, ElicitIntrospect, ElicitSpec, ElicitPromptTree; then add `impl ElicitComplete`",
+elicit_egui::accesskit_bridge::EguiBackend,Struct,elicit_egui::accesskit_bridge::EguiBackend,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::accesskit_bridge::EguiBackend`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::accesskit_bridge::bounds_to_size,Function,elicit_egui::accesskit_bridge::bounds_to_size,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::accesskit_bridge::bounds_to_size`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::accesskit_bridge::render_tree,Function,elicit_egui::accesskit_bridge::render_tree,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::accesskit_bridge::render_tree`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::egui_accesskit_convert::tree_update_to_ui_node,Function,elicit_egui::egui_accesskit_convert::tree_update_to_ui_node,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::egui_accesskit_convert::tree_update_to_ui_node`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::egui_accesskit_convert::ui_node_to_tree_update,Function,elicit_egui::egui_accesskit_convert::ui_node_to_tree_update,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::egui_accesskit_convert::ui_node_to_tree_update`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::FormFieldDef,Struct,elicit_egui::fragment_tools::FormFieldDef,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::FormFieldDef`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::MessageVariantDef,Struct,elicit_egui::fragment_tools::MessageVariantDef,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::MessageVariantDef`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::SettingsFieldDef,Struct,elicit_egui::fragment_tools::SettingsFieldDef,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::SettingsFieldDef`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::SettingsSectionDef,Struct,elicit_egui::fragment_tools::SettingsSectionDef,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::SettingsSectionDef`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::StateFieldDef,Struct,elicit_egui::fragment_tools::StateFieldDef,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::StateFieldDef`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::TabDef,Struct,elicit_egui::fragment_tools::TabDef,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::TabDef`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::TableColumnDef,Struct,elicit_egui::fragment_tools::TableColumnDef,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::TableColumnDef`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::ToolbarButtonDef,Struct,elicit_egui::fragment_tools::ToolbarButtonDef,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::ToolbarButtonDef`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_app_state_descriptor,Function,elicit_egui::fragment_tools::egui_fragment_app_state_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::egui_fragment_app_state_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_form_descriptor,Function,elicit_egui::fragment_tools::egui_fragment_form_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::egui_fragment_form_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_message_enum_descriptor,Function,elicit_egui::fragment_tools::egui_fragment_message_enum_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::egui_fragment_message_enum_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_native_app_descriptor,Function,elicit_egui::fragment_tools::egui_fragment_native_app_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::egui_fragment_native_app_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_settings_panel_descriptor,Function,elicit_egui::fragment_tools::egui_fragment_settings_panel_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::egui_fragment_settings_panel_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_sidebar_layout_descriptor,Function,elicit_egui::fragment_tools::egui_fragment_sidebar_layout_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::egui_fragment_sidebar_layout_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_tab_panel_descriptor,Function,elicit_egui::fragment_tools::egui_fragment_tab_panel_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::egui_fragment_tab_panel_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_table_descriptor,Function,elicit_egui::fragment_tools::egui_fragment_table_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::egui_fragment_table_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_toolbar_descriptor,Function,elicit_egui::fragment_tools::egui_fragment_toolbar_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::egui_fragment_toolbar_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::fragment_tools::egui_fragment_web_app_descriptor,Function,elicit_egui::fragment_tools::egui_fragment_web_app_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::fragment_tools::egui_fragment_web_app_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::render_context::EguiRenderContext,Struct,elicit_egui::render_context::EguiRenderContext,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::render_context::EguiRenderContext`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::serde_types::LayoutAlign,Enum,elicit_egui::serde_types::LayoutAlign,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::serde_types::LayoutAlign`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::serde_types::LayoutDirection,Enum,elicit_egui::serde_types::LayoutDirection,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::serde_types::LayoutDirection`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::serde_types::UiNode,Enum,elicit_egui::serde_types::UiNode,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::serde_types::UiNode`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::FontFamily,Enum,elicit_egui::style_tools::FontFamily,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::FontFamily`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::TextStyleName,Enum,elicit_egui::style_tools::TextStyleName,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::TextStyleName`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::TextValign,Enum,elicit_egui::style_tools::TextValign,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::TextValign`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::VisualProperty,Enum,elicit_egui::style_tools::VisualProperty,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::VisualProperty`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_override_text_style_descriptor,Function,elicit_egui::style_tools::egui_override_text_style_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_override_text_style_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_animation_time_descriptor,Function,elicit_egui::style_tools::egui_set_animation_time_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_animation_time_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_button_padding_descriptor,Function,elicit_egui::style_tools::egui_set_button_padding_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_button_padding_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_code_bg_color_descriptor,Function,elicit_egui::style_tools::egui_set_code_bg_color_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_code_bg_color_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_debug_options_descriptor,Function,elicit_egui::style_tools::egui_set_debug_options_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_debug_options_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_error_fg_color_descriptor,Function,elicit_egui::style_tools::egui_set_error_fg_color_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_error_fg_color_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_extreme_bg_color_descriptor,Function,elicit_egui::style_tools::egui_set_extreme_bg_color_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_extreme_bg_color_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_faint_bg_color_descriptor,Function,elicit_egui::style_tools::egui_set_faint_bg_color_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_faint_bg_color_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_fonts_descriptor,Function,elicit_egui::style_tools::egui_set_fonts_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_fonts_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_hyperlink_color_descriptor,Function,elicit_egui::style_tools::egui_set_hyperlink_color_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_hyperlink_color_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_indent_descriptor,Function,elicit_egui::style_tools::egui_set_indent_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_indent_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_interaction_descriptor,Function,elicit_egui::style_tools::egui_set_interaction_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_interaction_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_menu_margin_descriptor,Function,elicit_egui::style_tools::egui_set_menu_margin_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_menu_margin_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_resize_grip_size_descriptor,Function,elicit_egui::style_tools::egui_set_resize_grip_size_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_resize_grip_size_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_scroll_bar_width_descriptor,Function,elicit_egui::style_tools::egui_set_scroll_bar_width_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_scroll_bar_width_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_text_cursor_width_descriptor,Function,elicit_egui::style_tools::egui_set_text_cursor_width_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_text_cursor_width_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_text_valign_descriptor,Function,elicit_egui::style_tools::egui_set_text_valign_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_text_valign_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_warn_fg_color_descriptor,Function,elicit_egui::style_tools::egui_set_warn_fg_color_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_warn_fg_color_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_widget_stroke_descriptor,Function,elicit_egui::style_tools::egui_set_widget_stroke_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_widget_stroke_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::egui_set_window_stroke_descriptor,Function,elicit_egui::style_tools::egui_set_window_stroke_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::egui_set_window_stroke_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::style_dark_mode_descriptor,Function,elicit_egui::style_tools::style_dark_mode_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::style_dark_mode_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::style_light_mode_descriptor,Function,elicit_egui::style_tools::style_light_mode_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::style_light_mode_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::style_selection_descriptor,Function,elicit_egui::style_tools::style_selection_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::style_selection_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::style_spacing_descriptor,Function,elicit_egui::style_tools::style_spacing_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::style_spacing_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::style_text_cursor_descriptor,Function,elicit_egui::style_tools::style_text_cursor_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::style_text_cursor_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::style_visual_descriptor,Function,elicit_egui::style_tools::style_visual_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::style_visual_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::style_widget_visuals_descriptor,Function,elicit_egui::style_tools::style_widget_visuals_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::style_widget_visuals_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::style_window_rounding_descriptor,Function,elicit_egui::style_tools::style_window_rounding_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::style_window_rounding_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::style_tools::style_window_shadow_descriptor,Function,elicit_egui::style_tools::style_window_shadow_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::style_tools::style_window_shadow_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_button_descriptor,Function,elicit_egui::widget_tools::widget_button_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_button_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_checkbox_descriptor,Function,elicit_egui::widget_tools::widget_checkbox_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_checkbox_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_code_descriptor,Function,elicit_egui::widget_tools::widget_code_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_code_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_code_editor_descriptor,Function,elicit_egui::widget_tools::widget_code_editor_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_code_editor_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_color_edit_button_hsva_descriptor,Function,elicit_egui::widget_tools::widget_color_edit_button_hsva_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_color_edit_button_hsva_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_color_edit_button_srgba_descriptor,Function,elicit_egui::widget_tools::widget_color_edit_button_srgba_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_color_edit_button_srgba_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_colored_label_descriptor,Function,elicit_egui::widget_tools::widget_colored_label_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_colored_label_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_drag_angle_descriptor,Function,elicit_egui::widget_tools::widget_drag_angle_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_drag_angle_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_drag_angle_tau_descriptor,Function,elicit_egui::widget_tools::widget_drag_angle_tau_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_drag_angle_tau_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_drag_value_descriptor,Function,elicit_egui::widget_tools::widget_drag_value_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_drag_value_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_heading_descriptor,Function,elicit_egui::widget_tools::widget_heading_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_heading_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_hyperlink_descriptor,Function,elicit_egui::widget_tools::widget_hyperlink_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_hyperlink_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_image_descriptor,Function,elicit_egui::widget_tools::widget_image_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_image_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_label_descriptor,Function,elicit_egui::widget_tools::widget_label_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_label_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_link_descriptor,Function,elicit_egui::widget_tools::widget_link_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_link_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_monospace_descriptor,Function,elicit_egui::widget_tools::widget_monospace_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_monospace_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_progress_bar_descriptor,Function,elicit_egui::widget_tools::widget_progress_bar_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_progress_bar_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_radio_descriptor,Function,elicit_egui::widget_tools::widget_radio_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_radio_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_radio_value_descriptor,Function,elicit_egui::widget_tools::widget_radio_value_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_radio_value_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_selectable_label_descriptor,Function,elicit_egui::widget_tools::widget_selectable_label_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_selectable_label_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_separator_descriptor,Function,elicit_egui::widget_tools::widget_separator_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_separator_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_slider_descriptor,Function,elicit_egui::widget_tools::widget_slider_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_slider_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_slider_vertical_descriptor,Function,elicit_egui::widget_tools::widget_slider_vertical_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_slider_vertical_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_small_button_descriptor,Function,elicit_egui::widget_tools::widget_small_button_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_small_button_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_small_descriptor,Function,elicit_egui::widget_tools::widget_small_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_small_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_spinner_descriptor,Function,elicit_egui::widget_tools::widget_spinner_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_spinner_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_strong_descriptor,Function,elicit_egui::widget_tools::widget_strong_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_strong_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_text_edit_multiline_descriptor,Function,elicit_egui::widget_tools::widget_text_edit_multiline_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_text_edit_multiline_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_text_edit_singleline_descriptor,Function,elicit_egui::widget_tools::widget_text_edit_singleline_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_text_edit_singleline_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_toggle_value_descriptor,Function,elicit_egui::widget_tools::widget_toggle_value_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_toggle_value_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::widget_tools::widget_weak_descriptor,Function,elicit_egui::widget_tools::widget_weak_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::widget_tools::widget_weak_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitAppConfigured,Struct,elicit_egui::winit_plugin::EguiWinitAppConfigured,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::EguiWinitAppConfigured`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitNewResult,Struct,elicit_egui::winit_plugin::EguiWinitNewResult,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::EguiWinitNewResult`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::_elicit_compat_EguiWinitAppConfigured::EguiWinitAppConfiguredStyle,Enum,elicit_egui::winit_plugin::_elicit_compat_EguiWinitAppConfigured,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::_elicit_compat_EguiWinitAppConfigured::EguiWinitAppConfiguredStyle`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::describe_descriptor,Function,elicit_egui::winit_plugin::describe_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::describe_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::emit_descriptor,Function,elicit_egui::winit_plugin::emit_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::emit_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::new_config_descriptor,Function,elicit_egui::winit_plugin::new_config_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::new_config_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::set_decorations_descriptor,Function,elicit_egui::winit_plugin::set_decorations_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::set_decorations_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::set_renderer_descriptor,Function,elicit_egui::winit_plugin::set_renderer_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::set_renderer_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::set_resizable_descriptor,Function,elicit_egui::winit_plugin::set_resizable_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::set_resizable_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::set_size_descriptor,Function,elicit_egui::winit_plugin::set_size_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::set_size_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::set_theme_descriptor,Function,elicit_egui::winit_plugin::set_theme_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::set_theme_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::set_title_descriptor,Function,elicit_egui::winit_plugin::set_title_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::set_title_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::winit_plugin::set_vsync_descriptor,Function,elicit_egui::winit_plugin::set_vsync_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_egui::winit_plugin::set_vsync_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_egui::container_tools::BottomPanelParams,Struct,elicit_egui::container_tools::BottomPanelParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::container_tools::CollapsingParams,Struct,elicit_egui::container_tools::CollapsingParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::container_tools::EmptyContainerParams,Struct,elicit_egui::container_tools::EmptyContainerParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::container_tools::FrameParams,Struct,elicit_egui::container_tools::FrameParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::container_tools::LeftPanelParams,Struct,elicit_egui::container_tools::LeftPanelParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::container_tools::MenuParams,Struct,elicit_egui::container_tools::MenuParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::container_tools::PopupParams,Struct,elicit_egui::container_tools::PopupParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::container_tools::RightPanelParams,Struct,elicit_egui::container_tools::RightPanelParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::container_tools::ScrollAreaParams,Struct,elicit_egui::container_tools::ScrollAreaParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::container_tools::TooltipParams,Struct,elicit_egui::container_tools::TooltipParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::container_tools::TopPanelParams,Struct,elicit_egui::container_tools::TopPanelParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::container_tools::WindowParams,Struct,elicit_egui::container_tools::WindowParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::fragment_tools::AppStateParams,Struct,elicit_egui::fragment_tools::AppStateParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::fragment_tools::FormParams,Struct,elicit_egui::fragment_tools::FormParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::fragment_tools::MessageEnumParams,Struct,elicit_egui::fragment_tools::MessageEnumParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::fragment_tools::NativeAppParams,Struct,elicit_egui::fragment_tools::NativeAppParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::fragment_tools::SettingsPanelParams,Struct,elicit_egui::fragment_tools::SettingsPanelParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::fragment_tools::SidebarLayoutParams,Struct,elicit_egui::fragment_tools::SidebarLayoutParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::fragment_tools::TabPanelParams,Struct,elicit_egui::fragment_tools::TabPanelParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::fragment_tools::TableParams,Struct,elicit_egui::fragment_tools::TableParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::fragment_tools::ToolbarParams,Struct,elicit_egui::fragment_tools::ToolbarParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::fragment_tools::WebAppParams,Struct,elicit_egui::fragment_tools::WebAppParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::input_tools::ClipboardSetParams,Struct,elicit_egui::input_tools::ClipboardSetParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::input_tools::EmptyInputParams,Struct,elicit_egui::input_tools::EmptyInputParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::input_tools::FocusParams,Struct,elicit_egui::input_tools::FocusParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::input_tools::InputActionJson,Enum,elicit_egui::input_tools::InputActionJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::input_tools::KeyParams,Struct,elicit_egui::input_tools::KeyParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::input_tools::ModifiersJson,Struct,elicit_egui::input_tools::ModifiersJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::input_tools::PointerButtonParams,Struct,elicit_egui::input_tools::PointerButtonParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::layout_tools::AddSpaceParams,Struct,elicit_egui::layout_tools::AddSpaceParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::layout_tools::ColumnsParams,Struct,elicit_egui::layout_tools::ColumnsParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::layout_tools::EmptyLayoutParams,Struct,elicit_egui::layout_tools::EmptyLayoutParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::layout_tools::GridParams,Struct,elicit_egui::layout_tools::GridParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::layout_tools::HorizontalParams,Struct,elicit_egui::layout_tools::HorizontalParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::layout_tools::IndentParams,Struct,elicit_egui::layout_tools::IndentParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::layout_tools::VerticalParams,Struct,elicit_egui::layout_tools::VerticalParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::AlertDialogParams,Struct,elicit_egui::menu_tools::AlertDialogParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::ConfirmDialogParams,Struct,elicit_egui::menu_tools::ConfirmDialogParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::ContextMenuItemParams,Struct,elicit_egui::menu_tools::ContextMenuItemParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::ContextMenuParams,Struct,elicit_egui::menu_tools::ContextMenuParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::EmptyMenuParams,Struct,elicit_egui::menu_tools::EmptyMenuParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::MenuActionJson,Enum,elicit_egui::menu_tools::MenuActionJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::MenuPopupParams,Struct,elicit_egui::menu_tools::MenuPopupParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::MenuTooltipParams,Struct,elicit_egui::menu_tools::MenuTooltipParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::ModalParams,Struct,elicit_egui::menu_tools::ModalParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::NotificationParams,Struct,elicit_egui::menu_tools::NotificationParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::PopupBelowWidgetParams,Struct,elicit_egui::menu_tools::PopupBelowWidgetParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::TooltipAtPointerParams,Struct,elicit_egui::menu_tools::TooltipAtPointerParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::menu_tools::TooltipRichParams,Struct,elicit_egui::menu_tools::TooltipRichParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::response_tools::ClickedNParams,Struct,elicit_egui::response_tools::ClickedNParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::response_tools::EmptyResponseParams,Struct,elicit_egui::response_tools::EmptyResponseParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::response_tools::ResponseInfoJson,Enum,elicit_egui::response_tools::ResponseInfoJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::response_tools::ResponseQueryJson,Enum,elicit_egui::response_tools::ResponseQueryJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::response_tools::SetEnabledParams,Struct,elicit_egui::response_tools::SetEnabledParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::response_tools::ShowTooltipParams,Struct,elicit_egui::response_tools::ShowTooltipParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::serde_types::ColorJson,Struct,elicit_egui::serde_types::ColorJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::serde_types::ContainerJson,Enum,elicit_egui::serde_types::ContainerJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::serde_types::CornerRadiusJson,Struct,elicit_egui::serde_types::CornerRadiusJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::serde_types::LayoutJson,Enum,elicit_egui::serde_types::LayoutJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::serde_types::MarginJson,Struct,elicit_egui::serde_types::MarginJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::serde_types::RangeJson,Struct,elicit_egui::serde_types::RangeJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::serde_types::RectJson,Struct,elicit_egui::serde_types::RectJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::serde_types::ResponseJson,Struct,elicit_egui::serde_types::ResponseJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::serde_types::StrokeJson,Struct,elicit_egui::serde_types::StrokeJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::serde_types::Vec2Json,Struct,elicit_egui::serde_types::Vec2Json,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::serde_types::WidgetJson,Enum,elicit_egui::serde_types::WidgetJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::AnimationTimeParams,Struct,elicit_egui::style_tools::AnimationTimeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::ButtonPaddingParams,Struct,elicit_egui::style_tools::ButtonPaddingParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::ColorOverrideParams,Struct,elicit_egui::style_tools::ColorOverrideParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::DebugOptionsParams,Struct,elicit_egui::style_tools::DebugOptionsParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::EmptyStyleParams,Struct,elicit_egui::style_tools::EmptyStyleParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::InteractionParams,Struct,elicit_egui::style_tools::InteractionParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::MenuMarginParams,Struct,elicit_egui::style_tools::MenuMarginParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::OverrideTextStyleParams,Struct,elicit_egui::style_tools::OverrideTextStyleParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::ResizeGripSizeParams,Struct,elicit_egui::style_tools::ResizeGripSizeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::ScrollBarWidthParams,Struct,elicit_egui::style_tools::ScrollBarWidthParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::SelectionParams,Struct,elicit_egui::style_tools::SelectionParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::SetFontsParams,Struct,elicit_egui::style_tools::SetFontsParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::SetTextValignParams,Struct,elicit_egui::style_tools::SetTextValignParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::SpacingParams,Struct,elicit_egui::style_tools::SpacingParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::StyleIndentParams,Struct,elicit_egui::style_tools::StyleIndentParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::StyleJson,Enum,elicit_egui::style_tools::StyleJson,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::TextCursorBlinkParams,Struct,elicit_egui::style_tools::TextCursorBlinkParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::TextCursorParams,Struct,elicit_egui::style_tools::TextCursorParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::VisualParams,Struct,elicit_egui::style_tools::VisualParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::WidgetStrokeParams,Struct,elicit_egui::style_tools::WidgetStrokeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::WidgetVisualsParams,Struct,elicit_egui::style_tools::WidgetVisualsParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::WindowRoundingParams,Struct,elicit_egui::style_tools::WindowRoundingParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::WindowShadowParams,Struct,elicit_egui::style_tools::WindowShadowParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::style_tools::WindowStrokeParams,Struct,elicit_egui::style_tools::WindowStrokeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::ButtonParams,Struct,elicit_egui::widget_tools::ButtonParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::CheckboxParams,Struct,elicit_egui::widget_tools::CheckboxParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::CodeEditorParams,Struct,elicit_egui::widget_tools::CodeEditorParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::CodeParams,Struct,elicit_egui::widget_tools::CodeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::ColorEditButtonHsvaParams,Struct,elicit_egui::widget_tools::ColorEditButtonHsvaParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::ColorEditButtonSrgbaParams,Struct,elicit_egui::widget_tools::ColorEditButtonSrgbaParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::ColoredLabelParams,Struct,elicit_egui::widget_tools::ColoredLabelParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::DragAngleParams,Struct,elicit_egui::widget_tools::DragAngleParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::DragAngleTauParams,Struct,elicit_egui::widget_tools::DragAngleTauParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::DragValueParams,Struct,elicit_egui::widget_tools::DragValueParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::EmptyParams,Struct,elicit_egui::widget_tools::EmptyParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::HeadingParams,Struct,elicit_egui::widget_tools::HeadingParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::HyperlinkParams,Struct,elicit_egui::widget_tools::HyperlinkParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::ImageParams,Struct,elicit_egui::widget_tools::ImageParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::LabelParams,Struct,elicit_egui::widget_tools::LabelParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::LinkParams,Struct,elicit_egui::widget_tools::LinkParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::MonospaceParams,Struct,elicit_egui::widget_tools::MonospaceParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::ProgressBarParams,Struct,elicit_egui::widget_tools::ProgressBarParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::RadioParams,Struct,elicit_egui::widget_tools::RadioParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::RadioValueParams,Struct,elicit_egui::widget_tools::RadioValueParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::SelectableLabelParams,Struct,elicit_egui::widget_tools::SelectableLabelParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::SimpleTextParams,Struct,elicit_egui::widget_tools::SimpleTextParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::SliderParams,Struct,elicit_egui::widget_tools::SliderParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::SliderVerticalParams,Struct,elicit_egui::widget_tools::SliderVerticalParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::SmallButtonParams,Struct,elicit_egui::widget_tools::SmallButtonParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::TextEditMultilineParams,Struct,elicit_egui::widget_tools::TextEditMultilineParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::TextEditSinglelineParams,Struct,elicit_egui::widget_tools::TextEditSinglelineParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::widget_tools::ToggleValueParams,Struct,elicit_egui::widget_tools::ToggleValueParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitCtx,Struct,elicit_egui::winit_plugin::EguiWinitCtx,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitDescribeParams,Struct,elicit_egui::winit_plugin::EguiWinitDescribeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitEmitParams,Struct,elicit_egui::winit_plugin::EguiWinitEmitParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitNewParams,Struct,elicit_egui::winit_plugin::EguiWinitNewParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitPlugin,Struct,elicit_egui::winit_plugin::EguiWinitPlugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetDecorationsParams,Struct,elicit_egui::winit_plugin::EguiWinitSetDecorationsParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetRendererParams,Struct,elicit_egui::winit_plugin::EguiWinitSetRendererParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetResizableParams,Struct,elicit_egui::winit_plugin::EguiWinitSetResizableParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetSizeParams,Struct,elicit_egui::winit_plugin::EguiWinitSetSizeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetThemeParams,Struct,elicit_egui::winit_plugin::EguiWinitSetThemeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetTitleParams,Struct,elicit_egui::winit_plugin::EguiWinitSetTitleParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_egui::winit_plugin::EguiWinitSetVsyncParams,Struct,elicit_egui::winit_plugin::EguiWinitSetVsyncParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"

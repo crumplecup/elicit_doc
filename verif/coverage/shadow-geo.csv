@@ -1,412 +1,412 @@
-item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
-elicit_geo::workflow::boolean_ops_plugin::BooleanOpApplied,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::GeoBooleanOpsPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::MultipolygonDifferenceParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::MultipolygonIntersectionParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::MultipolygonUnionParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::MultipolygonXorParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::PolygonDifferenceParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::PolygonIntersectionParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::PolygonUnionParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::PolygonXorParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::multipolygon_difference_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::multipolygon_intersection_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::multipolygon_union_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::multipolygon_xor_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::polygon_difference_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::polygon_intersection_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::polygon_union_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::boolean_ops_plugin::polygon_xor_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::GeoCalculationsPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::GeometricCalculation,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::LinestringBoundingRectParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::LinestringCentroidParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::LinestringConvexHullParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::MultipointBoundingRectParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::MultipointCentroidParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::MultipointConvexHullParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::MultipolygonCentroidParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::PolygonBoundingRectParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::PolygonCentroidParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::PolygonConvexHullParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::linestring_bounding_rect_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::linestring_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::linestring_convex_hull_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::multipoint_bounding_rect_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::multipoint_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::multipoint_convex_hull_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::multipolygon_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::polygon_bounding_rect_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::polygon_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::calculations_plugin::polygon_convex_hull_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::GeoGeodesicPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::GeodesicBearingParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::GeodesicCalculated,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::GeodesicDestinationParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::GeodesicDistanceParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::HaversineBearingParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::HaversineDestinationParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::HaversineDistanceParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::geodesic_bearing_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::geodesic_destination_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::geodesic_distance_points_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::haversine_bearing_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::haversine_destination_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::geodesic_plugin::haversine_distance_points_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::EuclideanDistancePointLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::EuclideanDistancePointPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::EuclideanDistancePointPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::GeoMeasurementsPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::HausdorffDistanceLinestringsParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::LineEuclideanLengthParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::LinestringEuclideanLengthParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::MeasurementComputed,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::MultiPolygonAreaParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::PolygonSignedAreaParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::PolygonUnsignedAreaParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::RectAreaParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::euclidean_distance_point_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::euclidean_distance_point_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::euclidean_distance_point_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::hausdorff_distance_linestrings_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::line_euclidean_length_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::linestring_euclidean_length_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::multipolygon_area_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::polygon_area_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::polygon_signed_area_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::measurements_plugin::rect_area_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::GeoPredicatesPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::LinestringIntersectsLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PointWithinPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PointWithinRectParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonContainsLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonContainsPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonContainsPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonCoversLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonCoversPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonIntersectsLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PolygonIntersectsPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::PredicateChecked,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::RectContainsPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::RectIntersectsRectParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::linestring_intersects_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::point_within_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::point_within_rect_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::polygon_contains_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::polygon_contains_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::polygon_contains_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::polygon_covers_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::polygon_covers_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::polygon_intersects_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::polygon_intersects_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::rect_contains_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::predicates_plugin::rect_intersects_rect_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::DensifyLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::DensifyPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::GeoTransformationsPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::MapCoordsLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::MapCoordsPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::MapCoordsPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::RemoveRepeatedPointsLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::RotateLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::RotatePolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::ScalePolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SimplifyLinestringRdpParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SimplifyLinestringVwParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SimplifyPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SkewLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SkewPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SmoothLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::SmoothPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::TransformationApplied,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::TranslateLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::TranslatePointParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::TranslatePolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::densify_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::densify_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::map_coords_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::map_coords_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::map_coords_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::remove_repeated_points_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::rotate_linestring_around_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::rotate_polygon_around_centroid_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::scale_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::simplify_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::simplify_linestring_vw_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::simplify_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::skew_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::skew_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::smooth_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::smooth_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::translate_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::translate_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::transformations_plugin::translate_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::GeoValidationPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::GeometryTypeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::LinestringCoordsCountParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::LinestringIsClosedParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::LinestringIsConvexParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::PolygonCoordsCountParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::PolygonExteriorCoordsCountParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::ValidationChecked,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::geometry_type_name_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::linestring_coords_count_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::linestring_is_closed_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::linestring_is_convex_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::polygon_coords_count_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::validation_plugin::polygon_exterior_coords_count_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::FrechetDistanceParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::GeoWorkflowPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::GeodesicLengthLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::HaversineLengthLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::LineInterpolatePointParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::LineLocatePointParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::NearestPointOnLinestringParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::PointInPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::PolygonExteriorLengthParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::PolygonInteriorPointParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::RemoveRepeatedPointsPolygonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::WorkflowCompleted,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::frechet_distance_linestrings_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::geodesic_length_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::haversine_length_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::line_interpolate_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::line_locate_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::nearest_point_on_linestring_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::point_in_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::polygon_exterior_length_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::polygon_interior_point_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_geo::workflow::workflow_plugin::remove_repeated_points_polygon_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-geo::GeoFloat,Trait,Missing,,,,,,,
-geo::GeoNum,Trait,Missing,,,,,,,
-geo::algorithm::affine_ops::AffineOps,Trait,Missing,,,,,,,
-geo::algorithm::affine_ops::AffineTransform,Struct,Missing,,,,,,,
-geo::algorithm::area::Area,Trait,Missing,,,,,,,
-geo::algorithm::ball_tree::BallTree,Struct,Missing,,,,,,,
-geo::algorithm::ball_tree::BallTreeBuilder,Struct,Missing,,,,,,,
-geo::algorithm::ball_tree::BallTreePoint,Trait,Missing,,,,,,,
-geo::algorithm::ball_tree::NearestNeighbour,Struct,Missing,,,,,,,
-geo::algorithm::ball_tree::PointWithData,Struct,Missing,,,,,,,
-geo::algorithm::bool_ops::BooleanOps,Trait,Missing,,,,,,,
-geo::algorithm::bool_ops::OpType,Enum,Missing,,,,,,,
-geo::algorithm::bool_ops::i_overlay_integration::BoolOpsCoord,Struct,Missing,,,,,,,
-geo::algorithm::bool_ops::i_overlay_integration::BoolOpsNum,Trait,Missing,,,,,,,
-geo::algorithm::bool_ops::unary_union,Function,Missing,,,,,,,
-geo::algorithm::bounding_rect::BoundingRect,Trait,Missing,,,,,,,
-geo::algorithm::buffer::Buffer,Trait,Missing,,,,,,,
-geo::algorithm::buffer::BufferStyle,Struct,Missing,,,,,,,
-geo::algorithm::centroid::Centroid,Trait,Missing,,,,,,,
-geo::algorithm::chaikin_smoothing::ChaikinSmoothing,Trait,Missing,,,,,,,
-geo::algorithm::chamberlain_duquette_area::ChamberlainDuquetteArea,Trait,Missing,,,,,,,
-geo::algorithm::closest_point::ClosestPoint,Trait,Missing,,,,,,,
-geo::algorithm::concave_hull::ConcaveHull,Trait,Missing,,,,,,,
-geo::algorithm::concave_hull::ConcaveHullOptions,Struct,Missing,,,,,,,
-geo::algorithm::contains::Contains,Trait,Missing,,,,,,,
-geo::algorithm::contains_properly::ContainsProperly,Trait,Missing,,,,,,,
-geo::algorithm::convert::Convert,Trait,Missing,,,,,,,
-geo::algorithm::convert::TryConvert,Trait,Missing,,,,,,,
-geo::algorithm::convert_angle_unit::ToDegrees,Trait,Missing,,,,,,,
-geo::algorithm::convert_angle_unit::ToRadians,Trait,Missing,,,,,,,
-geo::algorithm::convex_hull::ConvexHull,Trait,Missing,,,,,,,
-geo::algorithm::convex_hull::graham::graham_hull,Function,Missing,,,,,,,
-geo::algorithm::convex_hull::qhull::quick_hull,Function,Missing,,,,,,,
-geo::algorithm::coordinate_position::CoordPos,Enum,Missing,,,,,,,
-geo::algorithm::coordinate_position::CoordinatePosition,Trait,Missing,,,,,,,
-geo::algorithm::coordinate_position::coord_pos_relative_to_ring,Function,Missing,,,,,,,
-geo::algorithm::coords_iter::CoordsIter,Trait,Missing,,,,,,,
-geo::algorithm::covers::Covers,Trait,Missing,,,,,,,
-geo::algorithm::cross_track_distance::CrossTrackDistance,Trait,Missing,,,,,,,
-geo::algorithm::dbscan::Dbscan,Trait,Missing,,,,,,,
-geo::algorithm::densify_haversine::DensifyHaversine,Trait,Missing,,,,,,,
-geo::algorithm::dimensions::Dimensions,Enum,Missing,,,,,,,
-geo::algorithm::dimensions::HasDimensions,Trait,Missing,,,,,,,
-geo::algorithm::euclidean_distance::EuclideanDistance,Trait,Missing,,,,,,,
-geo::algorithm::euclidean_distance::nearest_neighbour_distance,Function,Missing,,,,,,,
-geo::algorithm::euclidean_length::EuclideanLength,Trait,Missing,,,,,,,
-geo::algorithm::extremes::Extreme,Struct,Missing,,,,,,,
-geo::algorithm::extremes::Extremes,Trait,Missing,,,,,,,
-geo::algorithm::extremes::Outcome,Struct,Missing,,,,,,,
-geo::algorithm::frechet_distance::FrechetDistance,Trait,Missing,,,,,,,
-geo::algorithm::geodesic_area::GeodesicArea,Trait,Missing,,,,,,,
-geo::algorithm::geodesic_bearing::GeodesicBearing,Trait,Missing,,,,,,,
-geo::algorithm::geodesic_destination::GeodesicDestination,Trait,Missing,,,,,,,
-geo::algorithm::geodesic_distance::GeodesicDistance,Trait,Missing,,,,,,,
-geo::algorithm::geodesic_intermediate::GeodesicIntermediate,Trait,Missing,,,,,,,
-geo::algorithm::geodesic_length::GeodesicLength,Trait,Missing,,,,,,,
-geo::algorithm::hausdorff_distance::HausdorffDistance,Trait,Missing,,,,,,,
-geo::algorithm::haversine_bearing::HaversineBearing,Trait,Missing,,,,,,,
-geo::algorithm::haversine_closest_point::HaversineClosestPoint,Trait,Missing,,,,,,,
-geo::algorithm::haversine_destination::HaversineDestination,Trait,Missing,,,,,,,
-geo::algorithm::haversine_distance::HaversineDistance,Trait,Missing,,,,,,,
-geo::algorithm::haversine_intermediate::HaversineIntermediate,Trait,Missing,,,,,,,
-geo::algorithm::haversine_length::HaversineLength,Trait,Missing,,,,,,,
-geo::algorithm::indexed::interval_tree_multipolygon::IntervalTreeMultiPolygon,Struct,Missing,,,,,,,
-geo::algorithm::indexed::prepared_geometry::PreparedGeometry,Struct,Missing,,,,,,,
-geo::algorithm::interior_point::InteriorPoint,Trait,Missing,,,,,,,
-geo::algorithm::intersects::Intersects,Trait,Missing,,,,,,,
-geo::algorithm::is_convex::IsConvex,Trait,Missing,,,,,,,
-geo::algorithm::k_nearest_concave_hull::KNearestConcaveHull,Trait,Missing,,,,,,,
-geo::algorithm::kernels::Kernel,Trait,Missing,,,,,,,
-geo::algorithm::kernels::Orientation,Enum,Missing,,,,,,,
-geo::algorithm::kernels::robust::RobustKernel,Struct,Missing,,,,,,,
-geo::algorithm::kernels::simple::SimpleKernel,Struct,Missing,,,,,,,
-geo::algorithm::kmeans::KMeans,Trait,Missing,,,,,,,
-geo::algorithm::kmeans::KMeansParams,Struct,Missing,,,,,,,
-geo::algorithm::kmeans::error::KMeansError,Enum,Missing,,,,,,,
-geo::algorithm::kmeans::error::KMeansInitError,Enum,Missing,,,,,,,
-geo::algorithm::line_interpolate_point::LineInterpolatePoint,Trait,Missing,,,,,,,
-geo::algorithm::line_intersection::LineIntersection,Enum,Missing,,,,,,,
-geo::algorithm::line_intersection::line_intersection,Function,Missing,,,,,,,
-geo::algorithm::line_locate_point::LineLocatePoint,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::bearing::Bearing,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::densify::Densifiable,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::densify::Densify,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::destination::Destination,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::distance::Distance,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::frechet_distance::FrechetDistance,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::interpolate_line::InterpolatableLine,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::interpolate_line::InterpolateLine,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::interpolate_point::InterpolatePoint,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::length::Length,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::length::LengthMeasurable,Trait,Missing,,,,,,,
-geo::algorithm::line_measures::metric_spaces::euclidean::Euclidean,Struct,Missing,,,,,,,
-geo::algorithm::line_measures::metric_spaces::geodesic::GeodesicMeasure,Struct,Missing,,,,,,,
-geo::algorithm::line_measures::metric_spaces::haversine::Haversine,Constant,Missing,,,,,,,
-geo::algorithm::line_measures::metric_spaces::haversine::HaversineMeasure,Struct,Missing,,,,,,,
-geo::algorithm::line_measures::metric_spaces::rhumb::Rhumb,Struct,Missing,,,,,,,
-geo::algorithm::lines_iter::LineStringIter,Struct,Missing,,,,,,,
-geo::algorithm::lines_iter::LinesIter,Trait,Missing,,,,,,,
-geo::algorithm::lines_iter::MapLinesIter,Struct,Missing,,,,,,,
-geo::algorithm::linestring_segment::LineStringSegmentize,Trait,Missing,,,,,,,
-geo::algorithm::linestring_segment::LineStringSegmentizeHaversine,Trait,Missing,,,,,,,
-geo::algorithm::map_coords::MapCoords,Trait,Missing,,,,,,,
-geo::algorithm::map_coords::MapCoordsInPlace,Trait,Missing,,,,,,,
-geo::algorithm::minimum_rotated_rect::MinimumRotatedRect,Trait,Missing,,,,,,,
-geo::algorithm::monotone::MonotonicPolygons,Struct,Missing,,,,,,,
-geo::algorithm::monotone::builder::monotone_subdivision,Function,Missing,,,,,,,
-geo::algorithm::monotone::mono_poly::MonoPoly,Struct,Missing,,,,,,,
-geo::algorithm::monotone_chain::chain::MonotoneChain,Struct,Missing,,,,,,,
-geo::algorithm::monotone_chain::chain_iter::MonotoneChains,Trait,Missing,,,,,,,
-geo::algorithm::monotone_chain::geometry::geometry::MonotoneChainGeometry,Enum,Missing,,,,,,,
-geo::algorithm::monotone_chain::geometry::linestring::MonotoneChainLineString,Struct,Missing,,,,,,,
-geo::algorithm::monotone_chain::geometry::multilinestring::MonotoneChainMultiLineString,Struct,Missing,,,,,,,
-geo::algorithm::monotone_chain::geometry::multipolygon::MonotoneChainMultiPolygon,Struct,Missing,,,,,,,
-geo::algorithm::monotone_chain::geometry::polygon::MonotoneChainPolygon,Struct,Missing,,,,,,,
-geo::algorithm::monotone_chain::segment::MonotoneChainSegment,Struct,Missing,,,,,,,
-geo::algorithm::orient::Direction,Enum,Missing,,,,,,,
-geo::algorithm::orient::Orient,Trait,Missing,,,,,,,
-geo::algorithm::outlier_detection::OutlierDetection,Trait,Missing,,,,,,,
-geo::algorithm::outlier_detection::PreparedDetector,Struct,Missing,,,,,,,
-geo::algorithm::relate::Relate,Trait,Missing,,,,,,,
-geo::algorithm::relate::geomgraph::geometry_graph::GeometryGraph,Struct,Missing,,,,,,,
-geo::algorithm::relate::geomgraph::intersection_matrix::IntersectionMatrix,Struct,Missing,,,,,,,
-geo::algorithm::relate::geomgraph::intersection_matrix::InvalidInputError,Struct,Missing,,,,,,,
-geo::algorithm::remove_repeated_points::RemoveRepeatedPoints,Trait,Missing,,,,,,,
-geo::algorithm::repair_polygon::MakeValid,Trait,Missing,,,,,,,
-geo::algorithm::repair_polygon::RepairPolygonError,Enum,Missing,,,,,,,
-geo::algorithm::rhumb::bearing::RhumbBearing,Trait,Missing,,,,,,,
-geo::algorithm::rhumb::destination::RhumbDestination,Trait,Missing,,,,,,,
-geo::algorithm::rhumb::distance::RhumbDistance,Trait,Missing,,,,,,,
-geo::algorithm::rhumb::intermediate::RhumbIntermediate,Trait,Missing,,,,,,,
-geo::algorithm::rhumb::length::RhumbLength,Trait,Missing,,,,,,,
-geo::algorithm::rotate::Rotate,Trait,Missing,,,,,,,
-geo::algorithm::scale::Scale,Trait,Missing,,,,,,,
-geo::algorithm::simplify::Simplify,Trait,Missing,,,,,,,
-geo::algorithm::simplify::SimplifyIdx,Trait,Missing,,,,,,,
-geo::algorithm::simplify_vw::SimplifyVw,Trait,Missing,,,,,,,
-geo::algorithm::simplify_vw::SimplifyVwIdx,Trait,Missing,,,,,,,
-geo::algorithm::simplify_vw::SimplifyVwPreserve,Trait,Missing,,,,,,,
-geo::algorithm::skew::Skew,Trait,Missing,,,,,,,
-geo::algorithm::stitch::LineStitchingError,Enum,Missing,,,,,,,
-geo::algorithm::stitch::StitchTriangles,Trait,Missing,,,,,,,
-geo::algorithm::stitch::private::Stitchable,Trait,Missing,,,,,,,
-geo::algorithm::sweep::Intersections,Struct,Missing,,,,,,,
-geo::algorithm::sweep::cross::Cross,Trait,Missing,,,,,,,
-geo::algorithm::translate::Translate,Trait,Missing,,,,,,,
-geo::algorithm::triangulate_delaunay::DelaunayTriangulationConfig,Struct,Missing,,,,,,,
-geo::algorithm::triangulate_delaunay::SpadeTriangulationFloat,Trait,Missing,,,,,,,
-geo::algorithm::triangulate_delaunay::Triangles,TypeAlias,Missing,,,,,,,
-geo::algorithm::triangulate_delaunay::TriangulateDelaunay,Trait,Missing,,,,,,,
-geo::algorithm::triangulate_delaunay::TriangulateDelaunayUnconstrained,Trait,Missing,,,,,,,
-geo::algorithm::triangulate_delaunay::TriangulationError,Enum,Missing,,,,,,,
-geo::algorithm::triangulate_delaunay::TriangulationResult,TypeAlias,Missing,,,,,,,
-geo::algorithm::triangulate_delaunay::private::ConstrainedRequirementTrait,Trait,Missing,,,,,,,
-geo::algorithm::triangulate_delaunay::private::UnconstrainedRequirementTrait,Trait,Missing,,,,,,,
-geo::algorithm::triangulate_earcut::Iter,Struct,Missing,,,,,,,
-geo::algorithm::triangulate_earcut::RawTriangulation,Struct,Missing,,,,,,,
-geo::algorithm::triangulate_earcut::TriangulateEarcut,Trait,Missing,,,,,,,
-geo::algorithm::triangulate_spade::SpadeTriangulationConfig,Struct,Missing,,,,,,,
-geo::algorithm::triangulate_spade::SpadeTriangulationFloat,Trait,Missing,,,,,,,
-geo::algorithm::triangulate_spade::Triangles,TypeAlias,Missing,,,,,,,
-geo::algorithm::triangulate_spade::TriangulateSpade,Trait,Missing,,,,,,,
-geo::algorithm::triangulate_spade::TriangulationError,Enum,Missing,,,,,,,
-geo::algorithm::triangulate_spade::TriangulationResult,TypeAlias,Missing,,,,,,,
-geo::algorithm::triangulate_spade::private::TriangulationRequirementTrait,Trait,Missing,,,,,,,
-geo::algorithm::validation::CoordIndex,Struct,Missing,,,,,,,
-geo::algorithm::validation::GeometryIndex,Struct,Missing,,,,,,,
-geo::algorithm::validation::RingRole,Enum,Missing,,,,,,,
-geo::algorithm::validation::Validation,Trait,Missing,,,,,,,
-geo::algorithm::validation::coord::InvalidCoord,Enum,Missing,,,,,,,
-geo::algorithm::validation::geometry::InvalidGeometry,Enum,Missing,,,,,,,
-geo::algorithm::validation::geometry_collection::InvalidGeometryCollection,Enum,Missing,,,,,,,
-geo::algorithm::validation::line::InvalidLine,Enum,Missing,,,,,,,
-geo::algorithm::validation::line_string::InvalidLineString,Enum,Missing,,,,,,,
-geo::algorithm::validation::multi_line_string::InvalidMultiLineString,Enum,Missing,,,,,,,
-geo::algorithm::validation::multi_point::InvalidMultiPoint,Enum,Missing,,,,,,,
-geo::algorithm::validation::multi_polygon::InvalidMultiPolygon,Enum,Missing,,,,,,,
-geo::algorithm::validation::point::InvalidPoint,Enum,Missing,,,,,,,
-geo::algorithm::validation::polygon::InvalidPolygon,Enum,Missing,,,,,,,
-geo::algorithm::validation::rect::InvalidRect,Enum,Missing,,,,,,,
-geo::algorithm::validation::triangle::InvalidTriangle,Enum,Missing,,,,,,,
-geo::algorithm::vector_ops::Vector2DOps,Trait,Missing,,,,,,,
-geo::algorithm::vincenty_distance::FailedToConvergeError,Struct,Missing,,,,,,,
-geo::algorithm::vincenty_distance::VincentyDistance,Trait,Missing,,,,,,,
-geo::algorithm::vincenty_length::VincentyLength,Trait,Missing,,,,,,,
-geo::algorithm::voronoi::Voronoi,Trait,Missing,,,,,,,
-geo::algorithm::voronoi::VoronoiClip,Enum,Missing,,,,,,,
-geo::algorithm::voronoi::VoronoiError,Enum,Missing,,,,,,,
-geo::algorithm::voronoi::VoronoiParams,Struct,Missing,,,,,,,
-geo::algorithm::winding_order::Points,Struct,Missing,,,,,,,
-geo::algorithm::winding_order::Winding,Trait,Missing,,,,,,,
-geo::algorithm::winding_order::WindingOrder,Enum,Missing,,,,,,,
-geo::algorithm::winding_order::triangle_winding_order,Function,Missing,,,,,,,
-geo::algorithm::within::Within,Trait,Missing,,,,,,,
-geo::geometry_cow::GeometryCow,Enum,Missing,,,,,,,
-geo::geometry_delegate_impl,Macro,Missing,,,,,,,
-geo::types::Closest,Enum,Missing,,,,,,,
-geo_types::CoordFloat,Trait,Missing,,,,,,,
-geo_types::CoordNum,Trait,Missing,,,,,,,
-geo_types::CoordinateType,Trait,Missing,,,,,,,
-geo_types::coord,Macro,Missing,,,,,,,
-geo_types::error::Error,Enum,Missing,,,,,,,
-geo_types::geometry::Geometry,Enum,Missing,,,,,,,
-geo_types::geometry::coord::Coord,Struct,Missing,,,,,,,
-geo_types::geometry::geometry_collection::GeometryCollection,Struct,Missing,,,,,,,
-geo_types::geometry::geometry_collection::IntoIteratorHelper,Struct,Missing,,,,,,,
-geo_types::geometry::geometry_collection::IterHelper,Struct,Missing,,,,,,,
-geo_types::geometry::geometry_collection::IterMutHelper,Struct,Missing,,,,,,,
-geo_types::geometry::line::Line,Struct,Missing,,,,,,,
-geo_types::geometry::line_string::CoordinatesIter,Struct,Missing,,,,,,,
-geo_types::geometry::line_string::LineString,Struct,Missing,,,,,,,
-geo_types::geometry::line_string::PointsIter,Struct,Missing,,,,,,,
-geo_types::geometry::multi_line_string::MultiLineString,Struct,Missing,,,,,,,
-geo_types::geometry::multi_point::MultiPoint,Struct,Missing,,,,,,,
-geo_types::geometry::multi_polygon::MultiPolygon,Struct,Missing,,,,,,,
-geo_types::geometry::point::Point,Struct,Missing,,,,,,,
-geo_types::geometry::polygon::ListSign,Enum,Missing,,,,,,,
-geo_types::geometry::polygon::Polygon,Struct,Missing,,,,,,,
-geo_types::geometry::rect::InvalidRectCoordinatesError,Struct,Missing,,,,,,,
-geo_types::geometry::rect::Rect,Struct,Missing,,,,,,,
-geo_types::geometry::triangle::Triangle,Struct,Missing,,,,,,,
-geo_types::line_string,Macro,Missing,,,,,,,
-geo_types::point,Macro,Missing,,,,,,,
-geo_types::polygon,Macro,Missing,,,,,,,
-geo_types::private_utils::get_bounding_rect,Function,Missing,,,,,,,
-geo_types::private_utils::line_string_bounding_rect,Function,Missing,,,,,,,
-geo_types::wkt,Macro,Missing,,,,,,,
-geographiclib_rs::geodesic::DirectGeodesic,Trait,Missing,,,,,,,
-geographiclib_rs::geodesic::Geodesic,Struct,Missing,,,,,,,
-geographiclib_rs::geodesic::InverseGeodesic,Trait,Missing,,,,,,,
-geographiclib_rs::geodesic_line::GeodesicLine,Struct,Missing,,,,,,,
-geographiclib_rs::polygon_area::PolygonArea,Struct,Missing,,,,,,,
-geographiclib_rs::polygon_area::Winding,Enum,Missing,,,,,,,
+item_path,item_kind,api_family,status,coverage_kind,primary_gap_kind,shadow_item,drift_confidence,shadow_elicit_impl,verification_gap,verification_ready,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,action,notes
+geo::GeoFloat,Trait,geo::GeoFloat,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::GeoFloat` so the full public API surface is represented,
+geo::GeoNum,Trait,geo::GeoNum,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::GeoNum` so the full public API surface is represented,
+geo::algorithm::affine_ops::AffineOps,Trait,geo::algorithm::affine_ops,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::affine_ops::AffineOps` so the full public API surface is represented,
+geo::algorithm::affine_ops::AffineTransform,Struct,geo::algorithm::affine_ops,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::affine_ops::AffineTransform` and make the new wrapper `ElicitComplete`,
+geo::algorithm::area::Area,Trait,geo::algorithm::area,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::area::Area` so the full public API surface is represented,
+geo::algorithm::ball_tree::BallTree,Struct,geo::algorithm::ball_tree,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::ball_tree::BallTree` and make the new wrapper `ElicitComplete`,
+geo::algorithm::ball_tree::BallTreeBuilder,Struct,geo::algorithm::ball_tree,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::ball_tree::BallTreeBuilder` and make the new wrapper `ElicitComplete`,
+geo::algorithm::ball_tree::BallTreePoint,Trait,geo::algorithm::ball_tree,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::ball_tree::BallTreePoint` so the full public API surface is represented,
+geo::algorithm::ball_tree::NearestNeighbour,Struct,geo::algorithm::ball_tree,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::ball_tree::NearestNeighbour` and make the new wrapper `ElicitComplete`,
+geo::algorithm::ball_tree::PointWithData,Struct,geo::algorithm::ball_tree,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::ball_tree::PointWithData` and make the new wrapper `ElicitComplete`,
+geo::algorithm::bool_ops::BooleanOps,Trait,geo::algorithm::bool_ops,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::bool_ops::BooleanOps` so the full public API surface is represented,
+geo::algorithm::bool_ops::OpType,Enum,geo::algorithm::bool_ops,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::bool_ops::OpType` and make the new wrapper `ElicitComplete`,
+geo::algorithm::bool_ops::i_overlay_integration::BoolOpsCoord,Struct,geo::algorithm::bool_ops,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::bool_ops::i_overlay_integration::BoolOpsCoord` and make the new wrapper `ElicitComplete`,
+geo::algorithm::bool_ops::i_overlay_integration::BoolOpsNum,Trait,geo::algorithm::bool_ops,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::bool_ops::i_overlay_integration::BoolOpsNum` so the full public API surface is represented,
+geo::algorithm::bool_ops::unary_union,Function,geo::algorithm::bool_ops,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::bool_ops::unary_union` so the full public API surface is represented,
+geo::algorithm::bounding_rect::BoundingRect,Trait,geo::algorithm::bounding_rect,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::bounding_rect::BoundingRect` so the full public API surface is represented,
+geo::algorithm::buffer::Buffer,Trait,geo::algorithm::buffer,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::buffer::Buffer` so the full public API surface is represented,
+geo::algorithm::buffer::BufferStyle,Struct,geo::algorithm::buffer,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::buffer::BufferStyle` and make the new wrapper `ElicitComplete`,
+geo::algorithm::centroid::Centroid,Trait,geo::algorithm::centroid,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::centroid::Centroid` so the full public API surface is represented,
+geo::algorithm::chaikin_smoothing::ChaikinSmoothing,Trait,geo::algorithm::chaikin_smoothing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::chaikin_smoothing::ChaikinSmoothing` so the full public API surface is represented,
+geo::algorithm::chamberlain_duquette_area::ChamberlainDuquetteArea,Trait,geo::algorithm::chamberlain_duquette_area,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::chamberlain_duquette_area::ChamberlainDuquetteArea` so the full public API surface is represented,
+geo::algorithm::closest_point::ClosestPoint,Trait,geo::algorithm::closest_point,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::closest_point::ClosestPoint` so the full public API surface is represented,
+geo::algorithm::concave_hull::ConcaveHull,Trait,geo::algorithm::concave_hull,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::concave_hull::ConcaveHull` so the full public API surface is represented,
+geo::algorithm::concave_hull::ConcaveHullOptions,Struct,geo::algorithm::concave_hull,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::concave_hull::ConcaveHullOptions` and make the new wrapper `ElicitComplete`,
+geo::algorithm::contains::Contains,Trait,geo::algorithm::contains,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::contains::Contains` so the full public API surface is represented,
+geo::algorithm::contains_properly::ContainsProperly,Trait,geo::algorithm::contains_properly,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::contains_properly::ContainsProperly` so the full public API surface is represented,
+geo::algorithm::convert::Convert,Trait,geo::algorithm::convert,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::convert::Convert` so the full public API surface is represented,
+geo::algorithm::convert::TryConvert,Trait,geo::algorithm::convert,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::convert::TryConvert` so the full public API surface is represented,
+geo::algorithm::convert_angle_unit::ToDegrees,Trait,geo::algorithm::convert_angle_unit,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::convert_angle_unit::ToDegrees` so the full public API surface is represented,
+geo::algorithm::convert_angle_unit::ToRadians,Trait,geo::algorithm::convert_angle_unit,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::convert_angle_unit::ToRadians` so the full public API surface is represented,
+geo::algorithm::convex_hull::ConvexHull,Trait,geo::algorithm::convex_hull,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::convex_hull::ConvexHull` so the full public API surface is represented,
+geo::algorithm::convex_hull::graham::graham_hull,Function,geo::algorithm::convex_hull,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::convex_hull::graham::graham_hull` so the full public API surface is represented,
+geo::algorithm::convex_hull::qhull::quick_hull,Function,geo::algorithm::convex_hull,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::convex_hull::qhull::quick_hull` so the full public API surface is represented,
+geo::algorithm::coordinate_position::CoordPos,Enum,geo::algorithm::coordinate_position,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::coordinate_position::CoordPos` and make the new wrapper `ElicitComplete`,
+geo::algorithm::coordinate_position::CoordinatePosition,Trait,geo::algorithm::coordinate_position,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::coordinate_position::CoordinatePosition` so the full public API surface is represented,
+geo::algorithm::coordinate_position::coord_pos_relative_to_ring,Function,geo::algorithm::coordinate_position,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::coordinate_position::coord_pos_relative_to_ring` so the full public API surface is represented,
+geo::algorithm::coords_iter::CoordsIter,Trait,geo::algorithm::coords_iter,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::coords_iter::CoordsIter` so the full public API surface is represented,
+geo::algorithm::covers::Covers,Trait,geo::algorithm::covers,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::covers::Covers` so the full public API surface is represented,
+geo::algorithm::cross_track_distance::CrossTrackDistance,Trait,geo::algorithm::cross_track_distance,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::cross_track_distance::CrossTrackDistance` so the full public API surface is represented,
+geo::algorithm::dbscan::Dbscan,Trait,geo::algorithm::dbscan,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::dbscan::Dbscan` so the full public API surface is represented,
+geo::algorithm::densify_haversine::DensifyHaversine,Trait,geo::algorithm::densify_haversine,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::densify_haversine::DensifyHaversine` so the full public API surface is represented,
+geo::algorithm::dimensions::Dimensions,Enum,geo::algorithm::dimensions,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::dimensions::Dimensions` and make the new wrapper `ElicitComplete`,
+geo::algorithm::dimensions::HasDimensions,Trait,geo::algorithm::dimensions,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::dimensions::HasDimensions` so the full public API surface is represented,
+geo::algorithm::euclidean_distance::EuclideanDistance,Trait,geo::algorithm::euclidean_distance,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::euclidean_distance::EuclideanDistance` so the full public API surface is represented,
+geo::algorithm::euclidean_distance::nearest_neighbour_distance,Function,geo::algorithm::euclidean_distance,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::euclidean_distance::nearest_neighbour_distance` so the full public API surface is represented,
+geo::algorithm::euclidean_length::EuclideanLength,Trait,geo::algorithm::euclidean_length,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::euclidean_length::EuclideanLength` so the full public API surface is represented,
+geo::algorithm::extremes::Extreme,Struct,geo::algorithm::extremes,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::extremes::Extreme` and make the new wrapper `ElicitComplete`,
+geo::algorithm::extremes::Extremes,Trait,geo::algorithm::extremes,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::extremes::Extremes` so the full public API surface is represented,
+geo::algorithm::extremes::Outcome,Struct,geo::algorithm::extremes,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::extremes::Outcome` and make the new wrapper `ElicitComplete`,
+geo::algorithm::frechet_distance::FrechetDistance,Trait,geo::algorithm::frechet_distance,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::frechet_distance::FrechetDistance` so the full public API surface is represented,
+geo::algorithm::geodesic_area::GeodesicArea,Trait,geo::algorithm::geodesic_area,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::geodesic_area::GeodesicArea` so the full public API surface is represented,
+geo::algorithm::geodesic_bearing::GeodesicBearing,Trait,geo::algorithm::geodesic_bearing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::geodesic_bearing::GeodesicBearing` so the full public API surface is represented,
+geo::algorithm::geodesic_destination::GeodesicDestination,Trait,geo::algorithm::geodesic_destination,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::geodesic_destination::GeodesicDestination` so the full public API surface is represented,
+geo::algorithm::geodesic_distance::GeodesicDistance,Trait,geo::algorithm::geodesic_distance,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::geodesic_distance::GeodesicDistance` so the full public API surface is represented,
+geo::algorithm::geodesic_intermediate::GeodesicIntermediate,Trait,geo::algorithm::geodesic_intermediate,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::geodesic_intermediate::GeodesicIntermediate` so the full public API surface is represented,
+geo::algorithm::geodesic_length::GeodesicLength,Trait,geo::algorithm::geodesic_length,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::geodesic_length::GeodesicLength` so the full public API surface is represented,
+geo::algorithm::hausdorff_distance::HausdorffDistance,Trait,geo::algorithm::hausdorff_distance,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::hausdorff_distance::HausdorffDistance` so the full public API surface is represented,
+geo::algorithm::haversine_bearing::HaversineBearing,Trait,geo::algorithm::haversine_bearing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::haversine_bearing::HaversineBearing` so the full public API surface is represented,
+geo::algorithm::haversine_closest_point::HaversineClosestPoint,Trait,geo::algorithm::haversine_closest_point,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::haversine_closest_point::HaversineClosestPoint` so the full public API surface is represented,
+geo::algorithm::haversine_destination::HaversineDestination,Trait,geo::algorithm::haversine_destination,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::haversine_destination::HaversineDestination` so the full public API surface is represented,
+geo::algorithm::haversine_distance::HaversineDistance,Trait,geo::algorithm::haversine_distance,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::haversine_distance::HaversineDistance` so the full public API surface is represented,
+geo::algorithm::haversine_intermediate::HaversineIntermediate,Trait,geo::algorithm::haversine_intermediate,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::haversine_intermediate::HaversineIntermediate` so the full public API surface is represented,
+geo::algorithm::haversine_length::HaversineLength,Trait,geo::algorithm::haversine_length,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::haversine_length::HaversineLength` so the full public API surface is represented,
+geo::algorithm::indexed::interval_tree_multipolygon::IntervalTreeMultiPolygon,Struct,geo::algorithm::indexed,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::indexed::interval_tree_multipolygon::IntervalTreeMultiPolygon` and make the new wrapper `ElicitComplete`,
+geo::algorithm::indexed::prepared_geometry::PreparedGeometry,Struct,geo::algorithm::indexed,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::indexed::prepared_geometry::PreparedGeometry` and make the new wrapper `ElicitComplete`,
+geo::algorithm::interior_point::InteriorPoint,Trait,geo::algorithm::interior_point,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::interior_point::InteriorPoint` so the full public API surface is represented,
+geo::algorithm::intersects::Intersects,Trait,geo::algorithm::intersects,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::intersects::Intersects` so the full public API surface is represented,
+geo::algorithm::is_convex::IsConvex,Trait,geo::algorithm::is_convex,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::is_convex::IsConvex` so the full public API surface is represented,
+geo::algorithm::k_nearest_concave_hull::KNearestConcaveHull,Trait,geo::algorithm::k_nearest_concave_hull,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::k_nearest_concave_hull::KNearestConcaveHull` so the full public API surface is represented,
+geo::algorithm::kernels::Kernel,Trait,geo::algorithm::kernels,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::kernels::Kernel` so the full public API surface is represented,
+geo::algorithm::kernels::Orientation,Enum,geo::algorithm::kernels,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::kernels::Orientation` and make the new wrapper `ElicitComplete`,
+geo::algorithm::kernels::robust::RobustKernel,Struct,geo::algorithm::kernels,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::kernels::robust::RobustKernel` and make the new wrapper `ElicitComplete`,
+geo::algorithm::kernels::simple::SimpleKernel,Struct,geo::algorithm::kernels,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::kernels::simple::SimpleKernel` and make the new wrapper `ElicitComplete`,
+geo::algorithm::kmeans::KMeans,Trait,geo::algorithm::kmeans,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::kmeans::KMeans` so the full public API surface is represented,
+geo::algorithm::kmeans::KMeansParams,Struct,geo::algorithm::kmeans,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::kmeans::KMeansParams` and make the new wrapper `ElicitComplete`,
+geo::algorithm::kmeans::error::KMeansError,Enum,geo::algorithm::kmeans,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::kmeans::error::KMeansError` and make the new wrapper `ElicitComplete`,
+geo::algorithm::kmeans::error::KMeansInitError,Enum,geo::algorithm::kmeans,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::kmeans::error::KMeansInitError` and make the new wrapper `ElicitComplete`,
+geo::algorithm::line_interpolate_point::LineInterpolatePoint,Trait,geo::algorithm::line_interpolate_point,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_interpolate_point::LineInterpolatePoint` so the full public API surface is represented,
+geo::algorithm::line_intersection::LineIntersection,Enum,geo::algorithm::line_intersection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::line_intersection::LineIntersection` and make the new wrapper `ElicitComplete`,
+geo::algorithm::line_intersection::line_intersection,Function,geo::algorithm::line_intersection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_intersection::line_intersection` so the full public API surface is represented,
+geo::algorithm::line_locate_point::LineLocatePoint,Trait,geo::algorithm::line_locate_point,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_locate_point::LineLocatePoint` so the full public API surface is represented,
+geo::algorithm::line_measures::bearing::Bearing,Trait,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::bearing::Bearing` so the full public API surface is represented,
+geo::algorithm::line_measures::densify::Densifiable,Trait,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::densify::Densifiable` so the full public API surface is represented,
+geo::algorithm::line_measures::densify::Densify,Trait,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::densify::Densify` so the full public API surface is represented,
+geo::algorithm::line_measures::destination::Destination,Trait,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::destination::Destination` so the full public API surface is represented,
+geo::algorithm::line_measures::distance::Distance,Trait,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::distance::Distance` so the full public API surface is represented,
+geo::algorithm::line_measures::frechet_distance::FrechetDistance,Trait,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::frechet_distance::FrechetDistance` so the full public API surface is represented,
+geo::algorithm::line_measures::interpolate_line::InterpolatableLine,Trait,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::interpolate_line::InterpolatableLine` so the full public API surface is represented,
+geo::algorithm::line_measures::interpolate_line::InterpolateLine,Trait,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::interpolate_line::InterpolateLine` so the full public API surface is represented,
+geo::algorithm::line_measures::interpolate_point::InterpolatePoint,Trait,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::interpolate_point::InterpolatePoint` so the full public API surface is represented,
+geo::algorithm::line_measures::length::Length,Trait,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::length::Length` so the full public API surface is represented,
+geo::algorithm::line_measures::length::LengthMeasurable,Trait,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::length::LengthMeasurable` so the full public API surface is represented,
+geo::algorithm::line_measures::metric_spaces::euclidean::Euclidean,Struct,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::line_measures::metric_spaces::euclidean::Euclidean` and make the new wrapper `ElicitComplete`,
+geo::algorithm::line_measures::metric_spaces::geodesic::GeodesicMeasure,Struct,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::line_measures::metric_spaces::geodesic::GeodesicMeasure` and make the new wrapper `ElicitComplete`,
+geo::algorithm::line_measures::metric_spaces::haversine::Haversine,Constant,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::line_measures::metric_spaces::haversine::Haversine` so the full public API surface is represented,
+geo::algorithm::line_measures::metric_spaces::haversine::HaversineMeasure,Struct,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::line_measures::metric_spaces::haversine::HaversineMeasure` and make the new wrapper `ElicitComplete`,
+geo::algorithm::line_measures::metric_spaces::rhumb::Rhumb,Struct,geo::algorithm::line_measures,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::line_measures::metric_spaces::rhumb::Rhumb` and make the new wrapper `ElicitComplete`,
+geo::algorithm::lines_iter::LineStringIter,Struct,geo::algorithm::lines_iter,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::lines_iter::LineStringIter` and make the new wrapper `ElicitComplete`,
+geo::algorithm::lines_iter::LinesIter,Trait,geo::algorithm::lines_iter,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::lines_iter::LinesIter` so the full public API surface is represented,
+geo::algorithm::lines_iter::MapLinesIter,Struct,geo::algorithm::lines_iter,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::lines_iter::MapLinesIter` and make the new wrapper `ElicitComplete`,
+geo::algorithm::linestring_segment::LineStringSegmentize,Trait,geo::algorithm::linestring_segment,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::linestring_segment::LineStringSegmentize` so the full public API surface is represented,
+geo::algorithm::linestring_segment::LineStringSegmentizeHaversine,Trait,geo::algorithm::linestring_segment,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::linestring_segment::LineStringSegmentizeHaversine` so the full public API surface is represented,
+geo::algorithm::map_coords::MapCoords,Trait,geo::algorithm::map_coords,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::map_coords::MapCoords` so the full public API surface is represented,
+geo::algorithm::map_coords::MapCoordsInPlace,Trait,geo::algorithm::map_coords,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::map_coords::MapCoordsInPlace` so the full public API surface is represented,
+geo::algorithm::minimum_rotated_rect::MinimumRotatedRect,Trait,geo::algorithm::minimum_rotated_rect,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::minimum_rotated_rect::MinimumRotatedRect` so the full public API surface is represented,
+geo::algorithm::monotone::MonotonicPolygons,Struct,geo::algorithm::monotone,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::monotone::MonotonicPolygons` and make the new wrapper `ElicitComplete`,
+geo::algorithm::monotone::builder::monotone_subdivision,Function,geo::algorithm::monotone,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::monotone::builder::monotone_subdivision` so the full public API surface is represented,
+geo::algorithm::monotone::mono_poly::MonoPoly,Struct,geo::algorithm::monotone,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::monotone::mono_poly::MonoPoly` and make the new wrapper `ElicitComplete`,
+geo::algorithm::monotone_chain::chain::MonotoneChain,Struct,geo::algorithm::monotone_chain,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::monotone_chain::chain::MonotoneChain` and make the new wrapper `ElicitComplete`,
+geo::algorithm::monotone_chain::chain_iter::MonotoneChains,Trait,geo::algorithm::monotone_chain,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::monotone_chain::chain_iter::MonotoneChains` so the full public API surface is represented,
+geo::algorithm::monotone_chain::geometry::geometry::MonotoneChainGeometry,Enum,geo::algorithm::monotone_chain,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::monotone_chain::geometry::geometry::MonotoneChainGeometry` and make the new wrapper `ElicitComplete`,
+geo::algorithm::monotone_chain::geometry::linestring::MonotoneChainLineString,Struct,geo::algorithm::monotone_chain,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::monotone_chain::geometry::linestring::MonotoneChainLineString` and make the new wrapper `ElicitComplete`,
+geo::algorithm::monotone_chain::geometry::multilinestring::MonotoneChainMultiLineString,Struct,geo::algorithm::monotone_chain,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::monotone_chain::geometry::multilinestring::MonotoneChainMultiLineString` and make the new wrapper `ElicitComplete`,
+geo::algorithm::monotone_chain::geometry::multipolygon::MonotoneChainMultiPolygon,Struct,geo::algorithm::monotone_chain,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::monotone_chain::geometry::multipolygon::MonotoneChainMultiPolygon` and make the new wrapper `ElicitComplete`,
+geo::algorithm::monotone_chain::geometry::polygon::MonotoneChainPolygon,Struct,geo::algorithm::monotone_chain,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::monotone_chain::geometry::polygon::MonotoneChainPolygon` and make the new wrapper `ElicitComplete`,
+geo::algorithm::monotone_chain::segment::MonotoneChainSegment,Struct,geo::algorithm::monotone_chain,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::monotone_chain::segment::MonotoneChainSegment` and make the new wrapper `ElicitComplete`,
+geo::algorithm::orient::Direction,Enum,geo::algorithm::orient,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::orient::Direction` and make the new wrapper `ElicitComplete`,
+geo::algorithm::orient::Orient,Trait,geo::algorithm::orient,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::orient::Orient` so the full public API surface is represented,
+geo::algorithm::outlier_detection::OutlierDetection,Trait,geo::algorithm::outlier_detection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::outlier_detection::OutlierDetection` so the full public API surface is represented,
+geo::algorithm::outlier_detection::PreparedDetector,Struct,geo::algorithm::outlier_detection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::outlier_detection::PreparedDetector` and make the new wrapper `ElicitComplete`,
+geo::algorithm::relate::Relate,Trait,geo::algorithm::relate,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::relate::Relate` so the full public API surface is represented,
+geo::algorithm::relate::geomgraph::geometry_graph::GeometryGraph,Struct,geo::algorithm::relate,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::relate::geomgraph::geometry_graph::GeometryGraph` and make the new wrapper `ElicitComplete`,
+geo::algorithm::relate::geomgraph::intersection_matrix::IntersectionMatrix,Struct,geo::algorithm::relate,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::relate::geomgraph::intersection_matrix::IntersectionMatrix` and make the new wrapper `ElicitComplete`,
+geo::algorithm::relate::geomgraph::intersection_matrix::InvalidInputError,Struct,geo::algorithm::relate,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::relate::geomgraph::intersection_matrix::InvalidInputError` and make the new wrapper `ElicitComplete`,
+geo::algorithm::remove_repeated_points::RemoveRepeatedPoints,Trait,geo::algorithm::remove_repeated_points,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::remove_repeated_points::RemoveRepeatedPoints` so the full public API surface is represented,
+geo::algorithm::repair_polygon::MakeValid,Trait,geo::algorithm::repair_polygon,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::repair_polygon::MakeValid` so the full public API surface is represented,
+geo::algorithm::repair_polygon::RepairPolygonError,Enum,geo::algorithm::repair_polygon,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::repair_polygon::RepairPolygonError` and make the new wrapper `ElicitComplete`,
+geo::algorithm::rhumb::bearing::RhumbBearing,Trait,geo::algorithm::rhumb,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::rhumb::bearing::RhumbBearing` so the full public API surface is represented,
+geo::algorithm::rhumb::destination::RhumbDestination,Trait,geo::algorithm::rhumb,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::rhumb::destination::RhumbDestination` so the full public API surface is represented,
+geo::algorithm::rhumb::distance::RhumbDistance,Trait,geo::algorithm::rhumb,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::rhumb::distance::RhumbDistance` so the full public API surface is represented,
+geo::algorithm::rhumb::intermediate::RhumbIntermediate,Trait,geo::algorithm::rhumb,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::rhumb::intermediate::RhumbIntermediate` so the full public API surface is represented,
+geo::algorithm::rhumb::length::RhumbLength,Trait,geo::algorithm::rhumb,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::rhumb::length::RhumbLength` so the full public API surface is represented,
+geo::algorithm::rotate::Rotate,Trait,geo::algorithm::rotate,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::rotate::Rotate` so the full public API surface is represented,
+geo::algorithm::scale::Scale,Trait,geo::algorithm::scale,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::scale::Scale` so the full public API surface is represented,
+geo::algorithm::simplify::Simplify,Trait,geo::algorithm::simplify,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::simplify::Simplify` so the full public API surface is represented,
+geo::algorithm::simplify::SimplifyIdx,Trait,geo::algorithm::simplify,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::simplify::SimplifyIdx` so the full public API surface is represented,
+geo::algorithm::simplify_vw::SimplifyVw,Trait,geo::algorithm::simplify_vw,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::simplify_vw::SimplifyVw` so the full public API surface is represented,
+geo::algorithm::simplify_vw::SimplifyVwIdx,Trait,geo::algorithm::simplify_vw,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::simplify_vw::SimplifyVwIdx` so the full public API surface is represented,
+geo::algorithm::simplify_vw::SimplifyVwPreserve,Trait,geo::algorithm::simplify_vw,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::simplify_vw::SimplifyVwPreserve` so the full public API surface is represented,
+geo::algorithm::skew::Skew,Trait,geo::algorithm::skew,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::skew::Skew` so the full public API surface is represented,
+geo::algorithm::stitch::LineStitchingError,Enum,geo::algorithm::stitch,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::stitch::LineStitchingError` and make the new wrapper `ElicitComplete`,
+geo::algorithm::stitch::StitchTriangles,Trait,geo::algorithm::stitch,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::stitch::StitchTriangles` so the full public API surface is represented,
+geo::algorithm::stitch::private::Stitchable,Trait,geo::algorithm::stitch,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::stitch::private::Stitchable` so the full public API surface is represented,
+geo::algorithm::sweep::Intersections,Struct,geo::algorithm::sweep,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::sweep::Intersections` and make the new wrapper `ElicitComplete`,
+geo::algorithm::sweep::cross::Cross,Trait,geo::algorithm::sweep,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::sweep::cross::Cross` so the full public API surface is represented,
+geo::algorithm::translate::Translate,Trait,geo::algorithm::translate,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::translate::Translate` so the full public API surface is represented,
+geo::algorithm::triangulate_delaunay::DelaunayTriangulationConfig,Struct,geo::algorithm::triangulate_delaunay,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::triangulate_delaunay::DelaunayTriangulationConfig` and make the new wrapper `ElicitComplete`,
+geo::algorithm::triangulate_delaunay::SpadeTriangulationFloat,Trait,geo::algorithm::triangulate_delaunay,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::triangulate_delaunay::SpadeTriangulationFloat` so the full public API surface is represented,
+geo::algorithm::triangulate_delaunay::Triangles,TypeAlias,geo::algorithm::triangulate_delaunay,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::triangulate_delaunay::Triangles` and make the new wrapper `ElicitComplete`,
+geo::algorithm::triangulate_delaunay::TriangulateDelaunay,Trait,geo::algorithm::triangulate_delaunay,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::triangulate_delaunay::TriangulateDelaunay` so the full public API surface is represented,
+geo::algorithm::triangulate_delaunay::TriangulateDelaunayUnconstrained,Trait,geo::algorithm::triangulate_delaunay,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::triangulate_delaunay::TriangulateDelaunayUnconstrained` so the full public API surface is represented,
+geo::algorithm::triangulate_delaunay::TriangulationError,Enum,geo::algorithm::triangulate_delaunay,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::triangulate_delaunay::TriangulationError` and make the new wrapper `ElicitComplete`,
+geo::algorithm::triangulate_delaunay::TriangulationResult,TypeAlias,geo::algorithm::triangulate_delaunay,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::triangulate_delaunay::TriangulationResult` and make the new wrapper `ElicitComplete`,
+geo::algorithm::triangulate_delaunay::private::ConstrainedRequirementTrait,Trait,geo::algorithm::triangulate_delaunay,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::triangulate_delaunay::private::ConstrainedRequirementTrait` so the full public API surface is represented,
+geo::algorithm::triangulate_delaunay::private::UnconstrainedRequirementTrait,Trait,geo::algorithm::triangulate_delaunay,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::triangulate_delaunay::private::UnconstrainedRequirementTrait` so the full public API surface is represented,
+geo::algorithm::triangulate_earcut::Iter,Struct,geo::algorithm::triangulate_earcut,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::triangulate_earcut::Iter` and make the new wrapper `ElicitComplete`,
+geo::algorithm::triangulate_earcut::RawTriangulation,Struct,geo::algorithm::triangulate_earcut,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::triangulate_earcut::RawTriangulation` and make the new wrapper `ElicitComplete`,
+geo::algorithm::triangulate_earcut::TriangulateEarcut,Trait,geo::algorithm::triangulate_earcut,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::triangulate_earcut::TriangulateEarcut` so the full public API surface is represented,
+geo::algorithm::triangulate_spade::SpadeTriangulationConfig,Struct,geo::algorithm::triangulate_spade,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::triangulate_spade::SpadeTriangulationConfig` and make the new wrapper `ElicitComplete`,
+geo::algorithm::triangulate_spade::SpadeTriangulationFloat,Trait,geo::algorithm::triangulate_spade,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::triangulate_spade::SpadeTriangulationFloat` so the full public API surface is represented,
+geo::algorithm::triangulate_spade::Triangles,TypeAlias,geo::algorithm::triangulate_spade,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::triangulate_spade::Triangles` and make the new wrapper `ElicitComplete`,
+geo::algorithm::triangulate_spade::TriangulateSpade,Trait,geo::algorithm::triangulate_spade,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::triangulate_spade::TriangulateSpade` so the full public API surface is represented,
+geo::algorithm::triangulate_spade::TriangulationError,Enum,geo::algorithm::triangulate_spade,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::triangulate_spade::TriangulationError` and make the new wrapper `ElicitComplete`,
+geo::algorithm::triangulate_spade::TriangulationResult,TypeAlias,geo::algorithm::triangulate_spade,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::triangulate_spade::TriangulationResult` and make the new wrapper `ElicitComplete`,
+geo::algorithm::triangulate_spade::private::TriangulationRequirementTrait,Trait,geo::algorithm::triangulate_spade,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::triangulate_spade::private::TriangulationRequirementTrait` so the full public API surface is represented,
+geo::algorithm::validation::CoordIndex,Struct,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::CoordIndex` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::GeometryIndex,Struct,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::GeometryIndex` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::RingRole,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::RingRole` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::Validation,Trait,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::validation::Validation` so the full public API surface is represented,
+geo::algorithm::validation::coord::InvalidCoord,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::coord::InvalidCoord` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::geometry::InvalidGeometry,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::geometry::InvalidGeometry` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::geometry_collection::InvalidGeometryCollection,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::geometry_collection::InvalidGeometryCollection` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::line::InvalidLine,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::line::InvalidLine` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::line_string::InvalidLineString,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::line_string::InvalidLineString` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::multi_line_string::InvalidMultiLineString,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::multi_line_string::InvalidMultiLineString` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::multi_point::InvalidMultiPoint,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::multi_point::InvalidMultiPoint` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::multi_polygon::InvalidMultiPolygon,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::multi_polygon::InvalidMultiPolygon` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::point::InvalidPoint,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::point::InvalidPoint` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::polygon::InvalidPolygon,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::polygon::InvalidPolygon` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::rect::InvalidRect,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::rect::InvalidRect` and make the new wrapper `ElicitComplete`,
+geo::algorithm::validation::triangle::InvalidTriangle,Enum,geo::algorithm::validation,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::validation::triangle::InvalidTriangle` and make the new wrapper `ElicitComplete`,
+geo::algorithm::vector_ops::Vector2DOps,Trait,geo::algorithm::vector_ops,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::vector_ops::Vector2DOps` so the full public API surface is represented,
+geo::algorithm::vincenty_distance::FailedToConvergeError,Struct,geo::algorithm::vincenty_distance,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::vincenty_distance::FailedToConvergeError` and make the new wrapper `ElicitComplete`,
+geo::algorithm::vincenty_distance::VincentyDistance,Trait,geo::algorithm::vincenty_distance,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::vincenty_distance::VincentyDistance` so the full public API surface is represented,
+geo::algorithm::vincenty_length::VincentyLength,Trait,geo::algorithm::vincenty_length,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::vincenty_length::VincentyLength` so the full public API surface is represented,
+geo::algorithm::voronoi::Voronoi,Trait,geo::algorithm::voronoi,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::voronoi::Voronoi` so the full public API surface is represented,
+geo::algorithm::voronoi::VoronoiClip,Enum,geo::algorithm::voronoi,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::voronoi::VoronoiClip` and make the new wrapper `ElicitComplete`,
+geo::algorithm::voronoi::VoronoiError,Enum,geo::algorithm::voronoi,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::voronoi::VoronoiError` and make the new wrapper `ElicitComplete`,
+geo::algorithm::voronoi::VoronoiParams,Struct,geo::algorithm::voronoi,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::voronoi::VoronoiParams` and make the new wrapper `ElicitComplete`,
+geo::algorithm::winding_order::Points,Struct,geo::algorithm::winding_order,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::winding_order::Points` and make the new wrapper `ElicitComplete`,
+geo::algorithm::winding_order::Winding,Trait,geo::algorithm::winding_order,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::winding_order::Winding` so the full public API surface is represented,
+geo::algorithm::winding_order::WindingOrder,Enum,geo::algorithm::winding_order,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::algorithm::winding_order::WindingOrder` and make the new wrapper `ElicitComplete`,
+geo::algorithm::winding_order::triangle_winding_order,Function,geo::algorithm::winding_order,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::winding_order::triangle_winding_order` so the full public API surface is represented,
+geo::algorithm::within::Within,Trait,geo::algorithm::within,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::algorithm::within::Within` so the full public API surface is represented,
+geo::geometry_cow::GeometryCow,Enum,geo::geometry_cow::GeometryCow,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::geometry_cow::GeometryCow` and make the new wrapper `ElicitComplete`,
+geo::geometry_delegate_impl,Macro,geo::geometry_delegate_impl,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo::geometry_delegate_impl` so the full public API surface is represented,
+geo::types::Closest,Enum,geo::types::Closest,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo::types::Closest` and make the new wrapper `ElicitComplete`,
+geo_types::CoordFloat,Trait,geo_types::CoordFloat,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo_types::CoordFloat` so the full public API surface is represented,
+geo_types::CoordNum,Trait,geo_types::CoordNum,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo_types::CoordNum` so the full public API surface is represented,
+geo_types::CoordinateType,Trait,geo_types::CoordinateType,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo_types::CoordinateType` so the full public API surface is represented,
+geo_types::coord,Macro,geo_types::coord,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo_types::coord` so the full public API surface is represented,
+geo_types::error::Error,Enum,geo_types::error::Error,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::error::Error` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::Geometry,Enum,geo_types::geometry::Geometry,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::Geometry` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::coord::Coord,Struct,geo_types::geometry::coord,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::coord::Coord` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::geometry_collection::GeometryCollection,Struct,geo_types::geometry::geometry_collection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::geometry_collection::GeometryCollection` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::geometry_collection::IntoIteratorHelper,Struct,geo_types::geometry::geometry_collection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::geometry_collection::IntoIteratorHelper` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::geometry_collection::IterHelper,Struct,geo_types::geometry::geometry_collection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::geometry_collection::IterHelper` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::geometry_collection::IterMutHelper,Struct,geo_types::geometry::geometry_collection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::geometry_collection::IterMutHelper` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::line::Line,Struct,geo_types::geometry::line,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::line::Line` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::line_string::CoordinatesIter,Struct,geo_types::geometry::line_string,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::line_string::CoordinatesIter` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::line_string::LineString,Struct,geo_types::geometry::line_string,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::line_string::LineString` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::line_string::PointsIter,Struct,geo_types::geometry::line_string,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::line_string::PointsIter` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::multi_line_string::MultiLineString,Struct,geo_types::geometry::multi_line_string,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::multi_line_string::MultiLineString` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::multi_point::MultiPoint,Struct,geo_types::geometry::multi_point,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::multi_point::MultiPoint` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::multi_polygon::MultiPolygon,Struct,geo_types::geometry::multi_polygon,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::multi_polygon::MultiPolygon` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::point::Point,Struct,geo_types::geometry::point,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::point::Point` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::polygon::ListSign,Enum,geo_types::geometry::polygon,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::polygon::ListSign` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::polygon::Polygon,Struct,geo_types::geometry::polygon,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::polygon::Polygon` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::rect::InvalidRectCoordinatesError,Struct,geo_types::geometry::rect,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::rect::InvalidRectCoordinatesError` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::rect::Rect,Struct,geo_types::geometry::rect,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::rect::Rect` and make the new wrapper `ElicitComplete`,
+geo_types::geometry::triangle::Triangle,Struct,geo_types::geometry::triangle,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geo_types::geometry::triangle::Triangle` and make the new wrapper `ElicitComplete`,
+geo_types::line_string,Macro,geo_types::line_string,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo_types::line_string` so the full public API surface is represented,
+geo_types::point,Macro,geo_types::point,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo_types::point` so the full public API surface is represented,
+geo_types::polygon,Macro,geo_types::polygon,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo_types::polygon` so the full public API surface is represented,
+geo_types::private_utils::get_bounding_rect,Function,geo_types::private_utils::get_bounding_rect,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo_types::private_utils::get_bounding_rect` so the full public API surface is represented,
+geo_types::private_utils::line_string_bounding_rect,Function,geo_types::private_utils::line_string_bounding_rect,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo_types::private_utils::line_string_bounding_rect` so the full public API surface is represented,
+geo_types::wkt,Macro,geo_types::wkt,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geo_types::wkt` so the full public API surface is represented,
+geographiclib_rs::geodesic::DirectGeodesic,Trait,geographiclib_rs::geodesic::DirectGeodesic,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geographiclib_rs::geodesic::DirectGeodesic` so the full public API surface is represented,
+geographiclib_rs::geodesic::Geodesic,Struct,geographiclib_rs::geodesic::Geodesic,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geographiclib_rs::geodesic::Geodesic` and make the new wrapper `ElicitComplete`,
+geographiclib_rs::geodesic::InverseGeodesic,Trait,geographiclib_rs::geodesic::InverseGeodesic,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `geographiclib_rs::geodesic::InverseGeodesic` so the full public API surface is represented,
+geographiclib_rs::geodesic_line::GeodesicLine,Struct,geographiclib_rs::geodesic_line::GeodesicLine,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geographiclib_rs::geodesic_line::GeodesicLine` and make the new wrapper `ElicitComplete`,
+geographiclib_rs::polygon_area::PolygonArea,Struct,geographiclib_rs::polygon_area::PolygonArea,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geographiclib_rs::polygon_area::PolygonArea` and make the new wrapper `ElicitComplete`,
+geographiclib_rs::polygon_area::Winding,Enum,geographiclib_rs::polygon_area::Winding,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `geographiclib_rs::polygon_area::Winding` and make the new wrapper `ElicitComplete`,
+elicit_geo::workflow::boolean_ops_plugin::BooleanOpApplied,Struct,elicit_geo::workflow::boolean_ops_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::boolean_ops_plugin::BooleanOpApplied`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::multipolygon_difference_descriptor,Function,elicit_geo::workflow::boolean_ops_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::boolean_ops_plugin::multipolygon_difference_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::multipolygon_intersection_descriptor,Function,elicit_geo::workflow::boolean_ops_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::boolean_ops_plugin::multipolygon_intersection_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::multipolygon_union_descriptor,Function,elicit_geo::workflow::boolean_ops_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::boolean_ops_plugin::multipolygon_union_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::multipolygon_xor_descriptor,Function,elicit_geo::workflow::boolean_ops_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::boolean_ops_plugin::multipolygon_xor_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::polygon_difference_descriptor,Function,elicit_geo::workflow::boolean_ops_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::boolean_ops_plugin::polygon_difference_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::polygon_intersection_descriptor,Function,elicit_geo::workflow::boolean_ops_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::boolean_ops_plugin::polygon_intersection_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::polygon_union_descriptor,Function,elicit_geo::workflow::boolean_ops_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::boolean_ops_plugin::polygon_union_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::polygon_xor_descriptor,Function,elicit_geo::workflow::boolean_ops_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::boolean_ops_plugin::polygon_xor_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::GeometricCalculation,Struct,elicit_geo::workflow::calculations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::calculations_plugin::GeometricCalculation`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::linestring_bounding_rect_descriptor,Function,elicit_geo::workflow::calculations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::calculations_plugin::linestring_bounding_rect_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::linestring_centroid_descriptor,Function,elicit_geo::workflow::calculations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::calculations_plugin::linestring_centroid_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::linestring_convex_hull_descriptor,Function,elicit_geo::workflow::calculations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::calculations_plugin::linestring_convex_hull_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::multipoint_bounding_rect_descriptor,Function,elicit_geo::workflow::calculations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::calculations_plugin::multipoint_bounding_rect_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::multipoint_centroid_descriptor,Function,elicit_geo::workflow::calculations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::calculations_plugin::multipoint_centroid_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::multipoint_convex_hull_descriptor,Function,elicit_geo::workflow::calculations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::calculations_plugin::multipoint_convex_hull_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::multipolygon_centroid_descriptor,Function,elicit_geo::workflow::calculations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::calculations_plugin::multipolygon_centroid_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::polygon_bounding_rect_descriptor,Function,elicit_geo::workflow::calculations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::calculations_plugin::polygon_bounding_rect_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::polygon_centroid_descriptor,Function,elicit_geo::workflow::calculations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::calculations_plugin::polygon_centroid_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::polygon_convex_hull_descriptor,Function,elicit_geo::workflow::calculations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::calculations_plugin::polygon_convex_hull_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::GeodesicCalculated,Struct,elicit_geo::workflow::geodesic_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::geodesic_plugin::GeodesicCalculated`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::geodesic_bearing_descriptor,Function,elicit_geo::workflow::geodesic_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::geodesic_plugin::geodesic_bearing_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::geodesic_destination_descriptor,Function,elicit_geo::workflow::geodesic_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::geodesic_plugin::geodesic_destination_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::geodesic_distance_points_descriptor,Function,elicit_geo::workflow::geodesic_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::geodesic_plugin::geodesic_distance_points_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::haversine_bearing_descriptor,Function,elicit_geo::workflow::geodesic_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::geodesic_plugin::haversine_bearing_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::haversine_destination_descriptor,Function,elicit_geo::workflow::geodesic_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::geodesic_plugin::haversine_destination_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::haversine_distance_points_descriptor,Function,elicit_geo::workflow::geodesic_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::geodesic_plugin::haversine_distance_points_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::MeasurementComputed,Struct,elicit_geo::workflow::measurements_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::measurements_plugin::MeasurementComputed`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::euclidean_distance_point_linestring_descriptor,Function,elicit_geo::workflow::measurements_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::measurements_plugin::euclidean_distance_point_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::euclidean_distance_point_point_descriptor,Function,elicit_geo::workflow::measurements_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::measurements_plugin::euclidean_distance_point_point_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::euclidean_distance_point_polygon_descriptor,Function,elicit_geo::workflow::measurements_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::measurements_plugin::euclidean_distance_point_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::hausdorff_distance_linestrings_descriptor,Function,elicit_geo::workflow::measurements_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::measurements_plugin::hausdorff_distance_linestrings_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::line_euclidean_length_descriptor,Function,elicit_geo::workflow::measurements_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::measurements_plugin::line_euclidean_length_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::linestring_euclidean_length_descriptor,Function,elicit_geo::workflow::measurements_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::measurements_plugin::linestring_euclidean_length_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::multipolygon_area_descriptor,Function,elicit_geo::workflow::measurements_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::measurements_plugin::multipolygon_area_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::polygon_area_descriptor,Function,elicit_geo::workflow::measurements_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::measurements_plugin::polygon_area_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::polygon_signed_area_descriptor,Function,elicit_geo::workflow::measurements_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::measurements_plugin::polygon_signed_area_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::rect_area_descriptor,Function,elicit_geo::workflow::measurements_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::measurements_plugin::rect_area_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PredicateChecked,Struct,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::PredicateChecked`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::linestring_intersects_linestring_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::linestring_intersects_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::point_within_polygon_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::point_within_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::point_within_rect_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::point_within_rect_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_contains_linestring_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::polygon_contains_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_contains_point_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::polygon_contains_point_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_contains_polygon_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::polygon_contains_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_covers_linestring_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::polygon_covers_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_covers_point_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::polygon_covers_point_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_intersects_linestring_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::polygon_intersects_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::polygon_intersects_polygon_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::polygon_intersects_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::rect_contains_point_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::rect_contains_point_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::rect_intersects_rect_descriptor,Function,elicit_geo::workflow::predicates_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::predicates_plugin::rect_intersects_rect_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::TransformationApplied,Struct,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::TransformationApplied`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::densify_linestring_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::densify_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::densify_polygon_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::densify_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::map_coords_linestring_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::map_coords_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::map_coords_point_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::map_coords_point_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::map_coords_polygon_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::map_coords_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::remove_repeated_points_linestring_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::remove_repeated_points_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::rotate_linestring_around_centroid_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::rotate_linestring_around_centroid_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::rotate_polygon_around_centroid_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::rotate_polygon_around_centroid_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::scale_polygon_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::scale_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::simplify_linestring_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::simplify_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::simplify_linestring_vw_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::simplify_linestring_vw_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::simplify_polygon_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::simplify_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::skew_linestring_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::skew_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::skew_polygon_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::skew_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::smooth_linestring_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::smooth_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::smooth_polygon_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::smooth_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::translate_linestring_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::translate_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::translate_point_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::translate_point_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::translate_polygon_descriptor,Function,elicit_geo::workflow::transformations_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::transformations_plugin::translate_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::validation_plugin::ValidationChecked,Struct,elicit_geo::workflow::validation_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::validation_plugin::ValidationChecked`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::validation_plugin::geometry_type_name_descriptor,Function,elicit_geo::workflow::validation_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::validation_plugin::geometry_type_name_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::validation_plugin::linestring_coords_count_descriptor,Function,elicit_geo::workflow::validation_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::validation_plugin::linestring_coords_count_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::validation_plugin::linestring_is_closed_descriptor,Function,elicit_geo::workflow::validation_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::validation_plugin::linestring_is_closed_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::validation_plugin::linestring_is_convex_descriptor,Function,elicit_geo::workflow::validation_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::validation_plugin::linestring_is_convex_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::validation_plugin::polygon_coords_count_descriptor,Function,elicit_geo::workflow::validation_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::validation_plugin::polygon_coords_count_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::validation_plugin::polygon_exterior_coords_count_descriptor,Function,elicit_geo::workflow::validation_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::validation_plugin::polygon_exterior_coords_count_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::WorkflowCompleted,Struct,elicit_geo::workflow::workflow_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::workflow_plugin::WorkflowCompleted`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::frechet_distance_linestrings_descriptor,Function,elicit_geo::workflow::workflow_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::workflow_plugin::frechet_distance_linestrings_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::geodesic_length_linestring_descriptor,Function,elicit_geo::workflow::workflow_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::workflow_plugin::geodesic_length_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::haversine_length_linestring_descriptor,Function,elicit_geo::workflow::workflow_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::workflow_plugin::haversine_length_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::line_interpolate_point_descriptor,Function,elicit_geo::workflow::workflow_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::workflow_plugin::line_interpolate_point_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::line_locate_point_descriptor,Function,elicit_geo::workflow::workflow_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::workflow_plugin::line_locate_point_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::nearest_point_on_linestring_descriptor,Function,elicit_geo::workflow::workflow_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::workflow_plugin::nearest_point_on_linestring_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::point_in_polygon_descriptor,Function,elicit_geo::workflow::workflow_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::workflow_plugin::point_in_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::polygon_exterior_length_descriptor,Function,elicit_geo::workflow::workflow_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::workflow_plugin::polygon_exterior_length_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::polygon_interior_point_descriptor,Function,elicit_geo::workflow::workflow_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::workflow_plugin::polygon_interior_point_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::remove_repeated_points_polygon_descriptor,Function,elicit_geo::workflow::workflow_plugin,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_geo::workflow::workflow_plugin::remove_repeated_points_polygon_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::GeoBooleanOpsPlugin,Struct,elicit_geo::workflow::boolean_ops_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::MultipolygonDifferenceParams,Struct,elicit_geo::workflow::boolean_ops_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::MultipolygonIntersectionParams,Struct,elicit_geo::workflow::boolean_ops_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::MultipolygonUnionParams,Struct,elicit_geo::workflow::boolean_ops_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::MultipolygonXorParams,Struct,elicit_geo::workflow::boolean_ops_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::PolygonDifferenceParams,Struct,elicit_geo::workflow::boolean_ops_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::PolygonIntersectionParams,Struct,elicit_geo::workflow::boolean_ops_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::PolygonUnionParams,Struct,elicit_geo::workflow::boolean_ops_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::boolean_ops_plugin::PolygonXorParams,Struct,elicit_geo::workflow::boolean_ops_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::GeoCalculationsPlugin,Struct,elicit_geo::workflow::calculations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::LinestringBoundingRectParams,Struct,elicit_geo::workflow::calculations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::LinestringCentroidParams,Struct,elicit_geo::workflow::calculations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::LinestringConvexHullParams,Struct,elicit_geo::workflow::calculations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::MultipointBoundingRectParams,Struct,elicit_geo::workflow::calculations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::MultipointCentroidParams,Struct,elicit_geo::workflow::calculations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::MultipointConvexHullParams,Struct,elicit_geo::workflow::calculations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::MultipolygonCentroidParams,Struct,elicit_geo::workflow::calculations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::PolygonBoundingRectParams,Struct,elicit_geo::workflow::calculations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::PolygonCentroidParams,Struct,elicit_geo::workflow::calculations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::calculations_plugin::PolygonConvexHullParams,Struct,elicit_geo::workflow::calculations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::GeoGeodesicPlugin,Struct,elicit_geo::workflow::geodesic_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::GeodesicBearingParams,Struct,elicit_geo::workflow::geodesic_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::GeodesicDestinationParams,Struct,elicit_geo::workflow::geodesic_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::GeodesicDistanceParams,Struct,elicit_geo::workflow::geodesic_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::HaversineBearingParams,Struct,elicit_geo::workflow::geodesic_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::HaversineDestinationParams,Struct,elicit_geo::workflow::geodesic_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::geodesic_plugin::HaversineDistanceParams,Struct,elicit_geo::workflow::geodesic_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::EuclideanDistancePointLinestringParams,Struct,elicit_geo::workflow::measurements_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::EuclideanDistancePointPointParams,Struct,elicit_geo::workflow::measurements_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::EuclideanDistancePointPolygonParams,Struct,elicit_geo::workflow::measurements_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::GeoMeasurementsPlugin,Struct,elicit_geo::workflow::measurements_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::HausdorffDistanceLinestringsParams,Struct,elicit_geo::workflow::measurements_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::LineEuclideanLengthParams,Struct,elicit_geo::workflow::measurements_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::LinestringEuclideanLengthParams,Struct,elicit_geo::workflow::measurements_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::MultiPolygonAreaParams,Struct,elicit_geo::workflow::measurements_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::PolygonSignedAreaParams,Struct,elicit_geo::workflow::measurements_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::PolygonUnsignedAreaParams,Struct,elicit_geo::workflow::measurements_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::measurements_plugin::RectAreaParams,Struct,elicit_geo::workflow::measurements_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::GeoPredicatesPlugin,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::LinestringIntersectsLinestringParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PointWithinPolygonParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PointWithinRectParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonContainsLinestringParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonContainsPointParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonContainsPolygonParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonCoversLinestringParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonCoversPointParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonIntersectsLinestringParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::PolygonIntersectsPolygonParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::RectContainsPointParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::predicates_plugin::RectIntersectsRectParams,Struct,elicit_geo::workflow::predicates_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::DensifyLinestringParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::DensifyPolygonParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::GeoTransformationsPlugin,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::MapCoordsLinestringParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::MapCoordsPointParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::MapCoordsPolygonParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::RemoveRepeatedPointsLinestringParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::RotateLinestringParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::RotatePolygonParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::ScalePolygonParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SimplifyLinestringRdpParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SimplifyLinestringVwParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SimplifyPolygonParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SkewLinestringParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SkewPolygonParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SmoothLinestringParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::SmoothPolygonParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::TranslateLinestringParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::TranslatePointParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::transformations_plugin::TranslatePolygonParams,Struct,elicit_geo::workflow::transformations_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::GeoValidationPlugin,Struct,elicit_geo::workflow::validation_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::GeometryTypeParams,Struct,elicit_geo::workflow::validation_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::LinestringCoordsCountParams,Struct,elicit_geo::workflow::validation_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::LinestringIsClosedParams,Struct,elicit_geo::workflow::validation_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::LinestringIsConvexParams,Struct,elicit_geo::workflow::validation_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::PolygonCoordsCountParams,Struct,elicit_geo::workflow::validation_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::validation_plugin::PolygonExteriorCoordsCountParams,Struct,elicit_geo::workflow::validation_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::FrechetDistanceParams,Struct,elicit_geo::workflow::workflow_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::GeoWorkflowPlugin,Struct,elicit_geo::workflow::workflow_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::GeodesicLengthLinestringParams,Struct,elicit_geo::workflow::workflow_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::HaversineLengthLinestringParams,Struct,elicit_geo::workflow::workflow_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::LineInterpolatePointParams,Struct,elicit_geo::workflow::workflow_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::LineLocatePointParams,Struct,elicit_geo::workflow::workflow_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::NearestPointOnLinestringParams,Struct,elicit_geo::workflow::workflow_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::PointInPolygonParams,Struct,elicit_geo::workflow::workflow_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::PolygonExteriorLengthParams,Struct,elicit_geo::workflow::workflow_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::PolygonInteriorPointParams,Struct,elicit_geo::workflow::workflow_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_geo::workflow::workflow_plugin::RemoveRepeatedPointsPolygonParams,Struct,elicit_geo::workflow::workflow_plugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"

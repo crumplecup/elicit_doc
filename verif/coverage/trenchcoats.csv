@@ -3,6 +3,10 @@ bevy_ui,bevy_ui::ui_node::VisualBox,elicitation::primitives::bevy_types::ui::Bev
 derive_builder,derive_builder::error::UninitializedFieldError,elicitation::type_spec::SpecCategoryBuilderError,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 derive_builder,derive_builder::error::UninitializedFieldError,elicitation::type_spec::SpecEntryBuilderError,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 derive_builder,derive_builder::error::UninitializedFieldError,elicitation::type_spec::TypeSpecBuilderError,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
+http,http::error::Error,elicitation::error::ElicitError,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
+http,http::error::Error,elicitation::error::ElicitErrorKind,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
+reqwest,reqwest::error::Error,elicitation::error::ElicitError,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
+reqwest,reqwest::error::Error,elicitation::error::ElicitErrorKind,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,
 rmcp,rmcp::model::ErrorData,elicitation::error::ElicitError,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 rmcp,rmcp::model::ErrorData,elicitation::error::ElicitErrorKind,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral
 rmcp,rmcp::model::ErrorData,elicitation::error::RmcpError,false,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral,Elicitation;ElicitIntrospect;ElicitSpec;ElicitPromptTree;ToCodeLiteral

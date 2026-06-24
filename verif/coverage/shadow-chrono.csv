@@ -1,119 +1,119 @@
-item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
-chrono::Duration,TypeAlias,Missing,,,,,,,
-chrono::OutOfRange,Struct,Missing,,,,,,,
-chrono::date::Date,Struct,Missing,,,,,,,
-chrono::date::MAX_DATE,Constant,Missing,,,,,,,
-chrono::date::MIN_DATE,Constant,Missing,,,,,,,
-chrono::datetime::DateTime,Struct,Missing,,,,,,,
-chrono::datetime::MAX_DATETIME,Constant,Missing,,,,,,,
-chrono::datetime::MIN_DATETIME,Constant,Missing,,,,,,,
-chrono::datetime::serde::ts_microseconds::deserialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_microseconds::serialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_microseconds_option::deserialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_microseconds_option::serialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_milliseconds::deserialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_milliseconds::serialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_milliseconds_option::deserialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_milliseconds_option::serialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_nanoseconds::deserialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_nanoseconds::serialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_nanoseconds_option::deserialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_nanoseconds_option::serialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_seconds::deserialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_seconds::serialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_seconds_option::deserialize,Function,Missing,,,,,,,
-chrono::datetime::serde::ts_seconds_option::serialize,Function,Missing,,,,,,,
-chrono::format::Colons,Enum,Missing,,,,,,,
-chrono::format::Fixed,Enum,Missing,,,,,,,
-chrono::format::InternalFixed,Struct,Missing,,,,,,,
-chrono::format::InternalNumeric,Struct,Missing,,,,,,,
-chrono::format::Item,Enum,Missing,,,,,,,
-chrono::format::Numeric,Enum,Missing,,,,,,,
-chrono::format::OffsetFormat,Struct,Missing,,,,,,,
-chrono::format::OffsetPrecision,Enum,Missing,,,,,,,
-chrono::format::Pad,Enum,Missing,,,,,,,
-chrono::format::ParseError,Struct,Missing,,,,,,,
-chrono::format::ParseErrorKind,Enum,Missing,,,,,,,
-chrono::format::ParseResult,TypeAlias,Missing,,,,,,,
-chrono::format::formatting::DelayedFormat,Struct,Missing,,,,,,,
-chrono::format::formatting::SecondsFormat,Enum,Missing,,,,,,,
-chrono::format::formatting::format,Function,Missing,,,,,,,
-chrono::format::formatting::format_item,Function,Missing,,,,,,,
-chrono::format::parse::parse,Function,Missing,,,,,,,
-chrono::format::parse::parse_and_remainder,Function,Missing,,,,,,,
-chrono::format::parsed::Parsed,Struct,Missing,,,,,,,
-chrono::format::strftime::StrftimeItems,Struct,Missing,,,,,,,
-chrono::month::Month,Enum,Missing,,,,,,,
-chrono::month::Months,Struct,Missing,,,,,,,
-chrono::month::ParseMonthError,Struct,Missing,,,,,,,
-chrono::naive::Days,Struct,Missing,,,,,,,
-chrono::naive::NaiveWeek,Struct,Missing,,,,,,,
-chrono::naive::date::MAX_DATE,Constant,Missing,,,,,,,
-chrono::naive::date::MIN_DATE,Constant,Missing,,,,,,,
-chrono::naive::date::NaiveDate,Struct,Missing,,,,,,,
-chrono::naive::date::NaiveDateDaysIterator,Struct,Missing,,,,,,,
-chrono::naive::date::NaiveDateWeeksIterator,Struct,Missing,,,,,,,
-chrono::naive::datetime::MAX_DATETIME,Constant,Missing,,,,,,,
-chrono::naive::datetime::MIN_DATETIME,Constant,Missing,,,,,,,
-chrono::naive::datetime::NaiveDateTime,Struct,Covered,elicit_chrono::naive_date_time::NaiveDateTime,,Complete,true,,,
-chrono::naive::datetime::serde::ts_microseconds::deserialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_microseconds::serialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_microseconds_option::deserialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_microseconds_option::serialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_milliseconds::deserialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_milliseconds::serialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_milliseconds_option::deserialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_milliseconds_option::serialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_nanoseconds::deserialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_nanoseconds::serialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_nanoseconds_option::deserialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_nanoseconds_option::serialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_seconds::deserialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_seconds::serialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_seconds_option::deserialize,Function,Missing,,,,,,,
-chrono::naive::datetime::serde::ts_seconds_option::serialize,Function,Missing,,,,,,,
-chrono::naive::isoweek::IsoWeek,Struct,Missing,,,,,,,
-chrono::naive::time::NaiveTime,Struct,Missing,,,,,,,
-chrono::offset::LocalResult,Enum,Missing,,,,,,,
-chrono::offset::MappedLocalTime,TypeAlias,Missing,,,,,,,
-chrono::offset::Offset,Trait,Missing,,,,,,,
-chrono::offset::TimeZone,Trait,Missing,,,,,,,
-chrono::offset::fixed::FixedOffset,Struct,Missing,,,,,,,
-chrono::offset::local::Local,Struct,Missing,,,,,,,
-chrono::offset::utc::Utc,Struct,Missing,,,,,,,
-chrono::round::DurationRound,Trait,Missing,,,,,,,
-chrono::round::RoundingError,Enum,Missing,,,,,,,
-chrono::round::SubsecRound,Trait,Missing,,,,,,,
-chrono::time_delta::OutOfRangeError,Struct,Missing,,,,,,,
-chrono::time_delta::TimeDelta,Struct,Missing,,,,,,,
-chrono::traits::Datelike,Trait,Missing,,,,,,,
-chrono::traits::Timelike,Trait,Missing,,,,,,,
-chrono::weekday::ParseWeekdayError,Struct,Missing,,,,,,,
-chrono::weekday::Weekday,Enum,Missing,,,,,,,
-chrono::weekday_set::WeekdaySet,Struct,Missing,,,,,,,
-chrono::weekday_set::WeekdaySetIter,Struct,Missing,,,,,,,
-elicit_chrono::date_time_fixed::DateTimeFixed,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::date_time_utc::DateTimeUtc,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::naive_date_time::FormatStrParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::naive_date_time::_elicit_compat_FormatStrParams::FormatStrParamsStyle,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::AddSecondsParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::AssertFutureParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::AssertInRangeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::ChronoWorkflowPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::ComputeDurationParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::DateTimeFuture,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::DateTimeInRange,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::DateTimeParsed,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::FutureDateTimeProof,TypeAlias,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::FutureDateTimeState,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::ParseDateTimeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::ParsedDateTime,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::RangedDateTimeProof,TypeAlias,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::RangedDateTimeState,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::UnvalidatedDateStr,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::add_seconds_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::assert_future_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::assert_in_range_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::compute_duration_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::parse_datetime_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_chrono::workflow::parse_rfc3339,Function,Extra,,,,,,,"in shadow, not in target"
+item_path,item_kind,api_family,status,coverage_kind,primary_gap_kind,shadow_item,drift_confidence,shadow_elicit_impl,verification_gap,verification_ready,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,action,notes
+chrono::Duration,TypeAlias,chrono::Duration,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::Duration` and make the new wrapper `ElicitComplete`,
+chrono::OutOfRange,Struct,chrono::OutOfRange,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::OutOfRange` and make the new wrapper `ElicitComplete`,
+chrono::date::Date,Struct,chrono::date::Date,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::date::Date` and make the new wrapper `ElicitComplete`,
+chrono::date::MAX_DATE,Constant,chrono::date::MAX_DATE,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::date::MAX_DATE` so the full public API surface is represented,
+chrono::date::MIN_DATE,Constant,chrono::date::MIN_DATE,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::date::MIN_DATE` so the full public API surface is represented,
+chrono::datetime::DateTime,Struct,chrono::datetime::DateTime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::datetime::DateTime` and make the new wrapper `ElicitComplete`,
+chrono::datetime::MAX_DATETIME,Constant,chrono::datetime::MAX_DATETIME,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::MAX_DATETIME` so the full public API surface is represented,
+chrono::datetime::MIN_DATETIME,Constant,chrono::datetime::MIN_DATETIME,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::MIN_DATETIME` so the full public API surface is represented,
+chrono::datetime::serde::ts_microseconds::deserialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_microseconds::deserialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_microseconds::serialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_microseconds::serialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_microseconds_option::deserialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_microseconds_option::deserialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_microseconds_option::serialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_microseconds_option::serialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_milliseconds::deserialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_milliseconds::deserialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_milliseconds::serialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_milliseconds::serialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_milliseconds_option::deserialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_milliseconds_option::deserialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_milliseconds_option::serialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_milliseconds_option::serialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_nanoseconds::deserialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_nanoseconds::deserialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_nanoseconds::serialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_nanoseconds::serialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_nanoseconds_option::deserialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_nanoseconds_option::deserialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_nanoseconds_option::serialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_nanoseconds_option::serialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_seconds::deserialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_seconds::deserialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_seconds::serialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_seconds::serialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_seconds_option::deserialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_seconds_option::deserialize` so the full public API surface is represented,
+chrono::datetime::serde::ts_seconds_option::serialize,Function,chrono::datetime::serde,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::datetime::serde::ts_seconds_option::serialize` so the full public API surface is represented,
+chrono::format::Colons,Enum,chrono::format::Colons,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::Colons` and make the new wrapper `ElicitComplete`,
+chrono::format::Fixed,Enum,chrono::format::Fixed,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::Fixed` and make the new wrapper `ElicitComplete`,
+chrono::format::InternalFixed,Struct,chrono::format::InternalFixed,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::InternalFixed` and make the new wrapper `ElicitComplete`,
+chrono::format::InternalNumeric,Struct,chrono::format::InternalNumeric,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::InternalNumeric` and make the new wrapper `ElicitComplete`,
+chrono::format::Item,Enum,chrono::format::Item,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::Item` and make the new wrapper `ElicitComplete`,
+chrono::format::Numeric,Enum,chrono::format::Numeric,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::Numeric` and make the new wrapper `ElicitComplete`,
+chrono::format::OffsetFormat,Struct,chrono::format::OffsetFormat,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::OffsetFormat` and make the new wrapper `ElicitComplete`,
+chrono::format::OffsetPrecision,Enum,chrono::format::OffsetPrecision,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::OffsetPrecision` and make the new wrapper `ElicitComplete`,
+chrono::format::Pad,Enum,chrono::format::Pad,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::Pad` and make the new wrapper `ElicitComplete`,
+chrono::format::ParseError,Struct,chrono::format::ParseError,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::ParseError` and make the new wrapper `ElicitComplete`,
+chrono::format::ParseErrorKind,Enum,chrono::format::ParseErrorKind,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::ParseErrorKind` and make the new wrapper `ElicitComplete`,
+chrono::format::ParseResult,TypeAlias,chrono::format::ParseResult,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::ParseResult` and make the new wrapper `ElicitComplete`,
+chrono::format::formatting::DelayedFormat,Struct,chrono::format::formatting,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::formatting::DelayedFormat` and make the new wrapper `ElicitComplete`,
+chrono::format::formatting::SecondsFormat,Enum,chrono::format::formatting,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::formatting::SecondsFormat` and make the new wrapper `ElicitComplete`,
+chrono::format::formatting::format,Function,chrono::format::formatting,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::format::formatting::format` so the full public API surface is represented,
+chrono::format::formatting::format_item,Function,chrono::format::formatting,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::format::formatting::format_item` so the full public API surface is represented,
+chrono::format::parse::parse,Function,chrono::format::parse,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::format::parse::parse` so the full public API surface is represented,
+chrono::format::parse::parse_and_remainder,Function,chrono::format::parse,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::format::parse::parse_and_remainder` so the full public API surface is represented,
+chrono::format::parsed::Parsed,Struct,chrono::format::parsed,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::parsed::Parsed` and make the new wrapper `ElicitComplete`,
+chrono::format::strftime::StrftimeItems,Struct,chrono::format::strftime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::format::strftime::StrftimeItems` and make the new wrapper `ElicitComplete`,
+chrono::month::Month,Enum,chrono::month::Month,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::month::Month` and make the new wrapper `ElicitComplete`,
+chrono::month::Months,Struct,chrono::month::Months,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::month::Months` and make the new wrapper `ElicitComplete`,
+chrono::month::ParseMonthError,Struct,chrono::month::ParseMonthError,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::month::ParseMonthError` and make the new wrapper `ElicitComplete`,
+chrono::naive::Days,Struct,chrono::naive::Days,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::naive::Days` and make the new wrapper `ElicitComplete`,
+chrono::naive::NaiveWeek,Struct,chrono::naive::NaiveWeek,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::naive::NaiveWeek` and make the new wrapper `ElicitComplete`,
+chrono::naive::date::MAX_DATE,Constant,chrono::naive::date,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::date::MAX_DATE` so the full public API surface is represented,
+chrono::naive::date::MIN_DATE,Constant,chrono::naive::date,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::date::MIN_DATE` so the full public API surface is represented,
+chrono::naive::date::NaiveDate,Struct,chrono::naive::date,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::naive::date::NaiveDate` and make the new wrapper `ElicitComplete`,
+chrono::naive::date::NaiveDateDaysIterator,Struct,chrono::naive::date,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::naive::date::NaiveDateDaysIterator` and make the new wrapper `ElicitComplete`,
+chrono::naive::date::NaiveDateWeeksIterator,Struct,chrono::naive::date,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::naive::date::NaiveDateWeeksIterator` and make the new wrapper `ElicitComplete`,
+chrono::naive::datetime::MAX_DATETIME,Constant,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::MAX_DATETIME` so the full public API surface is represented,
+chrono::naive::datetime::MIN_DATETIME,Constant,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::MIN_DATETIME` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_microseconds::deserialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_microseconds::deserialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_microseconds::serialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_microseconds::serialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_microseconds_option::deserialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_microseconds_option::deserialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_microseconds_option::serialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_microseconds_option::serialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_milliseconds::deserialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_milliseconds::deserialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_milliseconds::serialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_milliseconds::serialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_milliseconds_option::deserialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_milliseconds_option::deserialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_milliseconds_option::serialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_milliseconds_option::serialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_nanoseconds::deserialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_nanoseconds::deserialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_nanoseconds::serialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_nanoseconds::serialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_nanoseconds_option::deserialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_nanoseconds_option::deserialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_nanoseconds_option::serialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_nanoseconds_option::serialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_seconds::deserialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_seconds::deserialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_seconds::serialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_seconds::serialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_seconds_option::deserialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_seconds_option::deserialize` so the full public API surface is represented,
+chrono::naive::datetime::serde::ts_seconds_option::serialize,Function,chrono::naive::datetime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::naive::datetime::serde::ts_seconds_option::serialize` so the full public API surface is represented,
+chrono::naive::isoweek::IsoWeek,Struct,chrono::naive::isoweek,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::naive::isoweek::IsoWeek` and make the new wrapper `ElicitComplete`,
+chrono::naive::time::NaiveTime,Struct,chrono::naive::time,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::naive::time::NaiveTime` and make the new wrapper `ElicitComplete`,
+chrono::offset::LocalResult,Enum,chrono::offset::LocalResult,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::offset::LocalResult` and make the new wrapper `ElicitComplete`,
+chrono::offset::MappedLocalTime,TypeAlias,chrono::offset::MappedLocalTime,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::offset::MappedLocalTime` and make the new wrapper `ElicitComplete`,
+chrono::offset::Offset,Trait,chrono::offset::Offset,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::offset::Offset` so the full public API surface is represented,
+chrono::offset::TimeZone,Trait,chrono::offset::TimeZone,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::offset::TimeZone` so the full public API surface is represented,
+chrono::offset::fixed::FixedOffset,Struct,chrono::offset::fixed,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::offset::fixed::FixedOffset` and make the new wrapper `ElicitComplete`,
+chrono::offset::local::Local,Struct,chrono::offset::local,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::offset::local::Local` and make the new wrapper `ElicitComplete`,
+chrono::offset::utc::Utc,Struct,chrono::offset::utc,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::offset::utc::Utc` and make the new wrapper `ElicitComplete`,
+chrono::round::DurationRound,Trait,chrono::round::DurationRound,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::round::DurationRound` so the full public API surface is represented,
+chrono::round::RoundingError,Enum,chrono::round::RoundingError,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::round::RoundingError` and make the new wrapper `ElicitComplete`,
+chrono::round::SubsecRound,Trait,chrono::round::SubsecRound,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::round::SubsecRound` so the full public API surface is represented,
+chrono::time_delta::OutOfRangeError,Struct,chrono::time_delta::OutOfRangeError,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::time_delta::OutOfRangeError` and make the new wrapper `ElicitComplete`,
+chrono::time_delta::TimeDelta,Struct,chrono::time_delta::TimeDelta,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::time_delta::TimeDelta` and make the new wrapper `ElicitComplete`,
+chrono::traits::Datelike,Trait,chrono::traits::Datelike,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::traits::Datelike` so the full public API surface is represented,
+chrono::traits::Timelike,Trait,chrono::traits::Timelike,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `chrono::traits::Timelike` so the full public API surface is represented,
+chrono::weekday::ParseWeekdayError,Struct,chrono::weekday::ParseWeekdayError,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::weekday::ParseWeekdayError` and make the new wrapper `ElicitComplete`,
+chrono::weekday::Weekday,Enum,chrono::weekday::Weekday,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::weekday::Weekday` and make the new wrapper `ElicitComplete`,
+chrono::weekday_set::WeekdaySet,Struct,chrono::weekday_set::WeekdaySet,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::weekday_set::WeekdaySet` and make the new wrapper `ElicitComplete`,
+chrono::weekday_set::WeekdaySetIter,Struct,chrono::weekday_set::WeekdaySetIter,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `chrono::weekday_set::WeekdaySetIter` and make the new wrapper `ElicitComplete`,
+elicit_chrono::date_time_fixed::DateTimeFixed,Struct,elicit_chrono::date_time_fixed::DateTimeFixed,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::date_time_fixed::DateTimeFixed`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::date_time_utc::DateTimeUtc,Struct,elicit_chrono::date_time_utc::DateTimeUtc,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::date_time_utc::DateTimeUtc`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::DateTimeFuture,Struct,elicit_chrono::workflow::DateTimeFuture,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::DateTimeFuture`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::DateTimeInRange,Struct,elicit_chrono::workflow::DateTimeInRange,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::DateTimeInRange`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::DateTimeParsed,Struct,elicit_chrono::workflow::DateTimeParsed,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::DateTimeParsed`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::FutureDateTimeProof,TypeAlias,elicit_chrono::workflow::FutureDateTimeProof,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::FutureDateTimeProof`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::FutureDateTimeState,Struct,elicit_chrono::workflow::FutureDateTimeState,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::FutureDateTimeState`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::ParsedDateTime,Struct,elicit_chrono::workflow::ParsedDateTime,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::ParsedDateTime`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::RangedDateTimeProof,TypeAlias,elicit_chrono::workflow::RangedDateTimeProof,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::RangedDateTimeProof`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::RangedDateTimeState,Struct,elicit_chrono::workflow::RangedDateTimeState,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::RangedDateTimeState`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::UnvalidatedDateStr,Struct,elicit_chrono::workflow::UnvalidatedDateStr,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::UnvalidatedDateStr`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::add_seconds_descriptor,Function,elicit_chrono::workflow::add_seconds_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::add_seconds_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::assert_future_descriptor,Function,elicit_chrono::workflow::assert_future_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::assert_future_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::assert_in_range_descriptor,Function,elicit_chrono::workflow::assert_in_range_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::assert_in_range_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::compute_duration_descriptor,Function,elicit_chrono::workflow::compute_duration_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::compute_duration_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::parse_datetime_descriptor,Function,elicit_chrono::workflow::parse_datetime_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::parse_datetime_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::workflow::parse_rfc3339,Function,elicit_chrono::workflow::parse_rfc3339,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_chrono::workflow::parse_rfc3339`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_chrono::naive_date_time::FormatStrParams,Struct,elicit_chrono::naive_date_time::FormatStrParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_chrono::naive_date_time::_elicit_compat_FormatStrParams::FormatStrParamsStyle,Enum,elicit_chrono::naive_date_time::_elicit_compat_FormatStrParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_chrono::workflow::AddSecondsParams,Struct,elicit_chrono::workflow::AddSecondsParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_chrono::workflow::AssertFutureParams,Struct,elicit_chrono::workflow::AssertFutureParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_chrono::workflow::AssertInRangeParams,Struct,elicit_chrono::workflow::AssertInRangeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_chrono::workflow::ChronoWorkflowPlugin,Struct,elicit_chrono::workflow::ChronoWorkflowPlugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_chrono::workflow::ComputeDurationParams,Struct,elicit_chrono::workflow::ComputeDurationParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_chrono::workflow::ParseDateTimeParams,Struct,elicit_chrono::workflow::ParseDateTimeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+chrono::naive::datetime::NaiveDateTime,Struct,chrono::naive::datetime,Covered,Covered,,elicit_chrono::naive_date_time::NaiveDateTime,,Complete,false,true,true,,,,

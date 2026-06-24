@@ -1,276 +1,276 @@
-item_path,item_kind,status,shadow_item,drift_confidence,shadow_elicit_impl,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,notes
-axum::body::to_bytes,Function,Missing,,,,,,,
-axum::error_handling::HandleError,Struct,Missing,,,,,,,
-axum::error_handling::HandleErrorLayer,Struct,Missing,,,,,,,
-axum::error_handling::future::HandleErrorFuture,Struct,Missing,,,,,,,
-axum::extension::AddExtension,Struct,Missing,,,,,,,
-axum::extension::Extension,Struct,Missing,,,,,,,
-axum::extract::connect_info::ConnectInfo,Struct,Missing,,,,,,,
-axum::extract::connect_info::Connected,Trait,Missing,,,,,,,
-axum::extract::connect_info::IntoMakeServiceWithConnectInfo,Struct,Missing,,,,,,,
-axum::extract::connect_info::MockConnectInfo,Struct,Missing,,,,,,,
-axum::extract::connect_info::ResponseFuture,Struct,Missing,,,,,,,
-axum::extract::matched_path::MatchedPath,Struct,Missing,,,,,,,
-axum::extract::multipart::Field,Struct,Missing,,,,,,,
-axum::extract::multipart::InvalidBoundary,Struct,Missing,,,,,,,
-axum::extract::multipart::Multipart,Struct,Missing,,,,,,,
-axum::extract::multipart::MultipartError,Struct,Missing,,,,,,,
-axum::extract::multipart::MultipartRejection,Enum,Missing,,,,,,,
-axum::extract::nested_path::NestedPath,Struct,Missing,,,,,,,
-axum::extract::original_uri::OriginalUri,Struct,Missing,,,,,,,
-axum::extract::path::ErrorKind,Enum,Missing,,,,,,,
-axum::extract::path::FailedToDeserializePathParams,Struct,Missing,,,,,,,
-axum::extract::path::InvalidUtf8InPathParam,Struct,Missing,,,,,,,
-axum::extract::path::Path,Struct,Missing,,,,,,,
-axum::extract::path::RawPathParams,Struct,Missing,,,,,,,
-axum::extract::path::RawPathParamsIter,Struct,Missing,,,,,,,
-axum::extract::query::Query,Struct,Missing,,,,,,,
-axum::extract::raw_form::RawForm,Struct,Missing,,,,,,,
-axum::extract::raw_query::RawQuery,Struct,Missing,,,,,,,
-axum::extract::rejection::ExtensionRejection,Enum,Missing,,,,,,,
-axum::extract::rejection::FailedToDeserializeForm,Struct,Missing,,,,,,,
-axum::extract::rejection::FailedToDeserializeFormBody,Struct,Missing,,,,,,,
-axum::extract::rejection::FailedToDeserializeQueryString,Struct,Missing,,,,,,,
-axum::extract::rejection::FormRejection,Enum,Missing,,,,,,,
-axum::extract::rejection::InvalidFormContentType,Struct,Missing,,,,,,,
-axum::extract::rejection::JsonDataError,Struct,Missing,,,,,,,
-axum::extract::rejection::JsonRejection,Enum,Missing,,,,,,,
-axum::extract::rejection::JsonSyntaxError,Struct,Missing,,,,,,,
-axum::extract::rejection::MatchedPathMissing,Struct,Missing,,,,,,,
-axum::extract::rejection::MatchedPathRejection,Enum,Missing,,,,,,,
-axum::extract::rejection::MissingExtension,Struct,Missing,,,,,,,
-axum::extract::rejection::MissingJsonContentType,Struct,Missing,,,,,,,
-axum::extract::rejection::MissingPathParams,Struct,Missing,,,,,,,
-axum::extract::rejection::NestedPathRejection,Struct,Missing,,,,,,,
-axum::extract::rejection::PathRejection,Enum,Missing,,,,,,,
-axum::extract::rejection::QueryRejection,Enum,Missing,,,,,,,
-axum::extract::rejection::RawFormRejection,Enum,Missing,,,,,,,
-axum::extract::rejection::RawPathParamsRejection,Enum,Missing,,,,,,,
-axum::extract::state::State,Struct,Missing,,,,,,,
-axum::extract::ws::CloseCode,TypeAlias,Missing,,,,,,,
-axum::extract::ws::CloseFrame,Struct,Missing,,,,,,,
-axum::extract::ws::DefaultOnFailedUpgrade,Struct,Missing,,,,,,,
-axum::extract::ws::Message,Enum,Missing,,,,,,,
-axum::extract::ws::OnFailedUpgrade,Trait,Missing,,,,,,,
-axum::extract::ws::Utf8Bytes,Struct,Missing,,,,,,,
-axum::extract::ws::WebSocket,Struct,Missing,,,,,,,
-axum::extract::ws::WebSocketUpgrade,Struct,Missing,,,,,,,
-axum::extract::ws::close_code::ABNORMAL,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::AGAIN,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::AWAY,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::ERROR,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::EXTENSION,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::INVALID,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::NORMAL,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::POLICY,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::PROTOCOL,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::RESTART,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::SIZE,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::STATUS,Constant,Missing,,,,,,,
-axum::extract::ws::close_code::UNSUPPORTED,Constant,Missing,,,,,,,
-axum::extract::ws::rejection::ConnectionNotUpgradable,Struct,Missing,,,,,,,
-axum::extract::ws::rejection::InvalidConnectionHeader,Struct,Missing,,,,,,,
-axum::extract::ws::rejection::InvalidProtocolPseudoheader,Struct,Missing,,,,,,,
-axum::extract::ws::rejection::InvalidUpgradeHeader,Struct,Missing,,,,,,,
-axum::extract::ws::rejection::InvalidWebSocketVersionHeader,Struct,Missing,,,,,,,
-axum::extract::ws::rejection::MethodNotConnect,Struct,Missing,,,,,,,
-axum::extract::ws::rejection::MethodNotGet,Struct,Missing,,,,,,,
-axum::extract::ws::rejection::WebSocketKeyHeaderMissing,Struct,Missing,,,,,,,
-axum::extract::ws::rejection::WebSocketUpgradeRejection,Enum,Missing,,,,,,,
-axum::form::Form,Struct,Missing,,,,,,,
-axum::handler::Handler,Trait,Missing,,,,,,,
-axum::handler::HandlerWithoutStateExt,Trait,Missing,,,,,,,
-axum::handler::Layered,Struct,Missing,,,,,,,
-axum::handler::future::IntoServiceFuture,Struct,Missing,,,,,,,
-axum::handler::future::LayeredFuture,Struct,Missing,,,,,,,
-axum::handler::private::IntoResponseHandler,Enum,Missing,,,,,,,
-axum::handler::service::HandlerService,Struct,Missing,,,,,,,
-axum::json::Json,Struct,Missing,,,,,,,
-axum::middleware::from_extractor::FromExtractor,Struct,Missing,,,,,,,
-axum::middleware::from_extractor::FromExtractorLayer,Struct,Missing,,,,,,,
-axum::middleware::from_extractor::ResponseFuture,Struct,Missing,,,,,,,
-axum::middleware::from_extractor::from_extractor,Function,Missing,,,,,,,
-axum::middleware::from_extractor::from_extractor_with_state,Function,Missing,,,,,,,
-axum::middleware::from_fn::FromFn,Struct,Missing,,,,,,,
-axum::middleware::from_fn::FromFnLayer,Struct,Missing,,,,,,,
-axum::middleware::from_fn::Next,Struct,Missing,,,,,,,
-axum::middleware::from_fn::ResponseFuture,Struct,Missing,,,,,,,
-axum::middleware::from_fn::from_fn,Function,Missing,,,,,,,
-axum::middleware::from_fn::from_fn_with_state,Function,Missing,,,,,,,
-axum::middleware::map_request::IntoMapRequestResult,Trait,Missing,,,,,,,
-axum::middleware::map_request::MapRequest,Struct,Missing,,,,,,,
-axum::middleware::map_request::MapRequestLayer,Struct,Missing,,,,,,,
-axum::middleware::map_request::ResponseFuture,Struct,Missing,,,,,,,
-axum::middleware::map_request::map_request,Function,Missing,,,,,,,
-axum::middleware::map_request::map_request_with_state,Function,Missing,,,,,,,
-axum::middleware::map_request::private::Sealed,Trait,Missing,,,,,,,
-axum::middleware::map_response::MapResponse,Struct,Missing,,,,,,,
-axum::middleware::map_response::MapResponseLayer,Struct,Missing,,,,,,,
-axum::middleware::map_response::ResponseFuture,Struct,Missing,,,,,,,
-axum::middleware::map_response::map_response,Function,Missing,,,,,,,
-axum::middleware::map_response::map_response_with_state,Function,Missing,,,,,,,
-axum::middleware::response_axum_body::ResponseAxumBody,Struct,Missing,,,,,,,
-axum::middleware::response_axum_body::ResponseAxumBodyFuture,Struct,Missing,,,,,,,
-axum::middleware::response_axum_body::ResponseAxumBodyLayer,Struct,Missing,,,,,,,
-axum::response::Html,Struct,Missing,,,,,,,
-axum::response::NoContent,Struct,Missing,,,,,,,
-axum::response::redirect::Redirect,Struct,Missing,,,,,,,
-axum::response::sse::Event,Struct,Missing,,,,,,,
-axum::response::sse::EventDataWriter,Struct,Missing,,,,,,,
-axum::response::sse::KeepAlive,Struct,Missing,,,,,,,
-axum::response::sse::KeepAliveStream,Struct,Missing,,,,,,,
-axum::response::sse::Sse,Struct,Missing,,,,,,,
-axum::routing::Router,Struct,Missing,,,,,,,
-axum::routing::RouterAsService,Struct,Missing,,,,,,,
-axum::routing::RouterIntoService,Struct,Missing,,,,,,,
-axum::routing::into_make_service::IntoMakeService,Struct,Missing,,,,,,,
-axum::routing::into_make_service::IntoMakeServiceFuture,Struct,Missing,,,,,,,
-axum::routing::method_filter::MethodFilter,Struct,Missing,,,,,,,
-axum::routing::method_filter::NoMatchingMethodFilter,Struct,Missing,,,,,,,
-axum::routing::method_routing::MethodRouter,Struct,Missing,,,,,,,
-axum::routing::method_routing::any,Function,Missing,,,,,,,
-axum::routing::method_routing::any_service,Function,Missing,,,,,,,
-axum::routing::method_routing::connect,Function,Missing,,,,,,,
-axum::routing::method_routing::connect_service,Function,Missing,,,,,,,
-axum::routing::method_routing::delete,Function,Missing,,,,,,,
-axum::routing::method_routing::delete_service,Function,Missing,,,,,,,
-axum::routing::method_routing::get,Function,Missing,,,,,,,
-axum::routing::method_routing::get_service,Function,Missing,,,,,,,
-axum::routing::method_routing::head,Function,Missing,,,,,,,
-axum::routing::method_routing::head_service,Function,Missing,,,,,,,
-axum::routing::method_routing::on,Function,Missing,,,,,,,
-axum::routing::method_routing::on_service,Function,Missing,,,,,,,
-axum::routing::method_routing::options,Function,Missing,,,,,,,
-axum::routing::method_routing::options_service,Function,Missing,,,,,,,
-axum::routing::method_routing::patch,Function,Missing,,,,,,,
-axum::routing::method_routing::patch_service,Function,Missing,,,,,,,
-axum::routing::method_routing::post,Function,Missing,,,,,,,
-axum::routing::method_routing::post_service,Function,Missing,,,,,,,
-axum::routing::method_routing::put,Function,Missing,,,,,,,
-axum::routing::method_routing::put_service,Function,Missing,,,,,,,
-axum::routing::method_routing::trace,Function,Missing,,,,,,,
-axum::routing::method_routing::trace_service,Function,Missing,,,,,,,
-axum::routing::route::InfallibleRouteFuture,Struct,Missing,,,,,,,
-axum::routing::route::Route,Struct,Missing,,,,,,,
-axum::routing::route::RouteFuture,Struct,Missing,,,,,,,
-axum::serve::IncomingStream,Struct,Missing,,,,,,,
-axum::serve::Serve,Struct,Missing,,,,,,,
-axum::serve::WithGracefulShutdown,Struct,Missing,,,,,,,
-axum::serve::listener::Listener,Trait,Missing,,,,,,,
-axum::serve::listener::ListenerExt,Trait,Missing,,,,,,,
-axum::serve::listener::TapIo,Struct,Missing,,,,,,,
-axum::serve::private::ServeFuture,Struct,Missing,,,,,,,
-axum::serve::serve,Function,Missing,,,,,,,
-axum::service_ext::ServiceExt,Trait,Missing,,,,,,,
-axum_core::BoxError,TypeAlias,Missing,,,,,,,
-axum_core::__composite_rejection,Macro,Missing,,,,,,,
-axum_core::__define_rejection,Macro,Missing,,,,,,,
-axum_core::body::Body,Struct,Missing,,,,,,,
-axum_core::body::BodyDataStream,Struct,Missing,,,,,,,
-axum_core::body::StreamBody,Struct,Missing,,,,,,,
-axum_core::error::Error,Struct,Missing,,,,,,,
-axum_core::ext_traits::request::RequestExt,Trait,Missing,,,,,,,
-axum_core::ext_traits::request::sealed::Sealed,Trait,Missing,,,,,,,
-axum_core::ext_traits::request_parts::RequestPartsExt,Trait,Missing,,,,,,,
-axum_core::ext_traits::request_parts::sealed::Sealed,Trait,Missing,,,,,,,
-axum_core::extract::FromRequest,Trait,Missing,,,,,,,
-axum_core::extract::FromRequestParts,Trait,Missing,,,,,,,
-axum_core::extract::Request,TypeAlias,Missing,,,,,,,
-axum_core::extract::default_body_limit::DefaultBodyLimit,Struct,Missing,,,,,,,
-axum_core::extract::default_body_limit::DefaultBodyLimitKind,Enum,Missing,,,,,,,
-axum_core::extract::default_body_limit::private::DefaultBodyLimitService,Struct,Missing,,,,,,,
-axum_core::extract::from_ref::FromRef,Trait,Missing,,,,,,,
-axum_core::extract::option::OptionalFromRequest,Trait,Missing,,,,,,,
-axum_core::extract::option::OptionalFromRequestParts,Trait,Missing,,,,,,,
-axum_core::extract::private::ViaParts,Enum,Missing,,,,,,,
-axum_core::extract::private::ViaRequest,Enum,Missing,,,,,,,
-axum_core::extract::rejection::BytesRejection,Enum,Missing,,,,,,,
-axum_core::extract::rejection::FailedToBufferBody,Enum,Missing,,,,,,,
-axum_core::extract::rejection::InvalidUtf8,Struct,Missing,,,,,,,
-axum_core::extract::rejection::LengthLimitError,Struct,Missing,,,,,,,
-axum_core::extract::rejection::StringRejection,Enum,Missing,,,,,,,
-axum_core::extract::rejection::UnknownBodyError,Struct,Missing,,,,,,,
-axum_core::response::ErrorResponse,Struct,Missing,,,,,,,
-axum_core::response::Response,TypeAlias,Missing,,,,,,,
-axum_core::response::Result,TypeAlias,Missing,,,,,,,
-axum_core::response::append_headers::AppendHeaders,Struct,Missing,,,,,,,
-axum_core::response::into_response::BytesChainBody,Struct,Missing,,,,,,,
-axum_core::response::into_response::IntoResponse,Trait,Missing,,,,,,,
-axum_core::response::into_response_parts::IntoResponseParts,Trait,Missing,,,,,,,
-axum_core::response::into_response_parts::ResponseParts,Struct,Missing,,,,,,,
-axum_core::response::into_response_parts::TryIntoHeaderError,Struct,Missing,,,,,,,
-axum_core::response::into_response_parts::TryIntoHeaderErrorKind,Enum,Missing,,,,,,,
-elicit_axum::handler::AxumExtractorAdded,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::AxumHandlerCtx,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::AxumHandlerDefined,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::AxumHandlerPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::HandlerAddExtractorParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::HandlerDescribeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::HandlerEmitParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::HandlerIdResult,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::HandlerNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::HandlerSetBodyParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::_elicit_compat_AxumExtractorAdded::AxumExtractorAddedStyle,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::_elicit_compat_AxumHandlerDefined::AxumHandlerDefinedStyle,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::add_extractor_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::describe_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::emit_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::new_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::handler::set_body_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::AxumResponseCtx,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::AxumResponseDefined,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::AxumResponsePlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::ResponseDescribeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::ResponseEmitParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::ResponseHtmlParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::ResponseIdResult,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::ResponseJsonParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::ResponseNoContentParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::ResponseRedirectPermanentParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::ResponseRedirectTemporaryParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::ResponseStatusParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::_elicit_compat_AxumResponseDefined::AxumResponseDefinedStyle,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::describe_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::emit_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::html_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::json_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::no_content_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::redirect_permanent_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::redirect_temporary_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::response::status_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::AxumRouteAdded,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::AxumRouterCreated,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::AxumRouterCtx,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::AxumRouterPlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::RouterAddLayerParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::RouterAddRouteParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::RouterDescribeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::RouterEmitParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::RouterIdResult,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::RouterNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::RouterSetCustomStateParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::RouterSetDbSlotParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::RouterSetFallbackParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::_elicit_compat_AxumRouteAdded::AxumRouteAddedStyle,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::_elicit_compat_AxumRouterCreated::AxumRouterCreatedStyle,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::add_layer_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::add_route_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::describe_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::emit_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::new_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::set_custom_state_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::set_db_slot_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::router::set_fallback_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::AxumServeCtx,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::AxumServePlugin,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::AxumServerConfigured,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::ServeDescribeParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::ServeEmitMainParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::ServeGracefulParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::ServeIdResult,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::ServeNewParams,Struct,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::_elicit_compat_AxumServerConfigured::AxumServerConfiguredStyle,Enum,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::describe_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::emit_main_tool_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::new_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
-elicit_axum::serve::with_graceful_shutdown_descriptor,Function,Extra,,,,,,,"in shadow, not in target"
+item_path,item_kind,api_family,status,coverage_kind,primary_gap_kind,shadow_item,drift_confidence,shadow_elicit_impl,verification_gap,verification_ready,shadow_can_be_direct,shadow_missing_external_traits,shadow_missing_our_traits,action,notes
+axum::body::to_bytes,Function,axum::body::to_bytes,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::body::to_bytes` so the full public API surface is represented,
+axum::error_handling::HandleError,Struct,axum::error_handling::HandleError,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::error_handling::HandleError` and make the new wrapper `ElicitComplete`,
+axum::error_handling::HandleErrorLayer,Struct,axum::error_handling::HandleErrorLayer,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::error_handling::HandleErrorLayer` and make the new wrapper `ElicitComplete`,
+axum::error_handling::future::HandleErrorFuture,Struct,axum::error_handling::future,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::error_handling::future::HandleErrorFuture` and make the new wrapper `ElicitComplete`,
+axum::extension::AddExtension,Struct,axum::extension::AddExtension,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extension::AddExtension` and make the new wrapper `ElicitComplete`,
+axum::extension::Extension,Struct,axum::extension::Extension,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extension::Extension` and make the new wrapper `ElicitComplete`,
+axum::extract::connect_info::ConnectInfo,Struct,axum::extract::connect_info,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::connect_info::ConnectInfo` and make the new wrapper `ElicitComplete`,
+axum::extract::connect_info::Connected,Trait,axum::extract::connect_info,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::connect_info::Connected` so the full public API surface is represented,
+axum::extract::connect_info::IntoMakeServiceWithConnectInfo,Struct,axum::extract::connect_info,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::connect_info::IntoMakeServiceWithConnectInfo` and make the new wrapper `ElicitComplete`,
+axum::extract::connect_info::MockConnectInfo,Struct,axum::extract::connect_info,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::connect_info::MockConnectInfo` and make the new wrapper `ElicitComplete`,
+axum::extract::connect_info::ResponseFuture,Struct,axum::extract::connect_info,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::connect_info::ResponseFuture` and make the new wrapper `ElicitComplete`,
+axum::extract::matched_path::MatchedPath,Struct,axum::extract::matched_path,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::matched_path::MatchedPath` and make the new wrapper `ElicitComplete`,
+axum::extract::multipart::Field,Struct,axum::extract::multipart,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::multipart::Field` and make the new wrapper `ElicitComplete`,
+axum::extract::multipart::InvalidBoundary,Struct,axum::extract::multipart,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::multipart::InvalidBoundary` and make the new wrapper `ElicitComplete`,
+axum::extract::multipart::Multipart,Struct,axum::extract::multipart,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::multipart::Multipart` and make the new wrapper `ElicitComplete`,
+axum::extract::multipart::MultipartError,Struct,axum::extract::multipart,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::multipart::MultipartError` and make the new wrapper `ElicitComplete`,
+axum::extract::multipart::MultipartRejection,Enum,axum::extract::multipart,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::multipart::MultipartRejection` and make the new wrapper `ElicitComplete`,
+axum::extract::nested_path::NestedPath,Struct,axum::extract::nested_path,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::nested_path::NestedPath` and make the new wrapper `ElicitComplete`,
+axum::extract::original_uri::OriginalUri,Struct,axum::extract::original_uri,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::original_uri::OriginalUri` and make the new wrapper `ElicitComplete`,
+axum::extract::path::ErrorKind,Enum,axum::extract::path,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::path::ErrorKind` and make the new wrapper `ElicitComplete`,
+axum::extract::path::FailedToDeserializePathParams,Struct,axum::extract::path,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::path::FailedToDeserializePathParams` and make the new wrapper `ElicitComplete`,
+axum::extract::path::InvalidUtf8InPathParam,Struct,axum::extract::path,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::path::InvalidUtf8InPathParam` and make the new wrapper `ElicitComplete`,
+axum::extract::path::Path,Struct,axum::extract::path,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::path::Path` and make the new wrapper `ElicitComplete`,
+axum::extract::path::RawPathParams,Struct,axum::extract::path,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::path::RawPathParams` and make the new wrapper `ElicitComplete`,
+axum::extract::path::RawPathParamsIter,Struct,axum::extract::path,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::path::RawPathParamsIter` and make the new wrapper `ElicitComplete`,
+axum::extract::query::Query,Struct,axum::extract::query,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::query::Query` and make the new wrapper `ElicitComplete`,
+axum::extract::raw_form::RawForm,Struct,axum::extract::raw_form,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::raw_form::RawForm` and make the new wrapper `ElicitComplete`,
+axum::extract::raw_query::RawQuery,Struct,axum::extract::raw_query,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::raw_query::RawQuery` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::ExtensionRejection,Enum,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::ExtensionRejection` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::FailedToDeserializeForm,Struct,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::FailedToDeserializeForm` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::FailedToDeserializeFormBody,Struct,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::FailedToDeserializeFormBody` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::FailedToDeserializeQueryString,Struct,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::FailedToDeserializeQueryString` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::FormRejection,Enum,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::FormRejection` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::InvalidFormContentType,Struct,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::InvalidFormContentType` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::JsonDataError,Struct,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::JsonDataError` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::JsonRejection,Enum,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::JsonRejection` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::JsonSyntaxError,Struct,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::JsonSyntaxError` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::MatchedPathMissing,Struct,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::MatchedPathMissing` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::MatchedPathRejection,Enum,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::MatchedPathRejection` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::MissingExtension,Struct,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::MissingExtension` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::MissingJsonContentType,Struct,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::MissingJsonContentType` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::MissingPathParams,Struct,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::MissingPathParams` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::NestedPathRejection,Struct,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::NestedPathRejection` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::PathRejection,Enum,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::PathRejection` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::QueryRejection,Enum,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::QueryRejection` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::RawFormRejection,Enum,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::RawFormRejection` and make the new wrapper `ElicitComplete`,
+axum::extract::rejection::RawPathParamsRejection,Enum,axum::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::rejection::RawPathParamsRejection` and make the new wrapper `ElicitComplete`,
+axum::extract::state::State,Struct,axum::extract::state,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::state::State` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::CloseCode,TypeAlias,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::CloseCode` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::CloseFrame,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::CloseFrame` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::DefaultOnFailedUpgrade,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::DefaultOnFailedUpgrade` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::Message,Enum,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::Message` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::OnFailedUpgrade,Trait,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::OnFailedUpgrade` so the full public API surface is represented,
+axum::extract::ws::Utf8Bytes,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::Utf8Bytes` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::WebSocket,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::WebSocket` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::WebSocketUpgrade,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::WebSocketUpgrade` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::close_code::ABNORMAL,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::ABNORMAL` so the full public API surface is represented,
+axum::extract::ws::close_code::AGAIN,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::AGAIN` so the full public API surface is represented,
+axum::extract::ws::close_code::AWAY,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::AWAY` so the full public API surface is represented,
+axum::extract::ws::close_code::ERROR,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::ERROR` so the full public API surface is represented,
+axum::extract::ws::close_code::EXTENSION,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::EXTENSION` so the full public API surface is represented,
+axum::extract::ws::close_code::INVALID,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::INVALID` so the full public API surface is represented,
+axum::extract::ws::close_code::NORMAL,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::NORMAL` so the full public API surface is represented,
+axum::extract::ws::close_code::POLICY,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::POLICY` so the full public API surface is represented,
+axum::extract::ws::close_code::PROTOCOL,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::PROTOCOL` so the full public API surface is represented,
+axum::extract::ws::close_code::RESTART,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::RESTART` so the full public API surface is represented,
+axum::extract::ws::close_code::SIZE,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::SIZE` so the full public API surface is represented,
+axum::extract::ws::close_code::STATUS,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::STATUS` so the full public API surface is represented,
+axum::extract::ws::close_code::UNSUPPORTED,Constant,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::extract::ws::close_code::UNSUPPORTED` so the full public API surface is represented,
+axum::extract::ws::rejection::ConnectionNotUpgradable,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::rejection::ConnectionNotUpgradable` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::rejection::InvalidConnectionHeader,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::rejection::InvalidConnectionHeader` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::rejection::InvalidProtocolPseudoheader,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::rejection::InvalidProtocolPseudoheader` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::rejection::InvalidUpgradeHeader,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::rejection::InvalidUpgradeHeader` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::rejection::InvalidWebSocketVersionHeader,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::rejection::InvalidWebSocketVersionHeader` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::rejection::MethodNotConnect,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::rejection::MethodNotConnect` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::rejection::MethodNotGet,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::rejection::MethodNotGet` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::rejection::WebSocketKeyHeaderMissing,Struct,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::rejection::WebSocketKeyHeaderMissing` and make the new wrapper `ElicitComplete`,
+axum::extract::ws::rejection::WebSocketUpgradeRejection,Enum,axum::extract::ws,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::extract::ws::rejection::WebSocketUpgradeRejection` and make the new wrapper `ElicitComplete`,
+axum::form::Form,Struct,axum::form::Form,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::form::Form` and make the new wrapper `ElicitComplete`,
+axum::handler::Handler,Trait,axum::handler::Handler,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::handler::Handler` so the full public API surface is represented,
+axum::handler::HandlerWithoutStateExt,Trait,axum::handler::HandlerWithoutStateExt,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::handler::HandlerWithoutStateExt` so the full public API surface is represented,
+axum::handler::Layered,Struct,axum::handler::Layered,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::handler::Layered` and make the new wrapper `ElicitComplete`,
+axum::handler::future::IntoServiceFuture,Struct,axum::handler::future,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::handler::future::IntoServiceFuture` and make the new wrapper `ElicitComplete`,
+axum::handler::future::LayeredFuture,Struct,axum::handler::future,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::handler::future::LayeredFuture` and make the new wrapper `ElicitComplete`,
+axum::handler::private::IntoResponseHandler,Enum,axum::handler::private,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::handler::private::IntoResponseHandler` and make the new wrapper `ElicitComplete`,
+axum::handler::service::HandlerService,Struct,axum::handler::service,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::handler::service::HandlerService` and make the new wrapper `ElicitComplete`,
+axum::json::Json,Struct,axum::json::Json,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::json::Json` and make the new wrapper `ElicitComplete`,
+axum::middleware::from_extractor::FromExtractor,Struct,axum::middleware::from_extractor,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::from_extractor::FromExtractor` and make the new wrapper `ElicitComplete`,
+axum::middleware::from_extractor::FromExtractorLayer,Struct,axum::middleware::from_extractor,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::from_extractor::FromExtractorLayer` and make the new wrapper `ElicitComplete`,
+axum::middleware::from_extractor::ResponseFuture,Struct,axum::middleware::from_extractor,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::from_extractor::ResponseFuture` and make the new wrapper `ElicitComplete`,
+axum::middleware::from_extractor::from_extractor,Function,axum::middleware::from_extractor,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::middleware::from_extractor::from_extractor` so the full public API surface is represented,
+axum::middleware::from_extractor::from_extractor_with_state,Function,axum::middleware::from_extractor,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::middleware::from_extractor::from_extractor_with_state` so the full public API surface is represented,
+axum::middleware::from_fn::FromFn,Struct,axum::middleware::from_fn,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::from_fn::FromFn` and make the new wrapper `ElicitComplete`,
+axum::middleware::from_fn::FromFnLayer,Struct,axum::middleware::from_fn,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::from_fn::FromFnLayer` and make the new wrapper `ElicitComplete`,
+axum::middleware::from_fn::Next,Struct,axum::middleware::from_fn,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::from_fn::Next` and make the new wrapper `ElicitComplete`,
+axum::middleware::from_fn::ResponseFuture,Struct,axum::middleware::from_fn,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::from_fn::ResponseFuture` and make the new wrapper `ElicitComplete`,
+axum::middleware::from_fn::from_fn,Function,axum::middleware::from_fn,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::middleware::from_fn::from_fn` so the full public API surface is represented,
+axum::middleware::from_fn::from_fn_with_state,Function,axum::middleware::from_fn,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::middleware::from_fn::from_fn_with_state` so the full public API surface is represented,
+axum::middleware::map_request::IntoMapRequestResult,Trait,axum::middleware::map_request,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::middleware::map_request::IntoMapRequestResult` so the full public API surface is represented,
+axum::middleware::map_request::MapRequest,Struct,axum::middleware::map_request,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::map_request::MapRequest` and make the new wrapper `ElicitComplete`,
+axum::middleware::map_request::MapRequestLayer,Struct,axum::middleware::map_request,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::map_request::MapRequestLayer` and make the new wrapper `ElicitComplete`,
+axum::middleware::map_request::ResponseFuture,Struct,axum::middleware::map_request,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::map_request::ResponseFuture` and make the new wrapper `ElicitComplete`,
+axum::middleware::map_request::map_request,Function,axum::middleware::map_request,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::middleware::map_request::map_request` so the full public API surface is represented,
+axum::middleware::map_request::map_request_with_state,Function,axum::middleware::map_request,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::middleware::map_request::map_request_with_state` so the full public API surface is represented,
+axum::middleware::map_request::private::Sealed,Trait,axum::middleware::map_request,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::middleware::map_request::private::Sealed` so the full public API surface is represented,
+axum::middleware::map_response::MapResponse,Struct,axum::middleware::map_response,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::map_response::MapResponse` and make the new wrapper `ElicitComplete`,
+axum::middleware::map_response::MapResponseLayer,Struct,axum::middleware::map_response,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::map_response::MapResponseLayer` and make the new wrapper `ElicitComplete`,
+axum::middleware::map_response::ResponseFuture,Struct,axum::middleware::map_response,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::map_response::ResponseFuture` and make the new wrapper `ElicitComplete`,
+axum::middleware::map_response::map_response,Function,axum::middleware::map_response,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::middleware::map_response::map_response` so the full public API surface is represented,
+axum::middleware::map_response::map_response_with_state,Function,axum::middleware::map_response,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::middleware::map_response::map_response_with_state` so the full public API surface is represented,
+axum::middleware::response_axum_body::ResponseAxumBody,Struct,axum::middleware::response_axum_body,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::response_axum_body::ResponseAxumBody` and make the new wrapper `ElicitComplete`,
+axum::middleware::response_axum_body::ResponseAxumBodyFuture,Struct,axum::middleware::response_axum_body,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::response_axum_body::ResponseAxumBodyFuture` and make the new wrapper `ElicitComplete`,
+axum::middleware::response_axum_body::ResponseAxumBodyLayer,Struct,axum::middleware::response_axum_body,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::middleware::response_axum_body::ResponseAxumBodyLayer` and make the new wrapper `ElicitComplete`,
+axum::response::Html,Struct,axum::response::Html,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::response::Html` and make the new wrapper `ElicitComplete`,
+axum::response::NoContent,Struct,axum::response::NoContent,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::response::NoContent` and make the new wrapper `ElicitComplete`,
+axum::response::redirect::Redirect,Struct,axum::response::redirect,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::response::redirect::Redirect` and make the new wrapper `ElicitComplete`,
+axum::response::sse::Event,Struct,axum::response::sse,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::response::sse::Event` and make the new wrapper `ElicitComplete`,
+axum::response::sse::EventDataWriter,Struct,axum::response::sse,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::response::sse::EventDataWriter` and make the new wrapper `ElicitComplete`,
+axum::response::sse::KeepAlive,Struct,axum::response::sse,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::response::sse::KeepAlive` and make the new wrapper `ElicitComplete`,
+axum::response::sse::KeepAliveStream,Struct,axum::response::sse,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::response::sse::KeepAliveStream` and make the new wrapper `ElicitComplete`,
+axum::response::sse::Sse,Struct,axum::response::sse,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::response::sse::Sse` and make the new wrapper `ElicitComplete`,
+axum::routing::Router,Struct,axum::routing::Router,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::routing::Router` and make the new wrapper `ElicitComplete`,
+axum::routing::RouterAsService,Struct,axum::routing::RouterAsService,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::routing::RouterAsService` and make the new wrapper `ElicitComplete`,
+axum::routing::RouterIntoService,Struct,axum::routing::RouterIntoService,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::routing::RouterIntoService` and make the new wrapper `ElicitComplete`,
+axum::routing::into_make_service::IntoMakeService,Struct,axum::routing::into_make_service,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::routing::into_make_service::IntoMakeService` and make the new wrapper `ElicitComplete`,
+axum::routing::into_make_service::IntoMakeServiceFuture,Struct,axum::routing::into_make_service,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::routing::into_make_service::IntoMakeServiceFuture` and make the new wrapper `ElicitComplete`,
+axum::routing::method_filter::MethodFilter,Struct,axum::routing::method_filter,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::routing::method_filter::MethodFilter` and make the new wrapper `ElicitComplete`,
+axum::routing::method_filter::NoMatchingMethodFilter,Struct,axum::routing::method_filter,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::routing::method_filter::NoMatchingMethodFilter` and make the new wrapper `ElicitComplete`,
+axum::routing::method_routing::MethodRouter,Struct,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::routing::method_routing::MethodRouter` and make the new wrapper `ElicitComplete`,
+axum::routing::method_routing::any,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::any` so the full public API surface is represented,
+axum::routing::method_routing::any_service,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::any_service` so the full public API surface is represented,
+axum::routing::method_routing::connect,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::connect` so the full public API surface is represented,
+axum::routing::method_routing::connect_service,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::connect_service` so the full public API surface is represented,
+axum::routing::method_routing::delete,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::delete` so the full public API surface is represented,
+axum::routing::method_routing::delete_service,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::delete_service` so the full public API surface is represented,
+axum::routing::method_routing::get,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::get` so the full public API surface is represented,
+axum::routing::method_routing::get_service,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::get_service` so the full public API surface is represented,
+axum::routing::method_routing::head,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::head` so the full public API surface is represented,
+axum::routing::method_routing::head_service,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::head_service` so the full public API surface is represented,
+axum::routing::method_routing::on,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::on` so the full public API surface is represented,
+axum::routing::method_routing::on_service,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::on_service` so the full public API surface is represented,
+axum::routing::method_routing::options,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::options` so the full public API surface is represented,
+axum::routing::method_routing::options_service,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::options_service` so the full public API surface is represented,
+axum::routing::method_routing::patch,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::patch` so the full public API surface is represented,
+axum::routing::method_routing::patch_service,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::patch_service` so the full public API surface is represented,
+axum::routing::method_routing::post,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::post` so the full public API surface is represented,
+axum::routing::method_routing::post_service,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::post_service` so the full public API surface is represented,
+axum::routing::method_routing::put,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::put` so the full public API surface is represented,
+axum::routing::method_routing::put_service,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::put_service` so the full public API surface is represented,
+axum::routing::method_routing::trace,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::trace` so the full public API surface is represented,
+axum::routing::method_routing::trace_service,Function,axum::routing::method_routing,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::routing::method_routing::trace_service` so the full public API surface is represented,
+axum::routing::route::InfallibleRouteFuture,Struct,axum::routing::route,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::routing::route::InfallibleRouteFuture` and make the new wrapper `ElicitComplete`,
+axum::routing::route::Route,Struct,axum::routing::route,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::routing::route::Route` and make the new wrapper `ElicitComplete`,
+axum::routing::route::RouteFuture,Struct,axum::routing::route,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::routing::route::RouteFuture` and make the new wrapper `ElicitComplete`,
+axum::serve::IncomingStream,Struct,axum::serve::IncomingStream,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::serve::IncomingStream` and make the new wrapper `ElicitComplete`,
+axum::serve::Serve,Struct,axum::serve::Serve,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::serve::Serve` and make the new wrapper `ElicitComplete`,
+axum::serve::WithGracefulShutdown,Struct,axum::serve::WithGracefulShutdown,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::serve::WithGracefulShutdown` and make the new wrapper `ElicitComplete`,
+axum::serve::listener::Listener,Trait,axum::serve::listener,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::serve::listener::Listener` so the full public API surface is represented,
+axum::serve::listener::ListenerExt,Trait,axum::serve::listener,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::serve::listener::ListenerExt` so the full public API surface is represented,
+axum::serve::listener::TapIo,Struct,axum::serve::listener,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::serve::listener::TapIo` and make the new wrapper `ElicitComplete`,
+axum::serve::private::ServeFuture,Struct,axum::serve::private,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum::serve::private::ServeFuture` and make the new wrapper `ElicitComplete`,
+axum::serve::serve,Function,axum::serve::serve,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::serve::serve` so the full public API surface is represented,
+axum::service_ext::ServiceExt,Trait,axum::service_ext::ServiceExt,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum::service_ext::ServiceExt` so the full public API surface is represented,
+axum_core::BoxError,TypeAlias,axum_core::BoxError,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::BoxError` and make the new wrapper `ElicitComplete`,
+axum_core::__composite_rejection,Macro,axum_core::__composite_rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::__composite_rejection` so the full public API surface is represented,
+axum_core::__define_rejection,Macro,axum_core::__define_rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::__define_rejection` so the full public API surface is represented,
+axum_core::body::Body,Struct,axum_core::body::Body,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::body::Body` and make the new wrapper `ElicitComplete`,
+axum_core::body::BodyDataStream,Struct,axum_core::body::BodyDataStream,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::body::BodyDataStream` and make the new wrapper `ElicitComplete`,
+axum_core::body::StreamBody,Struct,axum_core::body::StreamBody,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::body::StreamBody` and make the new wrapper `ElicitComplete`,
+axum_core::error::Error,Struct,axum_core::error::Error,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::error::Error` and make the new wrapper `ElicitComplete`,
+axum_core::ext_traits::request::RequestExt,Trait,axum_core::ext_traits::request,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::ext_traits::request::RequestExt` so the full public API surface is represented,
+axum_core::ext_traits::request::sealed::Sealed,Trait,axum_core::ext_traits::request,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::ext_traits::request::sealed::Sealed` so the full public API surface is represented,
+axum_core::ext_traits::request_parts::RequestPartsExt,Trait,axum_core::ext_traits::request_parts,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::ext_traits::request_parts::RequestPartsExt` so the full public API surface is represented,
+axum_core::ext_traits::request_parts::sealed::Sealed,Trait,axum_core::ext_traits::request_parts,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::ext_traits::request_parts::sealed::Sealed` so the full public API surface is represented,
+axum_core::extract::FromRequest,Trait,axum_core::extract::FromRequest,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::extract::FromRequest` so the full public API surface is represented,
+axum_core::extract::FromRequestParts,Trait,axum_core::extract::FromRequestParts,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::extract::FromRequestParts` so the full public API surface is represented,
+axum_core::extract::Request,TypeAlias,axum_core::extract::Request,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::Request` and make the new wrapper `ElicitComplete`,
+axum_core::extract::default_body_limit::DefaultBodyLimit,Struct,axum_core::extract::default_body_limit,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::default_body_limit::DefaultBodyLimit` and make the new wrapper `ElicitComplete`,
+axum_core::extract::default_body_limit::DefaultBodyLimitKind,Enum,axum_core::extract::default_body_limit,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::default_body_limit::DefaultBodyLimitKind` and make the new wrapper `ElicitComplete`,
+axum_core::extract::default_body_limit::private::DefaultBodyLimitService,Struct,axum_core::extract::default_body_limit,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::default_body_limit::private::DefaultBodyLimitService` and make the new wrapper `ElicitComplete`,
+axum_core::extract::from_ref::FromRef,Trait,axum_core::extract::from_ref,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::extract::from_ref::FromRef` so the full public API surface is represented,
+axum_core::extract::option::OptionalFromRequest,Trait,axum_core::extract::option,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::extract::option::OptionalFromRequest` so the full public API surface is represented,
+axum_core::extract::option::OptionalFromRequestParts,Trait,axum_core::extract::option,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::extract::option::OptionalFromRequestParts` so the full public API surface is represented,
+axum_core::extract::private::ViaParts,Enum,axum_core::extract::private,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::private::ViaParts` and make the new wrapper `ElicitComplete`,
+axum_core::extract::private::ViaRequest,Enum,axum_core::extract::private,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::private::ViaRequest` and make the new wrapper `ElicitComplete`,
+axum_core::extract::rejection::BytesRejection,Enum,axum_core::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::rejection::BytesRejection` and make the new wrapper `ElicitComplete`,
+axum_core::extract::rejection::FailedToBufferBody,Enum,axum_core::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::rejection::FailedToBufferBody` and make the new wrapper `ElicitComplete`,
+axum_core::extract::rejection::InvalidUtf8,Struct,axum_core::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::rejection::InvalidUtf8` and make the new wrapper `ElicitComplete`,
+axum_core::extract::rejection::LengthLimitError,Struct,axum_core::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::rejection::LengthLimitError` and make the new wrapper `ElicitComplete`,
+axum_core::extract::rejection::StringRejection,Enum,axum_core::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::rejection::StringRejection` and make the new wrapper `ElicitComplete`,
+axum_core::extract::rejection::UnknownBodyError,Struct,axum_core::extract::rejection,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::extract::rejection::UnknownBodyError` and make the new wrapper `ElicitComplete`,
+axum_core::response::ErrorResponse,Struct,axum_core::response::ErrorResponse,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::response::ErrorResponse` and make the new wrapper `ElicitComplete`,
+axum_core::response::Response,TypeAlias,axum_core::response::Response,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::response::Response` and make the new wrapper `ElicitComplete`,
+axum_core::response::Result,TypeAlias,axum_core::response::Result,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::response::Result` and make the new wrapper `ElicitComplete`,
+axum_core::response::append_headers::AppendHeaders,Struct,axum_core::response::append_headers,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::response::append_headers::AppendHeaders` and make the new wrapper `ElicitComplete`,
+axum_core::response::into_response::BytesChainBody,Struct,axum_core::response::into_response,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::response::into_response::BytesChainBody` and make the new wrapper `ElicitComplete`,
+axum_core::response::into_response::IntoResponse,Trait,axum_core::response::into_response,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::response::into_response::IntoResponse` so the full public API surface is represented,
+axum_core::response::into_response_parts::IntoResponseParts,Trait,axum_core::response::into_response_parts,Missing,Missing,Missing,,,,false,false,,,,Add a shadow item for upstream `axum_core::response::into_response_parts::IntoResponseParts` so the full public API surface is represented,
+axum_core::response::into_response_parts::ResponseParts,Struct,axum_core::response::into_response_parts,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::response::into_response_parts::ResponseParts` and make the new wrapper `ElicitComplete`,
+axum_core::response::into_response_parts::TryIntoHeaderError,Struct,axum_core::response::into_response_parts,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::response::into_response_parts::TryIntoHeaderError` and make the new wrapper `ElicitComplete`,
+axum_core::response::into_response_parts::TryIntoHeaderErrorKind,Enum,axum_core::response::into_response_parts,Missing,Missing,Missing,,,,false,false,,,,Add a shadow for upstream `axum_core::response::into_response_parts::TryIntoHeaderErrorKind` and make the new wrapper `ElicitComplete`,
+elicit_axum::handler::AxumExtractorAdded,Struct,elicit_axum::handler::AxumExtractorAdded,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::handler::AxumExtractorAdded`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::handler::AxumHandlerDefined,Struct,elicit_axum::handler::AxumHandlerDefined,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::handler::AxumHandlerDefined`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::handler::HandlerIdResult,Struct,elicit_axum::handler::HandlerIdResult,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::handler::HandlerIdResult`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::handler::_elicit_compat_AxumExtractorAdded::AxumExtractorAddedStyle,Enum,elicit_axum::handler::_elicit_compat_AxumExtractorAdded,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::handler::_elicit_compat_AxumExtractorAdded::AxumExtractorAddedStyle`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::handler::_elicit_compat_AxumHandlerDefined::AxumHandlerDefinedStyle,Enum,elicit_axum::handler::_elicit_compat_AxumHandlerDefined,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::handler::_elicit_compat_AxumHandlerDefined::AxumHandlerDefinedStyle`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::handler::add_extractor_descriptor,Function,elicit_axum::handler::add_extractor_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::handler::add_extractor_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::handler::describe_descriptor,Function,elicit_axum::handler::describe_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::handler::describe_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::handler::emit_descriptor,Function,elicit_axum::handler::emit_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::handler::emit_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::handler::new_descriptor,Function,elicit_axum::handler::new_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::handler::new_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::handler::set_body_descriptor,Function,elicit_axum::handler::set_body_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::handler::set_body_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::response::AxumResponseDefined,Struct,elicit_axum::response::AxumResponseDefined,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::response::AxumResponseDefined`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::response::ResponseIdResult,Struct,elicit_axum::response::ResponseIdResult,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::response::ResponseIdResult`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::response::_elicit_compat_AxumResponseDefined::AxumResponseDefinedStyle,Enum,elicit_axum::response::_elicit_compat_AxumResponseDefined,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::response::_elicit_compat_AxumResponseDefined::AxumResponseDefinedStyle`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::response::describe_descriptor,Function,elicit_axum::response::describe_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::response::describe_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::response::emit_descriptor,Function,elicit_axum::response::emit_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::response::emit_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::response::html_descriptor,Function,elicit_axum::response::html_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::response::html_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::response::json_descriptor,Function,elicit_axum::response::json_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::response::json_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::response::no_content_descriptor,Function,elicit_axum::response::no_content_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::response::no_content_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::response::redirect_permanent_descriptor,Function,elicit_axum::response::redirect_permanent_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::response::redirect_permanent_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::response::redirect_temporary_descriptor,Function,elicit_axum::response::redirect_temporary_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::response::redirect_temporary_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::response::status_descriptor,Function,elicit_axum::response::status_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::response::status_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::AxumRouteAdded,Struct,elicit_axum::router::AxumRouteAdded,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::AxumRouteAdded`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::AxumRouterCreated,Struct,elicit_axum::router::AxumRouterCreated,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::AxumRouterCreated`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::RouterIdResult,Struct,elicit_axum::router::RouterIdResult,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::RouterIdResult`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::_elicit_compat_AxumRouteAdded::AxumRouteAddedStyle,Enum,elicit_axum::router::_elicit_compat_AxumRouteAdded,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::_elicit_compat_AxumRouteAdded::AxumRouteAddedStyle`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::_elicit_compat_AxumRouterCreated::AxumRouterCreatedStyle,Enum,elicit_axum::router::_elicit_compat_AxumRouterCreated,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::_elicit_compat_AxumRouterCreated::AxumRouterCreatedStyle`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::add_layer_descriptor,Function,elicit_axum::router::add_layer_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::add_layer_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::add_route_descriptor,Function,elicit_axum::router::add_route_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::add_route_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::describe_descriptor,Function,elicit_axum::router::describe_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::describe_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::emit_descriptor,Function,elicit_axum::router::emit_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::emit_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::new_descriptor,Function,elicit_axum::router::new_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::new_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::set_custom_state_descriptor,Function,elicit_axum::router::set_custom_state_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::set_custom_state_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::set_db_slot_descriptor,Function,elicit_axum::router::set_db_slot_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::set_db_slot_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::router::set_fallback_descriptor,Function,elicit_axum::router::set_fallback_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::router::set_fallback_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::serve::AxumServerConfigured,Struct,elicit_axum::serve::AxumServerConfigured,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::serve::AxumServerConfigured`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::serve::ServeIdResult,Struct,elicit_axum::serve::ServeIdResult,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::serve::ServeIdResult`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::serve::_elicit_compat_AxumServerConfigured::AxumServerConfiguredStyle,Enum,elicit_axum::serve::_elicit_compat_AxumServerConfigured,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::serve::_elicit_compat_AxumServerConfigured::AxumServerConfiguredStyle`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::serve::describe_descriptor,Function,elicit_axum::serve::describe_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::serve::describe_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::serve::emit_main_tool_descriptor,Function,elicit_axum::serve::emit_main_tool_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::serve::emit_main_tool_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::serve::new_descriptor,Function,elicit_axum::serve::new_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::serve::new_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::serve::with_graceful_shutdown_descriptor,Function,elicit_axum::serve::with_graceful_shutdown_descriptor,Extra,PossiblyStale,PossiblyStale,,,,false,false,,,,"Audit `elicit_axum::serve::with_graceful_shutdown_descriptor`: remove it if stale, or rename/remap it to an upstream public item","in shadow, not in target"
+elicit_axum::handler::AxumHandlerCtx,Struct,elicit_axum::handler::AxumHandlerCtx,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::handler::AxumHandlerPlugin,Struct,elicit_axum::handler::AxumHandlerPlugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::handler::HandlerAddExtractorParams,Struct,elicit_axum::handler::HandlerAddExtractorParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::handler::HandlerDescribeParams,Struct,elicit_axum::handler::HandlerDescribeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::handler::HandlerEmitParams,Struct,elicit_axum::handler::HandlerEmitParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::handler::HandlerNewParams,Struct,elicit_axum::handler::HandlerNewParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::handler::HandlerSetBodyParams,Struct,elicit_axum::handler::HandlerSetBodyParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::response::AxumResponseCtx,Struct,elicit_axum::response::AxumResponseCtx,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::response::AxumResponsePlugin,Struct,elicit_axum::response::AxumResponsePlugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::response::ResponseDescribeParams,Struct,elicit_axum::response::ResponseDescribeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::response::ResponseEmitParams,Struct,elicit_axum::response::ResponseEmitParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::response::ResponseHtmlParams,Struct,elicit_axum::response::ResponseHtmlParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::response::ResponseJsonParams,Struct,elicit_axum::response::ResponseJsonParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::response::ResponseNoContentParams,Struct,elicit_axum::response::ResponseNoContentParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::response::ResponseRedirectPermanentParams,Struct,elicit_axum::response::ResponseRedirectPermanentParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::response::ResponseRedirectTemporaryParams,Struct,elicit_axum::response::ResponseRedirectTemporaryParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::response::ResponseStatusParams,Struct,elicit_axum::response::ResponseStatusParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::router::AxumRouterCtx,Struct,elicit_axum::router::AxumRouterCtx,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::router::AxumRouterPlugin,Struct,elicit_axum::router::AxumRouterPlugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::router::RouterAddLayerParams,Struct,elicit_axum::router::RouterAddLayerParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::router::RouterAddRouteParams,Struct,elicit_axum::router::RouterAddRouteParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::router::RouterDescribeParams,Struct,elicit_axum::router::RouterDescribeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::router::RouterEmitParams,Struct,elicit_axum::router::RouterEmitParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::router::RouterNewParams,Struct,elicit_axum::router::RouterNewParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::router::RouterSetCustomStateParams,Struct,elicit_axum::router::RouterSetCustomStateParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::router::RouterSetDbSlotParams,Struct,elicit_axum::router::RouterSetDbSlotParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::router::RouterSetFallbackParams,Struct,elicit_axum::router::RouterSetFallbackParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::serve::AxumServeCtx,Struct,elicit_axum::serve::AxumServeCtx,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::serve::AxumServePlugin,Struct,elicit_axum::serve::AxumServePlugin,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::serve::ServeDescribeParams,Struct,elicit_axum::serve::ServeDescribeParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::serve::ServeEmitMainParams,Struct,elicit_axum::serve::ServeEmitMainParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::serve::ServeGracefulParams,Struct,elicit_axum::serve::ServeGracefulParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
+elicit_axum::serve::ServeNewParams,Struct,elicit_axum::serve::ServeNewParams,Extra,InfrastructureExtra,InfrastructureExtra,,,,false,false,,,,Shadow-only infrastructure item; keep unless it should instead map to an upstream API item,"in shadow, not in target"
