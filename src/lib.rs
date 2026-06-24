@@ -21,9 +21,9 @@ mod trenchcoat;
 pub mod cli;
 
 pub use collect::{
-    DepBuildConfig, TraitPrereqs, collect_dep_build_config, collect_dep_serde_features,
-    collect_inventory, collect_member_dep_build_config, collect_proof_harness,
-    collect_trait_prereqs, collect_trenchcoat_pairs,
+    DepBuildConfig, TraitPrereqs, TypeFeatureProbe, collect_dep_build_config,
+    collect_dep_serde_features, collect_inventory, collect_member_dep_build_config,
+    collect_proof_harness, collect_trait_prereqs, collect_trenchcoat_pairs,
 };
 pub use error::{ElicitDocError, ElicitDocErrorKind, ElicitDocResult};
 pub use gaps::{

@@ -553,6 +553,11 @@ mod tests {
         assert_eq!(report.covered_count, 1);
         assert_eq!(report.missing_count, 0);
         assert_eq!(report.coverage_pct, 100.0);
-        assert!(report.rows.iter().all(|row| row.item_kind != ItemKind::Module));
+        assert!(
+            report
+                .rows
+                .iter()
+                .all(|row| row.item_kind != ItemKind::Module)
+        );
     }
 }

@@ -163,6 +163,7 @@ pub fn build_impl_coverage_report(
     prereqs_map: &HashMap<String, TraitPrereqs>,
 ) -> ImplCoverageReport {
     let mut entries: Vec<ImplCoverageEntry> = Vec::new();
+    let unique_type_names = collect_unique_type_names(source);
 
     for item in source.type_items() {
         let path_str = item.path_str();
@@ -173,7 +174,9 @@ pub fn build_impl_coverage_report(
         let (proof_test, composition_test, notes) =
             determine_test_status(item, &elicit_impl, harness);
 
-        let prereqs = prereqs_map.get(&path_str).cloned().unwrap_or_default();
+        let prereqs = lookup_trait_prereqs(item, source, prereqs_map, &unique_type_names)
+            .cloned()
+            .unwrap_or_default();
 
         entries.push(ImplCoverageEntry {
             type_path: path_str,
@@ -233,6 +236,49 @@ pub fn build_impl_coverage_report(
         missing_test_count,
         flagged_concrete_count,
     }
+}
+
+fn collect_unique_type_names(source: &Inventory) -> HashMap<String, usize> {
+    let mut counts = HashMap::new();
+
+    for item in source.type_items() {
+        *counts.entry(item.name.clone()).or_insert(0) += 1;
+    }
+
+    counts
+}
+
+fn lookup_trait_prereqs<'a>(
+    item: &Item,
+    source: &Inventory,
+    prereqs_map: &'a HashMap<String, TraitPrereqs>,
+    unique_type_names: &HashMap<String, usize>,
+) -> Option<&'a TraitPrereqs> {
+    let canonical_path = item.path_str();
+    if let Some(prereqs) = prereqs_map.get(&canonical_path) {
+        return Some(prereqs);
+    }
+
+    let root_alias = root_reexport_alias(item, source, unique_type_names)?;
+    prereqs_map.get(&root_alias)
+}
+
+fn root_reexport_alias(
+    item: &Item,
+    source: &Inventory,
+    unique_type_names: &HashMap<String, usize>,
+) -> Option<String> {
+    if unique_type_names.get(&item.name).copied() != Some(1) {
+        return None;
+    }
+
+    let crate_root = source.crate_name.replace('-', "_");
+    if item.path.first().map(String::as_str) != Some(crate_root.as_str()) {
+        return None;
+    }
+
+    let alias = format!("{crate_root}::{}", item.name);
+    (alias != item.path_str()).then_some(alias)
 }
 
 /// Determine the [`ImplStatus`] for a source type by checking the exact
@@ -295,6 +341,89 @@ fn determine_test_status(
 
     let composition = check_composition_test(name, harness);
     (TestStatus::Missing, composition, String::new())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::collect::TraitPrereqs;
+    use crate::inventory::ItemKind;
+
+    fn inventory_with_items(items: Vec<Item>) -> Inventory {
+        Inventory {
+            crate_name: "reqwest".to_string(),
+            crate_version: "0.12.28".to_string(),
+            items,
+        }
+    }
+
+    fn struct_item(path: &[&str]) -> Item {
+        Item {
+            path: path.iter().map(|segment| segment.to_string()).collect(),
+            kind: ItemKind::Struct,
+            name: path.last().expect("path has name").to_string(),
+            is_generic: false,
+            lifetime_params: Vec::new(),
+            type_params: Vec::new(),
+        }
+    }
+
+    #[test]
+    fn build_impl_coverage_uses_unique_root_reexport_alias_for_trait_prereqs() {
+        let source = inventory_with_items(vec![struct_item(&[
+            "reqwest",
+            "async_impl",
+            "response",
+            "Response",
+        ])]);
+        let mut prereqs_map = HashMap::new();
+        prereqs_map.insert(
+            "reqwest::Response".to_string(),
+            TraitPrereqs {
+                elicitation_trait: true,
+                elicit_introspect: true,
+                elicit_spec: true,
+                elicit_prompt_tree: true,
+                to_code_literal: true,
+                ..TraitPrereqs::default()
+            },
+        );
+
+        let report = build_impl_coverage_report(
+            &source,
+            &ElicitCompleteSet::default(),
+            &ProofHarness::default(),
+            &prereqs_map,
+        );
+
+        let entry = report.entries.first().expect("coverage entry present");
+        assert!(entry.prereqs.our_traits_complete());
+    }
+
+    #[test]
+    fn build_impl_coverage_does_not_guess_from_non_unique_bare_names() {
+        let source = inventory_with_items(vec![
+            struct_item(&["reqwest", "alpha", "Shared"]),
+            struct_item(&["reqwest", "beta", "Shared"]),
+        ]);
+        let mut prereqs_map = HashMap::new();
+        prereqs_map.insert(
+            "reqwest::Shared".to_string(),
+            TraitPrereqs {
+                to_code_literal: true,
+                ..TraitPrereqs::default()
+            },
+        );
+
+        let report = build_impl_coverage_report(
+            &source,
+            &ElicitCompleteSet::default(),
+            &ProofHarness::default(),
+            &prereqs_map,
+        );
+
+        assert!(report.entries.iter().all(|entry| !entry.prereqs.to_code_literal));
+    }
 }
 
 /// Check whether a type appears in the composition harness.

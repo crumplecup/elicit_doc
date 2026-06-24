@@ -1,17 +1,18 @@
 //! CLI commands for `elicit_doc`.
 
+use std::collections::{BTreeSet, HashMap};
 use std::path::PathBuf;
 use std::time::Duration;
 
 use clap::{Parser, Subcommand};
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
+use tracing::instrument;
 
 use crate::collect::{
-    DepBuildConfig, collect_dep_inventory, collect_dep_inventory_with_json_path,
-    collect_dep_serde_features, collect_dep_trait_prereqs_with_features,
-    collect_elicit_complete_paths, collect_inventory, collect_inventory_with_json_path,
-    collect_member_dep_build_config, collect_proof_harness, collect_trait_prereqs,
-    collect_trenchcoat_pairs,
+    DepBuildConfig, TypeFeatureProbe, collect_dep_inventory, collect_dep_inventory_with_json_path,
+    collect_dep_serde_features, collect_elicit_complete_paths, collect_inventory,
+    collect_inventory_with_json_path, collect_member_dep_build_config, collect_proof_harness,
+    collect_trait_prereqs, collect_trait_prereqs_for_inventory, collect_trenchcoat_pairs,
 };
 use crate::error::ElicitDocResult;
 use crate::gaps::{build_impl_gaps, build_shadow_gaps};
@@ -289,6 +290,77 @@ fn resolve_dep_build_config(
     }
 }
 
+#[instrument(skip(workspace, inventory, activated_features, candidate_unlock_features), fields(source_crate = %inventory.crate_name, feature_crate = report_crate_name))]
+fn build_type_feature_probes(
+    workspace: &std::path::Path,
+    report_crate_name: &str,
+    inventory: &crate::inventory::Inventory,
+    activated_features: &[String],
+    candidate_unlock_features: &[String],
+    uses_default_features: bool,
+) -> HashMap<String, TypeFeatureProbe> {
+    if candidate_unlock_features.is_empty() {
+        return HashMap::new();
+    }
+
+    let mut probe_features: BTreeSet<String> = activated_features
+        .iter()
+        .filter(|feature| feature.as_str() != "default")
+        .cloned()
+        .collect();
+    probe_features.extend(candidate_unlock_features.iter().cloned());
+    let probe_owned: Vec<String> = probe_features.into_iter().collect();
+    let probe_refs: Vec<&str> = probe_owned.iter().map(String::as_str).collect();
+
+    let probed_map = match collect_dep_inventory_with_json_path(
+        workspace,
+        report_crate_name,
+        &probe_refs,
+        uses_default_features,
+    ) {
+        Ok((_probe_inventory, probe_json)) => match collect_trait_prereqs_for_inventory(&probe_json, inventory) {
+            Ok(prereqs) => Some(prereqs),
+            Err(error) => {
+                tracing::warn!(
+                    source_crate = inventory.crate_name,
+                    feature_crate = report_crate_name,
+                    error = %error,
+                    "could not collect probed trait prereqs for surfaced API types"
+                );
+                None
+            }
+        },
+        Err(error) => {
+            tracing::warn!(
+                source_crate = inventory.crate_name,
+                feature_crate = report_crate_name,
+                error = %error,
+                "could not probe report-crate features for surfaced API types"
+            );
+            None
+        }
+    };
+
+    let mut probes = HashMap::new();
+    for item in inventory.type_items() {
+        let type_path = item.path_str();
+        let probed_prereqs = probed_map
+            .as_ref()
+            .and_then(|map| map.get(&type_path).cloned());
+
+        probes.insert(
+            type_path,
+            TypeFeatureProbe {
+                feature_crate: report_crate_name.to_string(),
+                candidate_unlock_features: candidate_unlock_features.to_vec(),
+                probed_prereqs,
+            },
+        );
+    }
+
+    probes
+}
+
 fn run_impl_reports(
     workspace: &std::path::Path,
     output_dir: &std::path::Path,
@@ -325,17 +397,9 @@ fn run_impl_reports(
         String,
         crate::collect::TraitPrereqs,
     > = std::collections::HashMap::new();
-    // All serde-related features the dep offers (from cargo metadata).
-    let mut available_serde_features: std::collections::HashMap<String, Vec<String>> =
-        std::collections::HashMap::new();
-    // Features our workspace has actually activated for each dep (from cargo metadata,
-    // with THIRD_PARTY_CRATES only as a fallback when lookup fails).
-    let mut activated_features_map: std::collections::HashMap<String, Vec<String>> =
-        std::collections::HashMap::new();
-    // Trait prereqs observed after probing additional serde/schemars-related features.
-    let mut feature_probe_prereqs: std::collections::HashMap<
+    let mut type_feature_probes: std::collections::HashMap<
         String,
-        std::collections::HashMap<String, crate::collect::TraitPrereqs>,
+        std::collections::HashMap<String, TypeFeatureProbe>,
     > = std::collections::HashMap::new();
 
     let total_crates = if only_crate.is_none() {
@@ -373,65 +437,42 @@ fn run_impl_reports(
             };
             spinner.finish_with_message(format!("✓ {crate_name} docs built"));
 
-            // Collect candidate serde/schema/json features and the transitive
-            // expansion of the features we've actually activated. Combining these
-            // lets gap analysis distinguish feature-gated external blockers from
-            // true orphan-rule blockers without false positives from
-            // `std`/`alloc`/`default` or alias features like `use-serde → serde`.
-            match collect_dep_serde_features(workspace, crate_name, &activated_refs) {
-                Ok((avail, expanded_activated)) => {
-                    available_serde_features.insert(crate_name.to_string(), avail);
-                    activated_features_map.insert(crate_name.to_string(), expanded_activated);
-                }
-                Err(e) => {
-                    tracing::warn!(crate_name, error = %e, "could not collect dep serde features");
-                    // Fall back to raw activated features so gaps analysis still works.
-                    activated_features_map.insert(crate_name.to_string(), activated_owned.clone());
-                }
-            }
-
-            let mut prereqs = collect_trait_prereqs(&dep_json, crate_name, true)?;
-            let elicit_prereqs = collect_trait_prereqs(&elicitation_json, crate_name, true)?;
+            let mut prereqs = collect_trait_prereqs_for_inventory(&dep_json, &source)?;
+            let elicit_prereqs = collect_trait_prereqs_for_inventory(&elicitation_json, &source)?;
             for (path, p) in elicit_prereqs {
                 prereqs.entry(path).or_default().merge(&p);
             }
-
-            if let (Some(available), Some(expanded_activated)) = (
-                available_serde_features.get(*crate_name),
-                activated_features_map.get(*crate_name),
+            let row_feature_probes = match collect_dep_serde_features(
+                workspace,
+                crate_name,
+                &activated_refs,
+                dep_config.uses_default_features,
             ) {
-                let expanded_set: std::collections::HashSet<&str> =
-                    expanded_activated.iter().map(String::as_str).collect();
-                let mut probe_features: std::collections::BTreeSet<String> =
-                    activated_owned.iter().cloned().collect();
-                for feature in available {
-                    if !expanded_set.contains(feature.as_str()) {
-                        probe_features.insert(feature.clone());
-                    }
-                }
-
-                if probe_features.len() > activated_owned.len() {
-                    let probe_owned: Vec<String> = probe_features.into_iter().collect();
-                    let probe_refs: Vec<&str> = probe_owned.iter().map(String::as_str).collect();
-                    match collect_dep_trait_prereqs_with_features(
+                Ok((available_features, expanded_activated_features)) => {
+                    let expanded_activated: std::collections::HashSet<&str> =
+                        expanded_activated_features.iter().map(String::as_str).collect();
+                    let candidate_unlock_features: Vec<String> = available_features
+                        .into_iter()
+                        .filter(|feature| !expanded_activated.contains(feature.as_str()))
+                        .collect();
+                    build_type_feature_probes(
                         workspace,
                         crate_name,
-                        &probe_refs,
+                        &source,
+                        &activated_owned,
+                        &candidate_unlock_features,
                         dep_config.uses_default_features,
-                    ) {
-                        Ok(probed) => {
-                            feature_probe_prereqs.insert(crate_name.to_string(), probed);
-                        }
-                        Err(e) => {
-                            tracing::warn!(
-                                crate_name,
-                                error = %e,
-                                "could not probe extra serde/schemars features for dep"
-                            );
-                        }
-                    }
+                    )
                 }
-            }
+                Err(error) => {
+                    tracing::warn!(
+                        crate_name,
+                        error = %error,
+                        "could not collect target-crate feature unlock hints"
+                    );
+                    HashMap::new()
+                }
+            };
 
             // Accumulate into combined map for trenchcoat analysis
             for (path, p) in &prereqs {
@@ -443,9 +484,10 @@ fn run_impl_reports(
             let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs);
             let safe_name = crate_name.replace('-', "_");
             let path = output_dir.join(format!("{safe_name}.csv"));
-            write_impl_coverage_csv(&report, &path)?;
+            write_impl_coverage_csv(&report, Some(&row_feature_probes), &path)?;
             mp.println(format!("wrote {}  ({})", path.display(), report.summary()))
                 .ok();
+            type_feature_probes.insert(crate_name.to_string(), row_feature_probes);
             all_reports.push((crate_name.to_string(), report));
             overall.inc(1);
         }
@@ -457,7 +499,7 @@ fn run_impl_reports(
         let prereqs = collect_trait_prereqs(&elicitation_json, "elicitation", false)?;
         let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs);
         let path = output_dir.join("internal.csv");
-        write_impl_coverage_csv(&report, &path)?;
+        write_impl_coverage_csv(&report, None, &path)?;
         mp.println(format!("wrote {}  ({})", path.display(), report.summary()))
             .ok();
         all_reports.push(("elicitation".to_string(), report));
@@ -470,12 +512,7 @@ fn run_impl_reports(
     let impl_gaps = if only_crate.is_none() || all_reports.len() > 1 {
         let pairs: Vec<(&str, &crate::impl_coverage::ImplCoverageReport)> =
             all_reports.iter().map(|(n, r)| (n.as_str(), r)).collect();
-        let gaps = build_impl_gaps(
-            &pairs,
-            &available_serde_features,
-            &activated_features_map,
-            &feature_probe_prereqs,
-        );
+        let gaps = build_impl_gaps(&pairs, &type_feature_probes);
         let gaps_path = output_dir.join("gaps-impl.csv");
         write_impl_gaps_csv(&gaps, &gaps_path)?;
         let missing_our = gaps

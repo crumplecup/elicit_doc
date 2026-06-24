@@ -18,12 +18,39 @@
 use serde::{Deserialize, Serialize};
 use tracing::instrument;
 
-use crate::collect::TraitPrereqs;
+use crate::collect::{TraitPrereqs, TypeFeatureProbe};
 use crate::impl_coverage::{ImplCoverageEntry, ImplCoverageReport, ImplStatus};
 use crate::inventory::ItemKind;
 use crate::shadow::{ShadowReport, ShadowStatus};
 
 // ── Impl gaps ────────────────────────────────────────────────────────────────
+
+/// Full per-row worklist state for a core type.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub enum ImplRowKind {
+    /// Type already has `ElicitComplete`.
+    Covered,
+    /// Missing one or more elicitation-owned support traits.
+    MissingOurTraits,
+    /// All prerequisites are present; only `impl ElicitComplete` is missing.
+    ReadyForElicitComplete,
+    /// Missing external serde/schemars traits may be unlockable via features.
+    FeatureGatedExternal,
+    /// Direct `ElicitComplete` is not legal under the current upstream API.
+    ExternallyBlocked,
+}
+
+impl std::fmt::Display for ImplRowKind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Covered => write!(f, "Covered"),
+            Self::MissingOurTraits => write!(f, "MissingOurTraits"),
+            Self::ReadyForElicitComplete => write!(f, "ReadyForElicitComplete"),
+            Self::FeatureGatedExternal => write!(f, "FeatureGatedExternal"),
+            Self::ExternallyBlocked => write!(f, "ExternallyBlocked"),
+        }
+    }
+}
 
 /// Why a type lacks an `ElicitComplete` impl.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -73,6 +100,8 @@ pub struct ImplGapEntry {
     /// External support is missing under the current feature set, so the orphan rule blocks
     /// a direct `ElicitComplete` impl.
     pub blocked_by_orphan_rule: bool,
+    /// Cargo package whose features may unlock upstream serde/schemars support.
+    pub feature_owner_crate: String,
     /// Feature flags available in the dep that could unlock serde/schemars support.
     ///
     /// Only populated when external support is feature-gated.  Semicolon-separated.
@@ -81,57 +110,49 @@ pub struct ImplGapEntry {
     pub action: String,
 }
 
+/// Full diagnosis for one per-crate impl coverage row.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ImplRowAssessment {
+    pub row_kind: ImplRowKind,
+    pub primary_gap_kind: Option<ImplGapKind>,
+    pub missing_external_traits: String,
+    pub missing_our_traits: String,
+    pub our_traits_complete: bool,
+    pub can_be_direct: bool,
+    pub elicit_complete_gap: bool,
+    pub feature_gated_external: bool,
+    pub blocked_by_orphan_rule: bool,
+    pub blocked_reason: String,
+    pub feature_owner_crate: String,
+    pub candidate_unlock_features: String,
+    pub action: String,
+}
+
 /// Build the consolidated impl gaps list from multiple per-crate reports.
 ///
 /// Only types with `ImplStatus::Missing` are candidates for inclusion. Fully-covered,
 /// orphan-blocked "everything but" types are excluded because they are not actionable gaps.
 ///
-/// `available_serde_features` maps crate name → serde/schemars-related feature
-/// names available in the dep (feature-graph reachability, from
-/// [`crate::collect::collect_dep_serde_features`]).
-///
-/// `activated_features` maps crate name → the **transitively expanded** feature
-/// set our workspace has activated for this dep.  For example, if `geo` declares
-/// `use-serde → serde` and we activate `["use-serde"]`, the map contains
-/// `["serde", "use-serde", ...]` so that `serde` is correctly counted as activated.
-/// The difference (`available - expanded_activated`) helps distinguish
-/// `FeatureGatedExternal` from fully orphan-blocked types.
-#[instrument(skip(pairs, available_serde_features, activated_features), fields(num_reports = pairs.len()))]
+#[instrument(skip(pairs, type_feature_probes), fields(num_reports = pairs.len()))]
 pub fn build_impl_gaps(
     pairs: &[(&str, &ImplCoverageReport)],
-    available_serde_features: &std::collections::HashMap<String, Vec<String>>,
-    activated_features: &std::collections::HashMap<String, Vec<String>>,
-    feature_probe_prereqs: &std::collections::HashMap<
+    type_feature_probes: &std::collections::HashMap<
         String,
-        std::collections::HashMap<String, TraitPrereqs>,
+        std::collections::HashMap<String, TypeFeatureProbe>,
     >,
 ) -> Vec<ImplGapEntry> {
     let mut entries = Vec::new();
 
     for (source_crate, report) in pairs {
-        let available = available_serde_features
-            .get(*source_crate)
-            .map(|v| v.as_slice())
-            .unwrap_or(&[]);
-        let activated = activated_features
-            .get(*source_crate)
-            .map(|v| v.as_slice())
-            .unwrap_or(&[]);
-        // Features that exist in the dep but we haven't activated yet.
-        let unactivated: Vec<String> = available
-            .iter()
-            .filter(|f| !activated.iter().any(|a| a == *f))
-            .cloned()
-            .collect();
         for entry in &report.entries {
             if !matches!(entry.elicit_impl, ImplStatus::Missing) {
                 continue;
             }
 
-            let probed = feature_probe_prereqs
+            let feature_probe = type_feature_probes
                 .get(*source_crate)
                 .and_then(|m| m.get(&entry.type_path));
-            if let Some(gap_entry) = classify_impl_gap(source_crate, entry, &unactivated, probed) {
+            if let Some(gap_entry) = classify_impl_gap(source_crate, entry, feature_probe) {
                 entries.push(gap_entry);
             }
         }
@@ -175,17 +196,44 @@ fn gap_kind_order(k: &ImplGapKind) -> u8 {
 
 /// Classify a single missing impl entry.
 ///
-/// `unactivated_serde_features` — serde features the dep offers that our shadow
-/// crate has **not** yet activated. When non-empty, missing external support is
-/// treated as `FeatureGatedExternal`. When empty, missing external support is a
-/// true orphan-rule blocker.
-fn classify_impl_gap(
+/// `feature_probe` carries row-specific report-crate feature context for surfaced
+/// API types. When the probe shows that additional target-crate features would make
+/// the external serde / schemars traits appear, the row is classified as
+/// `FeatureGatedExternal` instead of a true orphan-rule blocker.
+#[instrument(skip(entry, feature_probe), fields(source_crate, type_path = %entry.type_path))]
+pub fn assess_impl_entry(
     source_crate: &str,
     entry: &ImplCoverageEntry,
-    unactivated_serde_features: &[String],
-    probed_prereqs: Option<&TraitPrereqs>,
-) -> Option<ImplGapEntry> {
+    feature_probe: Option<&TypeFeatureProbe>,
+) -> ImplRowAssessment {
+    if matches!(
+        entry.elicit_impl,
+        ImplStatus::Complete | ImplStatus::CompleteFactory
+    ) {
+        return ImplRowAssessment {
+            row_kind: ImplRowKind::Covered,
+            primary_gap_kind: None,
+            missing_external_traits: String::new(),
+            missing_our_traits: String::new(),
+            our_traits_complete: true,
+            can_be_direct: entry.can_be_direct(),
+            elicit_complete_gap: false,
+            feature_gated_external: false,
+            blocked_by_orphan_rule: false,
+            blocked_reason: String::new(),
+            feature_owner_crate: String::new(),
+            candidate_unlock_features: String::new(),
+            action: String::new(),
+        };
+    }
+
     let p = &entry.prereqs;
+    let candidate_unlock_features = feature_probe
+        .map(|probe| probe.candidate_unlock_features.as_slice())
+        .unwrap_or(&[]);
+    let feature_owner_crate = feature_probe
+        .map(|probe| probe.feature_crate.clone())
+        .unwrap_or_else(|| source_crate.to_string());
 
     let missing_external = missing_external_traits(p);
     let missing_our = entry.effective_missing_our_traits();
@@ -193,53 +241,54 @@ fn classify_impl_gap(
     let can_be_direct = entry.can_be_direct();
     let feature_gated_external = !entry.lifetime_blocks_elicitation()
         && !can_be_direct
-        && !unactivated_serde_features.is_empty()
-        && probed_prereqs.is_some_and(TraitPrereqs::can_be_direct);
+        && !candidate_unlock_features.is_empty()
+        && feature_probe
+            .and_then(|probe| probe.probed_prereqs.as_ref())
+            .is_some_and(TraitPrereqs::can_be_direct);
     let blocked_by_orphan_rule =
         !entry.lifetime_blocks_elicitation() && !can_be_direct && !feature_gated_external;
     let elicit_complete_gap = can_be_direct;
-
-    // Fully-covered "everything but" types are expected and should not be surfaced as gaps.
-    if our_traits_complete && blocked_by_orphan_rule {
-        return None;
-    }
-
-    let gap_kind = if !our_traits_complete {
-        ImplGapKind::MissingOurTraits
+    let (row_kind, primary_gap_kind) = if !our_traits_complete {
+        (
+            ImplRowKind::MissingOurTraits,
+            Some(ImplGapKind::MissingOurTraits),
+        )
     } else if elicit_complete_gap {
-        ImplGapKind::ReadyForElicitComplete
+        (
+            ImplRowKind::ReadyForElicitComplete,
+            Some(ImplGapKind::ReadyForElicitComplete),
+        )
+    } else if feature_gated_external {
+        (
+            ImplRowKind::FeatureGatedExternal,
+            Some(ImplGapKind::FeatureGatedExternal),
+        )
     } else {
-        ImplGapKind::FeatureGatedExternal
+        (ImplRowKind::ExternallyBlocked, None)
     };
 
-    let action = match &gap_kind {
-        ImplGapKind::MissingOurTraits => build_missing_our_traits_action(
-            source_crate,
-            &entry.type_path,
-            &missing_our,
-            &missing_external,
-            can_be_direct,
-            feature_gated_external,
-            unactivated_serde_features,
-        ),
-        ImplGapKind::ReadyForElicitComplete => format!(
-            "Add `impl ElicitComplete for {} {{}}` in elicitation crate",
-            entry.type_path
-        ),
-        ImplGapKind::FeatureGatedExternal => format!(
-            "Enable additional `{source_crate}` features in the workspace: {}; \
-             then re-check whether `ElicitComplete` becomes legal for `{}`",
-            unactivated_serde_features.join(", "),
-            entry.type_path
-        ),
-    };
+    let blocked_reason = build_impl_blocked_reason(
+        entry,
+        &missing_external,
+        feature_gated_external,
+        blocked_by_orphan_rule,
+        &feature_owner_crate,
+        candidate_unlock_features,
+    );
+    let action = build_impl_action(
+        entry,
+        &row_kind,
+        &missing_our,
+        &missing_external,
+        can_be_direct,
+        feature_gated_external,
+        &feature_owner_crate,
+        candidate_unlock_features,
+    );
 
-    Some(ImplGapEntry {
-        source_crate: source_crate.to_string(),
-        type_path: entry.type_path.clone(),
-        type_kind: entry.type_kind,
-        is_generic: entry.is_generic,
-        gap_kind,
+    ImplRowAssessment {
+        row_kind,
+        primary_gap_kind,
         missing_external_traits: missing_external.join(";"),
         missing_our_traits: missing_our.join(";"),
         our_traits_complete,
@@ -247,8 +296,41 @@ fn classify_impl_gap(
         elicit_complete_gap,
         feature_gated_external,
         blocked_by_orphan_rule,
-        candidate_unlock_features: unactivated_serde_features.join(";"),
+        blocked_reason,
+        feature_owner_crate,
+        candidate_unlock_features: if feature_gated_external {
+            candidate_unlock_features.join(";")
+        } else {
+            String::new()
+        },
         action,
+    }
+}
+
+fn classify_impl_gap(
+    source_crate: &str,
+    entry: &ImplCoverageEntry,
+    feature_probe: Option<&TypeFeatureProbe>,
+) -> Option<ImplGapEntry> {
+    let assessment = assess_impl_entry(source_crate, entry, feature_probe);
+    let gap_kind = assessment.primary_gap_kind.clone()?;
+
+    Some(ImplGapEntry {
+        source_crate: source_crate.to_string(),
+        type_path: entry.type_path.clone(),
+        type_kind: entry.type_kind,
+        is_generic: entry.is_generic,
+        gap_kind,
+        missing_external_traits: assessment.missing_external_traits,
+        missing_our_traits: assessment.missing_our_traits,
+        our_traits_complete: assessment.our_traits_complete,
+        can_be_direct: assessment.can_be_direct,
+        elicit_complete_gap: assessment.elicit_complete_gap,
+        feature_gated_external: assessment.feature_gated_external,
+        blocked_by_orphan_rule: assessment.blocked_by_orphan_rule,
+        feature_owner_crate: assessment.feature_owner_crate,
+        candidate_unlock_features: assessment.candidate_unlock_features,
+        action: assessment.action,
     })
 }
 
@@ -265,13 +347,13 @@ fn missing_external_traits(prereqs: &TraitPrereqs) -> Vec<String> {
 }
 
 fn build_missing_our_traits_action(
-    source_crate: &str,
     type_path: &str,
     missing_our: &[&str],
     missing_external: &[String],
     can_be_direct: bool,
     feature_gated_external: bool,
-    unactivated_serde_features: &[String],
+    feature_owner_crate: &str,
+    candidate_unlock_features: &[String],
 ) -> String {
     if can_be_direct {
         format!(
@@ -284,8 +366,8 @@ fn build_missing_our_traits_action(
             "Add our traits to `{}`: {}; also enable `{}` features: {}",
             type_path,
             missing_our.join(", "),
-            source_crate,
-            unactivated_serde_features.join(", ")
+            feature_owner_crate,
+            candidate_unlock_features.join(", ")
         )
     } else {
         format!(
@@ -294,6 +376,70 @@ fn build_missing_our_traits_action(
             missing_our.join(", "),
             missing_external.join(", ")
         )
+    }
+}
+
+fn build_impl_action(
+    entry: &ImplCoverageEntry,
+    row_kind: &ImplRowKind,
+    missing_our: &[&str],
+    missing_external: &[String],
+    can_be_direct: bool,
+    feature_gated_external: bool,
+    feature_owner_crate: &str,
+    candidate_unlock_features: &[String],
+) -> String {
+    match row_kind {
+        ImplRowKind::Covered => String::new(),
+        ImplRowKind::MissingOurTraits => build_missing_our_traits_action(
+            &entry.type_path,
+            missing_our,
+            missing_external,
+            can_be_direct,
+            feature_gated_external,
+            feature_owner_crate,
+            candidate_unlock_features,
+        ),
+        ImplRowKind::ReadyForElicitComplete => format!(
+            "Add `impl ElicitComplete for {} {{}}` in elicitation crate",
+            entry.type_path
+        ),
+        ImplRowKind::FeatureGatedExternal => format!(
+            "Enable additional `{feature_owner_crate}` features in the workspace: {}; \
+             then re-check whether `ElicitComplete` becomes legal for `{}`",
+            candidate_unlock_features.join(", "),
+            entry.type_path
+        ),
+        ImplRowKind::ExternallyBlocked => format!(
+            "`{}` is everything-but complete. Do not flag missing `ElicitComplete`; direct impl is blocked by upstream traits: {}",
+            entry.type_path,
+            missing_external.join(", ")
+        ),
+    }
+}
+
+fn build_impl_blocked_reason(
+    entry: &ImplCoverageEntry,
+    missing_external: &[String],
+    feature_gated_external: bool,
+    blocked_by_orphan_rule: bool,
+    feature_owner_crate: &str,
+    candidate_unlock_features: &[String],
+) -> String {
+    if entry.lifetime_blocks_elicitation() {
+        "lifetime-bound type: direct `ElicitComplete` is illegal because `Elicitation` requires `'static`".to_string()
+    } else if feature_gated_external {
+        format!(
+            "workspace is not enabling candidate `{feature_owner_crate}` features that may unlock external traits: {}",
+            candidate_unlock_features.join(", ")
+        )
+    } else if blocked_by_orphan_rule {
+        format!(
+            "orphan rule blocks direct `ElicitComplete` until upstream provides: {}",
+            missing_external.join(", ")
+        )
+    } else {
+        String::new()
     }
 }
 
@@ -316,6 +462,38 @@ pub enum ShadowGapKind {
     InfrastructureExtra,
     /// A matched shadow type exists, but it is not yet fully `ElicitComplete`.
     ShadowVerificationGap,
+}
+
+/// Full per-row worklist state for a shadow coverage row.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub enum ShadowCoverageKind {
+    Covered,
+    Missing,
+    Drifted,
+    PossiblyStale,
+    InfrastructureExtra,
+}
+
+impl std::fmt::Display for ShadowCoverageKind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Covered => write!(f, "Covered"),
+            Self::Missing => write!(f, "Missing"),
+            Self::Drifted => write!(f, "Drifted"),
+            Self::PossiblyStale => write!(f, "PossiblyStale"),
+            Self::InfrastructureExtra => write!(f, "InfrastructureExtra"),
+        }
+    }
+}
+
+/// Full diagnosis for one per-crate shadow coverage row.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ShadowRowAssessment {
+    pub coverage_kind: ShadowCoverageKind,
+    pub primary_gap_kind: Option<ShadowGapKind>,
+    pub verification_gap: bool,
+    pub verification_ready: bool,
+    pub action: String,
 }
 
 impl std::fmt::Display for ShadowGapKind {
@@ -352,6 +530,80 @@ fn is_infrastructure_name(bare_name: &str) -> bool {
     INFRA_SUFFIXES.iter().any(|sfx| bare_name.ends_with(sfx))
 }
 
+pub fn assess_shadow_row(row: &crate::shadow::ShadowRow) -> ShadowRowAssessment {
+    let coverage_kind = match row.status {
+        ShadowStatus::Covered => ShadowCoverageKind::Covered,
+        ShadowStatus::Missing => ShadowCoverageKind::Missing,
+        ShadowStatus::Drifted => ShadowCoverageKind::Drifted,
+        ShadowStatus::Extra => {
+            let bare = row.item_path.split("::").last().unwrap_or(&row.item_path);
+            if is_infrastructure_name(bare) {
+                ShadowCoverageKind::InfrastructureExtra
+            } else {
+                ShadowCoverageKind::PossiblyStale
+            }
+        }
+    };
+    let primary_gap_kind = match coverage_kind {
+        ShadowCoverageKind::Covered => None,
+        ShadowCoverageKind::Missing => Some(ShadowGapKind::Missing),
+        ShadowCoverageKind::Drifted => Some(ShadowGapKind::Drifted),
+        ShadowCoverageKind::PossiblyStale => Some(ShadowGapKind::PossiblyStale),
+        ShadowCoverageKind::InfrastructureExtra => Some(ShadowGapKind::InfrastructureExtra),
+    };
+    let verification_gap = is_shadow_verification_gap(row);
+    let verification_ready = matches!(
+        row.shadow_elicit_impl.as_str(),
+        "Complete" | "CompleteFactory"
+    );
+
+    let mut action = match coverage_kind {
+        ShadowCoverageKind::Covered => String::new(),
+        ShadowCoverageKind::Missing => {
+            if row.item_kind.is_type() {
+                format!(
+                    "Add a shadow for upstream `{}` and make the new wrapper `ElicitComplete`",
+                    row.item_path
+                )
+            } else {
+                format!(
+                    "Add a shadow item for upstream `{}` so the full public API surface is represented",
+                    row.item_path
+                )
+            }
+        }
+        ShadowCoverageKind::Drifted => format!(
+            "Rename or replace `{}` so upstream `{}` is shadowed exactly",
+            row.shadow_item, row.item_path
+        ),
+        ShadowCoverageKind::PossiblyStale => format!(
+            "Audit `{}`: remove it if stale, or rename/remap it to an upstream public item",
+            row.item_path
+        ),
+        ShadowCoverageKind::InfrastructureExtra => {
+            "Shadow-only infrastructure item; keep unless it should instead map to an upstream API item".to_string()
+        }
+    };
+
+    if verification_gap {
+        let verification_action = build_shadow_verification_action(row);
+        if action.is_empty() {
+            action = verification_action;
+        } else {
+            action.push_str("; then ");
+            action.push_str(&verification_action);
+        }
+    }
+
+    ShadowRowAssessment {
+        coverage_kind,
+        primary_gap_kind,
+        verification_gap,
+        verification_ready,
+        action,
+    }
+}
+
 /// One row in the consolidated shadow gaps report.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ShadowGapEntry {
@@ -385,17 +637,9 @@ pub fn build_shadow_gaps(pairs: &[(&str, &str, &ShadowReport)]) -> Vec<ShadowGap
         for row in &report.rows {
             let gap_kind = match row.status {
                 ShadowStatus::Covered => continue,
-                ShadowStatus::Missing => ShadowGapKind::Missing,
-                ShadowStatus::Drifted => ShadowGapKind::Drifted,
-                ShadowStatus::Extra => {
-                    // Split Extra into infrastructure vs possibly stale.
-                    let bare = row.item_path.split("::").last().unwrap_or(&row.item_path);
-                    if is_infrastructure_name(bare) {
-                        ShadowGapKind::InfrastructureExtra
-                    } else {
-                        ShadowGapKind::PossiblyStale
-                    }
-                }
+                _ => assess_shadow_row(row)
+                    .primary_gap_kind
+                    .expect("non-covered rows must classify to a gap kind"),
             };
             entries.push(ShadowGapEntry {
                 target_crate: target_crate.to_string(),
@@ -528,7 +772,7 @@ mod tests {
     use std::collections::HashMap;
 
     use super::*;
-    use crate::collect::TraitPrereqs;
+    use crate::collect::{TraitPrereqs, TypeFeatureProbe};
     use crate::impl_coverage::{ImplCoverageEntry, ImplCoverageReport, ImplStatus, TestStatus};
     use crate::inventory::ItemKind;
     use crate::shadow::{ShadowReport, ShadowRow, ShadowStatus};
@@ -572,8 +816,6 @@ mod tests {
         let gaps = build_impl_gaps(
             &[("reqwest", &report)],
             &HashMap::new(),
-            &HashMap::new(),
-            &HashMap::new(),
         );
         assert!(gaps.is_empty());
     }
@@ -593,8 +835,6 @@ mod tests {
 
         let gaps = build_impl_gaps(
             &[("reqwest", &report)],
-            &HashMap::new(),
-            &HashMap::new(),
             &HashMap::new(),
         );
         assert_eq!(gaps.len(), 1);
@@ -642,8 +882,6 @@ mod tests {
         let gaps = build_impl_gaps(
             &[("georaster", &report)],
             &HashMap::new(),
-            &HashMap::new(),
-            &HashMap::new(),
         );
         assert_eq!(gaps.len(), 1);
         assert_eq!(gaps[0].gap_kind, ImplGapKind::MissingOurTraits);
@@ -669,8 +907,6 @@ mod tests {
         let gaps = build_impl_gaps(
             &[("reqwest", &report)],
             &HashMap::new(),
-            &HashMap::new(),
-            &HashMap::new(),
         );
         assert_eq!(gaps.len(), 1);
         assert_eq!(gaps[0].gap_kind, ImplGapKind::ReadyForElicitComplete);
@@ -691,32 +927,119 @@ mod tests {
             to_code_literal: true,
         });
 
-        let mut available = HashMap::new();
-        available.insert("reqwest".to_string(), vec!["json".to_string()]);
-        let activated = HashMap::new();
         let mut probe_for_crate = HashMap::new();
         probe_for_crate.insert(
             "reqwest::Client".to_string(),
-            TraitPrereqs {
-                serialize: true,
-                deserialize: true,
-                json_schema: true,
-                elicitation_trait: true,
-                elicit_introspect: false,
-                elicit_spec: true,
-                elicit_prompt_tree: false,
-                to_code_literal: true,
+            TypeFeatureProbe {
+                feature_crate: "reqwest".to_string(),
+                candidate_unlock_features: vec!["json".to_string()],
+                probed_prereqs: Some(TraitPrereqs {
+                    serialize: true,
+                    deserialize: true,
+                    json_schema: true,
+                    elicitation_trait: true,
+                    elicit_introspect: false,
+                    elicit_spec: true,
+                    elicit_prompt_tree: false,
+                    to_code_literal: true,
+                }),
             },
         );
-        let mut probed = HashMap::new();
-        probed.insert("reqwest".to_string(), probe_for_crate);
+        let mut type_probes = HashMap::new();
+        type_probes.insert("reqwest".to_string(), probe_for_crate);
 
-        let gaps = build_impl_gaps(&[("reqwest", &report)], &available, &activated, &probed);
+        let gaps = build_impl_gaps(&[("reqwest", &report)], &type_probes);
         assert_eq!(gaps.len(), 1);
         assert_eq!(gaps[0].gap_kind, ImplGapKind::MissingOurTraits);
         assert!(gaps[0].feature_gated_external);
         assert!(!gaps[0].blocked_by_orphan_rule);
+        assert_eq!(gaps[0].feature_owner_crate, "reqwest");
         assert_eq!(gaps[0].candidate_unlock_features, "json");
+    }
+
+    #[test]
+    fn marks_everything_but_rows_as_externally_blocked_not_gap() {
+        let report = impl_report_for(TraitPrereqs {
+            serialize: false,
+            deserialize: false,
+            json_schema: false,
+            elicitation_trait: true,
+            elicit_introspect: true,
+            elicit_spec: true,
+            elicit_prompt_tree: true,
+            to_code_literal: true,
+        });
+
+        let assessment = assess_impl_entry("reqwest", &report.entries[0], None);
+        assert_eq!(assessment.row_kind, ImplRowKind::ExternallyBlocked);
+        assert!(assessment.primary_gap_kind.is_none());
+        assert!(assessment.blocked_by_orphan_rule);
+        assert!(assessment.action.contains("everything-but complete"));
+    }
+
+    #[test]
+    fn feature_gated_foreign_types_point_to_owner_crate() {
+        let report = ImplCoverageReport {
+            source_crate: "reqwest".to_string(),
+            source_version: "1.0.0".to_string(),
+            entries: vec![ImplCoverageEntry {
+                type_path: "http::header::value::HeaderValue".to_string(),
+                type_kind: ItemKind::Struct,
+                is_generic: false,
+                lifetime_params: Vec::new(),
+                type_params: Vec::new(),
+                elicit_impl: ImplStatus::Missing,
+                proof_test: TestStatus::Missing,
+                composition_test: TestStatus::Missing,
+                prereqs: TraitPrereqs {
+                    serialize: false,
+                    deserialize: false,
+                    json_schema: false,
+                    elicitation_trait: true,
+                    elicit_introspect: true,
+                    elicit_spec: true,
+                    elicit_prompt_tree: true,
+                    to_code_literal: true,
+                },
+                notes: String::new(),
+            }],
+            complete_count: 0,
+            missing_impl_count: 1,
+            missing_test_count: 1,
+            flagged_concrete_count: 0,
+        };
+        let mut probe_for_crate = HashMap::new();
+        probe_for_crate.insert(
+            "http::header::value::HeaderValue".to_string(),
+            TypeFeatureProbe {
+                feature_crate: "reqwest".to_string(),
+                candidate_unlock_features: vec!["json".to_string()],
+                probed_prereqs: Some(TraitPrereqs {
+                    serialize: true,
+                    deserialize: true,
+                    json_schema: true,
+                    elicitation_trait: true,
+                    elicit_introspect: true,
+                    elicit_spec: true,
+                    elicit_prompt_tree: true,
+                    to_code_literal: true,
+                }),
+            },
+        );
+        let mut type_probes = HashMap::new();
+        type_probes.insert("reqwest".to_string(), probe_for_crate);
+
+        let assessment = assess_impl_entry(
+            "reqwest",
+            &report.entries[0],
+            type_probes
+                .get("reqwest")
+                .and_then(|probes| probes.get("http::header::value::HeaderValue")),
+        );
+
+        assert_eq!(assessment.row_kind, ImplRowKind::FeatureGatedExternal);
+        assert_eq!(assessment.feature_owner_crate, "reqwest");
+        assert!(assessment.action.contains("`reqwest` features"));
     }
 
     #[test]
@@ -754,5 +1077,44 @@ mod tests {
 
         assert_eq!(verification.item_path, "reqwest::Client");
         assert_eq!(verification.matched_shadow_item, "elicit_reqwest::Client");
+    }
+
+    #[test]
+    fn classifies_shadow_extras_between_stale_and_infrastructure() {
+        let stale = ShadowRow {
+            item_path: "elicit_reqwest::workflow::FetchResult".to_string(),
+            item_kind: ItemKind::Struct,
+            status: ShadowStatus::Extra,
+            shadow_item: String::new(),
+            drift_confidence: String::new(),
+            shadow_elicit_impl: String::new(),
+            shadow_can_be_direct: String::new(),
+            shadow_missing_external_traits: String::new(),
+            shadow_missing_our_traits: String::new(),
+            notes: String::new(),
+        };
+        let infra = ShadowRow {
+            item_path: "elicit_reqwest::client::GetParams".to_string(),
+            item_kind: ItemKind::Struct,
+            status: ShadowStatus::Extra,
+            shadow_item: String::new(),
+            drift_confidence: String::new(),
+            shadow_elicit_impl: String::new(),
+            shadow_can_be_direct: String::new(),
+            shadow_missing_external_traits: String::new(),
+            shadow_missing_our_traits: String::new(),
+            notes: String::new(),
+        };
+
+        let stale_assessment = assess_shadow_row(&stale);
+        let infra_assessment = assess_shadow_row(&infra);
+        assert_eq!(
+            stale_assessment.coverage_kind,
+            ShadowCoverageKind::PossiblyStale
+        );
+        assert_eq!(
+            infra_assessment.coverage_kind,
+            ShadowCoverageKind::InfrastructureExtra
+        );
     }
 }

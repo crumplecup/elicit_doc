@@ -31,7 +31,7 @@ const ELICIT_COMPLETE_SUPERTRAITS: &[&str] = &[
 /// trenchcoat wrapper.  Our own four traits (`Elicitation`, `ElicitIntrospect`,
 /// `ElicitSpec`, `ElicitPromptTree`, `ToCodeLiteral`) can always be implemented
 /// for any external type since the traits are defined in our crate.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct TraitPrereqs {
     // ── External traits (orphan rule blocks us from adding these) ──
     pub serialize: bool,
@@ -130,6 +130,17 @@ pub struct DepBuildConfig {
     pub uses_default_features: bool,
 }
 
+/// Per-type feature probe result used for actionable impl-gap reporting.
+#[derive(Debug, Clone, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+pub struct TypeFeatureProbe {
+    /// Cargo package whose feature namespace should be used for unlock guidance.
+    pub feature_crate: String,
+    /// Candidate features that are available upstream but not active here.
+    pub candidate_unlock_features: Vec<String>,
+    /// Trait prereqs observed when probing the report crate with candidate features enabled.
+    pub probed_prereqs: Option<TraitPrereqs>,
+}
+
 /// Scan a rustdoc JSON file and return a map from canonical type path to
 /// [`TraitPrereqs`] recording which of the 8 `ElicitComplete` supertraits each
 /// type already implements.
@@ -142,13 +153,40 @@ pub fn collect_trait_prereqs(
     own_crate: &str,
     prefix_match: bool,
 ) -> ElicitDocResult<HashMap<String, TraitPrereqs>> {
+    let own_crate_normalized = own_crate.replace('-', "_");
+    let own_crate_key = own_crate_normalized.as_str();
+    collect_trait_prereqs_matching(json_path, |path| {
+        let first = path.first().map(String::as_str).unwrap_or("");
+        if prefix_match {
+            first.starts_with(own_crate_key)
+        } else {
+            first == own_crate_key
+        }
+    })
+}
+
+/// Scan a rustdoc JSON file and collect trait prereqs for the concrete type paths
+/// tracked in `inventory`, including foreign types pulled in from public signatures.
+#[instrument(skip(json_path, inventory), fields(path = %json_path.display(), crate_name = %inventory.crate_name))]
+pub fn collect_trait_prereqs_for_inventory(
+    json_path: &Path,
+    inventory: &Inventory,
+) -> ElicitDocResult<HashMap<String, TraitPrereqs>> {
+    let tracked_paths = inventory_trait_match_paths(inventory);
+    collect_trait_prereqs_matching(json_path, |path| tracked_paths.contains(&path.join("::")))
+}
+
+fn collect_trait_prereqs_matching<F>(
+    json_path: &Path,
+    mut include_path: F,
+) -> ElicitDocResult<HashMap<String, TraitPrereqs>>
+where
+    F: FnMut(&[String]) -> bool,
+{
     let content =
         std::fs::read_to_string(json_path).map_err(|e| ElicitDocError::io(e.to_string()))?;
     let krate: rustdoc_types::Crate =
         serde_json::from_str(&content).map_err(|e| ElicitDocError::rustdoc_parse(e.to_string()))?;
-
-    let own_crate_normalized = own_crate.replace('-', "_");
-    let own_crate_key = own_crate_normalized.as_str();
 
     let mut map: HashMap<String, TraitPrereqs> = HashMap::new();
 
@@ -173,15 +211,7 @@ pub fn collect_trait_prereqs(
         let Some(summary) = krate.paths.get(&rp.id) else {
             continue;
         };
-
-        // Apply the same crate-name filter used in extract_items.
-        let first = summary.path.first().map(String::as_str).unwrap_or("");
-        let in_scope = if prefix_match {
-            first.starts_with(own_crate_key)
-        } else {
-            first == own_crate_key
-        };
-        if !in_scope {
+        if !include_path(&summary.path) {
             continue;
         }
 
@@ -206,6 +236,28 @@ pub fn collect_trait_prereqs(
     );
 
     Ok(map)
+}
+
+fn inventory_trait_match_paths(inventory: &Inventory) -> HashSet<String> {
+    let mut paths: HashSet<String> = inventory.type_items().map(Item::path_str).collect();
+    let crate_root = inventory.crate_name.replace('-', "_");
+    let mut name_counts: HashMap<&str, usize> = HashMap::new();
+
+    for item in inventory.type_items() {
+        *name_counts.entry(item.name.as_str()).or_insert(0) += 1;
+    }
+
+    for item in inventory.type_items() {
+        if item.path.first().map(String::as_str) != Some(crate_root.as_str()) {
+            continue;
+        }
+        if name_counts.get(item.name.as_str()).copied() != Some(1) {
+            continue;
+        }
+        paths.insert(format!("{crate_root}::{}", item.name));
+    }
+
+    paths
 }
 
 /// The set of types that have `impl ElicitComplete for T` in a local crate,
@@ -374,24 +426,6 @@ pub fn collect_dep_inventory_with_json_path(
     )?;
     let inventory = parse_rustdoc_json(&json_path, crate_name, true)?;
     Ok((inventory, json_path))
-}
-
-/// Build a dependency with the provided feature set and collect its trait prereqs directly
-/// from the resulting rustdoc JSON.
-#[instrument(skip(reference_workspace, activated_features), fields(crate_name))]
-pub fn collect_dep_trait_prereqs_with_features(
-    reference_workspace: &Path,
-    crate_name: &str,
-    activated_features: &[&str],
-    uses_default_features: bool,
-) -> ElicitDocResult<HashMap<String, TraitPrereqs>> {
-    let json_path = run_dep_cargo_rustdoc(
-        reference_workspace,
-        crate_name,
-        activated_features,
-        uses_default_features,
-    )?;
-    collect_trait_prereqs(&json_path, crate_name, true)
 }
 
 fn run_dep_cargo_rustdoc(
@@ -616,19 +650,6 @@ pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String
     Ok(pairs)
 }
 
-/// Scan `cargo metadata` for a dep and return the names of features that are likely
-/// to unlock `serde`, `schemars`, or `serde_json` support.
-///
-/// A feature is included if its name OR any of the items it enables (direct deps or
-/// sub-features) mentions `"serde"`, `"schemars"`, or `"json"` (case-insensitive).
-///
-/// This is used to populate `candidate_unlock_features` on [`crate::gaps::ImplGapEntry`]
-/// rows where the dep build fell back to default features — giving an actionable list
-/// of feature flags to add to `Cargo.toml` rather than a vague "feature_gated" label.
-///
-/// Uses `--all-features` on the workspace so that optional deps (like `reqwest`,
-/// which is behind a feature gate in elicitation) are included in the resolved graph.
-#[instrument(skip(reference_workspace), fields(crate_name))]
 /// Returns `(available_serde_features, expanded_activated_features)`.
 ///
 /// `available_serde_features` — feature names whose transitive closure reaches
@@ -641,10 +662,12 @@ pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String
 /// and we activate `["use-serde"]`, the expanded set is `{"use-serde", "serde"}`.
 /// This prevents spurious `FeatureGated` classification when an alias feature name
 /// is used (e.g. `use-serde` activates `serde` indirectly).
+#[instrument(skip(reference_workspace, activated), fields(crate_name, uses_default_features))]
 pub fn collect_dep_serde_features(
     reference_workspace: &Path,
     crate_name: &str,
     activated: &[&str],
+    uses_default_features: bool,
 ) -> ElicitDocResult<(Vec<String>, Vec<String>)> {
     let meta = cargo_metadata::MetadataCommand::new()
         .manifest_path(reference_workspace.join("Cargo.toml"))
@@ -656,42 +679,19 @@ pub fn collect_dep_serde_features(
     let pkg = meta
         .packages
         .iter()
-        .find(|p| p.name.as_str() == crate_name || p.name.replace('-', "_") == normalized)
+        .find(|pkg| pkg.name == crate_name || pkg.name.replace('-', "_") == normalized)
         .ok_or_else(|| {
             ElicitDocError::cargo_invocation(format!(
                 "package '{crate_name}' not found in workspace metadata"
             ))
         })?;
 
-    const KEYWORDS: &[&str] = &["serde", "schemars", "schema", "json"];
-    let mut available: Vec<String> = pkg
-        .features
-        .keys()
-        .filter(|name| feature_reaches_external_support(name, &pkg.features, KEYWORDS))
-        .cloned()
-        .collect();
-    available.sort();
-
-    // Transitively expand the activated features through same-package feature edges.
-    // We skip edges that cross into another package (dep:foo, foo/bar).
-    let mut expanded: std::collections::HashSet<String> =
-        activated.iter().map(|s| s.to_string()).collect();
-    let mut queue: std::collections::VecDeque<String> =
-        activated.iter().map(|s| s.to_string()).collect();
-    while let Some(feat) = queue.pop_front() {
-        if let Some(enables) = pkg.features.get(&feat) {
-            for enabled in enables {
-                if !enabled.contains(':')
-                    && !enabled.contains('/')
-                    && expanded.insert(enabled.clone())
-                {
-                    queue.push_back(enabled.clone());
-                }
-            }
-        }
+    let available = collect_available_serde_features(&pkg.features);
+    let mut activated_owned: Vec<String> = activated.iter().map(|feature| (*feature).to_string()).collect();
+    if uses_default_features && pkg.features.contains_key("default") {
+        activated_owned.push("default".to_string());
     }
-    let mut expanded_activated: Vec<String> = expanded.into_iter().collect();
-    expanded_activated.sort();
+    let expanded_activated = expand_same_package_features(&pkg.features, &activated_owned);
 
     tracing::debug!(
         crate_name,
@@ -702,6 +702,47 @@ pub fn collect_dep_serde_features(
         "collected dep serde features"
     );
     Ok((available, expanded_activated))
+}
+
+#[instrument(skip(features))]
+fn collect_available_serde_features(
+    features: &std::collections::BTreeMap<String, Vec<String>>,
+) -> Vec<String> {
+    const KEYWORDS: &[&str] = &["serde", "schemars", "schema", "json"];
+    let mut available: Vec<String> = features
+        .keys()
+        .filter(|name| {
+            name.as_str() != "default" && feature_reaches_external_support(name, features, KEYWORDS)
+        })
+        .cloned()
+        .collect();
+    available.sort();
+    available
+}
+
+#[instrument(skip(features, activated))]
+fn expand_same_package_features(
+    features: &std::collections::BTreeMap<String, Vec<String>>,
+    activated: &[String],
+) -> Vec<String> {
+    let mut expanded: std::collections::HashSet<String> = activated.iter().cloned().collect();
+    let mut queue: std::collections::VecDeque<String> = activated.iter().cloned().collect();
+
+    while let Some(feature) = queue.pop_front() {
+        let Some(edges) = features.get(&feature) else {
+            continue;
+        };
+
+        for edge in edges {
+            if !edge.contains(':') && !edge.contains('/') && expanded.insert(edge.clone()) {
+                queue.push_back(edge.clone());
+            }
+        }
+    }
+
+    let mut expanded_features: Vec<String> = expanded.into_iter().collect();
+    expanded_features.sort();
+    expanded_features
 }
 
 fn feature_reaches_external_support(
@@ -784,6 +825,12 @@ fn run_cargo_rustdoc(
     crate_name: &str,
     features: &[&str],
 ) -> ElicitDocResult<PathBuf> {
+    // Reuse a target dir under elicit_doc so report generation never writes into
+    // the sibling elicitation workspace.
+    let own_target = std::env::current_dir()
+        .unwrap_or_else(|_| PathBuf::from("."))
+        .join("target");
+
     let mut cmd = Command::new("cargo");
     cmd.current_dir(workspace_root)
         .arg("+nightly")
@@ -795,7 +842,9 @@ fn run_cargo_rustdoc(
         cmd.arg("--features").arg(features.join(","));
     }
 
-    cmd.arg("--")
+    cmd.arg("--target-dir")
+        .arg(&own_target)
+        .arg("--")
         .arg("--output-format")
         .arg("json")
         .arg("-Z")
@@ -814,10 +863,7 @@ fn run_cargo_rustdoc(
 
     // Rustdoc writes to target/doc/<crate_name>.json (underscores, not hyphens)
     let normalized = crate_name.replace('-', "_");
-    let json_path = workspace_root
-        .join("target")
-        .join("doc")
-        .join(format!("{normalized}.json"));
+    let json_path = own_target.join("doc").join(format!("{normalized}.json"));
 
     if !json_path.exists() {
         return Err(ElicitDocError::rustdoc_missing(
@@ -874,72 +920,597 @@ fn parse_rustdoc_json(
 /// When `false`, the first segment must equal `own_crate` exactly.
 fn extract_items(krate: &rustdoc_types::Crate, own_crate: &str, prefix_match: bool) -> Vec<Item> {
     let mut items = Vec::new();
+    let mut seen_paths = HashSet::new();
     // Rustdoc JSON paths always use underscores even when the Cargo.toml package
     // name is hyphenated (e.g. "geo-types" → "geo_types").
     let own_crate_normalized = own_crate.replace('-', "_");
     let own_crate_key = own_crate_normalized.as_str();
 
     for (id, summary) in &krate.paths {
-        // Filter to items in this crate's namespace (exact or prefix match).
-        let matches = summary
-            .path
-            .first()
-            .map(|s| {
-                if prefix_match {
-                    s.starts_with(own_crate_key)
-                } else {
-                    s.as_str() == own_crate_key
-                }
-            })
-            .unwrap_or(false);
-
-        if !matches {
+        if !path_matches_scope(&summary.path, own_crate_key, prefix_match) {
             continue;
         }
 
-        let kind = match summary.kind {
-            rustdoc_types::ItemKind::Struct => ItemKind::Struct,
-            rustdoc_types::ItemKind::Enum => ItemKind::Enum,
-            rustdoc_types::ItemKind::Trait => ItemKind::Trait,
-            rustdoc_types::ItemKind::TypeAlias => ItemKind::TypeAlias,
-            rustdoc_types::ItemKind::Function => ItemKind::Function,
-            rustdoc_types::ItemKind::Macro => ItemKind::Macro,
-            rustdoc_types::ItemKind::Constant => ItemKind::Constant,
-            rustdoc_types::ItemKind::Module => ItemKind::Module,
-            _ => continue, // skip primitives, unions, impls, etc.
+        let Some(item) = build_inventory_item(krate, id, summary) else {
+            continue;
         };
+        seen_paths.insert(item.path_str());
+        items.push(item);
+    }
 
-        let path = summary.path.clone();
-        let name = path.last().cloned().unwrap_or_default();
-
-        if name.is_empty() {
-            continue;
+    for item in collect_public_signature_dependency_items(
+        krate,
+        own_crate_key,
+        prefix_match,
+        &seen_paths,
+    ) {
+        if seen_paths.insert(item.path_str()) {
+            items.push(item);
         }
-
-        // Attempt to read generics from the index entry (only present when
-        // the item is defined in this crate, not re-exported from a subcrate).
-        let (is_generic, lifetime_params, type_params) = krate
-            .index
-            .get(id)
-            .map(|item| {
-                let (_, g, lp, tp) = classify_item(item);
-                (g, lp, tp)
-            })
-            .unwrap_or((false, vec![], vec![]));
-
-        items.push(Item {
-            path,
-            kind,
-            name,
-            is_generic,
-            lifetime_params,
-            type_params,
-        });
     }
 
     items.sort_by(|a, b| a.path.cmp(&b.path));
     tracing::debug!(count = items.len(), "extracted items");
     items
+}
+
+fn path_matches_scope(path: &[String], own_crate_key: &str, prefix_match: bool) -> bool {
+    path.first()
+        .map(|segment| {
+            if prefix_match {
+                segment.starts_with(own_crate_key)
+            } else {
+                segment == own_crate_key
+            }
+        })
+        .unwrap_or(false)
+}
+
+fn build_inventory_item(
+    krate: &rustdoc_types::Crate,
+    id: &rustdoc_types::Id,
+    summary: &rustdoc_types::ItemSummary,
+) -> Option<Item> {
+    let kind = match summary.kind {
+        rustdoc_types::ItemKind::Struct => ItemKind::Struct,
+        rustdoc_types::ItemKind::Enum => ItemKind::Enum,
+        rustdoc_types::ItemKind::Trait => ItemKind::Trait,
+        rustdoc_types::ItemKind::TypeAlias => ItemKind::TypeAlias,
+        rustdoc_types::ItemKind::Function => ItemKind::Function,
+        rustdoc_types::ItemKind::Macro => ItemKind::Macro,
+        rustdoc_types::ItemKind::Constant => ItemKind::Constant,
+        rustdoc_types::ItemKind::Module => ItemKind::Module,
+        _ => return None,
+    };
+
+    let path = summary.path.clone();
+    let name = path.last().cloned().unwrap_or_default();
+    if name.is_empty() {
+        return None;
+    }
+
+    let (is_generic, lifetime_params, type_params) = krate
+        .index
+        .get(id)
+        .map(|item| {
+            let (_, g, lp, tp) = classify_item(item);
+            (g, lp, tp)
+        })
+        .unwrap_or((false, vec![], vec![]));
+
+    Some(Item {
+        path,
+        kind,
+        name,
+        is_generic,
+        lifetime_params,
+        type_params,
+    })
+}
+
+fn collect_public_signature_dependency_items(
+    krate: &rustdoc_types::Crate,
+    own_crate_key: &str,
+    prefix_match: bool,
+    existing_paths: &HashSet<String>,
+) -> Vec<Item> {
+    let mut discovered = Vec::new();
+    let mut seen = existing_paths.clone();
+
+    for (id, item) in &krate.index {
+        match &item.inner {
+            rustdoc_types::ItemEnum::Function(function)
+                if item_is_public(item)
+                    && krate
+                        .paths
+                        .get(id)
+                        .is_some_and(|summary| {
+                            path_matches_scope(&summary.path, own_crate_key, prefix_match)
+                        }) =>
+            {
+                collect_items_from_function_signature(
+                    krate,
+                    function,
+                    own_crate_key,
+                    prefix_match,
+                    &mut seen,
+                    &mut discovered,
+                );
+            }
+            rustdoc_types::ItemEnum::Trait(trait_item)
+                if item_is_public(item)
+                    && krate
+                        .paths
+                        .get(id)
+                        .is_some_and(|summary| {
+                            path_matches_scope(&summary.path, own_crate_key, prefix_match)
+                        }) =>
+            {
+                for child_id in &trait_item.items {
+                    let Some(child) = krate.index.get(child_id) else {
+                        continue;
+                    };
+                    if !item_is_public(child) {
+                        continue;
+                    }
+                    if let rustdoc_types::ItemEnum::Function(function) = &child.inner {
+                        collect_items_from_function_signature(
+                            krate,
+                            function,
+                            own_crate_key,
+                            prefix_match,
+                            &mut seen,
+                            &mut discovered,
+                        );
+                    }
+                }
+            }
+            rustdoc_types::ItemEnum::Impl(impl_item)
+                if impl_item.trait_.is_none()
+                    && inherent_impl_targets_scope(krate, impl_item, own_crate_key, prefix_match) =>
+            {
+                for child_id in &impl_item.items {
+                    let Some(child) = krate.index.get(child_id) else {
+                        continue;
+                    };
+                    if !item_is_public(child) {
+                        continue;
+                    }
+                    if let rustdoc_types::ItemEnum::Function(function) = &child.inner {
+                        collect_items_from_function_signature(
+                            krate,
+                            function,
+                            own_crate_key,
+                            prefix_match,
+                            &mut seen,
+                            &mut discovered,
+                        );
+                    }
+                }
+            }
+            _ => {}
+        }
+    }
+
+    discovered
+}
+
+fn item_is_public(item: &rustdoc_types::Item) -> bool {
+    matches!(item.visibility, rustdoc_types::Visibility::Public)
+}
+
+fn inherent_impl_targets_scope(
+    krate: &rustdoc_types::Crate,
+    impl_item: &rustdoc_types::Impl,
+    own_crate_key: &str,
+    prefix_match: bool,
+) -> bool {
+    let rustdoc_types::Type::ResolvedPath(resolved) = &impl_item.for_ else {
+        return false;
+    };
+    krate
+        .paths
+        .get(&resolved.id)
+        .is_some_and(|summary| path_matches_scope(&summary.path, own_crate_key, prefix_match))
+}
+
+fn collect_items_from_function_signature(
+    krate: &rustdoc_types::Crate,
+    function: &rustdoc_types::Function,
+    own_crate_key: &str,
+    prefix_match: bool,
+    seen: &mut HashSet<String>,
+    discovered: &mut Vec<Item>,
+) {
+    for (_, input) in &function.sig.inputs {
+        collect_items_from_type(
+            krate,
+            input,
+            own_crate_key,
+            prefix_match,
+            seen,
+            discovered,
+        );
+    }
+    if let Some(output) = &function.sig.output {
+        collect_items_from_type(
+            krate,
+            output,
+            own_crate_key,
+            prefix_match,
+            seen,
+            discovered,
+        );
+    }
+}
+
+fn collect_items_from_type(
+    krate: &rustdoc_types::Crate,
+    ty: &rustdoc_types::Type,
+    own_crate_key: &str,
+    prefix_match: bool,
+    seen: &mut HashSet<String>,
+    discovered: &mut Vec<Item>,
+) {
+    match ty {
+        rustdoc_types::Type::ResolvedPath(resolved) => {
+            if let Some(summary) = krate.paths.get(&resolved.id) {
+                let path = summary.path.join("::");
+                if !path_matches_scope(&summary.path, own_crate_key, prefix_match)
+                    && !path.starts_with("std::")
+                    && !path.starts_with("core::")
+                    && !path.starts_with("alloc::")
+                {
+                    if seen.insert(path) {
+                        if let Some(item) = build_inventory_item(krate, &resolved.id, summary) {
+                            discovered.push(item);
+                        }
+                    }
+                }
+            }
+            if let Some(args) = &resolved.args {
+                collect_items_from_generic_args(
+                    krate,
+                    args,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+        }
+        rustdoc_types::Type::BorrowedRef { type_, .. }
+        | rustdoc_types::Type::RawPointer { type_, .. }
+        | rustdoc_types::Type::Slice(type_)
+        | rustdoc_types::Type::Array { type_, .. } => collect_items_from_type(
+            krate,
+            type_,
+            own_crate_key,
+            prefix_match,
+            seen,
+            discovered,
+        ),
+        rustdoc_types::Type::Tuple(items) => {
+            for item in items {
+                collect_items_from_type(
+                    krate,
+                    item,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+        }
+        rustdoc_types::Type::FunctionPointer(function_pointer) => {
+            for (_, input) in &function_pointer.sig.inputs {
+                collect_items_from_type(
+                    krate,
+                    input,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+            if let Some(output) = &function_pointer.sig.output {
+                collect_items_from_type(
+                    krate,
+                    output,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+        }
+        rustdoc_types::Type::DynTrait(dyn_trait) => {
+            for bound in &dyn_trait.traits {
+                collect_items_from_poly_trait(
+                    krate,
+                    bound,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+        }
+        rustdoc_types::Type::ImplTrait(bounds) => {
+            for bound in bounds {
+                collect_items_from_generic_bound(
+                    krate,
+                    bound,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+        }
+        rustdoc_types::Type::QualifiedPath {
+            self_type,
+            trait_,
+            args,
+            ..
+        } => {
+            collect_items_from_type(
+                krate,
+                self_type,
+                own_crate_key,
+                prefix_match,
+                seen,
+                discovered,
+            );
+            if let Some(trait_) = trait_ {
+                collect_items_from_path(
+                    krate,
+                    trait_,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+            if let Some(args) = args {
+                collect_items_from_generic_args(
+                    krate,
+                    args,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+        }
+        rustdoc_types::Type::Primitive(_)
+        | rustdoc_types::Type::Generic(_)
+        | rustdoc_types::Type::Infer => {}
+        _ => {}
+    }
+}
+
+fn collect_items_from_path(
+    krate: &rustdoc_types::Crate,
+    path: &rustdoc_types::Path,
+    own_crate_key: &str,
+    prefix_match: bool,
+    seen: &mut HashSet<String>,
+    discovered: &mut Vec<Item>,
+) {
+    if let Some(summary) = krate.paths.get(&path.id) {
+        let path_str = summary.path.join("::");
+        if !path_matches_scope(&summary.path, own_crate_key, prefix_match)
+            && !path_str.starts_with("std::")
+            && !path_str.starts_with("core::")
+            && !path_str.starts_with("alloc::")
+        {
+            if seen.insert(path_str) {
+                if let Some(item) = build_inventory_item(krate, &path.id, summary) {
+                    discovered.push(item);
+                }
+            }
+        }
+    }
+    if let Some(args) = &path.args {
+        collect_items_from_generic_args(
+            krate,
+            args,
+            own_crate_key,
+            prefix_match,
+            seen,
+            discovered,
+        );
+    }
+}
+
+fn collect_items_from_generic_args(
+    krate: &rustdoc_types::Crate,
+    args: &rustdoc_types::GenericArgs,
+    own_crate_key: &str,
+    prefix_match: bool,
+    seen: &mut HashSet<String>,
+    discovered: &mut Vec<Item>,
+) {
+    match args {
+        rustdoc_types::GenericArgs::AngleBracketed { args, constraints } => {
+            for arg in args {
+                match arg {
+                    rustdoc_types::GenericArg::Type(ty) => collect_items_from_type(
+                        krate,
+                        ty,
+                        own_crate_key,
+                        prefix_match,
+                        seen,
+                        discovered,
+                    ),
+                    _ => {}
+                }
+            }
+            for constraint in constraints {
+                if let Some(args) = &constraint.args {
+                    collect_items_from_generic_args(
+                        krate,
+                        args,
+                        own_crate_key,
+                        prefix_match,
+                        seen,
+                        discovered,
+                    );
+                }
+                match &constraint.binding {
+                    rustdoc_types::AssocItemConstraintKind::Equality(term) => {
+                        collect_items_from_term(
+                            krate,
+                            term,
+                            own_crate_key,
+                            prefix_match,
+                            seen,
+                            discovered,
+                        );
+                    }
+                    rustdoc_types::AssocItemConstraintKind::Constraint(bounds) => {
+                        for bound in bounds {
+                            collect_items_from_generic_bound(
+                                krate,
+                                bound,
+                                own_crate_key,
+                                prefix_match,
+                                seen,
+                                discovered,
+                            );
+                        }
+                    }
+                }
+            }
+        }
+        rustdoc_types::GenericArgs::Parenthesized { inputs, output } => {
+            for input in inputs {
+                collect_items_from_type(
+                    krate,
+                    input,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+            if let Some(output) = output {
+                collect_items_from_type(
+                    krate,
+                    output,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+        }
+        rustdoc_types::GenericArgs::ReturnTypeNotation => {}
+    }
+}
+
+fn collect_items_from_term(
+    krate: &rustdoc_types::Crate,
+    term: &rustdoc_types::Term,
+    own_crate_key: &str,
+    prefix_match: bool,
+    seen: &mut HashSet<String>,
+    discovered: &mut Vec<Item>,
+) {
+    if let rustdoc_types::Term::Type(ty) = term {
+        collect_items_from_type(
+            krate,
+            ty,
+            own_crate_key,
+            prefix_match,
+            seen,
+            discovered,
+        );
+    }
+}
+
+fn collect_items_from_generic_bound(
+    krate: &rustdoc_types::Crate,
+    bound: &rustdoc_types::GenericBound,
+    own_crate_key: &str,
+    prefix_match: bool,
+    seen: &mut HashSet<String>,
+    discovered: &mut Vec<Item>,
+) {
+    if let rustdoc_types::GenericBound::TraitBound {
+        trait_,
+        generic_params,
+        ..
+    } = bound
+    {
+        collect_items_from_path(
+            krate,
+            trait_,
+            own_crate_key,
+            prefix_match,
+            seen,
+            discovered,
+        );
+        collect_items_from_generic_param_defs(
+            krate,
+            generic_params,
+            own_crate_key,
+            prefix_match,
+            seen,
+            discovered,
+        );
+    }
+}
+
+fn collect_items_from_poly_trait(
+    krate: &rustdoc_types::Crate,
+    poly_trait: &rustdoc_types::PolyTrait,
+    own_crate_key: &str,
+    prefix_match: bool,
+    seen: &mut HashSet<String>,
+    discovered: &mut Vec<Item>,
+) {
+    collect_items_from_path(
+        krate,
+        &poly_trait.trait_,
+        own_crate_key,
+        prefix_match,
+        seen,
+        discovered,
+    );
+    collect_items_from_generic_param_defs(
+        krate,
+        &poly_trait.generic_params,
+        own_crate_key,
+        prefix_match,
+        seen,
+        discovered,
+    );
+}
+
+fn collect_items_from_generic_param_defs(
+    krate: &rustdoc_types::Crate,
+    generic_params: &[rustdoc_types::GenericParamDef],
+    own_crate_key: &str,
+    prefix_match: bool,
+    seen: &mut HashSet<String>,
+    discovered: &mut Vec<Item>,
+) {
+    for generic in generic_params {
+        if let rustdoc_types::GenericParamDefKind::Type { bounds, .. } = &generic.kind {
+            for bound in bounds {
+                collect_items_from_generic_bound(
+                    krate,
+                    bound,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+        }
+    }
 }
 
 /// Map a rustdoc item to our [`ItemKind`], and extract generics info.
