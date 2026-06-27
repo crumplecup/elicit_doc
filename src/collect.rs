@@ -5,7 +5,7 @@ use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-use tracing::instrument;
+use tracing::{debug, instrument};
 
 use crate::error::{ElicitDocError, ElicitDocResult};
 use crate::impl_coverage::ProofHarness;
@@ -400,8 +400,28 @@ pub fn collect_dep_inventory(
     activated_features: &[&str],
     uses_default_features: bool,
 ) -> ElicitDocResult<Inventory> {
-    let (inventory, _) = collect_dep_inventory_with_json_path(
+    collect_member_dep_inventory(
         reference_workspace,
+        "elicitation",
+        crate_name,
+        activated_features,
+        uses_default_features,
+    )
+}
+
+/// Collect the [`Inventory`] for an external dependency as resolved from a
+/// specific workspace member.
+#[instrument(skip(reference_workspace), fields(member_crate_name, crate_name))]
+pub fn collect_member_dep_inventory(
+    reference_workspace: &Path,
+    member_crate_name: &str,
+    crate_name: &str,
+    activated_features: &[&str],
+    uses_default_features: bool,
+) -> ElicitDocResult<Inventory> {
+    let (inventory, _) = collect_member_dep_inventory_with_json_path(
+        reference_workspace,
+        member_crate_name,
         crate_name,
         activated_features,
         uses_default_features,
@@ -418,8 +438,28 @@ pub fn collect_dep_inventory_with_json_path(
     activated_features: &[&str],
     uses_default_features: bool,
 ) -> ElicitDocResult<(Inventory, PathBuf)> {
+    collect_member_dep_inventory_with_json_path(
+        reference_workspace,
+        "elicitation",
+        crate_name,
+        activated_features,
+        uses_default_features,
+    )
+}
+
+/// Collect the [`Inventory`] for an external dependency as resolved from a
+/// specific workspace member and return the exact rustdoc JSON path.
+#[instrument(skip(reference_workspace), fields(member_crate_name, crate_name))]
+pub fn collect_member_dep_inventory_with_json_path(
+    reference_workspace: &Path,
+    member_crate_name: &str,
+    crate_name: &str,
+    activated_features: &[&str],
+    uses_default_features: bool,
+) -> ElicitDocResult<(Inventory, PathBuf)> {
     let json_path = run_dep_cargo_rustdoc(
         reference_workspace,
+        member_crate_name,
         crate_name,
         activated_features,
         uses_default_features,
@@ -430,11 +470,12 @@ pub fn collect_dep_inventory_with_json_path(
 
 fn run_dep_cargo_rustdoc(
     reference_workspace: &Path,
+    member_crate_name: &str,
     crate_name: &str,
     activated_features: &[&str],
     uses_default_features: bool,
 ) -> ElicitDocResult<PathBuf> {
-    let manifest = find_dep_manifest(reference_workspace, crate_name)?;
+    let manifest = find_dep_manifest(reference_workspace, member_crate_name, crate_name)?;
     let crate_dir = manifest.parent().ok_or_else(|| {
         ElicitDocError::cargo_invocation(format!("no parent dir for {manifest:?}"))
     })?;
@@ -564,6 +605,10 @@ pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String
     let krate: rustdoc_types::Crate =
         serde_json::from_str(&content).map_err(|e| ElicitDocError::rustdoc_parse(e.to_string()))?;
 
+    Ok(collect_trenchcoat_pairs_from_crate(&krate))
+}
+
+fn collect_trenchcoat_pairs_from_crate(krate: &rustdoc_types::Crate) -> Vec<(String, String)> {
     let mut pairs: Vec<(String, String)> = Vec::new();
     let mut seen: HashSet<(String, String)> = HashSet::new();
 
@@ -572,82 +617,293 @@ pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String
             continue;
         };
 
-        let Some(trait_) = &impl_item.trait_ else {
-            continue;
-        };
-
-        // Only care about `From` (match by last segment to handle full paths like core::convert::From)
-        let trait_short = trait_.path.split("::").last().unwrap_or("");
-        if trait_short != "From" {
-            continue;
-        }
-
-        // `for_` must be an elicitation-namespace type (our wrapper)
-        let rustdoc_types::Type::ResolvedPath(wrapper_rp) = &impl_item.for_ else {
-            continue;
-        };
-        let wrapper_path = if let Some(summary) = krate.paths.get(&wrapper_rp.id) {
-            summary.path.join("::")
-        } else {
-            let p = wrapper_rp.path.replace("crate::", "elicitation::");
-            if !p.starts_with("elicitation::") {
-                continue;
-            }
-            p
-        };
-        if !wrapper_path.starts_with("elicitation::") {
-            continue;
-        }
-
-        // Extract T from `From<T>` via the trait's angle-bracket args
-        let Some(generic_args) = trait_.args.as_deref() else {
-            continue;
-        };
-        let rustdoc_types::GenericArgs::AngleBracketed {
-            args: angle_args, ..
-        } = generic_args
-        else {
-            continue;
-        };
-        let Some(rustdoc_types::GenericArg::Type(inner_ty)) = angle_args.first() else {
-            continue;
-        };
-        let rustdoc_types::Type::ResolvedPath(foreign_rp) = inner_ty else {
-            continue; // primitives, references, tuples, etc. are not trenchcoat targets
-        };
-
-        // Resolve the foreign type's canonical path
-        let foreign_path = if let Some(summary) = krate.paths.get(&foreign_rp.id) {
-            summary.path.join("::")
-        } else {
-            continue; // can't identify the foreign type reliably — skip
-        };
-
-        // Skip elicitation-internal types (From<OurType> for OurType conversions)
-        if foreign_path.starts_with("elicitation::") {
-            continue;
-        }
-        // Skip std/core/alloc — From<String>, From<u32>, etc. are not trenchcoats
-        if foreign_path.starts_with("std::")
-            || foreign_path.starts_with("core::")
-            || foreign_path.starts_with("alloc::")
-        {
-            continue;
-        }
-
-        let pair = (foreign_path, wrapper_path);
-        if seen.insert(pair.clone()) {
-            pairs.push(pair);
-        }
+        collect_trenchcoat_pairs_from_from_impl(krate, impl_item, &mut seen, &mut pairs);
+        collect_trenchcoat_pairs_from_wrapper_methods(krate, impl_item, &mut seen, &mut pairs);
     }
 
     pairs.sort_by(|a, b| a.0.cmp(&b.0).then(a.1.cmp(&b.1)));
 
     tracing::debug!(
         count = pairs.len(),
-        "found trenchcoat pairs from From<T> impls"
+        "found trenchcoat pairs from wrapper structure"
     );
-    Ok(pairs)
+    pairs
+}
+
+fn collect_trenchcoat_pairs_from_from_impl(
+    krate: &rustdoc_types::Crate,
+    impl_item: &rustdoc_types::Impl,
+    seen: &mut HashSet<(String, String)>,
+    pairs: &mut Vec<(String, String)>,
+) {
+    let Some(trait_) = &impl_item.trait_ else {
+        return;
+    };
+
+    // Only care about `From` (match by last segment to handle full paths like core::convert::From)
+    let trait_short = trait_.path.split("::").last().unwrap_or("");
+    if trait_short != "From" {
+        return;
+    }
+
+    let Some(wrapper_path) = impl_target_path(krate, &impl_item.for_) else {
+        return;
+    };
+    if !is_elicitation_wrapper_path(&wrapper_path) {
+        return;
+    }
+
+    // Extract T from `From<T>` via the trait's angle-bracket args
+    let Some(generic_args) = trait_.args.as_deref() else {
+        return;
+    };
+    let rustdoc_types::GenericArgs::AngleBracketed {
+        args: angle_args, ..
+    } = generic_args
+    else {
+        return;
+    };
+    let Some(rustdoc_types::GenericArg::Type(inner_ty)) = angle_args.first() else {
+        return;
+    };
+    let rustdoc_types::Type::ResolvedPath(foreign_rp) = inner_ty else {
+        return;
+    };
+
+    let Some(summary) = krate.paths.get(&foreign_rp.id) else {
+        return;
+    };
+
+    record_trenchcoat_pair(seen, pairs, summary.path.join("::"), wrapper_path);
+}
+
+fn collect_trenchcoat_pairs_from_wrapper_methods(
+    krate: &rustdoc_types::Crate,
+    impl_item: &rustdoc_types::Impl,
+    seen: &mut HashSet<(String, String)>,
+    pairs: &mut Vec<(String, String)>,
+) {
+    if impl_item.trait_.is_some() {
+        return;
+    }
+
+    let Some(wrapper_path) = impl_target_path(krate, &impl_item.for_) else {
+        return;
+    };
+    if !is_elicitation_wrapper_path(&wrapper_path) {
+        return;
+    }
+
+    for method_id in &impl_item.items {
+        let Some(method_item) = krate.index.get(method_id) else {
+            continue;
+        };
+        if !item_is_public(method_item) {
+            continue;
+        }
+
+        let Some(method_name) = method_item.name.as_deref() else {
+            continue;
+        };
+        if !matches!(method_name, "build_raw" | "into_inner") {
+            continue;
+        }
+
+        let rustdoc_types::ItemEnum::Function(function) = &method_item.inner else {
+            continue;
+        };
+        let Some(output) = &function.sig.output else {
+            continue;
+        };
+
+        let mut foreign_paths = HashSet::new();
+        collect_foreign_paths_from_type(krate, output, &mut foreign_paths);
+        for foreign_path in foreign_paths {
+            record_trenchcoat_pair(seen, pairs, foreign_path, wrapper_path.clone());
+        }
+    }
+}
+
+fn impl_target_path(krate: &rustdoc_types::Crate, ty: &rustdoc_types::Type) -> Option<String> {
+    let rustdoc_types::Type::ResolvedPath(resolved) = ty else {
+        return None;
+    };
+
+    if let Some(summary) = krate.paths.get(&resolved.id) {
+        Some(summary.path.join("::"))
+    } else {
+        let normalized = resolved.path.replace("crate::", "elicitation::");
+        normalized
+            .starts_with("elicitation::")
+            .then_some(normalized)
+    }
+}
+
+fn is_elicitation_wrapper_path(path: &str) -> bool {
+    path.starts_with("elicitation::")
+}
+
+fn is_foreign_trenchcoat_target(path: &str) -> bool {
+    !(path.starts_with("elicitation::")
+        || path.starts_with("std::")
+        || path.starts_with("core::")
+        || path.starts_with("alloc::"))
+}
+
+fn record_trenchcoat_pair(
+    seen: &mut HashSet<(String, String)>,
+    pairs: &mut Vec<(String, String)>,
+    foreign_path: String,
+    wrapper_path: String,
+) {
+    if !is_foreign_trenchcoat_target(&foreign_path) {
+        return;
+    }
+
+    let pair = (foreign_path, wrapper_path);
+    if seen.insert(pair.clone()) {
+        pairs.push(pair);
+    }
+}
+
+fn collect_foreign_paths_from_type(
+    krate: &rustdoc_types::Crate,
+    ty: &rustdoc_types::Type,
+    foreign_paths: &mut HashSet<String>,
+) {
+    match ty {
+        rustdoc_types::Type::ResolvedPath(resolved) => {
+            if let Some(summary) = krate.paths.get(&resolved.id) {
+                let path = summary.path.join("::");
+                if is_foreign_trenchcoat_target(&path) {
+                    let _ = foreign_paths.insert(path);
+                }
+            }
+            if let Some(args) = &resolved.args {
+                collect_foreign_paths_from_generic_args(krate, args, foreign_paths);
+            }
+        }
+        rustdoc_types::Type::BorrowedRef { type_, .. }
+        | rustdoc_types::Type::Slice(type_)
+        | rustdoc_types::Type::RawPointer { type_, .. } => {
+            collect_foreign_paths_from_type(krate, type_, foreign_paths);
+        }
+        rustdoc_types::Type::Tuple(types) => {
+            for inner in types {
+                collect_foreign_paths_from_type(krate, inner, foreign_paths);
+            }
+        }
+        rustdoc_types::Type::Array { type_, .. } => {
+            collect_foreign_paths_from_type(krate, type_, foreign_paths);
+        }
+        rustdoc_types::Type::QualifiedPath {
+            self_type,
+            trait_,
+            args,
+            ..
+        } => {
+            collect_foreign_paths_from_type(krate, self_type, foreign_paths);
+            if let Some(trait_) = trait_ {
+                collect_foreign_paths_from_path(krate, trait_, foreign_paths);
+            }
+            if let Some(args) = args {
+                collect_foreign_paths_from_generic_args(krate, args, foreign_paths);
+            }
+        }
+        rustdoc_types::Type::FunctionPointer(function_pointer) => {
+            for (_, input) in &function_pointer.sig.inputs {
+                collect_foreign_paths_from_type(krate, input, foreign_paths);
+            }
+            if let Some(output) = &function_pointer.sig.output {
+                collect_foreign_paths_from_type(krate, output, foreign_paths);
+            }
+        }
+        rustdoc_types::Type::DynTrait(dyn_trait) => {
+            for poly_trait in &dyn_trait.traits {
+                collect_foreign_paths_from_path(krate, &poly_trait.trait_, foreign_paths);
+            }
+        }
+        rustdoc_types::Type::ImplTrait(bounds) => {
+            for bound in bounds {
+                if let rustdoc_types::GenericBound::TraitBound { trait_, .. } = bound {
+                    collect_foreign_paths_from_path(krate, trait_, foreign_paths);
+                }
+            }
+        }
+        rustdoc_types::Type::Generic(_)
+        | rustdoc_types::Type::Primitive(_)
+        | rustdoc_types::Type::Infer => {}
+        _ => {}
+    }
+}
+
+fn collect_foreign_paths_from_path(
+    krate: &rustdoc_types::Crate,
+    path: &rustdoc_types::Path,
+    foreign_paths: &mut HashSet<String>,
+) {
+    if let Some(summary) = krate.paths.get(&path.id) {
+        let resolved = summary.path.join("::");
+        if is_foreign_trenchcoat_target(&resolved) {
+            let _ = foreign_paths.insert(resolved);
+        }
+    }
+    if let Some(args) = &path.args {
+        collect_foreign_paths_from_generic_args(krate, args, foreign_paths);
+    }
+}
+
+fn collect_foreign_paths_from_generic_args(
+    krate: &rustdoc_types::Crate,
+    args: &rustdoc_types::GenericArgs,
+    foreign_paths: &mut HashSet<String>,
+) {
+    match args {
+        rustdoc_types::GenericArgs::AngleBracketed { args, constraints } => {
+            for arg in args {
+                if let rustdoc_types::GenericArg::Type(ty) = arg {
+                    collect_foreign_paths_from_type(krate, ty, foreign_paths);
+                }
+            }
+            for constraint in constraints {
+                if let Some(args) = &constraint.args {
+                    collect_foreign_paths_from_generic_args(krate, args, foreign_paths);
+                }
+                match &constraint.binding {
+                    rustdoc_types::AssocItemConstraintKind::Equality(term) => {
+                        collect_foreign_paths_from_term(krate, term, foreign_paths);
+                    }
+                    rustdoc_types::AssocItemConstraintKind::Constraint(bounds) => {
+                        for bound in bounds {
+                            if let rustdoc_types::GenericBound::TraitBound { trait_, .. } = bound {
+                                collect_foreign_paths_from_path(krate, trait_, foreign_paths);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        rustdoc_types::GenericArgs::Parenthesized { inputs, output } => {
+            for input in inputs {
+                collect_foreign_paths_from_type(krate, input, foreign_paths);
+            }
+            if let Some(output) = output {
+                collect_foreign_paths_from_type(krate, output, foreign_paths);
+            }
+        }
+        rustdoc_types::GenericArgs::ReturnTypeNotation => {}
+    }
+}
+
+fn collect_foreign_paths_from_term(
+    krate: &rustdoc_types::Crate,
+    term: &rustdoc_types::Term,
+    foreign_paths: &mut HashSet<String>,
+) {
+    match term {
+        rustdoc_types::Term::Type(ty) => collect_foreign_paths_from_type(krate, ty, foreign_paths),
+        rustdoc_types::Term::Constant(_) => {}
+    }
 }
 
 /// Returns `(available_serde_features, expanded_activated_features)`.
@@ -662,7 +918,10 @@ pub fn collect_trenchcoat_pairs(json_path: &Path) -> ElicitDocResult<Vec<(String
 /// and we activate `["use-serde"]`, the expanded set is `{"use-serde", "serde"}`.
 /// This prevents spurious `FeatureGated` classification when an alias feature name
 /// is used (e.g. `use-serde` activates `serde` indirectly).
-#[instrument(skip(reference_workspace, activated), fields(crate_name, uses_default_features))]
+#[instrument(
+    skip(reference_workspace, activated),
+    fields(crate_name, uses_default_features)
+)]
 pub fn collect_dep_serde_features(
     reference_workspace: &Path,
     crate_name: &str,
@@ -687,7 +946,10 @@ pub fn collect_dep_serde_features(
         })?;
 
     let available = collect_available_serde_features(&pkg.features);
-    let mut activated_owned: Vec<String> = activated.iter().map(|feature| (*feature).to_string()).collect();
+    let mut activated_owned: Vec<String> = activated
+        .iter()
+        .map(|feature| (*feature).to_string())
+        .collect();
     if uses_default_features && pkg.features.contains_key("default") {
         activated_owned.push("default".to_string());
     }
@@ -800,21 +1062,89 @@ fn feature_reaches_external_support(
 /// Find the `Cargo.toml` path for a dependency named `crate_name` as seen from
 /// the workspace at `reference_workspace`.
 #[instrument(skip(reference_workspace), fields(crate_name))]
-fn find_dep_manifest(reference_workspace: &Path, crate_name: &str) -> ElicitDocResult<PathBuf> {
+fn find_dep_manifest(
+    reference_workspace: &Path,
+    member_crate_name: &str,
+    crate_name: &str,
+) -> ElicitDocResult<PathBuf> {
     let meta = cargo_metadata::MetadataCommand::new()
         .manifest_path(reference_workspace.join("Cargo.toml"))
         .exec()
         .map_err(|e| ElicitDocError::cargo_metadata(e.to_string()))?;
 
-    meta.packages
+    let member_pkg = meta
+        .packages
         .iter()
-        .find(|p| p.name.as_str() == crate_name)
-        .map(|p| PathBuf::from(p.manifest_path.as_std_path()))
+        .find(|pkg| pkg.name == member_crate_name)
         .ok_or_else(|| {
             ElicitDocError::cargo_invocation(format!(
-                "dependency '{crate_name}' not found in cargo metadata for {reference_workspace:?}"
+                "workspace package `{member_crate_name}` not found in cargo metadata"
+            ))
+        })?;
+    let resolve = meta.resolve.as_ref().ok_or_else(|| {
+        ElicitDocError::cargo_invocation(format!(
+            "cargo metadata resolve graph missing while locating dependency `{crate_name}` for `{member_crate_name}`"
+        ))
+    })?;
+    let member_node = resolve
+        .nodes
+        .iter()
+        .find(|node| node.id == member_pkg.id)
+        .ok_or_else(|| {
+            ElicitDocError::cargo_invocation(format!(
+                "resolve node for workspace package `{member_crate_name}` not found"
+            ))
+        })?;
+    let dependency = member_pkg
+        .dependencies
+        .iter()
+        .find(|dep| dependency_matches_requested_crate(dep, crate_name))
+        .ok_or_else(|| {
+            ElicitDocError::cargo_invocation(format!(
+                "dependency '{crate_name}' not found in `{member_crate_name}` package metadata"
+            ))
+        })?;
+    let edge_name = dependency_edge_name(dependency);
+    let dep_pkg_id = member_node
+        .deps
+        .iter()
+        .find(|dep| dep.name == edge_name)
+        .map(|dep| &dep.pkg)
+        .ok_or_else(|| {
+            ElicitDocError::cargo_invocation(format!(
+                "resolved dependency edge `{edge_name}` for `{member_crate_name}` not found while locating `{crate_name}`"
+            ))
+        })?;
+
+    meta.packages
+        .iter()
+        .find(|pkg| pkg.id == *dep_pkg_id)
+        .map(|pkg| PathBuf::from(pkg.manifest_path.as_std_path()))
+        .ok_or_else(|| {
+            ElicitDocError::cargo_invocation(format!(
+                "resolved package for dependency '{crate_name}' from `{member_crate_name}` not found in cargo metadata"
             ))
         })
+}
+
+fn dependency_matches_requested_crate(
+    dependency: &cargo_metadata::Dependency,
+    crate_name: &str,
+) -> bool {
+    let normalized = crate_name.replace('-', "_");
+    dependency.name == crate_name
+        || dependency.name.replace('-', "_") == normalized
+        || dependency
+            .rename
+            .as_deref()
+            .is_some_and(|rename| rename == crate_name || rename.replace('-', "_") == normalized)
+}
+
+fn dependency_edge_name(dependency: &cargo_metadata::Dependency) -> String {
+    dependency
+        .rename
+        .clone()
+        .unwrap_or_else(|| dependency.name.clone())
 }
 
 /// Run `cargo rustdoc -p <crate> --output-format json` and return the path
@@ -918,6 +1248,7 @@ fn parse_rustdoc_json(
 /// `prefix_match`: when `true`, items are accepted if their first path segment
 /// **starts with** `own_crate` (e.g. `"bevy"` accepts `bevy_ecs::*`, `bevy_math::*`).
 /// When `false`, the first segment must equal `own_crate` exactly.
+#[instrument(skip(krate), fields(own_crate, prefix_match))]
 fn extract_items(krate: &rustdoc_types::Crate, own_crate: &str, prefix_match: bool) -> Vec<Item> {
     let mut items = Vec::new();
     let mut seen_paths = HashSet::new();
@@ -925,25 +1256,52 @@ fn extract_items(krate: &rustdoc_types::Crate, own_crate: &str, prefix_match: bo
     // name is hyphenated (e.g. "geo-types" → "geo_types").
     let own_crate_normalized = own_crate.replace('-', "_");
     let own_crate_key = own_crate_normalized.as_str();
+    let public_reexport_aliases =
+        collect_public_same_crate_reexport_aliases(krate, own_crate_key, prefix_match);
+    let public_module_paths = collect_public_module_paths(krate, own_crate_key, prefix_match);
+
+    for item in public_reexport_aliases.values() {
+        seen_paths.insert(item.path_str());
+        items.push(item.clone());
+    }
 
     for (id, summary) in &krate.paths {
         if !path_matches_scope(&summary.path, own_crate_key, prefix_match) {
+            continue;
+        }
+        if public_reexport_aliases.contains_key(id) {
+            debug!(
+                target_path = %summary.path.join("::"),
+                "skipping canonical same-crate path in favor of public reexport alias"
+            );
             continue;
         }
 
         let Some(item) = build_inventory_item(krate, id, summary) else {
             continue;
         };
+        if !item_path_is_publicly_reachable(&item, &public_module_paths) {
+            debug!(
+                item_path = %item.path_str(),
+                "skipping non-publicly-reachable canonical path"
+            );
+            continue;
+        }
         seen_paths.insert(item.path_str());
         items.push(item);
     }
 
-    for item in collect_public_signature_dependency_items(
-        krate,
-        own_crate_key,
-        prefix_match,
-        &seen_paths,
-    ) {
+    for item in
+        collect_public_reexport_dependency_items(krate, own_crate_key, prefix_match, &seen_paths)
+    {
+        if seen_paths.insert(item.path_str()) {
+            items.push(item);
+        }
+    }
+
+    for item in
+        collect_public_signature_dependency_items(krate, own_crate_key, prefix_match, &seen_paths)
+    {
         if seen_paths.insert(item.path_str()) {
             items.push(item);
         }
@@ -952,6 +1310,123 @@ fn extract_items(krate: &rustdoc_types::Crate, own_crate: &str, prefix_match: bo
     items.sort_by(|a, b| a.path.cmp(&b.path));
     tracing::debug!(count = items.len(), "extracted items");
     items
+}
+
+#[instrument(skip(krate), fields(own_crate_key, prefix_match))]
+fn collect_public_same_crate_reexport_aliases(
+    krate: &rustdoc_types::Crate,
+    own_crate_key: &str,
+    prefix_match: bool,
+) -> HashMap<rustdoc_types::Id, Item> {
+    let mut aliases: HashMap<rustdoc_types::Id, Item> = HashMap::new();
+
+    for (id, item) in &krate.index {
+        let rustdoc_types::ItemEnum::Use(use_item) = &item.inner else {
+            continue;
+        };
+        if !item_is_public(item) {
+            continue;
+        }
+
+        let Some(use_summary) = krate.paths.get(id) else {
+            continue;
+        };
+        if !path_matches_scope(&use_summary.path, own_crate_key, prefix_match) {
+            continue;
+        }
+
+        let Some(target_id) = &use_item.id else {
+            continue;
+        };
+        let Some(target_summary) = krate.paths.get(target_id) else {
+            continue;
+        };
+        if !path_matches_scope(&target_summary.path, own_crate_key, prefix_match) {
+            continue;
+        }
+
+        let Some(alias_item) = build_inventory_item_with_path(
+            krate,
+            target_id,
+            target_summary.kind,
+            use_summary.path.clone(),
+        ) else {
+            continue;
+        };
+
+        match aliases.entry(*target_id) {
+            std::collections::hash_map::Entry::Vacant(slot) => {
+                debug!(
+                    target_path = %target_summary.path.join("::"),
+                    alias_path = %alias_item.path_str(),
+                    "recorded same-crate public reexport alias"
+                );
+                slot.insert(alias_item);
+            }
+            std::collections::hash_map::Entry::Occupied(mut slot) => {
+                if item_path_preferred_over(&alias_item.path, &slot.get().path) {
+                    debug!(
+                        target_path = %target_summary.path.join("::"),
+                        previous_alias = %slot.get().path_str(),
+                        alias_path = %alias_item.path_str(),
+                        "replaced same-crate public reexport alias with shorter public path"
+                    );
+                    slot.insert(alias_item);
+                }
+            }
+        }
+    }
+
+    aliases
+}
+
+#[instrument(skip(krate, existing_paths), fields(own_crate_key, prefix_match, existing_count = existing_paths.len()))]
+fn collect_public_reexport_dependency_items(
+    krate: &rustdoc_types::Crate,
+    own_crate_key: &str,
+    prefix_match: bool,
+    existing_paths: &HashSet<String>,
+) -> Vec<Item> {
+    let mut discovered = Vec::new();
+    let mut seen = existing_paths.clone();
+
+    for (id, item) in &krate.index {
+        let rustdoc_types::ItemEnum::Use(use_item) = &item.inner else {
+            continue;
+        };
+        if !item_is_public(item) {
+            continue;
+        }
+        let Some(use_summary) = krate.paths.get(id) else {
+            continue;
+        };
+        if !path_matches_scope(&use_summary.path, own_crate_key, prefix_match) {
+            continue;
+        }
+        let Some(target_id) = &use_item.id else {
+            continue;
+        };
+        let Some(target_summary) = krate.paths.get(target_id) else {
+            continue;
+        };
+
+        let target_path = target_summary.path.join("::");
+        if path_matches_scope(&target_summary.path, own_crate_key, prefix_match)
+            || target_path.starts_with("std::")
+            || target_path.starts_with("core::")
+            || target_path.starts_with("alloc::")
+        {
+            continue;
+        }
+
+        if seen.insert(target_path) {
+            if let Some(item) = build_inventory_item(krate, target_id, target_summary) {
+                discovered.push(item);
+            }
+        }
+    }
+
+    discovered
 }
 
 fn path_matches_scope(path: &[String], own_crate_key: &str, prefix_match: bool) -> bool {
@@ -971,7 +1446,16 @@ fn build_inventory_item(
     id: &rustdoc_types::Id,
     summary: &rustdoc_types::ItemSummary,
 ) -> Option<Item> {
-    let kind = match summary.kind {
+    build_inventory_item_with_path(krate, id, summary.kind, summary.path.clone())
+}
+
+fn build_inventory_item_with_path(
+    krate: &rustdoc_types::Crate,
+    id: &rustdoc_types::Id,
+    kind: rustdoc_types::ItemKind,
+    path: Vec<String>,
+) -> Option<Item> {
+    let kind = match kind {
         rustdoc_types::ItemKind::Struct => ItemKind::Struct,
         rustdoc_types::ItemKind::Enum => ItemKind::Enum,
         rustdoc_types::ItemKind::Trait => ItemKind::Trait,
@@ -983,7 +1467,6 @@ fn build_inventory_item(
         _ => return None,
     };
 
-    let path = summary.path.clone();
     let name = path.last().cloned().unwrap_or_default();
     if name.is_empty() {
         return None;
@@ -1008,6 +1491,56 @@ fn build_inventory_item(
     })
 }
 
+#[instrument(skip(krate), fields(own_crate_key, prefix_match))]
+fn collect_public_module_paths(
+    krate: &rustdoc_types::Crate,
+    own_crate_key: &str,
+    prefix_match: bool,
+) -> HashSet<String> {
+    krate
+        .paths
+        .iter()
+        .filter_map(|(id, summary)| {
+            if !path_matches_scope(&summary.path, own_crate_key, prefix_match)
+                || summary.kind != rustdoc_types::ItemKind::Module
+            {
+                return None;
+            }
+            let item = krate.index.get(id)?;
+            item_is_public(item).then_some(summary.path.join("::"))
+        })
+        .collect()
+}
+
+fn item_path_is_publicly_reachable(item: &Item, public_module_paths: &HashSet<String>) -> bool {
+    if item.path.len() <= 2 {
+        return true;
+    }
+
+    for idx in 1..item.path.len() - 1 {
+        let module_path = item.path[..=idx].join("::");
+        if !public_module_paths.contains(&module_path) {
+            debug!(
+                item_path = %item.path_str(),
+                missing_public_module = %module_path,
+                "canonical path is not publicly reachable"
+            );
+            return false;
+        }
+    }
+
+    true
+}
+
+fn item_path_preferred_over(candidate: &[String], incumbent: &[String]) -> bool {
+    candidate.len() < incumbent.len()
+        || (candidate.len() == incumbent.len() && candidate < incumbent)
+}
+
+#[instrument(
+    skip(krate, existing_paths),
+    fields(own_crate_key, prefix_match, existing_count = existing_paths.len())
+)]
 fn collect_public_signature_dependency_items(
     krate: &rustdoc_types::Crate,
     own_crate_key: &str,
@@ -1021,12 +1554,9 @@ fn collect_public_signature_dependency_items(
         match &item.inner {
             rustdoc_types::ItemEnum::Function(function)
                 if item_is_public(item)
-                    && krate
-                        .paths
-                        .get(id)
-                        .is_some_and(|summary| {
-                            path_matches_scope(&summary.path, own_crate_key, prefix_match)
-                        }) =>
+                    && krate.paths.get(id).is_some_and(|summary| {
+                        path_matches_scope(&summary.path, own_crate_key, prefix_match)
+                    }) =>
             {
                 collect_items_from_function_signature(
                     krate,
@@ -1039,12 +1569,9 @@ fn collect_public_signature_dependency_items(
             }
             rustdoc_types::ItemEnum::Trait(trait_item)
                 if item_is_public(item)
-                    && krate
-                        .paths
-                        .get(id)
-                        .is_some_and(|summary| {
-                            path_matches_scope(&summary.path, own_crate_key, prefix_match)
-                        }) =>
+                    && krate.paths.get(id).is_some_and(|summary| {
+                        path_matches_scope(&summary.path, own_crate_key, prefix_match)
+                    }) =>
             {
                 for child_id in &trait_item.items {
                     let Some(child) = krate.index.get(child_id) else {
@@ -1067,7 +1594,12 @@ fn collect_public_signature_dependency_items(
             }
             rustdoc_types::ItemEnum::Impl(impl_item)
                 if impl_item.trait_.is_none()
-                    && inherent_impl_targets_scope(krate, impl_item, own_crate_key, prefix_match) =>
+                    && inherent_impl_targets_scope(
+                        krate,
+                        impl_item,
+                        own_crate_key,
+                        prefix_match,
+                    ) =>
             {
                 for child_id in &impl_item.items {
                     let Some(child) = krate.index.get(child_id) else {
@@ -1092,6 +1624,11 @@ fn collect_public_signature_dependency_items(
         }
     }
 
+    debug!(
+        discovered_count = discovered.len(),
+        "collected public signature dependency items"
+    );
+
     discovered
 }
 
@@ -1114,6 +1651,10 @@ fn inherent_impl_targets_scope(
         .is_some_and(|summary| path_matches_scope(&summary.path, own_crate_key, prefix_match))
 }
 
+#[instrument(
+    skip(krate, function, seen, discovered),
+    fields(input_count = function.sig.inputs.len(), has_output = function.sig.output.is_some())
+)]
 fn collect_items_from_function_signature(
     krate: &rustdoc_types::Crate,
     function: &rustdoc_types::Function,
@@ -1123,27 +1664,30 @@ fn collect_items_from_function_signature(
     discovered: &mut Vec<Item>,
 ) {
     for (_, input) in &function.sig.inputs {
-        collect_items_from_type(
-            krate,
-            input,
-            own_crate_key,
-            prefix_match,
-            seen,
-            discovered,
-        );
+        collect_items_from_type(krate, input, own_crate_key, prefix_match, seen, discovered);
     }
     if let Some(output) = &function.sig.output {
-        collect_items_from_type(
-            krate,
-            output,
-            own_crate_key,
-            prefix_match,
-            seen,
-            discovered,
-        );
+        collect_items_from_type(krate, output, own_crate_key, prefix_match, seen, discovered);
     }
+    collect_items_from_generics(
+        krate,
+        &function.generics,
+        own_crate_key,
+        prefix_match,
+        seen,
+        discovered,
+    );
+
+    debug!(
+        discovered_count = discovered.len(),
+        "processed function signature for dependency discovery"
+    );
 }
 
+#[instrument(
+    skip(krate, ty, seen, discovered),
+    fields(type_kind = type_kind_name(ty))
+)]
 fn collect_items_from_type(
     krate: &rustdoc_types::Crate,
     ty: &rustdoc_types::Type,
@@ -1162,10 +1706,23 @@ fn collect_items_from_type(
                     && !path.starts_with("alloc::")
                 {
                     if seen.insert(path) {
+                        debug!(
+                            discovered_path = %summary.path.join("::"),
+                            "discovered signature dependency from resolved type"
+                        );
                         if let Some(item) = build_inventory_item(krate, &resolved.id, summary) {
                             discovered.push(item);
                         }
                     }
+                } else {
+                    debug!(
+                        candidate_path = %summary.path.join("::"),
+                        in_scope = path_matches_scope(&summary.path, own_crate_key, prefix_match),
+                        std_like = path.starts_with("std::")
+                            || path.starts_with("core::")
+                            || path.starts_with("alloc::"),
+                        "skipping resolved type during signature dependency discovery"
+                    );
                 }
             }
             if let Some(args) = &resolved.args {
@@ -1182,24 +1739,12 @@ fn collect_items_from_type(
         rustdoc_types::Type::BorrowedRef { type_, .. }
         | rustdoc_types::Type::RawPointer { type_, .. }
         | rustdoc_types::Type::Slice(type_)
-        | rustdoc_types::Type::Array { type_, .. } => collect_items_from_type(
-            krate,
-            type_,
-            own_crate_key,
-            prefix_match,
-            seen,
-            discovered,
-        ),
+        | rustdoc_types::Type::Array { type_, .. } => {
+            collect_items_from_type(krate, type_, own_crate_key, prefix_match, seen, discovered)
+        }
         rustdoc_types::Type::Tuple(items) => {
             for item in items {
-                collect_items_from_type(
-                    krate,
-                    item,
-                    own_crate_key,
-                    prefix_match,
-                    seen,
-                    discovered,
-                );
+                collect_items_from_type(krate, item, own_crate_key, prefix_match, seen, discovered);
             }
         }
         rustdoc_types::Type::FunctionPointer(function_pointer) => {
@@ -1223,6 +1768,14 @@ fn collect_items_from_type(
                     discovered,
                 );
             }
+            collect_items_from_generic_param_defs(
+                krate,
+                &function_pointer.generic_params,
+                own_crate_key,
+                prefix_match,
+                seen,
+                discovered,
+            );
         }
         rustdoc_types::Type::DynTrait(dyn_trait) => {
             for bound in &dyn_trait.traits {
@@ -1290,6 +1843,10 @@ fn collect_items_from_type(
     }
 }
 
+#[instrument(
+    skip(krate, path, seen, discovered),
+    fields(path = %path.path)
+)]
 fn collect_items_from_path(
     krate: &rustdoc_types::Crate,
     path: &rustdoc_types::Path,
@@ -1306,24 +1863,31 @@ fn collect_items_from_path(
             && !path_str.starts_with("alloc::")
         {
             if seen.insert(path_str) {
+                debug!(
+                    discovered_path = %summary.path.join("::"),
+                    "discovered signature dependency from path"
+                );
                 if let Some(item) = build_inventory_item(krate, &path.id, summary) {
                     discovered.push(item);
                 }
             }
+        } else {
+            debug!(
+                candidate_path = %summary.path.join("::"),
+                in_scope = path_matches_scope(&summary.path, own_crate_key, prefix_match),
+                std_like = path_str.starts_with("std::")
+                    || path_str.starts_with("core::")
+                    || path_str.starts_with("alloc::"),
+                "skipping path during signature dependency discovery"
+            );
         }
     }
     if let Some(args) = &path.args {
-        collect_items_from_generic_args(
-            krate,
-            args,
-            own_crate_key,
-            prefix_match,
-            seen,
-            discovered,
-        );
+        collect_items_from_generic_args(krate, args, own_crate_key, prefix_match, seen, discovered);
     }
 }
 
+#[instrument(skip(krate, args, seen, discovered))]
 fn collect_items_from_generic_args(
     krate: &rustdoc_types::Crate,
     args: &rustdoc_types::GenericArgs,
@@ -1410,6 +1974,725 @@ fn collect_items_from_generic_args(
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use std::collections::HashMap;
+    use std::path::PathBuf;
+
+    use rustdoc_types::{
+        Abi, Crate, ExternalCrate, Function, FunctionHeader, FunctionSignature, GenericBound,
+        Generics, Id, Item, ItemEnum, ItemKind, ItemSummary, Module, Path, Target, Type, Use,
+        Visibility, WherePredicate,
+    };
+
+    use super::{collect_trenchcoat_pairs_from_crate, extract_items};
+
+    #[test]
+    fn extract_items_includes_public_foreign_reexports() {
+        let root_id = Id(1);
+        let use_id = Id(10);
+        let foreign_id = Id(20);
+
+        let mut index = HashMap::new();
+        index.insert(
+            root_id,
+            Item {
+                id: root_id,
+                crate_id: 0,
+                name: Some("reqwest".to_string()),
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Module(Module {
+                    is_crate: true,
+                    items: vec![use_id],
+                    is_stripped: false,
+                }),
+            },
+        );
+        index.insert(
+            use_id,
+            Item {
+                id: use_id,
+                crate_id: 0,
+                name: None,
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Use(Use {
+                    source: "http::header::HeaderName".to_string(),
+                    name: "HeaderName".to_string(),
+                    id: Some(foreign_id),
+                    is_glob: false,
+                }),
+            },
+        );
+
+        let mut paths = HashMap::new();
+        paths.insert(
+            root_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec!["reqwest".to_string()],
+                kind: ItemKind::Module,
+            },
+        );
+        paths.insert(
+            use_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec![
+                    "reqwest".to_string(),
+                    "header".to_string(),
+                    "HeaderName".to_string(),
+                ],
+                kind: ItemKind::Use,
+            },
+        );
+        paths.insert(
+            foreign_id,
+            ItemSummary {
+                crate_id: 1,
+                path: vec![
+                    "http".to_string(),
+                    "header".to_string(),
+                    "HeaderName".to_string(),
+                ],
+                kind: ItemKind::Struct,
+            },
+        );
+
+        let mut external_crates = HashMap::new();
+        external_crates.insert(
+            1,
+            ExternalCrate {
+                name: "http".to_string(),
+                html_root_url: None,
+                path: PathBuf::from("/tmp/http.rmeta"),
+            },
+        );
+
+        let krate = Crate {
+            root: root_id,
+            crate_version: Some("1.0.0".to_string()),
+            includes_private: false,
+            index,
+            paths,
+            external_crates,
+            target: Target {
+                triple: "x86_64-unknown-linux-gnu".to_string(),
+                target_features: Vec::new(),
+            },
+            format_version: rustdoc_types::FORMAT_VERSION,
+        };
+
+        let items = extract_items(&krate, "reqwest", false);
+        assert!(
+            items
+                .iter()
+                .any(|item| item.path_str() == "http::header::HeaderName"),
+            "expected foreign reexport to be inventoried: {items:#?}"
+        );
+    }
+
+    #[test]
+    fn extract_items_includes_foreign_types_from_public_where_predicates() {
+        let root_id = Id(1);
+        let function_id = Id(10);
+        let foreign_id = Id(20);
+
+        let mut index = HashMap::new();
+        index.insert(
+            root_id,
+            Item {
+                id: root_id,
+                crate_id: 0,
+                name: Some("reqwest".to_string()),
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Module(Module {
+                    is_crate: true,
+                    items: vec![function_id],
+                    is_stripped: false,
+                }),
+            },
+        );
+        index.insert(
+            function_id,
+            Item {
+                id: function_id,
+                crate_id: 0,
+                name: Some("header".to_string()),
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Function(Function {
+                    sig: FunctionSignature {
+                        inputs: vec![("self".to_string(), Type::Generic("Self".to_string()))],
+                        output: None,
+                        is_c_variadic: false,
+                    },
+                    generics: Generics {
+                        params: Vec::new(),
+                        where_predicates: vec![WherePredicate::BoundPredicate {
+                            type_: Type::ResolvedPath(Path {
+                                path: "HeaderName".to_string(),
+                                id: foreign_id,
+                                args: None,
+                            }),
+                            bounds: vec![GenericBound::TraitBound {
+                                trait_: Path {
+                                    path: "IntoHeaderName".to_string(),
+                                    id: Id(21),
+                                    args: None,
+                                },
+                                generic_params: Vec::new(),
+                                modifier: rustdoc_types::TraitBoundModifier::None,
+                            }],
+                            generic_params: Vec::new(),
+                        }],
+                    },
+                    header: FunctionHeader {
+                        is_const: false,
+                        is_unsafe: false,
+                        is_async: false,
+                        abi: Abi::Rust,
+                    },
+                    has_body: true,
+                }),
+            },
+        );
+
+        let mut paths = HashMap::new();
+        paths.insert(
+            root_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec!["reqwest".to_string()],
+                kind: ItemKind::Module,
+            },
+        );
+        paths.insert(
+            function_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec![
+                    "reqwest".to_string(),
+                    "RequestBuilder".to_string(),
+                    "header".to_string(),
+                ],
+                kind: ItemKind::Function,
+            },
+        );
+        paths.insert(
+            foreign_id,
+            ItemSummary {
+                crate_id: 1,
+                path: vec![
+                    "http".to_string(),
+                    "header".to_string(),
+                    "name".to_string(),
+                    "HeaderName".to_string(),
+                ],
+                kind: ItemKind::Struct,
+            },
+        );
+
+        let mut external_crates = HashMap::new();
+        external_crates.insert(
+            1,
+            ExternalCrate {
+                name: "http".to_string(),
+                html_root_url: None,
+                path: PathBuf::from("/tmp/http.rmeta"),
+            },
+        );
+
+        let krate = Crate {
+            root: root_id,
+            crate_version: Some("1.0.0".to_string()),
+            includes_private: false,
+            index,
+            paths,
+            external_crates,
+            target: Target {
+                triple: "x86_64-unknown-linux-gnu".to_string(),
+                target_features: Vec::new(),
+            },
+            format_version: rustdoc_types::FORMAT_VERSION,
+        };
+
+        let items = extract_items(&krate, "reqwest", false);
+        assert!(
+            items
+                .iter()
+                .any(|item| item.path_str() == "http::header::name::HeaderName"),
+            "expected foreign where-predicate type to be inventoried: {items:#?}"
+        );
+    }
+
+    #[test]
+    fn extract_items_prefers_public_same_crate_reexport_alias() {
+        let root_id = Id(1);
+        let internal_module_id = Id(2);
+        let internal_client_id = Id(3);
+        let reexport_id = Id(4);
+
+        let mut index = HashMap::new();
+        index.insert(
+            root_id,
+            Item {
+                id: root_id,
+                crate_id: 0,
+                name: Some("reqwest".to_string()),
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Module(Module {
+                    is_crate: true,
+                    items: vec![reexport_id],
+                    is_stripped: false,
+                }),
+            },
+        );
+        index.insert(
+            internal_module_id,
+            Item {
+                id: internal_module_id,
+                crate_id: 0,
+                name: Some("async_impl".to_string()),
+                span: None,
+                visibility: Visibility::Default,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Module(Module {
+                    is_crate: false,
+                    items: vec![internal_client_id],
+                    is_stripped: false,
+                }),
+            },
+        );
+        index.insert(
+            internal_client_id,
+            Item {
+                id: internal_client_id,
+                crate_id: 0,
+                name: Some("Client".to_string()),
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Struct(rustdoc_types::Struct {
+                    kind: rustdoc_types::StructKind::Unit,
+                    generics: Generics {
+                        params: Vec::new(),
+                        where_predicates: Vec::new(),
+                    },
+                    impls: Vec::new(),
+                }),
+            },
+        );
+        index.insert(
+            reexport_id,
+            Item {
+                id: reexport_id,
+                crate_id: 0,
+                name: None,
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Use(Use {
+                    source: "reqwest::async_impl::client::Client".to_string(),
+                    name: "Client".to_string(),
+                    id: Some(internal_client_id),
+                    is_glob: false,
+                }),
+            },
+        );
+
+        let mut paths = HashMap::new();
+        paths.insert(
+            root_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec!["reqwest".to_string()],
+                kind: ItemKind::Module,
+            },
+        );
+        paths.insert(
+            internal_client_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec![
+                    "reqwest".to_string(),
+                    "async_impl".to_string(),
+                    "client".to_string(),
+                    "Client".to_string(),
+                ],
+                kind: ItemKind::Struct,
+            },
+        );
+        paths.insert(
+            reexport_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec!["reqwest".to_string(), "Client".to_string()],
+                kind: ItemKind::Use,
+            },
+        );
+
+        let krate = Crate {
+            root: root_id,
+            crate_version: Some("1.0.0".to_string()),
+            includes_private: false,
+            index,
+            paths,
+            external_crates: HashMap::new(),
+            target: Target {
+                triple: "x86_64-unknown-linux-gnu".to_string(),
+                target_features: Vec::new(),
+            },
+            format_version: rustdoc_types::FORMAT_VERSION,
+        };
+
+        let items = extract_items(&krate, "reqwest", false);
+        assert!(
+            items
+                .iter()
+                .any(|item| item.path_str() == "reqwest::Client"),
+            "expected public alias to be inventoried: {items:#?}"
+        );
+        assert!(
+            items
+                .iter()
+                .all(|item| item.path_str() != "reqwest::async_impl::client::Client"),
+            "expected internal canonical path to be suppressed: {items:#?}"
+        );
+    }
+
+    #[test]
+    fn extract_items_skips_non_publicly_reachable_canonical_paths() {
+        let root_id = Id(1);
+        let sealed_type_id = Id(2);
+
+        let mut index = HashMap::new();
+        index.insert(
+            root_id,
+            Item {
+                id: root_id,
+                crate_id: 0,
+                name: Some("reqwest".to_string()),
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Module(Module {
+                    is_crate: true,
+                    items: vec![sealed_type_id],
+                    is_stripped: false,
+                }),
+            },
+        );
+        index.insert(
+            sealed_type_id,
+            Item {
+                id: sealed_type_id,
+                crate_id: 0,
+                name: Some("Conn".to_string()),
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Struct(rustdoc_types::Struct {
+                    kind: rustdoc_types::StructKind::Unit,
+                    generics: Generics {
+                        params: Vec::new(),
+                        where_predicates: Vec::new(),
+                    },
+                    impls: Vec::new(),
+                }),
+            },
+        );
+
+        let mut paths = HashMap::new();
+        paths.insert(
+            root_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec!["reqwest".to_string()],
+                kind: ItemKind::Module,
+            },
+        );
+        paths.insert(
+            sealed_type_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec![
+                    "reqwest".to_string(),
+                    "connect".to_string(),
+                    "sealed".to_string(),
+                    "Conn".to_string(),
+                ],
+                kind: ItemKind::Struct,
+            },
+        );
+
+        let krate = Crate {
+            root: root_id,
+            crate_version: Some("1.0.0".to_string()),
+            includes_private: false,
+            index,
+            paths,
+            external_crates: HashMap::new(),
+            target: Target {
+                triple: "x86_64-unknown-linux-gnu".to_string(),
+                target_features: Vec::new(),
+            },
+            format_version: rustdoc_types::FORMAT_VERSION,
+        };
+
+        let items = extract_items(&krate, "reqwest", false);
+        assert!(
+            items
+                .iter()
+                .all(|item| item.path_str() != "reqwest::connect::sealed::Conn"),
+            "expected non-publicly-reachable canonical path to be skipped: {items:#?}"
+        );
+    }
+
+    #[test]
+    fn collect_trenchcoat_pairs_detects_public_build_raw_wrapper_methods() {
+        let root_id = Id(1);
+        let wrapper_id = Id(2);
+        let impl_id = Id(3);
+        let build_raw_id = Id(4);
+        let result_id = Id(5);
+        let proxy_id = Id(6);
+
+        let mut index = HashMap::new();
+        index.insert(
+            root_id,
+            Item {
+                id: root_id,
+                crate_id: 0,
+                name: Some("elicitation".to_string()),
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Module(Module {
+                    is_crate: true,
+                    items: vec![wrapper_id, impl_id],
+                    is_stripped: false,
+                }),
+            },
+        );
+        index.insert(
+            wrapper_id,
+            Item {
+                id: wrapper_id,
+                crate_id: 0,
+                name: Some("ReqwestProxy".to_string()),
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Struct(rustdoc_types::Struct {
+                    kind: rustdoc_types::StructKind::Unit,
+                    generics: Generics {
+                        params: Vec::new(),
+                        where_predicates: Vec::new(),
+                    },
+                    impls: vec![impl_id],
+                }),
+            },
+        );
+        index.insert(
+            impl_id,
+            Item {
+                id: impl_id,
+                crate_id: 0,
+                name: None,
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Impl(rustdoc_types::Impl {
+                    is_unsafe: false,
+                    generics: Generics {
+                        params: Vec::new(),
+                        where_predicates: Vec::new(),
+                    },
+                    provided_trait_methods: Vec::new(),
+                    trait_: None,
+                    for_: Type::ResolvedPath(Path {
+                        path: "crate::ReqwestProxy".to_string(),
+                        id: wrapper_id,
+                        args: None,
+                    }),
+                    items: vec![build_raw_id],
+                    is_negative: false,
+                    is_synthetic: false,
+                    blanket_impl: None,
+                }),
+            },
+        );
+        index.insert(
+            build_raw_id,
+            Item {
+                id: build_raw_id,
+                crate_id: 0,
+                name: Some("build_raw".to_string()),
+                span: None,
+                visibility: Visibility::Public,
+                docs: None,
+                links: HashMap::new(),
+                attrs: Vec::new(),
+                deprecation: None,
+                inner: ItemEnum::Function(Function {
+                    sig: FunctionSignature {
+                        inputs: vec![(
+                            "self".to_string(),
+                            Type::BorrowedRef {
+                                lifetime: None,
+                                is_mutable: false,
+                                type_: Box::new(Type::Generic("Self".to_string())),
+                            },
+                        )],
+                        output: Some(Type::ResolvedPath(Path {
+                            path: "crate::ElicitResult".to_string(),
+                            id: result_id,
+                            args: Some(Box::new(rustdoc_types::GenericArgs::AngleBracketed {
+                                args: vec![rustdoc_types::GenericArg::Type(Type::ResolvedPath(
+                                    Path {
+                                        path: "reqwest::Proxy".to_string(),
+                                        id: proxy_id,
+                                        args: None,
+                                    },
+                                ))],
+                                constraints: Vec::new(),
+                            })),
+                        })),
+                        is_c_variadic: false,
+                    },
+                    generics: Generics {
+                        params: Vec::new(),
+                        where_predicates: Vec::new(),
+                    },
+                    header: FunctionHeader {
+                        is_const: false,
+                        is_unsafe: false,
+                        is_async: false,
+                        abi: Abi::Rust,
+                    },
+                    has_body: true,
+                }),
+            },
+        );
+
+        let mut paths = HashMap::new();
+        paths.insert(
+            root_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec!["elicitation".to_string()],
+                kind: ItemKind::Module,
+            },
+        );
+        paths.insert(
+            wrapper_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec!["elicitation".to_string(), "ReqwestProxy".to_string()],
+                kind: ItemKind::Struct,
+            },
+        );
+        paths.insert(
+            result_id,
+            ItemSummary {
+                crate_id: 0,
+                path: vec!["elicitation".to_string(), "ElicitResult".to_string()],
+                kind: ItemKind::TypeAlias,
+            },
+        );
+        paths.insert(
+            proxy_id,
+            ItemSummary {
+                crate_id: 1,
+                path: vec!["reqwest".to_string(), "Proxy".to_string()],
+                kind: ItemKind::Struct,
+            },
+        );
+
+        let mut external_crates = HashMap::new();
+        external_crates.insert(
+            1,
+            ExternalCrate {
+                name: "reqwest".to_string(),
+                html_root_url: None,
+                path: PathBuf::from("/tmp/reqwest.rmeta"),
+            },
+        );
+
+        let krate = Crate {
+            root: root_id,
+            crate_version: Some("1.0.0".to_string()),
+            includes_private: false,
+            index,
+            paths,
+            external_crates,
+            target: Target {
+                triple: "x86_64-unknown-linux-gnu".to_string(),
+                target_features: Vec::new(),
+            },
+            format_version: rustdoc_types::FORMAT_VERSION,
+        };
+
+        let pairs = collect_trenchcoat_pairs_from_crate(&krate);
+        assert_eq!(
+            pairs,
+            vec![(
+                "reqwest::Proxy".to_string(),
+                "elicitation::ReqwestProxy".to_string(),
+            )]
+        );
+    }
+}
+
+#[instrument(skip(krate, term, seen, discovered))]
 fn collect_items_from_term(
     krate: &rustdoc_types::Crate,
     term: &rustdoc_types::Term,
@@ -1419,17 +2702,11 @@ fn collect_items_from_term(
     discovered: &mut Vec<Item>,
 ) {
     if let rustdoc_types::Term::Type(ty) = term {
-        collect_items_from_type(
-            krate,
-            ty,
-            own_crate_key,
-            prefix_match,
-            seen,
-            discovered,
-        );
+        collect_items_from_type(krate, ty, own_crate_key, prefix_match, seen, discovered);
     }
 }
 
+#[instrument(skip(krate, bound, seen, discovered))]
 fn collect_items_from_generic_bound(
     krate: &rustdoc_types::Crate,
     bound: &rustdoc_types::GenericBound,
@@ -1444,14 +2721,7 @@ fn collect_items_from_generic_bound(
         ..
     } = bound
     {
-        collect_items_from_path(
-            krate,
-            trait_,
-            own_crate_key,
-            prefix_match,
-            seen,
-            discovered,
-        );
+        collect_items_from_path(krate, trait_, own_crate_key, prefix_match, seen, discovered);
         collect_items_from_generic_param_defs(
             krate,
             generic_params,
@@ -1463,6 +2733,7 @@ fn collect_items_from_generic_bound(
     }
 }
 
+#[instrument(skip(krate, poly_trait, seen, discovered), fields(path = %poly_trait.trait_.path))]
 fn collect_items_from_poly_trait(
     krate: &rustdoc_types::Crate,
     poly_trait: &rustdoc_types::PolyTrait,
@@ -1489,6 +2760,7 @@ fn collect_items_from_poly_trait(
     );
 }
 
+#[instrument(skip(krate, generic_params, seen, discovered), fields(param_count = generic_params.len()))]
 fn collect_items_from_generic_param_defs(
     krate: &rustdoc_types::Crate,
     generic_params: &[rustdoc_types::GenericParamDef],
@@ -1498,7 +2770,91 @@ fn collect_items_from_generic_param_defs(
     discovered: &mut Vec<Item>,
 ) {
     for generic in generic_params {
-        if let rustdoc_types::GenericParamDefKind::Type { bounds, .. } = &generic.kind {
+        match &generic.kind {
+            rustdoc_types::GenericParamDefKind::Type {
+                bounds, default, ..
+            } => {
+                for bound in bounds {
+                    collect_items_from_generic_bound(
+                        krate,
+                        bound,
+                        own_crate_key,
+                        prefix_match,
+                        seen,
+                        discovered,
+                    );
+                }
+                if let Some(default) = default {
+                    collect_items_from_type(
+                        krate,
+                        default,
+                        own_crate_key,
+                        prefix_match,
+                        seen,
+                        discovered,
+                    );
+                }
+            }
+            rustdoc_types::GenericParamDefKind::Const { type_, .. } => {
+                collect_items_from_type(
+                    krate,
+                    type_,
+                    own_crate_key,
+                    prefix_match,
+                    seen,
+                    discovered,
+                );
+            }
+            rustdoc_types::GenericParamDefKind::Lifetime { .. } => {}
+        }
+    }
+}
+
+#[instrument(skip(krate, generics, seen, discovered), fields(param_count = generics.params.len(), predicate_count = generics.where_predicates.len()))]
+fn collect_items_from_generics(
+    krate: &rustdoc_types::Crate,
+    generics: &rustdoc_types::Generics,
+    own_crate_key: &str,
+    prefix_match: bool,
+    seen: &mut HashSet<String>,
+    discovered: &mut Vec<Item>,
+) {
+    collect_items_from_generic_param_defs(
+        krate,
+        &generics.params,
+        own_crate_key,
+        prefix_match,
+        seen,
+        discovered,
+    );
+    for predicate in &generics.where_predicates {
+        collect_items_from_where_predicate(
+            krate,
+            predicate,
+            own_crate_key,
+            prefix_match,
+            seen,
+            discovered,
+        );
+    }
+}
+
+#[instrument(skip(krate, predicate, seen, discovered))]
+fn collect_items_from_where_predicate(
+    krate: &rustdoc_types::Crate,
+    predicate: &rustdoc_types::WherePredicate,
+    own_crate_key: &str,
+    prefix_match: bool,
+    seen: &mut HashSet<String>,
+    discovered: &mut Vec<Item>,
+) {
+    match predicate {
+        rustdoc_types::WherePredicate::BoundPredicate {
+            type_,
+            bounds,
+            generic_params,
+        } => {
+            collect_items_from_type(krate, type_, own_crate_key, prefix_match, seen, discovered);
             for bound in bounds {
                 collect_items_from_generic_bound(
                     krate,
@@ -1509,7 +2865,39 @@ fn collect_items_from_generic_param_defs(
                     discovered,
                 );
             }
+            collect_items_from_generic_param_defs(
+                krate,
+                generic_params,
+                own_crate_key,
+                prefix_match,
+                seen,
+                discovered,
+            );
         }
+        rustdoc_types::WherePredicate::EqPredicate { lhs, rhs } => {
+            collect_items_from_type(krate, lhs, own_crate_key, prefix_match, seen, discovered);
+            collect_items_from_term(krate, rhs, own_crate_key, prefix_match, seen, discovered);
+        }
+        rustdoc_types::WherePredicate::LifetimePredicate { .. } => {}
+    }
+}
+
+fn type_kind_name(ty: &rustdoc_types::Type) -> &'static str {
+    match ty {
+        rustdoc_types::Type::ResolvedPath(_) => "ResolvedPath",
+        rustdoc_types::Type::DynTrait(_) => "DynTrait",
+        rustdoc_types::Type::Generic(_) => "Generic",
+        rustdoc_types::Type::Primitive(_) => "Primitive",
+        rustdoc_types::Type::FunctionPointer(_) => "FunctionPointer",
+        rustdoc_types::Type::Tuple(_) => "Tuple",
+        rustdoc_types::Type::Slice(_) => "Slice",
+        rustdoc_types::Type::Array { .. } => "Array",
+        rustdoc_types::Type::ImplTrait(_) => "ImplTrait",
+        rustdoc_types::Type::Infer => "Infer",
+        rustdoc_types::Type::RawPointer { .. } => "RawPointer",
+        rustdoc_types::Type::BorrowedRef { .. } => "BorrowedRef",
+        rustdoc_types::Type::QualifiedPath { .. } => "QualifiedPath",
+        _ => "Other",
     }
 }
 
