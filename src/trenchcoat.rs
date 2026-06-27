@@ -17,6 +17,20 @@ use tracing::instrument;
 
 use crate::collect::{ElicitCompleteSet, TraitPrereqs};
 
+/// Coverage provided by one elicitation-owned wrapper for a foreign type.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct WrapperCoverage {
+    /// Our elicitation wrapper type (e.g. `elicitation::SyntaxViolationSelect`).
+    pub wrapper_path: String,
+    /// Whether the wrapper has `impl ElicitComplete`.
+    pub wrapper_elicit_complete: bool,
+    /// Which of the 8 `ElicitComplete` supertraits the wrapper itself already implements.
+    pub wrapper_prereqs: TraitPrereqs,
+}
+
+/// Foreign type -> known wrapper coverage providers.
+pub type WrapperCoverageMap = HashMap<String, Vec<WrapperCoverage>>;
+
 /// The 5 elicitation-owned traits that we can always implement for foreign types.
 type OurTraitChecker = fn(&TraitPrereqs) -> bool;
 const OUR_TRAITS: &[(&str, OurTraitChecker)] = &[
@@ -63,6 +77,36 @@ pub struct TrenchcoatEntry {
     pub foreign_missing_our_traits: String,
 }
 
+/// Build the wrapper-coverage relation table from structural `From<ForeignType>` pairs.
+#[instrument(skip(pairs, complete_paths, wrapper_prereqs))]
+pub fn build_wrapper_coverage_map(
+    pairs: &[(String, String)],
+    complete_paths: &ElicitCompleteSet,
+    wrapper_prereqs: &HashMap<String, TraitPrereqs>,
+) -> WrapperCoverageMap {
+    let mut map: WrapperCoverageMap = HashMap::new();
+
+    for (foreign, wrapper) in pairs {
+        let coverage = WrapperCoverage {
+            wrapper_path: wrapper.clone(),
+            wrapper_elicit_complete: complete_paths.concrete.contains(wrapper.as_str())
+                || complete_paths.factory.contains(wrapper.as_str()),
+            wrapper_prereqs: wrapper_prereqs
+                .get(wrapper.as_str())
+                .cloned()
+                .unwrap_or_default(),
+        };
+        map.entry(foreign.clone()).or_default().push(coverage);
+    }
+
+    for providers in map.values_mut() {
+        providers.sort_by(|left, right| left.wrapper_path.cmp(&right.wrapper_path));
+    }
+
+    tracing::info!(wrapped_types = map.len(), "built wrapper coverage map");
+    map
+}
+
 /// Build the trenchcoat report from structural `From<ForeignType>` pairs.
 ///
 /// - `pairs` — `(foreign_type_path, wrapper_path)` from [`crate::collect::collect_trenchcoat_pairs`].
@@ -76,20 +120,35 @@ pub fn build_trenchcoat_report(
     wrapper_prereqs: &HashMap<String, TraitPrereqs>,
     foreign_prereqs: &HashMap<String, TraitPrereqs>,
 ) -> Vec<TrenchcoatEntry> {
+    let wrapper_coverage = build_wrapper_coverage_map(pairs, complete_paths, wrapper_prereqs);
     let mut entries: Vec<TrenchcoatEntry> = pairs
         .iter()
         .map(|(foreign, wrapper)| {
             let foreign_crate = foreign.split("::").next().unwrap_or(foreign).to_string();
-
-            let wrapper_complete = complete_paths.concrete.contains(wrapper.as_str());
-            let wrapper_missing = missing_our_traits(wrapper_prereqs.get(wrapper.as_str()));
+            let wrapper_provider = wrapper_coverage
+                .get(foreign)
+                .and_then(|providers| {
+                    providers
+                        .iter()
+                        .find(|provider| provider.wrapper_path == *wrapper)
+                })
+                .cloned()
+                .unwrap_or(WrapperCoverage {
+                    wrapper_path: wrapper.clone(),
+                    wrapper_elicit_complete: false,
+                    wrapper_prereqs: wrapper_prereqs
+                        .get(wrapper.as_str())
+                        .cloned()
+                        .unwrap_or_default(),
+                });
+            let wrapper_missing = missing_our_traits(Some(&wrapper_provider.wrapper_prereqs));
             let foreign_missing = missing_our_traits(foreign_prereqs.get(foreign.as_str()));
 
             TrenchcoatEntry {
                 foreign_crate,
                 foreign_type: foreign.clone(),
                 wrapper_path: wrapper.clone(),
-                wrapper_elicit_complete: wrapper_complete,
+                wrapper_elicit_complete: wrapper_provider.wrapper_elicit_complete,
                 wrapper_missing_our_traits: wrapper_missing,
                 foreign_missing_our_traits: foreign_missing,
             }

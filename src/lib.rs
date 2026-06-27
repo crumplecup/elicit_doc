@@ -22,8 +22,10 @@ pub mod cli;
 
 pub use collect::{
     DepBuildConfig, TraitPrereqs, TypeFeatureProbe, collect_dep_build_config,
-    collect_dep_serde_features, collect_inventory, collect_member_dep_build_config,
-    collect_proof_harness, collect_trait_prereqs, collect_trenchcoat_pairs,
+    collect_dep_inventory, collect_dep_inventory_with_json_path, collect_dep_serde_features,
+    collect_inventory, collect_member_dep_build_config, collect_member_dep_inventory,
+    collect_member_dep_inventory_with_json_path, collect_proof_harness, collect_trait_prereqs,
+    collect_trenchcoat_pairs,
 };
 pub use error::{ElicitDocError, ElicitDocErrorKind, ElicitDocResult};
 pub use gaps::{
@@ -39,5 +41,8 @@ pub use report::{
     write_trenchcoats_csv,
 };
 pub use shadow::{DriftPair, ShadowReport, build_shadow_report};
-pub use summary::write_summary_md;
-pub use trenchcoat::{TrenchcoatEntry, build_trenchcoat_report};
+pub use summary::{ShadowSkippedPair, write_summary_md};
+pub use trenchcoat::{
+    TrenchcoatEntry, WrapperCoverage, WrapperCoverageMap, build_trenchcoat_report,
+    build_wrapper_coverage_map,
+};

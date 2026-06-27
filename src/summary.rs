@@ -1,21 +1,33 @@
 //! Generate the executive summary markdown from all collected reports.
 
+use std::collections::BTreeMap;
 use std::path::Path;
 
 use tracing::instrument;
 
 use crate::error::{ElicitDocError, ElicitDocResult};
-use crate::gaps::{ImplGapEntry, ImplGapKind, ShadowGapEntry, ShadowGapKind};
+use crate::gaps::{ImplGapEntry, ImplGapKind, ShadowGapEntry, ShadowGapKind, assess_impl_entry};
 use crate::impl_coverage::ImplCoverageReport;
 use crate::shadow::ShadowReport;
+use crate::trenchcoat::WrapperCoverageMap;
+
+/// Shadow pair that could not be inventoried.
+#[derive(Debug, Clone)]
+pub struct ShadowSkippedPair {
+    pub upstream_crate: String,
+    pub shadow_crate: String,
+    pub error: String,
+}
 
 /// Write `summary.md` to `output_path` from all collected reports and gaps.
 #[instrument(skip_all, fields(output = %output_path.display()))]
 pub fn write_summary_md(
     impl_reports: &[(String, ImplCoverageReport)],
     impl_gaps: &[ImplGapEntry],
+    wrapper_coverage: Option<&WrapperCoverageMap>,
     shadow_reports: &[(String, String, ShadowReport)],
     shadow_gaps: &[ShadowGapEntry],
+    skipped_shadow_pairs: &[ShadowSkippedPair],
     output_path: &Path,
 ) -> ElicitDocResult<()> {
     let mut out = String::with_capacity(4096);
@@ -25,11 +37,13 @@ pub fn write_summary_md(
     out.push_str("---\n\n");
 
     if !impl_reports.is_empty() {
-        write_impl_section(&mut out, impl_reports, impl_gaps);
+        write_impl_section(&mut out, impl_reports, impl_gaps, wrapper_coverage);
     }
 
     if !shadow_reports.is_empty() {
-        write_shadow_section(&mut out, shadow_reports, shadow_gaps);
+        write_shadow_section(&mut out, shadow_reports, shadow_gaps, skipped_shadow_pairs);
+    } else if !skipped_shadow_pairs.is_empty() {
+        write_skipped_shadow_section(&mut out, skipped_shadow_pairs);
     }
 
     std::fs::write(output_path, out)
@@ -39,10 +53,12 @@ pub fn write_summary_md(
     Ok(())
 }
 
+#[instrument(skip(out, reports, gaps, wrapper_coverage), fields(report_count = reports.len(), gap_count = gaps.len()))]
 fn write_impl_section(
     out: &mut String,
     reports: &[(String, ImplCoverageReport)],
     gaps: &[ImplGapEntry],
+    wrapper_coverage: Option<&WrapperCoverageMap>,
 ) {
     out.push_str("## Impl Coverage\n\n");
     out.push_str("| Crate | Version | Types | OurTraitsDone | MissingOurTraits | ElicitComplete | ElicitCompleteGap | ExternallyBlocked | Coverage |\n");
@@ -51,41 +67,53 @@ fn write_impl_section(
     let mut total_types = 0usize;
     let mut total_our_traits_done = 0usize;
     let mut total_missing_our_traits = 0usize;
-    let mut total_complete = 0usize;
+    let mut total_coverage_complete = 0usize;
+    let mut total_direct_complete = 0usize;
     let mut total_elicit_complete_gap = 0usize;
     let mut total_externally_blocked = 0usize;
 
-    for (_, r) in reports {
+    let reports_by_crate: BTreeMap<&str, &ImplCoverageReport> = reports
+        .iter()
+        .map(|(_, report)| (report.source_crate.as_str(), report))
+        .collect();
+
+    for r in reports_by_crate.values() {
         let types = r.entries.len();
-        let our_traits_done = r
+        let assessments: Vec<_> = r
             .entries
             .iter()
-            .filter(|e| e.effective_our_traits_complete())
+            .map(|entry| {
+                assess_impl_entry(
+                    &r.source_crate,
+                    entry,
+                    None,
+                    wrapper_coverage.and_then(|map| map.get(&entry.type_path).map(Vec::as_slice)),
+                )
+            })
+            .collect();
+        let our_traits_done = assessments
+            .iter()
+            .filter(|assessment| assessment.our_traits_complete)
             .count();
         let missing_our_traits = types.saturating_sub(our_traits_done);
-        let elicit_complete_gap = r
-            .entries
+        let elicit_complete_gap = assessments
             .iter()
-            .filter(|e| {
-                matches!(e.elicit_impl, crate::impl_coverage::ImplStatus::Missing)
-                    && e.effective_our_traits_complete()
-                    && e.can_be_direct()
+            .filter(|assessment| {
+                assessment.row_kind == crate::gaps::ImplRowKind::ReadyForElicitComplete
             })
             .count();
-        let externally_blocked = r
-            .entries
+        let externally_blocked = assessments
             .iter()
-            .filter(|e| {
-                matches!(e.elicit_impl, crate::impl_coverage::ImplStatus::Missing)
-                    && e.effective_our_traits_complete()
-                    && !e.can_be_direct()
-                    && !e.lifetime_blocks_elicitation()
+            .filter(|assessment| {
+                assessment.row_kind == crate::gaps::ImplRowKind::ExternallyBlocked
+                    && assessment.blocked_by_orphan_rule
             })
             .count();
+        let coverage_complete = our_traits_done;
         let pct = if types == 0 {
             0.0
         } else {
-            r.complete_count as f32 / types as f32 * 100.0
+            coverage_complete as f32 / types as f32 * 100.0
         };
         out.push_str(&format!(
             "| `{}` | {} | {} | {} | {} | {} | {} | {} | {:.1}% |\n",
@@ -102,7 +130,8 @@ fn write_impl_section(
         total_types += types;
         total_our_traits_done += our_traits_done;
         total_missing_our_traits += missing_our_traits;
-        total_complete += r.complete_count;
+        total_coverage_complete += coverage_complete;
+        total_direct_complete += r.complete_count;
         total_elicit_complete_gap += elicit_complete_gap;
         total_externally_blocked += externally_blocked;
     }
@@ -110,20 +139,21 @@ fn write_impl_section(
     let total_pct = if total_types == 0 {
         0.0
     } else {
-        total_complete as f32 / total_types as f32 * 100.0
+        total_coverage_complete as f32 / total_types as f32 * 100.0
     };
     out.push_str(&format!(
         "| **Total** | | **{}** | **{}** | **{}** | **{}** | **{}** | **{}** | **{:.1}%** |\n",
         total_types,
         total_our_traits_done,
         total_missing_our_traits,
-        total_complete,
+        total_direct_complete,
         total_elicit_complete_gap,
         total_externally_blocked,
         total_pct
     ));
-    out.push_str("\n`OurTraitsDone` counts all elicitation-owned traits that are actually implementable for the type. Lifetime-bound types such as `Pixels<'a, R>` are not expected to implement `Elicitation` or `ElicitIntrospect` because `Elicitation` requires `'static`.\n\n");
-    out.push_str("`ExternallyBlocked` means the implementable elicitation-owned traits are present, but direct `ElicitComplete` is blocked by missing `Serialize`, `Deserialize`, or `JsonSchema` on the target type.\n\n");
+    out.push_str("\n`OurTraitsDone` counts effective trait coverage. A trait counts when it is satisfied either directly on the target type or indirectly via a wrapper that deductively covers that target. Lifetime-bound types such as `Pixels<'a, R>` are still not expected to implement `Elicitation` or `ElicitIntrospect` directly because `Elicitation` requires `'static`.\n\n");
+    out.push_str("`Coverage` uses that same effective-coverage rule. A type counts as covered when every elicitation-owned trait that should exist for that target is present, either directly or through wrapper coverage, even if direct `ElicitComplete` is blocked by lifetimes or the orphan rule.\n\n");
+    out.push_str("`ExternallyBlocked` counts true orphan-rule blockers only: the implementable elicitation-owned traits are present, but direct `ElicitComplete` is blocked by missing `Serialize`, `Deserialize`, or `JsonSchema` on the target type. Lifetime-bound rows still count toward `Coverage` when every implementable elicitation-owned trait is present, but they are not counted as external blockers.\n\n");
 
     if !gaps.is_empty() {
         let missing_our = gaps
@@ -161,22 +191,41 @@ fn write_impl_section(
     out.push_str("---\n\n");
 }
 
+#[instrument(
+    skip(out, reports, gaps, skipped_shadow_pairs),
+    fields(
+        report_count = reports.len(),
+        gap_count = gaps.len(),
+        skipped_count = skipped_shadow_pairs.len()
+    )
+)]
 fn write_shadow_section(
     out: &mut String,
     reports: &[(String, String, ShadowReport)],
     gaps: &[ShadowGapEntry],
+    skipped_shadow_pairs: &[ShadowSkippedPair],
 ) {
     out.push_str("## Shadow Coverage\n\n");
     out.push_str("| Upstream | Version | Shadow Crate | Covered | Drifted | Total | VerificationGaps | Coverage |\n");
     out.push_str("|----------|---------|-------------|--------:|--------:|------:|-----------------:|---------:|\n");
 
-    for (_, _, r) in reports {
+    let reports_by_upstream: BTreeMap<&str, (&str, &ShadowReport)> = reports
+        .iter()
+        .map(|(_, shadow_crate, report)| {
+            (
+                report.target_crate.as_str(),
+                (shadow_crate.as_str(), report),
+            )
+        })
+        .collect();
+
+    for (shadow_crate, r) in reports_by_upstream.values() {
         let total = r.covered_count + r.drifted_count + r.missing_count;
         out.push_str(&format!(
             "| `{}` | {} | `{}` | {} | {} | {} | {} | {:.1}% |\n",
             r.target_crate,
             r.target_version,
-            r.shadow_crate,
+            shadow_crate,
             r.covered_count,
             r.drifted_count,
             total,
@@ -234,9 +283,34 @@ fn write_shadow_section(
         out.push_str(&format!("| **Total** | **{}** | |\n", gaps.len()));
         out.push('\n');
     }
+
+    if !skipped_shadow_pairs.is_empty() {
+        write_skipped_shadow_section(out, skipped_shadow_pairs);
+    }
+}
+
+#[instrument(skip(out, skipped_shadow_pairs), fields(skipped_count = skipped_shadow_pairs.len()))]
+fn write_skipped_shadow_section(out: &mut String, skipped_shadow_pairs: &[ShadowSkippedPair]) {
+    out.push_str("### Skipped Shadow Crates\n\n");
+    out.push_str("| Upstream | Shadow Crate | Error |\n");
+    out.push_str("|----------|--------------|-------|\n");
+
+    let skipped_by_upstream: BTreeMap<&str, &ShadowSkippedPair> = skipped_shadow_pairs
+        .iter()
+        .map(|pair| (pair.upstream_crate.as_str(), pair))
+        .collect();
+
+    for skipped in skipped_by_upstream.values() {
+        out.push_str(&format!(
+            "| `{}` | `{}` | {} |\n",
+            skipped.upstream_crate, skipped.shadow_crate, skipped.error
+        ));
+    }
+    out.push('\n');
 }
 
 /// Returns today's date as `YYYY-MM-DD` without any external dependency.
+#[instrument]
 fn today_string() -> String {
     use std::time::{SystemTime, UNIX_EPOCH};
     let secs = SystemTime::now()

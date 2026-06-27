@@ -9,10 +9,11 @@ use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 use tracing::instrument;
 
 use crate::collect::{
-    DepBuildConfig, TypeFeatureProbe, collect_dep_inventory, collect_dep_inventory_with_json_path,
-    collect_dep_serde_features, collect_elicit_complete_paths, collect_inventory,
-    collect_inventory_with_json_path, collect_member_dep_build_config, collect_proof_harness,
-    collect_trait_prereqs, collect_trait_prereqs_for_inventory, collect_trenchcoat_pairs,
+    DepBuildConfig, TypeFeatureProbe, collect_dep_serde_features, collect_elicit_complete_paths,
+    collect_inventory, collect_inventory_with_json_path, collect_member_dep_build_config,
+    collect_member_dep_inventory, collect_member_dep_inventory_with_json_path,
+    collect_proof_harness, collect_trait_prereqs, collect_trait_prereqs_for_inventory,
+    collect_trenchcoat_pairs,
 };
 use crate::error::ElicitDocResult;
 use crate::gaps::{build_impl_gaps, build_shadow_gaps};
@@ -22,8 +23,8 @@ use crate::report::{
     write_trenchcoats_csv,
 };
 use crate::shadow::{ShadowReport, build_shadow_report};
-use crate::summary::write_summary_md;
-use crate::trenchcoat::build_trenchcoat_report;
+use crate::summary::{ShadowSkippedPair, write_summary_md};
+use crate::trenchcoat::{WrapperCoverageMap, build_trenchcoat_report, build_wrapper_coverage_map};
 
 /// Determine elicit_doc's own repo root via `cargo metadata`.
 fn own_root() -> ElicitDocResult<PathBuf> {
@@ -74,6 +75,7 @@ enum ReportKind {
 }
 
 /// Entry point called from `main.rs`.
+#[instrument]
 pub fn run() -> ElicitDocResult<()> {
     let cli = Cli::parse();
     let own = own_root()?;
@@ -116,15 +118,20 @@ pub fn run() -> ElicitDocResult<()> {
 
             // Write the executive summary only when we have data from both halves
             // and no single-crate filter is active.
-            if let (None, Some((impl_reports, impl_gaps)), Some((shadow_reports, shadow_gaps))) =
-                (crate_name.as_ref(), &impl_data, &shadow_data)
+            if let (
+                None,
+                Some((impl_reports, impl_gaps, wrapper_coverage)),
+                Some((shadow_reports, shadow_gaps, skipped_shadow_pairs)),
+            ) = (crate_name.as_ref(), &impl_data, &shadow_data)
             {
                 let summary_path = output_dir.join("summary.md");
                 write_summary_md(
                     impl_reports,
                     impl_gaps,
+                    Some(wrapper_coverage),
                     shadow_reports,
                     shadow_gaps,
+                    skipped_shadow_pairs,
                     &summary_path,
                 )?;
                 mp.println(format!("wrote {}", summary_path.display())).ok();
@@ -234,11 +241,10 @@ const SHADOW_PAIRS: &[(&str, &str)] = &[
 /// Create a spinner added to `mp` with a consistent style.
 fn make_spinner(mp: &MultiProgress, msg: impl Into<String>) -> ProgressBar {
     let pb = mp.add(ProgressBar::new_spinner());
-    pb.set_style(
-        ProgressStyle::with_template("{spinner:.cyan.bold} {msg}")
-            .unwrap()
-            .tick_strings(&["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]),
-    );
+    let style = ProgressStyle::with_template("{spinner:.cyan.bold} {msg}")
+        .map(|style| style.tick_strings(&["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]))
+        .unwrap_or_else(|_| ProgressStyle::default_spinner());
+    pb.set_style(style);
     pb.enable_steady_tick(Duration::from_millis(80));
     pb.set_message(msg.into());
     pb
@@ -247,13 +253,12 @@ fn make_spinner(mp: &MultiProgress, msg: impl Into<String>) -> ProgressBar {
 /// Create an overall count bar added to `mp`.
 fn make_count_bar(mp: &MultiProgress, total: u64, prefix: &'static str) -> ProgressBar {
     let pb = mp.add(ProgressBar::new(total));
-    pb.set_style(
-        ProgressStyle::with_template(
-            "{prefix:.bold} [{bar:40.green/dim}] {pos}/{len}  {elapsed_precise}",
-        )
-        .unwrap()
-        .progress_chars("█▉▊▋▌▍▎▏ "),
-    );
+    let style = ProgressStyle::with_template(
+        "{prefix:.bold} [{bar:40.green/dim}] {pos}/{len}  {elapsed_precise}",
+    )
+    .map(|style| style.progress_chars("█▉▊▋▌▍▎▏ "))
+    .unwrap_or_else(|_| ProgressStyle::default_bar());
+    pb.set_style(style);
     pb.set_prefix(prefix);
     pb
 }
@@ -261,10 +266,12 @@ fn make_count_bar(mp: &MultiProgress, total: u64, prefix: &'static str) -> Progr
 type ImplReportsResult = ElicitDocResult<(
     Vec<(String, ImplCoverageReport)>,
     Vec<crate::gaps::ImplGapEntry>,
+    WrapperCoverageMap,
 )>;
 type ShadowReportsResult = ElicitDocResult<(
     Vec<(String, String, ShadowReport)>,
     Vec<crate::gaps::ShadowGapEntry>,
+    Vec<ShadowSkippedPair>,
 )>;
 
 fn resolve_dep_build_config(
@@ -312,24 +319,27 @@ fn build_type_feature_probes(
     let probe_owned: Vec<String> = probe_features.into_iter().collect();
     let probe_refs: Vec<&str> = probe_owned.iter().map(String::as_str).collect();
 
-    let probed_map = match collect_dep_inventory_with_json_path(
+    let probed_map = match collect_member_dep_inventory_with_json_path(
         workspace,
+        "elicitation",
         report_crate_name,
         &probe_refs,
         uses_default_features,
     ) {
-        Ok((_probe_inventory, probe_json)) => match collect_trait_prereqs_for_inventory(&probe_json, inventory) {
-            Ok(prereqs) => Some(prereqs),
-            Err(error) => {
-                tracing::warn!(
-                    source_crate = inventory.crate_name,
-                    feature_crate = report_crate_name,
-                    error = %error,
-                    "could not collect probed trait prereqs for surfaced API types"
-                );
-                None
+        Ok((_probe_inventory, probe_json)) => {
+            match collect_trait_prereqs_for_inventory(&probe_json, inventory) {
+                Ok(prereqs) => Some(prereqs),
+                Err(error) => {
+                    tracing::warn!(
+                        source_crate = inventory.crate_name,
+                        feature_crate = report_crate_name,
+                        error = %error,
+                        "could not collect probed trait prereqs for surfaced API types"
+                    );
+                    None
+                }
             }
-        },
+        }
         Err(error) => {
             tracing::warn!(
                 source_crate = inventory.crate_name,
@@ -388,6 +398,10 @@ fn run_impl_reports(
         collect_inventory_with_json_path(workspace, "elicitation", &["full"])?;
     spinner.finish_with_message("✓ elicitation docs built");
     let complete_paths = collect_elicit_complete_paths(&elicitation_json, "elicitation")?;
+    let trenchcoat_pairs = collect_trenchcoat_pairs(&elicitation_json)?;
+    let wrapper_prereqs = collect_trait_prereqs(&elicitation_json, "elicitation", false)?;
+    let wrapper_coverage =
+        build_wrapper_coverage_map(&trenchcoat_pairs, &complete_paths, &wrapper_prereqs);
 
     // Accumulate all reports for gap analysis at the end.
     // Also accumulate a combined foreign-type prereq map for the trenchcoat report,
@@ -421,8 +435,9 @@ fn run_impl_reports(
             let activated_owned = dep_config.activated_features.clone();
             let activated_refs: Vec<&str> = activated_owned.iter().map(String::as_str).collect();
             let spinner = make_spinner(mp, format!("building docs: {crate_name}…"));
-            let (source, dep_json) = match collect_dep_inventory_with_json_path(
+            let (source, dep_json) = match collect_member_dep_inventory_with_json_path(
                 workspace,
+                "elicitation",
                 crate_name,
                 &activated_refs,
                 dep_config.uses_default_features,
@@ -450,7 +465,10 @@ fn run_impl_reports(
             ) {
                 Ok((available_features, expanded_activated_features)) => {
                     let expanded_activated: std::collections::HashSet<&str> =
-                        expanded_activated_features.iter().map(String::as_str).collect();
+                        expanded_activated_features
+                            .iter()
+                            .map(String::as_str)
+                            .collect();
                     let candidate_unlock_features: Vec<String> = available_features
                         .into_iter()
                         .filter(|feature| !expanded_activated.contains(feature.as_str()))
@@ -484,7 +502,12 @@ fn run_impl_reports(
             let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs);
             let safe_name = crate_name.replace('-', "_");
             let path = output_dir.join(format!("{safe_name}.csv"));
-            write_impl_coverage_csv(&report, Some(&row_feature_probes), &path)?;
+            write_impl_coverage_csv(
+                &report,
+                Some(&row_feature_probes),
+                Some(&wrapper_coverage),
+                &path,
+            )?;
             mp.println(format!("wrote {}  ({})", path.display(), report.summary()))
                 .ok();
             type_feature_probes.insert(crate_name.to_string(), row_feature_probes);
@@ -499,7 +522,7 @@ fn run_impl_reports(
         let prereqs = collect_trait_prereqs(&elicitation_json, "elicitation", false)?;
         let report = build_impl_coverage_report(&source, &complete_paths, &harness, &prereqs);
         let path = output_dir.join("internal.csv");
-        write_impl_coverage_csv(&report, None, &path)?;
+        write_impl_coverage_csv(&report, None, Some(&wrapper_coverage), &path)?;
         mp.println(format!("wrote {}  ({})", path.display(), report.summary()))
             .ok();
         all_reports.push(("elicitation".to_string(), report));
@@ -512,7 +535,7 @@ fn run_impl_reports(
     let impl_gaps = if only_crate.is_none() || all_reports.len() > 1 {
         let pairs: Vec<(&str, &crate::impl_coverage::ImplCoverageReport)> =
             all_reports.iter().map(|(n, r)| (n.as_str(), r)).collect();
-        let gaps = build_impl_gaps(&pairs, &type_feature_probes);
+        let gaps = build_impl_gaps(&pairs, &type_feature_probes, &wrapper_coverage);
         let gaps_path = output_dir.join("gaps-impl.csv");
         write_impl_gaps_csv(&gaps, &gaps_path)?;
         let missing_our = gaps
@@ -534,8 +557,6 @@ fn run_impl_reports(
 
         // Trenchcoat report (only on full runs)
         if only_crate.is_none() {
-            let trenchcoat_pairs = collect_trenchcoat_pairs(&elicitation_json)?;
-            let wrapper_prereqs = collect_trait_prereqs(&elicitation_json, "elicitation", false)?;
             let trenchcoats = build_trenchcoat_report(
                 &trenchcoat_pairs,
                 &complete_paths,
@@ -567,7 +588,7 @@ fn run_impl_reports(
         Vec::new()
     };
 
-    Ok((all_reports, impl_gaps))
+    Ok((all_reports, impl_gaps, wrapper_coverage))
 }
 
 fn run_shadow_reports(
@@ -580,6 +601,7 @@ fn run_shadow_reports(
         .map_err(|e| crate::error::ElicitDocError::io(e.to_string()))?;
 
     let mut all_shadow: Vec<(String, String, crate::shadow::ShadowReport)> = Vec::new();
+    let mut skipped_shadow_pairs: Vec<ShadowSkippedPair> = Vec::new();
 
     let total_pairs = if only_crate.is_none() {
         SHADOW_PAIRS.len() as u64
@@ -601,8 +623,9 @@ fn run_shadow_reports(
                 .map(String::as_str)
                 .collect();
             let spinner = make_spinner(mp, format!("building docs: {target} → {shadow}…"));
-            let target_inv = match collect_dep_inventory(
+            let target_inv = match collect_member_dep_inventory(
                 workspace,
+                shadow,
                 target,
                 &activated_refs,
                 dep_config.uses_default_features,
@@ -612,6 +635,11 @@ fn run_shadow_reports(
                     tracing::warn!(target, error = %e, "skipping shadow pair: upstream dep inventory failed");
                     spinner.finish_with_message(format!("✗ {target}: {e}"));
                     mp.println(format!("skipped {target} → {shadow}: {e}")).ok();
+                    skipped_shadow_pairs.push(ShadowSkippedPair {
+                        upstream_crate: (*target).to_string(),
+                        shadow_crate: (*shadow).to_string(),
+                        error: e.to_string(),
+                    });
                     continue;
                 }
             };
@@ -625,6 +653,11 @@ fn run_shadow_reports(
                     tracing::warn!(shadow, error = %e, "skipping shadow pair: shadow inventory failed");
                     spinner.finish_with_message(format!("✗ {shadow}: {e}"));
                     mp.println(format!("skipped {target} → {shadow}: {e}")).ok();
+                    skipped_shadow_pairs.push(ShadowSkippedPair {
+                        upstream_crate: (*target).to_string(),
+                        shadow_crate: (*shadow).to_string(),
+                        error: e.to_string(),
+                    });
                     continue;
                 }
             };
@@ -650,7 +683,7 @@ fn run_shadow_reports(
             .iter()
             .map(|(t, s, r)| (t.as_str(), s.as_str(), r))
             .collect();
-        let gaps = build_shadow_gaps(&pairs);
+        let gaps = build_shadow_gaps(&pairs)?;
         let gaps_path = output_dir.join("gaps-shadow.csv");
         write_shadow_gaps_csv(&gaps, &gaps_path)?;
         let missing = gaps
@@ -681,5 +714,5 @@ fn run_shadow_reports(
     } else {
         Vec::new()
     };
-    Ok((all_shadow, shadow_gaps))
+    Ok((all_shadow, shadow_gaps, skipped_shadow_pairs))
 }

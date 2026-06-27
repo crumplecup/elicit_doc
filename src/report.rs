@@ -12,6 +12,7 @@ use crate::gaps::{
 };
 use crate::impl_coverage::ImplCoverageReport;
 use crate::shadow::ShadowReport;
+use crate::trenchcoat::WrapperCoverageMap;
 
 /// Convert a bool trait presence into a two-value availability string.
 ///
@@ -26,6 +27,7 @@ fn trait_avail(present: bool) -> &'static str {
 pub fn write_impl_coverage_csv(
     report: &ImplCoverageReport,
     type_feature_probes: Option<&HashMap<String, TypeFeatureProbe>>,
+    wrapper_coverage: Option<&WrapperCoverageMap>,
     path: &Path,
 ) -> ElicitDocResult<()> {
     if let Some(parent) = path.parent() {
@@ -47,6 +49,11 @@ pub fn write_impl_coverage_csv(
         "row_kind",
         "primary_gap_kind",
         "our_traits_complete",
+        "direct_our_traits_complete",
+        "covered_indirectly",
+        "coverage_provider",
+        "wrapper_paths",
+        "direct_missing_our_traits",
         "feature_unlock_possible",
         "feature_owner_crate",
         "blocked_reason",
@@ -76,6 +83,7 @@ pub fn write_impl_coverage_csv(
                 &report.source_crate,
                 entry,
                 type_feature_probes.and_then(|m| m.get(&entry.type_path)),
+                wrapper_coverage.and_then(|m| m.get(&entry.type_path).map(Vec::as_slice)),
             );
             (entry, assessment)
         })
@@ -111,6 +119,11 @@ pub fn write_impl_coverage_csv(
                 .map(ImplGapKind::to_string)
                 .unwrap_or_default(),
             &assessment.our_traits_complete.to_string(),
+            &assessment.direct_our_traits_complete.to_string(),
+            &assessment.covered_indirectly.to_string(),
+            &assessment.coverage_provider,
+            &assessment.wrapper_paths,
+            &assessment.direct_missing_our_traits,
             &assessment.feature_gated_external.to_string(),
             &assessment.feature_owner_crate,
             &assessment.blocked_reason,
@@ -274,6 +287,8 @@ pub fn write_impl_gaps_csv(
         "is_generic",
         "gap_kind",
         "our_traits_complete",
+        "coverage_provider",
+        "wrapper_paths",
         "can_be_direct",
         "elicit_complete_gap",
         "feature_gated_external",
@@ -294,6 +309,8 @@ pub fn write_impl_gaps_csv(
             &e.is_generic.to_string(),
             &e.gap_kind.to_string(),
             &e.our_traits_complete.to_string(),
+            &e.coverage_provider,
+            &e.wrapper_paths,
             &e.can_be_direct.to_string(),
             &e.elicit_complete_gap.to_string(),
             &e.feature_gated_external.to_string(),
@@ -448,15 +465,22 @@ mod tests {
         };
         let path =
             std::env::temp_dir().join(format!("elicit_doc-report-{}-impl.csv", std::process::id()));
-        write_impl_coverage_csv(&report, None, &path).expect("impl csv");
-        let csv = std::fs::read_to_string(&path).expect("read impl csv");
+        let write_result = write_impl_coverage_csv(&report, None, None, &path);
+        assert!(write_result.is_ok(), "impl csv: {write_result:?}");
+        let csv_result = std::fs::read_to_string(&path);
+        assert!(csv_result.is_ok(), "read impl csv: {csv_result:?}");
+        let csv = csv_result.unwrap_or_default();
         std::fs::remove_file(&path).ok();
 
         assert!(csv.contains("row_kind"));
         assert!(csv.contains("primary_gap_kind"));
         assert!(csv.contains("action"));
         assert!(csv.contains("MissingOurTraits"));
-        assert!(csv.contains("Add our traits to `reqwest::async_impl::client::Client`"));
+        assert!(csv.contains("direct_missing_our_traits"));
+        assert!(csv.contains("coverage_provider"));
+        assert!(csv.contains(
+            "Add support traits to `reqwest::async_impl::client::Client`: ElicitSpec, ElicitPromptTree, ToCodeLiteral"
+        ));
     }
 
     #[test]
@@ -503,8 +527,11 @@ mod tests {
             "elicit_doc-report-{}-shadow.csv",
             std::process::id()
         ));
-        write_shadow_csv(&report, &path).expect("shadow csv");
-        let csv = std::fs::read_to_string(&path).expect("read shadow csv");
+        let write_result = write_shadow_csv(&report, &path);
+        assert!(write_result.is_ok(), "shadow csv: {write_result:?}");
+        let csv_result = std::fs::read_to_string(&path);
+        assert!(csv_result.is_ok(), "read shadow csv: {csv_result:?}");
+        let csv = csv_result.unwrap_or_default();
         std::fs::remove_file(&path).ok();
 
         assert!(csv.contains("coverage_kind"));

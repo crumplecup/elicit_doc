@@ -19,9 +19,11 @@ use serde::{Deserialize, Serialize};
 use tracing::instrument;
 
 use crate::collect::{TraitPrereqs, TypeFeatureProbe};
+use crate::error::ElicitDocResult;
 use crate::impl_coverage::{ImplCoverageEntry, ImplCoverageReport, ImplStatus};
 use crate::inventory::ItemKind;
 use crate::shadow::{ShadowReport, ShadowStatus};
+use crate::trenchcoat::WrapperCoverage;
 
 // ── Impl gaps ────────────────────────────────────────────────────────────────
 
@@ -89,8 +91,12 @@ pub struct ImplGapEntry {
     pub missing_external_traits: String,
     /// Which of our own 5 traits are still absent for this type.
     pub missing_our_traits: String,
-    /// All five elicitation-owned support traits are present.
+    /// All five elicitation-owned support traits are present after direct + wrapper coverage.
     pub our_traits_complete: bool,
+    /// Which coverage path currently satisfies the row, if any (`direct`, `wrapper`, `hybrid`).
+    pub coverage_provider: String,
+    /// Wrapper paths that contribute indirect coverage for this type.
+    pub wrapper_paths: String,
     /// The external prerequisites are present, so `ElicitComplete` is legal.
     pub can_be_direct: bool,
     /// This type is a real `ElicitComplete` gap: legal to impl directly, but missing it.
@@ -117,7 +123,12 @@ pub struct ImplRowAssessment {
     pub primary_gap_kind: Option<ImplGapKind>,
     pub missing_external_traits: String,
     pub missing_our_traits: String,
+    pub direct_missing_our_traits: String,
     pub our_traits_complete: bool,
+    pub direct_our_traits_complete: bool,
+    pub covered_indirectly: bool,
+    pub coverage_provider: String,
+    pub wrapper_paths: String,
     pub can_be_direct: bool,
     pub elicit_complete_gap: bool,
     pub feature_gated_external: bool,
@@ -140,6 +151,7 @@ pub fn build_impl_gaps(
         String,
         std::collections::HashMap<String, TypeFeatureProbe>,
     >,
+    wrapper_coverage: &std::collections::HashMap<String, Vec<WrapperCoverage>>,
 ) -> Vec<ImplGapEntry> {
     let mut entries = Vec::new();
 
@@ -152,7 +164,9 @@ pub fn build_impl_gaps(
             let feature_probe = type_feature_probes
                 .get(*source_crate)
                 .and_then(|m| m.get(&entry.type_path));
-            if let Some(gap_entry) = classify_impl_gap(source_crate, entry, feature_probe) {
+            let wrappers = wrapper_coverage.get(&entry.type_path).map(Vec::as_slice);
+            if let Some(gap_entry) = classify_impl_gap(source_crate, entry, feature_probe, wrappers)
+            {
                 entries.push(gap_entry);
             }
         }
@@ -200,12 +214,19 @@ fn gap_kind_order(k: &ImplGapKind) -> u8 {
 /// API types. When the probe shows that additional target-crate features would make
 /// the external serde / schemars traits appear, the row is classified as
 /// `FeatureGatedExternal` instead of a true orphan-rule blocker.
-#[instrument(skip(entry, feature_probe), fields(source_crate, type_path = %entry.type_path))]
+#[instrument(skip(entry, feature_probe, wrappers), fields(source_crate, type_path = %entry.type_path))]
 pub fn assess_impl_entry(
     source_crate: &str,
     entry: &ImplCoverageEntry,
     feature_probe: Option<&TypeFeatureProbe>,
+    wrappers: Option<&[WrapperCoverage]>,
 ) -> ImplRowAssessment {
+    let wrapper_paths = wrappers
+        .unwrap_or(&[])
+        .iter()
+        .map(|wrapper| wrapper.wrapper_path.as_str())
+        .collect::<Vec<_>>()
+        .join(";");
     if matches!(
         entry.elicit_impl,
         ImplStatus::Complete | ImplStatus::CompleteFactory
@@ -215,7 +236,12 @@ pub fn assess_impl_entry(
             primary_gap_kind: None,
             missing_external_traits: String::new(),
             missing_our_traits: String::new(),
+            direct_missing_our_traits: String::new(),
             our_traits_complete: true,
+            direct_our_traits_complete: true,
+            covered_indirectly: false,
+            coverage_provider: "direct".to_string(),
+            wrapper_paths,
             can_be_direct: entry.can_be_direct(),
             elicit_complete_gap: false,
             feature_gated_external: false,
@@ -236,7 +262,14 @@ pub fn assess_impl_entry(
         .unwrap_or_else(|| source_crate.to_string());
 
     let missing_external = missing_external_traits(p);
-    let missing_our = entry.effective_missing_our_traits();
+    let direct_missing_our = entry.effective_missing_our_traits();
+    let direct_our_traits_complete = direct_missing_our.is_empty();
+    let covered_indirectly = wrappers.is_some_and(|known| {
+        known.iter().any(|wrapper| {
+            wrapper.wrapper_elicit_complete || wrapper.wrapper_prereqs.our_traits_complete()
+        })
+    });
+    let missing_our = effective_missing_our_traits(&direct_missing_our, wrappers);
     let our_traits_complete = missing_our.is_empty();
     let can_be_direct = entry.can_be_direct();
     let feature_gated_external = !entry.lifetime_blocks_elicitation()
@@ -247,8 +280,20 @@ pub fn assess_impl_entry(
             .is_some_and(TraitPrereqs::can_be_direct);
     let blocked_by_orphan_rule =
         !entry.lifetime_blocks_elicitation() && !can_be_direct && !feature_gated_external;
-    let elicit_complete_gap = can_be_direct;
-    let (row_kind, primary_gap_kind) = if !our_traits_complete {
+    let indirect_elicit_complete = wrappers
+        .unwrap_or(&[])
+        .iter()
+        .any(|wrapper| wrapper.wrapper_elicit_complete);
+    let elicit_complete_gap = can_be_direct && !indirect_elicit_complete;
+    let coverage_provider = determine_coverage_provider(
+        &entry.elicit_impl,
+        direct_our_traits_complete,
+        indirect_elicit_complete,
+        our_traits_complete,
+    );
+    let (row_kind, primary_gap_kind) = if indirect_elicit_complete {
+        (ImplRowKind::Covered, None)
+    } else if !our_traits_complete {
         (
             ImplRowKind::MissingOurTraits,
             Some(ImplGapKind::MissingOurTraits),
@@ -270,20 +315,25 @@ pub fn assess_impl_entry(
     let blocked_reason = build_impl_blocked_reason(
         entry,
         &missing_external,
+        &direct_missing_our,
+        &missing_our,
         feature_gated_external,
         blocked_by_orphan_rule,
         &feature_owner_crate,
         candidate_unlock_features,
+        wrappers,
     );
     let action = build_impl_action(
         entry,
         &row_kind,
         &missing_our,
+        &direct_missing_our,
         &missing_external,
         can_be_direct,
         feature_gated_external,
         &feature_owner_crate,
         candidate_unlock_features,
+        wrappers,
     );
 
     ImplRowAssessment {
@@ -291,7 +341,12 @@ pub fn assess_impl_entry(
         primary_gap_kind,
         missing_external_traits: missing_external.join(";"),
         missing_our_traits: missing_our.join(";"),
+        direct_missing_our_traits: direct_missing_our.join(";"),
         our_traits_complete,
+        direct_our_traits_complete,
+        covered_indirectly,
+        coverage_provider,
+        wrapper_paths,
         can_be_direct,
         elicit_complete_gap,
         feature_gated_external,
@@ -311,8 +366,9 @@ fn classify_impl_gap(
     source_crate: &str,
     entry: &ImplCoverageEntry,
     feature_probe: Option<&TypeFeatureProbe>,
+    wrappers: Option<&[WrapperCoverage]>,
 ) -> Option<ImplGapEntry> {
-    let assessment = assess_impl_entry(source_crate, entry, feature_probe);
+    let assessment = assess_impl_entry(source_crate, entry, feature_probe, wrappers);
     let gap_kind = assessment.primary_gap_kind.clone()?;
 
     Some(ImplGapEntry {
@@ -324,6 +380,8 @@ fn classify_impl_gap(
         missing_external_traits: assessment.missing_external_traits,
         missing_our_traits: assessment.missing_our_traits,
         our_traits_complete: assessment.our_traits_complete,
+        coverage_provider: assessment.coverage_provider,
+        wrapper_paths: assessment.wrapper_paths,
         can_be_direct: assessment.can_be_direct,
         elicit_complete_gap: assessment.elicit_complete_gap,
         feature_gated_external: assessment.feature_gated_external,
@@ -332,6 +390,54 @@ fn classify_impl_gap(
         candidate_unlock_features: assessment.candidate_unlock_features,
         action: assessment.action,
     })
+}
+
+fn merge_wrapper_prereqs(wrappers: Option<&[WrapperCoverage]>) -> TraitPrereqs {
+    let mut merged = TraitPrereqs::default();
+    for wrapper in wrappers.unwrap_or(&[]) {
+        merged.merge(&wrapper.wrapper_prereqs);
+    }
+    merged
+}
+
+fn effective_missing_our_traits<'a>(
+    direct_missing_our: &'a [&'static str],
+    wrappers: Option<&[WrapperCoverage]>,
+) -> Vec<&'a str> {
+    let merged_wrapper_prereqs = merge_wrapper_prereqs(wrappers);
+    direct_missing_our
+        .iter()
+        .copied()
+        .filter(|trait_name| match *trait_name {
+            "Elicitation" => !merged_wrapper_prereqs.elicitation_trait,
+            "ElicitIntrospect" => !merged_wrapper_prereqs.elicit_introspect,
+            "ElicitSpec" => !merged_wrapper_prereqs.elicit_spec,
+            "ElicitPromptTree" => !merged_wrapper_prereqs.elicit_prompt_tree,
+            "ToCodeLiteral" => !merged_wrapper_prereqs.to_code_literal,
+            _ => true,
+        })
+        .collect()
+}
+
+fn determine_coverage_provider(
+    impl_status: &ImplStatus,
+    direct_our_traits_complete: bool,
+    indirect_elicit_complete: bool,
+    effective_our_traits_complete: bool,
+) -> String {
+    let direct_complete = matches!(
+        impl_status,
+        ImplStatus::Complete | ImplStatus::CompleteFactory
+    ) || direct_our_traits_complete;
+    match (
+        direct_complete,
+        indirect_elicit_complete || effective_our_traits_complete && !direct_our_traits_complete,
+    ) {
+        (true, true) => "hybrid".to_string(),
+        (true, false) => "direct".to_string(),
+        (false, true) => "wrapper".to_string(),
+        (false, false) => String::new(),
+    }
 }
 
 fn missing_external_traits(prereqs: &TraitPrereqs) -> Vec<String> {
@@ -349,32 +455,58 @@ fn missing_external_traits(prereqs: &TraitPrereqs) -> Vec<String> {
 fn build_missing_our_traits_action(
     type_path: &str,
     missing_our: &[&str],
+    direct_missing_our: &[&str],
     missing_external: &[String],
     can_be_direct: bool,
     feature_gated_external: bool,
     feature_owner_crate: &str,
     candidate_unlock_features: &[String],
+    wrappers: Option<&[WrapperCoverage]>,
 ) -> String {
-    if can_be_direct {
+    let wrapper_paths = wrappers
+        .unwrap_or(&[])
+        .iter()
+        .map(|wrapper| wrapper.wrapper_path.as_str())
+        .collect::<Vec<_>>();
+    let wrapper_note = if wrapper_paths.is_empty() {
+        String::new()
+    } else {
         format!(
-            "Add our traits to `{}`: {}; then add `impl ElicitComplete`",
+            " Known wrappers for indirect coverage: {}.",
+            wrapper_paths.join(", ")
+        )
+    };
+
+    if !wrapper_paths.is_empty() && missing_our.len() < direct_missing_our.len() {
+        format!(
+            "Finish indirect coverage for `{}` by completing wrapper-provided traits: {}.{}",
             type_path,
-            missing_our.join(", ")
+            missing_our.join(", "),
+            wrapper_note
+        )
+    } else if can_be_direct {
+        format!(
+            "Add direct support traits to `{}`: {}; then add `impl ElicitComplete`{}",
+            type_path,
+            missing_our.join(", "),
+            wrapper_note
         )
     } else if feature_gated_external {
         format!(
-            "Add our traits to `{}`: {}; also enable `{}` features: {}",
+            "Add support traits to `{}`: {}; also enable `{}` features: {}.{}",
             type_path,
             missing_our.join(", "),
             feature_owner_crate,
-            candidate_unlock_features.join(", ")
+            candidate_unlock_features.join(", "),
+            wrapper_note
         )
     } else {
         format!(
-            "Add our traits to `{}`: {}; external blockers remain: {}",
+            "Add support traits to `{}`: {}; external blockers remain: {}.{}",
             type_path,
             missing_our.join(", "),
-            missing_external.join(", ")
+            missing_external.join(", "),
+            wrapper_note
         )
     }
 }
@@ -383,22 +515,26 @@ fn build_impl_action(
     entry: &ImplCoverageEntry,
     row_kind: &ImplRowKind,
     missing_our: &[&str],
+    direct_missing_our: &[&str],
     missing_external: &[String],
     can_be_direct: bool,
     feature_gated_external: bool,
     feature_owner_crate: &str,
     candidate_unlock_features: &[String],
+    wrappers: Option<&[WrapperCoverage]>,
 ) -> String {
     match row_kind {
         ImplRowKind::Covered => String::new(),
         ImplRowKind::MissingOurTraits => build_missing_our_traits_action(
             &entry.type_path,
             missing_our,
+            direct_missing_our,
             missing_external,
             can_be_direct,
             feature_gated_external,
             feature_owner_crate,
             candidate_unlock_features,
+            wrappers,
         ),
         ImplRowKind::ReadyForElicitComplete => format!(
             "Add `impl ElicitComplete for {} {{}}` in elicitation crate",
@@ -421,11 +557,27 @@ fn build_impl_action(
 fn build_impl_blocked_reason(
     entry: &ImplCoverageEntry,
     missing_external: &[String],
+    direct_missing_our: &[&str],
+    effective_missing_our: &[&str],
     feature_gated_external: bool,
     blocked_by_orphan_rule: bool,
     feature_owner_crate: &str,
     candidate_unlock_features: &[String],
+    wrappers: Option<&[WrapperCoverage]>,
 ) -> String {
+    if !direct_missing_our.is_empty() && effective_missing_our.len() < direct_missing_our.len() {
+        let wrapper_paths = wrappers
+            .unwrap_or(&[])
+            .iter()
+            .map(|wrapper| wrapper.wrapper_path.as_str())
+            .collect::<Vec<_>>()
+            .join(", ");
+        return format!(
+            "wrapper coverage reduces direct trait gaps; remaining uncovered traits: {} (wrappers: {})",
+            effective_missing_our.join(", "),
+            wrapper_paths
+        );
+    }
     if entry.lifetime_blocks_elicitation() {
         "lifetime-bound type: direct `ElicitComplete` is illegal because `Elicitation` requires `'static`".to_string()
     } else if feature_gated_external {
@@ -530,6 +682,7 @@ fn is_infrastructure_name(bare_name: &str) -> bool {
     INFRA_SUFFIXES.iter().any(|sfx| bare_name.ends_with(sfx))
 }
 
+#[instrument(skip(row), fields(item_path = %row.item_path))]
 pub fn assess_shadow_row(row: &crate::shadow::ShadowRow) -> ShadowRowAssessment {
     let coverage_kind = match row.status {
         ShadowStatus::Covered => ShadowCoverageKind::Covered,
@@ -630,16 +783,25 @@ pub struct ShadowGapEntry {
 /// are further split into `InfrastructureExtra` (our own tool params/plugins/etc.)
 /// and `PossiblyStale` (unexpected non-infrastructure types that may be wrong).
 #[instrument(skip(pairs), fields(num_reports = pairs.len()))]
-pub fn build_shadow_gaps(pairs: &[(&str, &str, &ShadowReport)]) -> Vec<ShadowGapEntry> {
+pub fn build_shadow_gaps(
+    pairs: &[(&str, &str, &ShadowReport)],
+) -> ElicitDocResult<Vec<ShadowGapEntry>> {
     let mut entries = Vec::new();
 
     for (target_crate, shadow_crate, report) in pairs {
         for row in &report.rows {
+            let assessment = assess_shadow_row(row);
             let gap_kind = match row.status {
                 ShadowStatus::Covered => continue,
-                _ => assess_shadow_row(row)
-                    .primary_gap_kind
-                    .expect("non-covered rows must classify to a gap kind"),
+                _ => match assessment.primary_gap_kind {
+                    Some(gap_kind) => gap_kind,
+                    None => {
+                        return Err(crate::error::ElicitDocError::invariant(format!(
+                            "non-covered shadow row `{}` ({:?}, {:?}) did not classify to a gap kind",
+                            row.item_path, row.item_kind, row.status
+                        )));
+                    }
+                },
             };
             entries.push(ShadowGapEntry {
                 target_crate: target_crate.to_string(),
@@ -714,7 +876,7 @@ pub fn build_shadow_gaps(pairs: &[(&str, &str, &ShadowReport)]) -> Vec<ShadowGap
         "built shadow gaps report"
     );
 
-    entries
+    Ok(entries)
 }
 
 fn shadow_gap_order(k: &ShadowGapKind) -> u8 {
@@ -813,10 +975,7 @@ mod tests {
             to_code_literal: true,
         });
 
-        let gaps = build_impl_gaps(
-            &[("reqwest", &report)],
-            &HashMap::new(),
-        );
+        let gaps = build_impl_gaps(&[("reqwest", &report)], &HashMap::new(), &HashMap::new());
         assert!(gaps.is_empty());
     }
 
@@ -833,10 +992,7 @@ mod tests {
             to_code_literal: true,
         });
 
-        let gaps = build_impl_gaps(
-            &[("reqwest", &report)],
-            &HashMap::new(),
-        );
+        let gaps = build_impl_gaps(&[("reqwest", &report)], &HashMap::new(), &HashMap::new());
         assert_eq!(gaps.len(), 1);
         assert_eq!(gaps[0].gap_kind, ImplGapKind::MissingOurTraits);
         assert_eq!(
@@ -879,10 +1035,7 @@ mod tests {
             flagged_concrete_count: 0,
         };
 
-        let gaps = build_impl_gaps(
-            &[("georaster", &report)],
-            &HashMap::new(),
-        );
+        let gaps = build_impl_gaps(&[("georaster", &report)], &HashMap::new(), &HashMap::new());
         assert_eq!(gaps.len(), 1);
         assert_eq!(gaps[0].gap_kind, ImplGapKind::MissingOurTraits);
         assert_eq!(gaps[0].missing_our_traits, "ElicitSpec");
@@ -904,10 +1057,7 @@ mod tests {
             to_code_literal: true,
         });
 
-        let gaps = build_impl_gaps(
-            &[("reqwest", &report)],
-            &HashMap::new(),
-        );
+        let gaps = build_impl_gaps(&[("reqwest", &report)], &HashMap::new(), &HashMap::new());
         assert_eq!(gaps.len(), 1);
         assert_eq!(gaps[0].gap_kind, ImplGapKind::ReadyForElicitComplete);
         assert!(gaps[0].can_be_direct);
@@ -948,7 +1098,7 @@ mod tests {
         let mut type_probes = HashMap::new();
         type_probes.insert("reqwest".to_string(), probe_for_crate);
 
-        let gaps = build_impl_gaps(&[("reqwest", &report)], &type_probes);
+        let gaps = build_impl_gaps(&[("reqwest", &report)], &type_probes, &HashMap::new());
         assert_eq!(gaps.len(), 1);
         assert_eq!(gaps[0].gap_kind, ImplGapKind::MissingOurTraits);
         assert!(gaps[0].feature_gated_external);
@@ -970,7 +1120,7 @@ mod tests {
             to_code_literal: true,
         });
 
-        let assessment = assess_impl_entry("reqwest", &report.entries[0], None);
+        let assessment = assess_impl_entry("reqwest", &report.entries[0], None, None);
         assert_eq!(assessment.row_kind, ImplRowKind::ExternallyBlocked);
         assert!(assessment.primary_gap_kind.is_none());
         assert!(assessment.blocked_by_orphan_rule);
@@ -1035,11 +1185,58 @@ mod tests {
             type_probes
                 .get("reqwest")
                 .and_then(|probes| probes.get("http::header::value::HeaderValue")),
+            None,
         );
 
         assert_eq!(assessment.row_kind, ImplRowKind::FeatureGatedExternal);
         assert_eq!(assessment.feature_owner_crate, "reqwest");
         assert!(assessment.action.contains("`reqwest` features"));
+    }
+
+    #[test]
+    fn wrapper_elicit_complete_counts_as_effective_coverage() {
+        let report = impl_report_for(TraitPrereqs {
+            serialize: false,
+            deserialize: false,
+            json_schema: false,
+            elicitation_trait: false,
+            elicit_introspect: false,
+            elicit_spec: false,
+            elicit_prompt_tree: false,
+            to_code_literal: false,
+        });
+        let mut wrappers = HashMap::new();
+        wrappers.insert(
+            "reqwest::Client".to_string(),
+            vec![WrapperCoverage {
+                wrapper_path: "elicitation::ReqwestClientCoat".to_string(),
+                wrapper_elicit_complete: true,
+                wrapper_prereqs: TraitPrereqs {
+                    serialize: true,
+                    deserialize: true,
+                    json_schema: true,
+                    elicitation_trait: true,
+                    elicit_introspect: true,
+                    elicit_spec: true,
+                    elicit_prompt_tree: true,
+                    to_code_literal: true,
+                },
+            }],
+        );
+
+        let gaps = build_impl_gaps(&[("reqwest", &report)], &HashMap::new(), &wrappers);
+        assert!(gaps.is_empty());
+
+        let assessment = assess_impl_entry(
+            "reqwest",
+            &report.entries[0],
+            None,
+            wrappers.get("reqwest::Client").map(Vec::as_slice),
+        );
+        assert_eq!(assessment.row_kind, ImplRowKind::Covered);
+        assert!(assessment.covered_indirectly);
+        assert_eq!(assessment.coverage_provider, "wrapper");
+        assert_eq!(assessment.wrapper_paths, "elicitation::ReqwestClientCoat");
     }
 
     #[test]
@@ -1069,11 +1266,18 @@ mod tests {
             verification_gap_count: 1,
         };
 
-        let gaps = build_shadow_gaps(&[("reqwest", "elicit_reqwest", &report)]);
+        let gaps_result = build_shadow_gaps(&[("reqwest", "elicit_reqwest", &report)]);
+        assert!(
+            gaps_result.is_ok(),
+            "shadow gaps should build: {gaps_result:?}"
+        );
+        let gaps = gaps_result.unwrap_or_default();
         let verification = gaps
             .iter()
             .find(|g| g.gap_kind == ShadowGapKind::ShadowVerificationGap)
-            .expect("expected verification gap");
+            .cloned();
+        assert!(verification.is_some(), "expected verification gap");
+        let verification = verification.unwrap_or_else(|| unreachable!());
 
         assert_eq!(verification.item_path, "reqwest::Client");
         assert_eq!(verification.matched_shadow_item, "elicit_reqwest::Client");

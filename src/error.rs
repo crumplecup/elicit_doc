@@ -29,6 +29,10 @@ pub enum ElicitDocErrorKind {
     /// CSV serialization error.
     #[display("CSV error: {}", _0)]
     Csv(String),
+
+    /// Internal analysis invariant was violated.
+    #[display("analysis invariant violated: {}", _0)]
+    Invariant(String),
 }
 
 /// Wrapper error carrying kind + call site location.
@@ -79,5 +83,10 @@ impl ElicitDocError {
     #[track_caller]
     pub fn csv(msg: impl Into<String>) -> Self {
         Self::new(ElicitDocErrorKind::Csv(msg.into()))
+    }
+
+    #[track_caller]
+    pub fn invariant(msg: impl Into<String>) -> Self {
+        Self::new(ElicitDocErrorKind::Invariant(msg.into()))
     }
 }

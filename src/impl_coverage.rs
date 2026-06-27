@@ -130,12 +130,32 @@ pub struct ImplCoverageReport {
 }
 
 impl ImplCoverageReport {
+    /// Count entries whose implementable elicitation-owned traits are all present.
+    pub fn coverage_complete_count(&self) -> usize {
+        self.entries
+            .iter()
+            .filter(|entry| entry.effective_our_traits_complete())
+            .count()
+    }
+
+    /// Coverage percentage based on implementable traits, not only direct `ElicitComplete`.
+    pub fn coverage_pct(&self) -> f32 {
+        let total = self.entries.len();
+        if total == 0 {
+            0.0
+        } else {
+            self.coverage_complete_count() as f32 / total as f32 * 100.0
+        }
+    }
+
     /// Summary line for CLI output.
     pub fn summary(&self) -> String {
+        let coverage_complete = self.coverage_complete_count();
         format!(
-            "{} {} ({} complete, {} missing impl, {} missing test, {} flagged concrete)",
+            "{} {} ({} coverage-complete, {} direct ElicitComplete, {} missing impl, {} missing test, {} flagged concrete)",
             self.source_crate,
             self.source_version,
+            coverage_complete,
             self.complete_count,
             self.missing_impl_count,
             self.missing_test_count,
@@ -358,10 +378,11 @@ mod tests {
     }
 
     fn struct_item(path: &[&str]) -> Item {
+        assert!(!path.is_empty(), "test helper requires a non-empty path");
         Item {
             path: path.iter().map(|segment| segment.to_string()).collect(),
             kind: ItemKind::Struct,
-            name: path.last().expect("path has name").to_string(),
+            name: path[path.len() - 1].to_string(),
             is_generic: false,
             lifetime_params: Vec::new(),
             type_params: Vec::new(),
@@ -396,7 +417,8 @@ mod tests {
             &prereqs_map,
         );
 
-        let entry = report.entries.first().expect("coverage entry present");
+        assert_eq!(report.entries.len(), 1, "expected a single coverage entry");
+        let entry = &report.entries[0];
         assert!(entry.prereqs.our_traits_complete());
     }
 
@@ -422,7 +444,12 @@ mod tests {
             &prereqs_map,
         );
 
-        assert!(report.entries.iter().all(|entry| !entry.prereqs.to_code_literal));
+        assert!(
+            report
+                .entries
+                .iter()
+                .all(|entry| !entry.prereqs.to_code_literal)
+        );
     }
 }
 
