@@ -488,11 +488,12 @@ mod tests {
             &HashMap::new(),
         );
 
-        let function_row = report
+        let function_row_index = report
             .rows
             .iter()
-            .find(|row| row.item_path == "upstream::build_widget")
-            .expect("expected function row");
+            .position(|row| row.item_path == "upstream::build_widget");
+        assert!(function_row_index.is_some(), "expected function row");
+        let function_row = &report.rows[function_row_index.unwrap_or_default()];
         assert_eq!(function_row.item_kind, ItemKind::Function);
         assert_eq!(function_row.status, ShadowStatus::Missing);
         assert_eq!(report.missing_count, 1);
